@@ -1,4 +1,4 @@
-# Why use Keras?
+# 왜 케라스를 이용하는가?
 
 There are countless deep learning frameworks available today. Why use Keras rather than any other? Here are some of the areas in which Keras compares favorably to existing alternatives.
 
