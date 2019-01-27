@@ -11,7 +11,7 @@
 - [How can I interrupt training when the validation loss isn't decreasing anymore?](#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore)
 - [How is the validation split computed?](#how-is-the-validation-split-computed)
 - [Is the data shuffled during training?](#is-the-data-shuffled-during-training)
-- [How can I record the training / validation loss / accuracy at each epoch?](#how-can-i-record-the-training-validation-loss-accuracy-at-each-epoch)
+- [How can I record the training / validation loss / accuracy at each epoch?](#how-can-i-record-the-training--validation-loss--accuracy-at-each-epoch)
 - [How can I "freeze" layers?](#how-can-i-freeze-keras-layers)
 - [How can I use stateful RNNs?](#how-can-i-use-stateful-rnns)
 - [How can I remove a layer from a Sequential model?](#how-can-i-remove-a-layer-from-a-sequential-model)
