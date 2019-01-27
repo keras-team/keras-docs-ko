@@ -17,7 +17,7 @@ Existing files in `sources/` should be edited in-line.
 - 코드 강조(syntax highlight)를 하는 경우 띄어쓰는 경우를 제외하고 앞뒤에 공백을 넣지 않습니다. (e.g. ```model.fit()```을 실행하면)
 - 용어의 번역은 아래에 있는 대역표에 있는 뜻으로 번역합니다.
 
-※ 번역은 다른 언어로 된 문서의 의미을 이해하고 한국어로 다시 표현하는 것이니 번역체는 자제해주시기바랍니다. (~~나는 배운다 딥러닝~~)
+※ 번역은 다른 언어로 된 문서의 의미를 이해하고 한국어로 다시 표현하는 것이니 번역체는 자제해주시기바랍니다. (~~나는 배운다 딥러닝~~)
 
 ---
 
@@ -27,6 +27,7 @@ Existing files in `sources/` should be edited in-line.
 - 검색을 위한 python/numpy/keras 같은 단어들은 영문 그대로 표기합니다．
 
 [TODO: Open a channel to discuss this]
+
 | English            | 한국어                 |
 |:-------------------|:-----------------------|
 | arguments          |                    |
