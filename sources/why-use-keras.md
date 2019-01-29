@@ -74,7 +74,7 @@ As such, your Keras model can be trained on a number of different hardware platf
 
 Keras development is backed primarily by Google, and the Keras API comes packaged in TensorFlow as `tf.keras`. Additionally, Microsoft maintains the CNTK Keras backend. Amazon AWS is maintaining the Keras fork with MXNet support. Other contributing companies include NVIDIA, Uber, and Apple (with CoreML).
 
-<img src='/img/google-logo.png' style='width:200px; margin-right:15px;'/>
-<img src='/img/microsoft-logo.png' style='width:200px; margin-right:15px;'/>
-<img src='/img/nvidia-logo.png' style='width:200px; margin-right:15px;'/>
-<img src='/img/aws-logo.png' style='width:110px; margin-right:15px;'/>
+<img src='https://keras.io/img/google-logo.png' style='width:200px; margin-right:15px;'/>
+<img src='https://keras.io/img/microsoft-logo.png' style='width:200px; margin-right:15px;'/>
+<img src='https://keras.io/img/nvidia-logo.png' style='width:200px; margin-right:15px;'/>
+<img src='https://keras.io/img/aws-logo.png' style='width:110px; margin-right:15px;'/>
