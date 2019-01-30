@@ -23,11 +23,11 @@
     7개의 분류에 걸친 11개의 데이터 소스를 기반으로 계산된 딥러닝 프레임워크 순위, Jeff Hale.
 </i>
 
-Keras는 250,000명 이상의 개인 사용자(2018년 기준)를 기반으로 TensorFlow를 제외한 그 어떤 딥러닝 프레임워크보다 업계와 학계 모두에 깊게 배어있습니다. 또한 Keras API는 `tf.keras` 모듈을 통해 TensorFlow의 공식 프론트엔드로 사용됩니다.
+Keras는 250,000명 이상의 개인 사용자(2018년 기준)를 기반으로 TensorFlow를 제외한 그 어떤 딥러닝 프레임워크보다 업계와 학계 모두에 깊게 배어있습니다. 또한 Keras API는 `tf.keras` 모듈을 통해 TensorFlow의 공식 프론트엔드로 사용되고 있습니다.
 
-Keras를 통해 개발된 기능들은 Netflix, Uebr, Yelp, Instacart, Zocdoc, Square사 등의 서비스에서 쉽게 찾아볼 수 있습니다. 이는 특히 딥러닝을 서비스의 핵심으로 삼는 스타트업 기업들 사이에서 인기가 많습니다.
+Keras를 통해 개발된 기능들은 Netflix, Uber, Yelp, Instacart, Zocdoc, Square사 등의 서비스에서 쉽게 찾아볼 수 있습니다. 이는 특히 딥러닝을 서비스의 핵심으로 삼는 스타트업 기업들 사이에서 인기가 많습니다.
 
-Keras는 [arXiv.org](https://arxiv.org/archive/cs)에 업로드 된 과학 논문들 중에서 두번째로 많이 언급 될 정도로 딥러닝 연구자들에게 사랑받고 있습니다. Keras는 또한 CERN과 NASA와 같은 대형 연구소에서도 채택된 도구입니다.
+Keras는 [arXiv.org](https://arxiv.org/archive/cs)에 업로드 된 과학 논문들 중에서 두 번째로 많이 언급 될 정도로 딥러닝 연구자들에게 사랑받고 있습니다. Keras는 또한 CERN과 NASA와 같은 대형 연구소에서도 채택된 도구입니다.
 
 ---
 
@@ -68,11 +68,11 @@ Amazon사는 MXNet을 백엔드로 사용하는 [Keras의 분기 버전](https:/
 - Keras는 [다중 GPU 데이터 병렬성에 대한 지원이 내장되어있습니다](/utils/#multi_gpu_model).
 - Uber사의 [Horovod](https://github.com/uber/horovod)는 케라스 모델을 일차적으로 지원합니다.
 - Keras 모델을 [TensorFlow 추정자로 변환](https://www.tensorflow.org/versions/master/api_docs/python/tf/keras/estimator/model_to_estimator)이 가능하며, [Google Cloud를 통한 GPU 다발](https://cloud.google.com/solutions/running-distributed-tensorflow-on-compute-engine)에서 학습시킬 수 있습니다.
-- [Dist-Keras](https://github.com/cerndb/dist-keras)와 [Elephas](https://github.com/maxpumperla/elephas)를 통해 Spark에서 Keras를 실행할 수 있습니다.)
+- [Dist-Keras](https://github.com/cerndb/dist-keras)와 [Elephas](https://github.com/maxpumperla/elephas)를 통해 Spark에서 Keras를 실행할 수 있습니다.
 
 ---
 
-## Keras의 개발은 심층학습 생태계의 주요 기업들의 지원을 받습니다
+## Keras의 개발은 딥러닝 생태계의 주요 기업들의 지원을 받습니다
 
 Keras는 Google사의 지원을 중심으로 개발되고 있으며, Keras API는 `tf.keras`로 TensorFlow의 패키지로 제공됩니다. CNTK Keras 백엔드의 유지보수 또한 Microsoft사의 책임하에 이루어집니다. Amazon AWS는 MXNet과 함께 Keras를 관리합니다. NVIDIA, Uber, CoreML을 포함한 Apple사 또한 Keras의 개발에 공헌하였습니다.
 
