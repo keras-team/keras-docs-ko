@@ -1,6 +1,6 @@
 # 왜 Keras일까요?
 
-오늘날 존재하는 수많은 딥러닝 프레임워크 중에서, 왜 굳이 Keras일까요? 다른 대안들에 비해 Keras를 선호하는 이유는 다음과 같습니다.
+오늘날 존재하는 수많은 딥러닝 프레임워크들 중에서, 왜 굳이 Keras일까요? 다른 대안들에 비해 Keras를 선호하는 이유는 다음과 같습니다.
 
 ---
 
@@ -33,14 +33,14 @@ Keras는 [arXiv.org](https://arxiv.org/archive/cs)에 업로드 된 과학 논�
 
 ## Keras는 모델의 제품화를 쉽게 해줍니다
 
-Keras는 다른 어떤 딥러닝 프레임워크보다도 다양한 방면의 플랫폼에 쉽게 배치할 수 있습니다. 이에 해당하는 플랫폼들은 다음과 같습니다.
+Keras는 다른 어떤 딥러닝 프레임워크보다도 다양한 방면의 플랫폼에 쉽게 배포할 수 있습니다. 이에 해당하는 플랫폼들은 다음과 같습니다.
 
 - iOS에서는 [Apple’s CoreML](https://developer.apple.com/documentation/coreml)을 통해서 가능합니다. Apple사는 공식적으로 Keras를 지원합니다 ([튜토리얼](https://www.pyimagesearch.com/2018/04/23/running-keras-models-on-ios-with-coreml/)). 
 - Android에서는 TensorFlow Android 런타임을 통해서 가능합니다.
 - 웹 브라우저에서는 [Keras.js](https://transcranial.github.io/keras-js/#/)와 같은 GPU 가속된 JavaScript 런타임과 [WebDNN](https://mil-tokyo.github.io/webdnn/)을 통해서 가능합니다.
 - Google Cloud에서는 [TensorFlow-Serving](https://www.tensorflow.org/serving/)을 통해서 가능합니다.
-- [Flask app과 같은 Python 웹 백엔드](https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html)에서도 가능합니다.
-- JVM에서 [SkyMind가 제공하는 DL4J model import](https://deeplearning4j.org/model-import-keras)를 통해서 가능합니다.
+- [Flask 앱과 같은 Python 웹 백엔드](https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html)에서도 가능합니다.
+- JVM에서는 [SkyMind가 제공하는 DL4J](https://deeplearning4j.org/model-import-keras)를 통해서 가능합니다.
 - Raspberry Pi에서도 가능합니다.
 
 ---
@@ -67,7 +67,7 @@ Amazon사는 MXNet을 백엔드로 사용하는 [Keras의 분기 버전](https:/
 
 - Keras는 [다중 GPU 데이터 병렬성에 대한 지원이 내장되어있습니다](/utils/#multi_gpu_model).
 - Uber사의 [Horovod](https://github.com/uber/horovod)는 케라스 모델을 일차적으로 지원합니다.
-- Keras 모델을 [TensorFlow 추정자로 변환](https://www.tensorflow.org/versions/master/api_docs/python/tf/keras/estimator/model_to_estimator)이 가능하며, [Google Cloud를 통한 GPU 다발](https://cloud.google.com/solutions/running-distributed-tensorflow-on-compute-engine)에서 학습시킬 수 있습니다.
+- Keras 모델을 [TensorFlow 추정자로 변환](https://www.tensorflow.org/versions/master/api_docs/python/tf/keras/estimator/model_to_estimator)이 가능하며, [Google Cloud를 통한 GPU 클러스터](https://cloud.google.com/solutions/running-distributed-tensorflow-on-compute-engine)에서 학습시킬 수 있습니다.
 - [Dist-Keras](https://github.com/cerndb/dist-keras)와 [Elephas](https://github.com/maxpumperla/elephas)를 통해 Spark에서 Keras를 실행할 수 있습니다.
 
 ---
