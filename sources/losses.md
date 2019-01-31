@@ -1,7 +1,7 @@
 
-## Usage of loss functions
+## 손실 함수의 사용
 
-A loss function (or objective function, or optimization score function) is one of the two parameters required to compile a model:
+손실 함수 (목적 함수 또는 최적화 점수 함수)는 하나의 모델을 구성하기 위해 필요한 두 개의 매개 변수 중 하나 입니다:
 
 ```python
 model.compile(loss='mean_squared_error', optimizer='sgd')
@@ -13,16 +13,16 @@ from keras import losses
 model.compile(loss=losses.mean_squared_error, optimizer='sgd')
 ```
 
-You can either pass the name of an existing loss function, or pass a TensorFlow/Theano symbolic function that returns a scalar for each data-point and takes the following two arguments:
+기존의 손실 함수를 이름으로 전달하거나 TensorFlow/Theano 의 심볼릭 함수를 매개 변수로 전달할 수 있습니다. 심볼릭 함수는 다음의 두 인자를 받아 각각의 데이터 포인트에 대하여 스칼라를 반환합니다:
 
-- __y_true__: True labels. TensorFlow/Theano tensor.
-- __y_pred__: Predictions. TensorFlow/Theano tensor of the same shape as y_true.
+- __y_true__: 정답 라벨. TensorFlow/Theano 텐서.
+- __y_pred__: 예측치. y_true와 같은 모양(shape)의 TensorFlow/Theano 텐서.
 
-The actual optimized objective is the mean of the output array across all datapoints.
+실제로 최적화 되는  모든 데이터 포인트에 걸친 출력 배열의 평균값입니다.
 
-For a few examples of such functions, check out the [losses source](https://github.com/keras-team/keras/blob/master/keras/losses.py).
+손실함수의 예시는 [losses source](https://github.com/keras-team/keras/blob/master/keras/losses.py)에서 확인할 수 있습니다.
 
-## Available loss functions
+## 사용 가능한 손실 함수
 
 ### mean_squared_error
 
@@ -95,21 +95,21 @@ keras.losses.logcosh(y_true, y_pred)
 ```
 
 
-Logarithm of the hyperbolic cosine of the prediction error.
+예측 오차의 쌍곡 코사인 로그값.
 
-`log(cosh(x))` is approximately equal to `(x ** 2) / 2` for small `x` and
-to `abs(x) - log(2)` for large `x`. This means that 'logcosh' works mostly
-like the mean squared error, but will not be so strongly affected by the
-occasional wildly incorrect prediction.
+`log(cosh(x))`는 작은 `x`에 대하여 `(x ** 2) / 2`와, 큰 `x` 에 대하여
+ `abs(x) - log(2)` 와 거의 같은 값을 가집니다. 다시 말해 'logcosh'는 대부분 
+평균 제곱 오차와 비슷한 양상을 보이지만, 가끔 발생하는 부정확한 예측에 의한 영향을
+크게 받지는 않습니다.
 
 __Arguments__
 
-- __y_true__: tensor of true targets.
-- __y_pred__: tensor of predicted targets.
+- __y_true__: 실제 타겟의 텐서.
+- __y_pred__: 예측 타겟의 텐서.
 
 __Returns__
 
-Tensor with one scalar loss entry per sample.
+샘플당 하나의 스칼라값 손실 개체를 가지는 텐서
     
 ----
 
@@ -168,7 +168,7 @@ keras.losses.cosine_proximity(y_true, y_pred)
 
 ----
 
-**Note**: when using the `categorical_crossentropy` loss, your targets should be in categorical format (e.g. if you have 10 classes, the target for each sample should be a 10-dimensional vector that is all-zeros except for a 1 at the index corresponding to the class of the sample). In order to convert *integer targets* into *categorical targets*, you can use the Keras utility `to_categorical`:
+**Note**: `categorical_crossentropy` 손실 함수의 경우 사용되는 타겟들은 범주 형식 (categorical format)을 따라야 합니다. 예를 들어 10개의 클래스(범주) 중 하나에 속하는 데이터에 대하여 각 샘플은 타겟 클래스에 해당하는 하나의 인덱스만 1의 값을 가지고 이외의 값들은 모두 0이어야 합니다. Keras의 기능인 `to_categorical`를 통해 *정수 타겟*을 *범주 타겟*으로 변환할 수 있습니다:
 
 ```python
 from keras.utils import to_categorical
