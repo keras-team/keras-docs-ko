@@ -36,7 +36,7 @@ Keras는 [arXiv.org](https://arxiv.org/archive/cs)에 업로드 된 과학 논�
 Keras는 다른 어떤 딥러닝 프레임워크보다도 다양한 방면의 플랫폼에 쉽게 배포할 수 있습니다. 이에 해당하는 플랫폼들은 다음과 같습니다.
 
 - iOS에서는 [Apple’s CoreML](https://developer.apple.com/documentation/coreml)을 통해서 가능합니다. Apple사는 공식적으로 Keras를 지원합니다 ([튜토리얼](https://www.pyimagesearch.com/2018/04/23/running-keras-models-on-ios-with-coreml/)). 
-- Android에서는 TensorFlow Android 런타임을 통해서 가능합니다.
+- Android에서는 TensorFlow Android 런타임을 통해서 가능합니다 (e.g. [Not Hotdog 앱](https://medium.com/@timanglade/how-hbos-silicon-valley-built-not-hotdog-with-mobile-tensorflow-keras-react-native-ef03260747f3)).
 - 웹 브라우저에서는 [Keras.js](https://transcranial.github.io/keras-js/#/)와 같은 GPU 가속된 JavaScript 런타임과 [WebDNN](https://mil-tokyo.github.io/webdnn/)을 통해서 가능합니다.
 - Google Cloud에서는 [TensorFlow-Serving](https://www.tensorflow.org/serving/)을 통해서 가능합니다.
 - [Flask 앱과 같은 Python 웹 백엔드](https://blog.keras.io/building-a-simple-keras-deep-learning-rest-api.html)에서도 가능합니다.
