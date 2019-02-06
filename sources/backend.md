@@ -1,30 +1,30 @@
-# Keras backends
+# 캐라스 벡엔드
 
-## What is a "backend"?
+## "bakend"는 무엇 입니까? 
 
-Keras is a model-level library, providing high-level building blocks for developing deep learning models. It does not handle itself low-level operations such as tensor products, convolutions and so on. Instead, it relies on a specialized, well-optimized tensor manipulation library to do so, serving as the "backend engine" of Keras. Rather than picking one single tensor library and making the implementation of Keras tied to that library, Keras handles the problem in a modular way, and several different backend engines can be plugged seamlessly into Keras.
+케라스는 딥러닝 모델을 개발하기 위한 상위-수준의 구성요성 요소를 제공하는 모델-레벨의 라이브러리입니다. 케라스는 텐서 곱셈, 컨볼루션 등의 저수준의 연산을 제공하지 않습니다. 대신 케라스의 "백엔드 엔진"역할을 하는 특수하고 잘 최적화 된 텐서 라이브러리에 의존합니다. 하나의 단일 텐서 라이브러리를 선택하고 Keras 구현을 해당 라이브러리에 묶는 대신 Keras는 모듈 방식으로 문제를 처리하며 여러 다른 백엔드 엔진을 Keras에 원활하게 연결할 수 있습니다.
 
-At this time, Keras has three backend implementations available: the **TensorFlow** backend, the **Theano** backend, and the **CNTK** backend.
+현재, 케라스에는 3가지 벡엔드가 구현되어 있습니다: **TensorFlow(텐셔플로우)** 백엔드, **Theano(씨아노)** 백엔드, 그리고 **CNTK** 백엔드.
 
 - [TensorFlow](http://www.tensorflow.org/) is an open-source symbolic tensor manipulation framework developed by Google.
 - [Theano](http://deeplearning.net/software/theano/) is an open-source symbolic tensor manipulation framework developed by LISA Lab at Université de Montréal.
 - [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/) is an open-source toolkit for deep learning developed by Microsoft.
 
-In the future, we are likely to add more backend options.
+앞으로는 더 많은 백엔드 옵션을 추가 할 것입니다.
 
 ----
 
-## Switching from one backend to another
+## 한 백엔드에서 다른 백엔드로의 전환
 
-If you have run Keras at least once, you will find the Keras configuration file at:
+케라스를 적어도 한 번 실행하면 다음 위치에서 케라스 구성 파일을 찾을 수 있습니다:
 
 `$HOME/.keras/keras.json`
 
-If it isn't there, you can create it.
+거기에 없다면, 위의 파일을 만들수 있습니다.
 
-**NOTE for Windows Users:** Please replace `$HOME` with `%USERPROFILE%`.
+**Windows(윈도우) 사용자를 위한 노트:** `$ HOME`을`% USERPROFILE %`로 바꾸십시오.
 
-The default configuration file looks like this:
+기본 구성파일은 다음과 같습니다:
 
 ```
 {
@@ -35,17 +35,17 @@ The default configuration file looks like this:
 }
 ```
 
-Simply change the field `backend` to `"theano"`, `"tensorflow"`, or `"cntk"`, and Keras will use the new configuration next time you run any Keras code.
+`backend` 필드를``theano``,``tensorflow`` 또는``cntk``로 바꾸기 만하면 케라스는 다음 번에 케라스 코드를 실행할 때 새로운 설정을 사용하게됩니다.
 
-You can also define the environment variable ``KERAS_BACKEND`` and this will
-override what is defined in your config file :
+당신은 환경 변수``KERAS_BACKEND``을 정의 할 수도 있으며, 
+이는 당신의 설정 파일에 정의 된 것으로 대체 가능 할 것입니다 :
 
 ```bash
 KERAS_BACKEND=tensorflow python -c "from keras import backend"
 Using TensorFlow backend.
 ```
 
-In Keras it is possible to load more backends than `"tensorflow"`, `"theano"`, and `"cntk"`. Keras can use external backends as well, and this can be performed by changing the `keras.json` configuration file, and the `"backend"` setting. Suppose you have a Python module called `my_module` that you wanted to use as your external backend. The `keras.json` configuration file would be changed as follows:
+케라스는 "tensorflow"`, `"theano"`, 그리고 `"cntk" 보다 많은 벡엔드를 로드하는 것이 가능합니다. 케라스는 외부 백엔드도 사용 할수 있으며, `keras.json`구성파일과 `"backend"`설정을 변경함으로써 수행 될 수 있습니다. 당신의 외부 벡엔드를 사용하기를 원하는 `my_module`이라는 파이션 모듈 가지고 있다고 합시다. `keras.json` 설정파일은 다움과 같이 바뀔 것입니다:
 
 ```
 {
@@ -56,15 +56,16 @@ In Keras it is possible to load more backends than `"tensorflow"`, `"theano"`, a
 }
 ```
 An external backend must be validated in order to be used, a valid backend must have the following functions: `placeholder`, `variable` and `function`.
+외부 백엔드를 사용하려면 유효성을 검사해야하며, 유효한 외부 백엔드는 다음의 함수를 반드시 가지고 있어야 합니다: `placeholder`,`variable`,`function` 
 
-If an external backend is not valid due to missing a required entry, an error will be logged notifying which entry/entries are missing.
+만약, 외부 백엔드가 필수 항목이 누락되어 유효하지 않은 경우라면, 오류는 누락 된 항목/항목들을 알리기 위해 기록(로깅)됩니다.
 
 ----
 
-## keras.json details
+## keras.json 상세
 
 
-The `keras.json` configuration file contains the following settings:
+`keras.json` 구성파일은 아래 따라 나오는 세팅을 포함합니다:
 
 ```
 {
@@ -75,7 +76,7 @@ The `keras.json` configuration file contains the following settings:
 }
 ```
 
-You can change these settings by editing `$HOME/.keras/keras.json`. 
+`$ HOME / .keras / keras.json`을 편집하여 설정을 변경할 수 있습니다.  
 
 * `image_data_format`: String, either `"channels_last"` or `"channels_first"`. It specifies which data format convention Keras will follow. (`keras.backend.image_data_format()` returns it.)
   - For 2D data (e.g. image), `"channels_last"` assumes `(rows, cols, channels)` while `"channels_first"` assumes `(channels, rows, cols)`. 
