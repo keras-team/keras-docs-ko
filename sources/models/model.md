@@ -1,6 +1,6 @@
 # Model class API
 
-In the functional API, given some input tensor(s) and output tensor(s), you can instantiate a `Model` via:
+기능적 API에서는, 어떤 텐서(들) 입력과 텐서(들) 출력에 대하여 'Model'을 다음과 같이 생성 가능합니다:
 
 ```python
 from keras.models import Model
@@ -11,15 +11,15 @@ b = Dense(32)(a)
 model = Model(inputs=a, outputs=b)
 ```
 
-This model will include all layers required in the computation of `b` given `a`.
+이 모델은 'a'가 주어진 'b'의 계산 수행에 필요한 모든 층을 포함합니다.
 
-In the case of multi-input or multi-output models, you can use lists as well:
+복수의 입력이나 복수의 출력을 이용하는 모델을 이용할 때는, list를 사용할 수 있습니다.:
 
 ```python
 model = Model(inputs=[a1, a2], outputs=[b1, b2, b3])
 ```
 
-For a detailed introduction of what `Model` can do, read [this guide to the Keras functional API](/getting-started/functional-api-guide).
+'Model'이 어떤 일을 할 수 있는지에 대한 자세한 설명은, [this guide to the Keras functional API](/getting-started/functional-api-guide)에서 확인하실 수 있습니다.
 
 
 ## Methods
@@ -31,25 +31,21 @@ For a detailed introduction of what `Model` can do, read [this guide to the Kera
 compile(optimizer, loss=None, metrics=None, loss_weights=None, sample_weight_mode=None, weighted_metrics=None, target_tensors=None)
 ```
 
-
-Configures the model for training.
+모델의 훈련을 위한 환경을 설정합니다.
 
 __Arguments__
 
-- __optimizer__: String (name of optimizer) or optimizer instance.
-    See [optimizers](/optimizers).
-- __loss__: String (name of objective function) or objective function.
-    See [losses](/losses).
-    If the model has multiple outputs, you can use a different loss
-    on each output by passing a dictionary or a list of losses.
-    The loss value that will be minimized by the model
-    will then be the sum of all individual losses.
-- __metrics__: List of metrics to be evaluated by the model
-    during training and testing.
-    Typically you will use `metrics=['accuracy']`.
-    To specify different metrics for different outputs of a
-    multi-output model, you could also pass a dictionary,
-    such as `metrics={'output_a': 'accuracy'}`.
+- __optimizer__: 스트링 (optimizer 이름) 또는 optimizer 인스턴스.
+    [optimizers](/optimizers)를 확인해주십시오.
+- __loss__: 스트링 (목적 함수의 이름) 또는 목적 함수.
+    [losses](/losses)를 확인해주십시오.
+    만약 모델 출력이 여러개라면, loss의 리스트나 딕셔너리를 이용해서
+    각 출력에 다른 loss를 사용할 수 있습니다. 이 경우 model에 의해 
+    최소화되는 loss의 값은 각 loss값들의 합이 됩니다.
+- __metrics__: 학습과 테스트 시 model에 의해 평가되는 측정 단위의 리스트
+    일반적으로, 복수 출력 모델의 각기 다른 측정 단위를 지정하기 위해
+    `metrics=['accuracy']`를 이용하지만, `metrics={'output_a': 'accuracy'}`
+    와 같이 딕셔너리를 이용해서 지정할 수도 있습니다.
 - __loss_weights__: Optional list or dictionary specifying scalar
     coefficients (Python floats) to weight the loss contributions
     of different model outputs.
