@@ -1,7 +1,7 @@
 
-## Usage of optimizers
+## Optimizers의 용법
 
-An optimizer is one of the two arguments required for compiling a Keras model:
+optimizer는 Keras 모델을 컴파일하기 위해 요구되는 두 인자 중 하나 입니다:
 
 ```python
 from keras import optimizers
@@ -14,33 +14,33 @@ sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='mean_squared_error', optimizer=sgd)
 ```
 
-You can either instantiate an optimizer before passing it to `model.compile()` , as in the above example, or you can call it by its name. In the latter case, the default parameters for the optimizer will be used.
+위의 예제와 같이 `model.compile()`에 전달하기 전에 optimizer의 인스턴스를 만들거나, 또는 이름을 이용해서 호출할 수 있습니다. 후자의 경우에는 optimizer를 위한 디폴트 파라메터가 사용됩니다.
 
 ```python
-# pass optimizer by name: default parameters will be used
+# 이름으로 optimizer를 전달: 디폴트 파라메터가 사용됨
 model.compile(loss='mean_squared_error', optimizer='sgd')
 ```
 
 ---
 
-## Parameters common to all Keras optimizers
+## 모든 Keras의 Optimizer에 공통적인 파라메터
 
-The parameters `clipnorm` and `clipvalue` can be used with all optimizers to control gradient clipping:
+`clipnorm` 그리고 `clipvalue` 파라메터는 경사도 자르기(gradient clipping)을 조절하기 위한 모든 optimizer에서 사용될 수 있습니다:
 
 ```python
 from keras import optimizers
 
-# All parameter gradients will be clipped to
-# a maximum norm of 1.
+# 경사도가 자르게될 모든 파라메터에 대한
+# Norm의 최대값을 1로 설정
 sgd = optimizers.SGD(lr=0.01, clipnorm=1.)
 ```
 
 ```python
 from keras import optimizers
 
-# All parameter gradients will be clipped to
-# a maximum value of 0.5 and
-# a minimum value of -0.5.
+# A경사도가 자르게될 모든 파라메터의
+# 최대값을 0.5, 그리고
+# 최소값을 -0.5로 설정
 sgd = optimizers.SGD(lr=0.01, clipvalue=0.5)
 ```
 
@@ -53,18 +53,16 @@ sgd = optimizers.SGD(lr=0.01, clipvalue=0.5)
 keras.optimizers.SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
 ```
 
-Stochastic gradient descent optimizer.
+Stochastic Gradient Descent optimizer.
 
-Includes support for momentum,
-learning rate decay, and Nesterov momentum.
+모멘텀(momentum), 학습률 붕괴(learning rate decay), 그리고 네스테로프 모멘텀(Nesterov momentum)의 지원을 포함합니다.
 
-__Arguments__
+__인자__
 
-- __lr__: float >= 0. Learning rate.
-- __momentum__: float >= 0. Parameter that accelerates SGD
-    in the relevant direction and dampens oscillations.
-- __decay__: float >= 0. Learning rate decay over each update.
-- __nesterov__: boolean. Whether to apply Nesterov momentum.
+- __lr__: >= 0인 부동소수. 학습률.
+- __momentum__: >= 0인 부동소수. SGD를 적절한 방향으로 가속화 하고, 흔들림(진동)을 약화시키기 위한 파라메터.
+- __decay__: >= 0인 부동소수. 각 업데이트마다의 학습률 붕괴.
+- __nesterov__: 불리언. 네스테로프 모멘텀을 적용할지 말지.
     
 ----
 
@@ -77,24 +75,21 @@ keras.optimizers.RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.0)
 
 RMSProp optimizer.
 
-It is recommended to leave the parameters of this optimizer
-at their default values
-(except the learning rate, which can be freely tuned).
+이 optimizer의 파라메터를 디폴트 값으로 사용하는 것이 권고 됩니다.
+(자유롭게 튜닝될 수 있는 학습률은 제외)
 
-This optimizer is usually a good choice for recurrent
-neural networks.
+이 optimizer는 보통 순환 신경망(Recurrent Neural Networks)을 위한 좋은 선택입니다.
 
-__Arguments__
+__인자__
 
-- __lr__: float >= 0. Learning rate.
-- __rho__: float >= 0.
-- __epsilon__: float >= 0. Fuzz factor. If `None`, defaults to `K.epsilon()`.
-- __decay__: float >= 0. Learning rate decay over each update.
+- __lr__:  >= 0인 부동소수. 학습률.
+- __rho__: >= 0인 부동소수.
+- __epsilon__: >= 0인 부동소수. Fuzzy 인자. `None`으로 설정되면, `K.epsilon()`가 사용됩니다.
+- __decay__: >= 0인 부동소수. 각 업데이트마다의 학습률 붕괴.
 
-__References__
+__참고__
 
-- [rmsprop: Divide the gradient by a running average of its recent magnitude
-   ](http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf)
+- [rmsprop: 구동중인 최근 규모의 평균에 의해서 경사도를 나누는 것](http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf)
     
 ----
 
@@ -107,21 +102,19 @@ keras.optimizers.Adagrad(lr=0.01, epsilon=None, decay=0.0)
 
 Adagrad optimizer.
 
-Adagrad is an optimizer with parameter-specific learning rates,
-which are adapted relative to how frequently a parameter gets
-updated during training. The more updates a parameter receives,
-the smaller the learning rate.
+Adagrad는 학습 도중 얼마나 빈번히 파라메터가 업데이트되는 연관성에의해  
+파라메터에 특정한 학습률과 함께 사용되는 optmizer 입니다.
+파라메터가 더 많이 업데이트될 수록, 더 작은 학습률이 사용됩니다.
 
-It is recommended to leave the parameters of this optimizer
-at their default values.
+이 optimizer의 파라메터는 디폴트 값으로 사용하는 것이 권고 됩니다.
 
-__Arguments__
+__인자__
 
-- __lr__: float >= 0. Initial learning rate.
-- __epsilon__: float >= 0. If `None`, defaults to `K.epsilon()`.
-- __decay__: float >= 0. Learning rate decay over each update.
+- __lr__: >= 0인 부동소수. 학습률.
+- __epsilon__: >= 0인 부동소수. `None`으로 설정되면, `K.epsilon()`가 사용됩니다.
+- __decay__: >= 0인 부동소수. 각 업데이트마다의 학습률 붕괴.
 
-__References__
+__참고__
 
 - [Adaptive Subgradient Methods for Online Learning and Stochastic
    Optimization](http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)
@@ -137,27 +130,23 @@ keras.optimizers.Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.0)
 
 Adadelta optimizer.
 
-Adadelta is a more robust extension of Adagrad
-that adapts learning rates based on a moving window of gradient updates,
-instead of accumulating all past gradients. This way, Adadelta continues
-learning even when many updates have been done. Compared to Adagrad, in the
-original version of Adadelta you don't have to set an initial learning
-rate. In this version, initial learning rate and decay factor can
-be set, as in most other Keras optimizers.
+Adadelta는 Adagrad를 확장한 보다 견고한 optimizer로
+모든 과거의 경사도를 축적하는것 대신에, 경사도 업데이트의 이동창에 기반하여 학습률을 조절합니다.
+이 방법을 사용하면, Adadelta는 많은 업데이트가 이뤄진 후 일지라도, 학습을 계속합니다.
+Adagrad와 비교해 볼 때, Adadelta의 원래 버전에서는 초기 학습률을 설정할 필요가 없었습니다.
+현재의 버전에서는 다른 optimizer 처럼 초기 학습률과 붕괴 인자가 설정될 수 있습니다.
 
-It is recommended to leave the parameters of this optimizer
-at their default values.
+이 optimizer의 파라메터는 디폴트 값으로 사용하는 것이 권고 됩니다.
 
-__Arguments__
+__인자__
 
-- __lr__: float >= 0. Initial learning rate, defaults to 1.
-    It is recommended to leave it at the default value.
-- __rho__: float >= 0. Adadelta decay factor, corresponding to fraction of
-    gradient to keep at each time step.
-- __epsilon__: float >= 0. Fuzz factor. If `None`, defaults to `K.epsilon()`.
-- __decay__: float >= 0. Initial learning rate decay.
+- __lr__: >= 0인 부동소수. 학습률. 디폴트 값은 1.
+    디폴트 값으로 사용하는 것이 권고 됩니다.
+- __rho__: >= 0인 부동소수.. Adadelta의 붕괴 인자로 각 시간에 대하여 유지되는 경사도의 부분에 상응합니다.
+- __epsilon__: >= 0인 부동소수. Fuzzy 인자. `None`으로 설정되면, `K.epsilon()`가 사용됩니다.
+- __decay__: >= 0인 부동소수. 초기 학습률 붕괴값.
 
-__References__
+__참고__
 
 - [Adadelta - an adaptive learning rate method](
    https://arxiv.org/abs/1212.5701)
