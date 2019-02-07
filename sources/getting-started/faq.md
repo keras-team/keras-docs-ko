@@ -1,10 +1,10 @@
-# Keras FAQ: Frequently Asked Keras Questions
+# Keras FAQ: 자주 문의되는 Keras관련 질문
 
-- [How should I cite Keras?](#how-should-i-cite-keras)
-- [How can I run Keras on GPU?](#how-can-i-run-keras-on-gpu)
-- [How can I run a Keras model on multiple GPUs?](#how-can-i-run-a-keras-model-on-multiple-gpus)
-- [What does "sample", "batch", "epoch" mean?](#what-does-sample-batch-epoch-mean)
-- [How can I save a Keras model?](#how-can-i-save-a-keras-model)
+- [Keras를 어떻게 인용해야 하는가?](#how-should-i-cite-keras)
+- [Keras를 어떻게 GPU에서 실행할 수 있는가?](#how-can-i-run-keras-on-gpu)
+- [Keras 모델을 어떻게 다중 GPU에서 실행할 수 있는가?](#how-can-i-run-a-keras-model-on-multiple-gpus)
+- ["sample", "batch", "epoch"이 의미하는게 무엇인가?](#what-does-sample-batch-epoch-mean)
+- [Keras 모델을 어떻게 저장할 수 있는가?](#how-can-i-save-a-keras-model)
 - [Why is the training loss much higher than the testing loss?](#why-is-the-training-loss-much-higher-than-the-testing-loss)
 - [How can I obtain the output of an intermediate layer?](#how-can-i-obtain-the-output-of-an-intermediate-layer)
 - [How can I use Keras with datasets that don't fit in memory?](#how-can-i-use-keras-with-datasets-that-dont-fit-in-memory)
@@ -23,9 +23,9 @@
 
 ---
 
-### How should I cite Keras?
+### Keras를 어떻게 인용해야 하는가?
 
-Please cite Keras in your publications if it helps your research. Here is an example BibTeX entry:
+연구에 도움이 되었다면, 출판물에 Keras를 인용해 주십시오. 다음은 BibTex 기입 방법의 예 입니다:
 
 ```
 @misc{chollet2015keras,
@@ -38,22 +38,22 @@ Please cite Keras in your publications if it helps your research. Here is an exa
 
 ---
 
-### How can I run Keras on GPU?
+### Keras를 어떻게 GPU에서 실행할 수 있는가?
 
-If you are running on the **TensorFlow** or **CNTK** backends, your code will automatically run on GPU if any available GPU is detected.
+**Tensorflow** 또는 **CNTK**를 백엔드로서 사용하는 경우, 작성하신 코드는 가용한 GPU가 감지된다면 자동으로 GPU에서 실행될 것입니다.
 
-If you are running on the **Theano** backend, you can use one of the following methods:
+**Theano**를 백엔드로서 사용 한다면, 다음의 방법 중 하나를 사용하십시오:
 
-**Method 1**: use Theano flags.
+**방법 1**: Theano 플래그를 사용하십시오.
 ```bash
 THEANO_FLAGS=device=gpu,floatX=float32 python my_keras_script.py
 ```
 
-The name 'gpu' might have to be changed depending on your device's identifier (e.g. `gpu0`, `gpu1`, etc).
+'gpu' 이름은 사용하시는 장치의 식별자에 따라서 변경해야만 합니다.
 
-**Method 2**: set up your `.theanorc`: [Instructions](http://deeplearning.net/software/theano/library/config.html)
+**방법 2**: `.theanorc`를 설정 하십시오: [설명](http://deeplearning.net/software/theano/library/config.html)
 
-**Method 3**: manually set `theano.config.device`, `theano.config.floatX` at the beginning of your code:
+**방법 3**: 수동으로 `theano.config.device`와 `theano.config.floatX`를 코드 시작 부분에서 설정 하십시오:
 ```python
 import theano
 theano.config.device = 'gpu'
@@ -62,54 +62,54 @@ theano.config.floatX = 'float32'
 
 ---
 
-### How can I run a Keras model on multiple GPUs?
+### Keras 모델을 어떻게 다중 GPU에서 실행할 수 있는가?
 
-We recommend doing so using the **TensorFlow** backend. There are two ways to run a single model on multiple GPUs: **data parallelism** and **device parallelism**.
+**TensorFlow**를 백엔드로서 사용하기를 권고 드립니다. 단일 모델을 다중 GPU에서 실행하기 위한 두 가지 방법이 있습니다: **data parallelism** 그리고 **device parallelism**가 있습니다.
 
-In most cases, what you need is most likely data parallelism.
+대부분의 경우에서, 데이터의 병렬처리가 가장 필요한 것입니다.
 
-#### Data parallelism
+#### 데이터의 병렬처리
 
-Data parallelism consists in replicating the target model once on each device, and using each replica to process a different fraction of the input data.
-Keras has a built-in utility, `keras.utils.multi_gpu_model`, which can produce a data-parallel version of any model, and achieves quasi-linear speedup on up to 8 GPUs.
+데이터의 병렬처리는 각각의 기기(GPU)에 한번 대상 모델을 복사하는 것, 그리고 각 복사된 모델로 하여금 서로 다른 입력 데이터의 부분을 처리하는 것으로 구성됩니다.
+Keras는 빌트인된 `keras.utils.multi_gpu_model` 유틸리티를 가지고 있는데, 어떤 모델이든 데이터-병렬처리 버전을 만들어낼 수 있고 최대 8개의 GPU에서 선형적으로 속도를 증가시킬 수 있습니다.
 
-For more information, see the documentation for [multi_gpu_model](/utils/#multi_gpu_model). Here is a quick example:
+더 많은 정보를 위해서 [다중 GPU 모델](/utils/#multi_gpu_model) 문서를 참고 하십시오. 다음은 간단한 예 입니다:
 
 ```python
 from keras.utils import multi_gpu_model
 
-# Replicates `model` on 8 GPUs.
-# This assumes that your machine has 8 available GPUs.
+# 8개의 GPU에 `model`을 복제 합니다.
+# 사용중인 기계에 8개의 가용 GPU가 있다는 것을 가정 합니다.
 parallel_model = multi_gpu_model(model, gpus=8)
 parallel_model.compile(loss='categorical_crossentropy',
                        optimizer='rmsprop')
 
-# This `fit` call will be distributed on 8 GPUs.
-# Since the batch size is 256, each GPU will process 32 samples.
+# 다음의 `fit`을 호출은 8개의 GPU에 분산되어 집니다.
+# 배치 크기가 256 이기 때문에, 각 GPU는 32개의 샘플을 작업하게 됩니다.
 parallel_model.fit(x, y, epochs=20, batch_size=256)
 ```
 
-#### Device parallelism
+#### 기기의 병렬처리
 
-Device parallelism consists in running different parts of a same model on different devices. It works best for models that have a parallel architecture, e.g. a model with two branches.
+기기의 병렬처리는 서로다른 기기에서 동일한 모델의 서로다른 부분을 실행하는 것으로 구성됩니다. 예를 들어서, 두개의 가지(브랜치)를 가지는 모델과 같이 병렬적인 구조를 가지는 모델에서 최상의 동작을 합니다.
 
-This can be achieved by using TensorFlow device scopes. Here is a quick example:
+TensorFlow의 디바이스 범위(device scopes)를 사용해서 수행될 수 있습니다. 다음은 간단한 예 입니다:
 
 ```python
-# Model where a shared LSTM is used to encode two different sequences in parallel
+# 공유된 LSTM이 서로 다른 시퀀스를 병렬로 인코딩하는 모델 입니다
 input_a = keras.Input(shape=(140, 256))
 input_b = keras.Input(shape=(140, 256))
 
 shared_lstm = keras.layers.LSTM(64)
 
-# Process the first sequence on one GPU
+# 첫 번째 시퀀스를 하나의 GPU에서 수행 합니다
 with tf.device_scope('/gpu:0'):
     encoded_a = shared_lstm(tweet_a)
-# Process the next sequence on another GPU
+# 그 다음 시퀀스를 다른 하나의 GPU에서 수행 합니다
 with tf.device_scope('/gpu:1'):
     encoded_b = shared_lstm(tweet_b)
 
-# Concatenate results on CPU
+# CPU에서 각 결과를 이어 붙입니다
 with tf.device_scope('/cpu:0'):
     merged_vector = keras.layers.concatenate([encoded_a, encoded_b],
                                              axis=-1)
@@ -117,38 +117,38 @@ with tf.device_scope('/cpu:0'):
 
 ---
 
-### What does "sample", "batch", "epoch" mean?
+### "sample", "batch", "epoch"이 의미하는게 무엇인가?
 
-Below are some common definitions that are necessary to know and understand to correctly utilize Keras:
+아래의 내용은 Keras를 올바르게 활용하기 위해서 이해할 필요가 있는 몇 공통적인 정의 입니다.
 
-- **Sample**: one element of a dataset.
-  - *Example:* one image is a **sample** in a convolutional network
-  - *Example:* one audio file is a **sample** for a speech recognition model
-- **Batch**: a set of *N* samples. The samples in a **batch** are processed independently, in parallel. If training, a batch results in only one update to the model.
-  - A **batch** generally approximates the distribution of the input data better than a single input. The larger the batch, the better the approximation; however, it is also true that the batch will take longer to process and will still result in only one update. For inference (evaluate/predict), it is recommended to pick a batch size that is as large as you can afford without going out of memory (since larger batches will usually result in faster evaluation/prediction).
-- **Epoch**: an arbitrary cutoff, generally defined as "one pass over the entire dataset", used to separate training into distinct phases, which is useful for logging and periodic evaluation.
-  - When using `validation_data` or `validation_split` with the `fit` method of Keras models, evaluation will be run at the end of every **epoch**.
-  - Within Keras, there is the ability to add [callbacks](https://keras.io/callbacks/) specifically designed to be run at the end of an **epoch**. Examples of these are learning rate changes and model checkpointing (saving).
+- **Sample**: 데이터셋의 하나의 요소 입니다.
+  - *예:* 하나의 이미지는 합성곱 신경망에서의 하나의 **sample** 입니다.
+  - *예:* 하나의 오디오 파일은 음성 인식 모델에서의 하나의 **sample** 입니다.
+- **Batch**: *N* 개의 sample 집합 입니다. 하나의 **batch**에 있는 sample들은 독립적으로 병렬 처리 됩니다. 만약 학습 중이라면, 하나의 batch가 모델을 한번 업데이트 하는 결과를 가져 옵니다.
+  - 하나의 **batch**는 일반적으로 하나의 입력보다 입력 데이터의 분배에 대해서 더 좋은 근사치를 냅니다. batch가 크면 클 수록, 근사치가 더 좋아집니다; 하지만, 더 큰 batch는 수행하는데 더 많은 시간이 걸리고, 여전히 한번의 업데이트만의 결과를 거져옵니다. 추론 단계에서 (평가/예측), (일반적으로 큰 batch가 더 빠른 평가/예측의 결과를 낼 수 있기 때문에) 메모리 크기를 초과하지 않는 범위의 수용할 수 있는한 가장 큰 batch 크기를 선택하는 것이 권고 됩니다.
+- **Epoch**: 무작위의 절단으로, 일반적으론 "전체 데이터셋에 대한 한번의 통과(수행)"으로 정의 됩니다. 로깅과 주기적인 평가에 유용한 학습을 별개의 단계로 분리하는 것을 위해서 사용됩니다.
+  - `validation_data`또는 `validation_split`를 Keras 모델의 `fit`메소드와 함께 사용할 때, 평가는 매 **epoch**의 마지막에 수행 됩니다. 
+  - Keras에서는 **epoch**의 마지막에 수행되도록 특별히 디자인된 [콜백](https://keras.io/callbacks/)을 추가할 수 있는 방법이 있습니다. 이에 대한 예로는 학습률의 변경과 모델의 체크포인트(저장)을 위한것이 있습니다.
 
 ---
 
-### How can I save a Keras model?
+### Keras 모델을 어떻게 저장할 수 있는가?
 
-#### Saving/loading whole models (architecture + weights + optimizer state)
+#### 전체 모델(구조 + 가중치 + optimizer 상태)을 저장/불러오기
 
-*It is not recommended to use pickle or cPickle to save a Keras model.*
+*pickle 또는 cPickel을 사용해서 Keras 모델을 저장하는것은 권고되지 않습니다.*
 
-You can use `model.save(filepath)` to save a Keras model into a single HDF5 file which will contain:
+`model.save(filepath)`을 사용해서 Keras 모델을 다음을 포함하는 단일 HDF5 파일로 저장할 수 있습니다:
 
-- the architecture of the model, allowing to re-create the model
-- the weights of the model
-- the training configuration (loss, optimizer)
-- the state of the optimizer, allowing to resume training exactly where you left off.
+- 모델을 재 생성하기 위한 모델의 아키텍처(구조).
+- 모델의 가중치.
+- 학습 설정 (손실, optimizer).
+- 직전 학습에 이어서 학습하기 위한 optimizer의 상태.
 
-You can then use `keras.models.load_model(filepath)` to reinstantiate your model.
-`load_model` will also take care of compiling the model using the saved training configuration (unless the model was never compiled in the first place).
+그러면, `keras.models.load_model(filepath)`를 사용해서 모델을 다시 인스턴스화 할 수 있습니다.
+또한 `load_model`은 (전에 컴파일이 한번도 이루어지지 않은 경우가 아니라면)저장된 학습 설정을 사용해서 모델의 컴파일을 처리 합니다.
 
-Example:
+ㅇ{:
 
 ```python
 from keras.models import load_model
@@ -156,12 +156,12 @@ from keras.models import load_model
 model.save('my_model.h5')  # creates a HDF5 file 'my_model.h5'
 del model  # deletes the existing model
 
-# returns a compiled model
-# identical to the previous one
+# 컴파일된 모델을 반환 합니다.
+# 직전의 것과 완전히 동일 합니다.
 model = load_model('my_model.h5')
 ```
 
-Please also see [How can I install HDF5 or h5py to save my models in Keras?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras) for instructions on how to install `h5py`.
+[Keras에서 모델을 저장하기 위한 HDF5 또는 h5py를 어떻게 설치할 수 있는가?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras) 에서 `h5py`를 설치하기 위한 설명을 참고 하십시오.
 
 #### Saving/loading only a model's architecture
 
