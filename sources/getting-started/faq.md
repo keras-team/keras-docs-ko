@@ -5,13 +5,13 @@
 - [Keras 모델을 어떻게 다중 GPU에서 실행할 수 있는가?](#how-can-i-run-a-keras-model-on-multiple-gpus)
 - ["sample", "batch", "epoch"이 의미하는게 무엇인가?](#what-does-sample-batch-epoch-mean)
 - [Keras 모델을 어떻게 저장할 수 있는가?](#how-can-i-save-a-keras-model)
-- [Why is the training loss much higher than the testing loss?](#why-is-the-training-loss-much-higher-than-the-testing-loss)
-- [How can I obtain the output of an intermediate layer?](#how-can-i-obtain-the-output-of-an-intermediate-layer)
-- [How can I use Keras with datasets that don't fit in memory?](#how-can-i-use-keras-with-datasets-that-dont-fit-in-memory)
-- [How can I interrupt training when the validation loss isn't decreasing anymore?](#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore)
-- [How is the validation split computed?](#how-is-the-validation-split-computed)
-- [Is the data shuffled during training?](#is-the-data-shuffled-during-training)
-- [How can I record the training / validation loss / accuracy at each epoch?](#how-can-i-record-the-training--validation-loss--accuracy-at-each-epoch)
+- [왜 학습 손실이 테스트 손실보다 더 큰가?](#why-is-the-training-loss-much-higher-than-the-testing-loss)
+- [어떻게 중간 계층의 출력을 얻을 수 있는가?](#how-can-i-obtain-the-output-of-an-intermediate-layer)
+- [메모리 허용치 보다 큰 데이터셋을 Keras에서 어떻게 사용하 수 있는가?](#how-can-i-use-keras-with-datasets-that-dont-fit-in-memory)
+- [검증 손실이 더 이상 감소핮 않을때, 어떻게 학습을 중단할 수 있는가?](#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore)
+- [검증의 나뉨이 어떻게 계산 되는가?](#how-is-the-validation-split-computed)
+- [학습 도중에 데이터가 뒤섞이는가?](#is-the-data-shuffled-during-training)
+- [어떻게 매 epoch마다 학습 / 검증 손실 / 정확도를 기록할 수 있는가?](#how-can-i-record-the-training--validation-loss--accuracy-at-each-epoch)
 - [How can I "freeze" layers?](#how-can-i-freeze-keras-layers)
 - [How can I use stateful RNNs?](#how-can-i-use-stateful-rnns)
 - [How can I remove a layer from a Sequential model?](#how-can-i-remove-a-layer-from-a-sequential-model)
@@ -163,57 +163,57 @@ model = load_model('my_model.h5')
 
 [Keras에서 모델을 저장하기 위한 HDF5 또는 h5py를 어떻게 설치할 수 있는가?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras) 에서 `h5py`를 설치하기 위한 설명을 참고 하십시오.
 
-#### Saving/loading only a model's architecture
+#### 모델의 구조만을 저장/불러오기
 
-If you only need to save the **architecture of a model**, and not its weights or its training configuration, you can do:
+가중치 또는 학습 설정이 아니라 **모델의 구조**만을 저장해야 할 필요가 있다면, 다음을 해볼 수 있습니다:
 
 ```python
-# save as JSON
+# JSON으로 저장 합니다.
 json_string = model.to_json()
 
-# save as YAML
+# YAML으로 저장 합니다.
 yaml_string = model.to_yaml()
 ```
 
-The generated JSON / YAML files are human-readable and can be manually edited if needed.
+생성된 JSON / YAML 파일은 사람이 읽을 수 있고, 필요에 의해서 수작업으로 수정될 수 있습니다.
 
-You can then build a fresh model from this data:
+이 데이터로부터 새로운 모델을 만들 수 있습니다:
 
 ```python
-# model reconstruction from JSON:
+# JSON으로 부터 모델을 복원 합니다:
 from keras.models import model_from_json
 model = model_from_json(json_string)
 
-# model reconstruction from YAML:
+# YAML으로 부터 모델을 복원 합니다:
 from keras.models import model_from_yaml
 model = model_from_yaml(yaml_string)
 ```
 
-#### Saving/loading only a model's weights
+#### 모델의 가중치만을 저장/불러오기
 
-If you need to save the **weights of a model**, you can do so in HDF5 with the code below:
+**모델의 가중치**를 저장해야할 필요가 있다면, 아래 코드에서 처럼 HDF5를 사용해서 수행할 수 있습니다:
 
 ```python
 model.save_weights('my_model_weights.h5')
 ```
 
-Assuming you have code for instantiating your model, you can then load the weights you saved into a model with the *same* architecture:
+여러분의 모델을 인스턴스화 하기위한 코드가 있다고 가정해 봅시다. 그러면, *동일한* 구조를 가지는 모델로 저장된 가중치를 불러올 수 있습니다:
 
 ```python
 model.load_weights('my_model_weights.h5')
 ```
 
-If you need to load the weights into a *different* architecture (with some layers in common), for instance for fine-tuning or transfer-learning, you can load them by *layer name*:
+미세 조정이나 전이 학습과 같이 (몇 계층들은 공통적으로 가지지만) *다른* 구조의 모델로 가중치를 불러올 필요가 있을 때, *계층 이름* 을 통해서 불러올 수 있습니다:
 
 ```python
 model.load_weights('my_model_weights.h5', by_name=True)
 ```
 
-Example:
+예:
 
 ```python
 """
-Assuming the original model looks like this:
+원본 모델이 다음과 같은 형태라고 가정해 봅시다:
     model = Sequential()
     model.add(Dense(2, input_dim=3, name='dense_1'))
     model.add(Dense(3, name='dense_2'))
@@ -221,29 +221,29 @@ Assuming the original model looks like this:
     model.save_weights(fname)
 """
 
-# new model
+# 새로운 모델 입니다.
 model = Sequential()
-model.add(Dense(2, input_dim=3, name='dense_1'))  # will be loaded
-model.add(Dense(10, name='new_dense'))  # will not be loaded
+model.add(Dense(2, input_dim=3, name='dense_1'))  # 불러와 지게 됩니다.
+model.add(Dense(10, name='new_dense'))  # 불러와 지지지 않게 됩니다.
 
-# load weights from first model; will only affect the first layer, dense_1.
+# 첫 번째 모델로 부터 가중치를 불러 옵니다; 첫 번째 계층인 dense_1에만 영향을 미칩니다.
 model.load_weights(fname, by_name=True)
 ```
 
-Please also see [How can I install HDF5 or h5py to save my models in Keras?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras) for instructions on how to install `h5py`.
+`h5py`를 설치는 방법에 대한 설명으로 [Keras에서 모델을 저장하기 위한 HDF5 또는 h5py를 어떻게 설치할 수 있는가?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras)를 참조 하십시오.
 
-#### Handling custom layers (or other custom objects) in saved models
+#### 저장된 모델내의 사용자 정의 계층(또는 사용자 정의 객체)을 다루는 것
 
-If the model you want to load includes custom layers or other custom classes or functions, 
-you can pass them to the loading mechanism via the `custom_objects` argument: 
+불러오고 싶은 모델이 사용자 정의 계층 또는 다른 사용자 정의 클래스나 함수를 포함할 때, 
+`custom_objects`인자를 통한 불러오기 메커니즘에 그 대상을 전달해 줄 수 있습니다:
 
 ```python
 from keras.models import load_model
-# Assuming your model includes instance of an "AttentionLayer" class
+# 모델이 "AttentionLayer" 클래스의 인스턴스를 포함한다고 가정해 봅시다.
 model = load_model('my_model.h5', custom_objects={'AttentionLayer': AttentionLayer})
 ```
 
-Alternatively, you can use a [custom object scope](https://keras.io/utils/#customobjectscope):
+다른 방법으로는, [사용자 정의 객체 스코프](https://keras.io/utils/#customobjectscope)를 사용할 수 있습니다:
 
 ```python
 from keras.utils import CustomObjectScope
@@ -252,7 +252,7 @@ with CustomObjectScope({'AttentionLayer': AttentionLayer}):
     model = load_model('my_model.h5')
 ```
 
-Custom objects handling works the same way for `load_model`, `model_from_json`, `model_from_yaml`:
+사용자 정의 객체를 다루는 것은 `load_model`, `model_from_json`, `model_from_yaml`와 동일한 방법으로 동작합니다:
 
 ```python
 from keras.models import model_from_json
@@ -261,22 +261,22 @@ model = model_from_json(json_string, custom_objects={'AttentionLayer': Attention
 
 ---
 
-### Why is the training loss much higher than the testing loss?
+### 왜 학습 손실이 테스트 손실보다 더 큰가?
 
-A Keras model has two modes: training and testing. Regularization mechanisms, such as Dropout and L1/L2 weight regularization, are turned off at testing time.
+Keras 모델은 두 가지 모드를 가집니다: 학습과 테스트가 그것입니다. Dropout 그리고 L1/L2 가중치 Regularization과 같은 Regularization 기법들은 테스트시에는 사용되지 않습니다.
 
-Besides, the training loss is the average of the losses over each batch of training data. Because your model is changing over time, the loss over the first batches of an epoch is generally higher than over the last batches. On the other hand, the testing loss for an epoch is computed using the model as it is at the end of the epoch, resulting in a lower loss.
+이와 더불어, 학습 손실은 학습 데이터의 각 batch 마다의 손실들의 평균입니다. 여러분의 모델이 시간이 경과함에 따라 바뀌기 때문에, 한 epoch의 첫 번째 batchㅇ 대한 손실은 일반적으로 마지막 batch의 것보다 높습니다. 반면에 각 epoch에 대한 테스트 손실은 epoch의 마지막에 도달한 모델을 사용해 계산되어 낮은 손실으 결과르 보여줍니다.
 
 ---
 
-### How can I obtain the output of an intermediate layer?
+### 어떻게 중간 계층의 출력을 얻을 수 있는가?
 
-One simple way is to create a new `Model` that will output the layers that you are interested in:
+한가지 간단한 방법은 여러분이 관심을 가지는 계층들을 출력하는 새로운 `Model`을 생성하는 것입니다.
 
 ```python
 from keras.models import Model
 
-model = ...  # create the original model
+model = ...  # 원본 모델을 생서 합니다.
 
 layer_name = 'my_layer'
 intermediate_layer_model = Model(inputs=model.input,
@@ -284,47 +284,47 @@ intermediate_layer_model = Model(inputs=model.input,
 intermediate_output = intermediate_layer_model.predict(data)
 ```
 
-Alternatively, you can build a Keras function that will return the output of a certain layer given a certain input, for example:
+다른 방법으로는, 주어진 특정 입력에 대한 특정 계층의 결과를 반환하는 Keras 함수를 만들 수 있습니다. 예를 들어서:
 
 ```python
 from keras import backend as K
 
-# with a Sequential model
+# 순차적(Sequential) 모델
 get_3rd_layer_output = K.function([model.layers[0].input],
                                   [model.layers[3].output])
 layer_output = get_3rd_layer_output([x])[0]
 ```
 
-Similarly, you could build a Theano and TensorFlow function directly.
+이와 유사하게, Theano와 TensorFlow 함수를 직접적으로 만들 수도 있습니다.
 
-Note that if your model has a different behavior in training and testing phase (e.g. if it uses `Dropout`, `BatchNormalization`, etc.), you will need to pass the learning phase flag to your function:
+만약 여러분의 모델이 (예를 들어서, `Dropout`, `BatchNormalization`, 등과 같은 것을 사용하는 경우) 만약 학습과 테스트 시기에 서로다른 행동을 보여준다면, 함수에 학습 시기에 대한 플래그값을 넘겨줘야만 할 것입니다:
 
 ```python
 get_3rd_layer_output = K.function([model.layers[0].input, K.learning_phase()],
                                   [model.layers[3].output])
 
-# output in test mode = 0
+# 테스트 모드 = 0 에 대한 출력
 layer_output = get_3rd_layer_output([x, 0])[0]
 
-# output in train mode = 1
+# 학습 모드 = 1 에 대하 출력
 layer_output = get_3rd_layer_output([x, 1])[0]
 ```
 
 ---
 
-### How can I use Keras with datasets that don't fit in memory?
+### 메모리 허용치 보다 큰 데이터셋을 Keras에서 어떻게 사용하 수 있는가?
 
-You can do batch training using `model.train_on_batch(x, y)` and `model.test_on_batch(x, y)`. See the [models documentation](/models/sequential).
+`model.train_on_batch(x, y)`그리고 `model.test_on_batch(x, y)`를 사용해서 batch 학습을 수행할 수 있습니다. [모델 문서](/models/sequential) 를 참조 하십시오.
 
-Alternatively, you can write a generator that yields batches of training data and use the method `model.fit_generator(data_generator, steps_per_epoch, epochs)`.
+다른 방법으로, 학습 데이터의 batch를 수확(yeild)하는 생성자(generator)를 만들고, `model.fit_generator(data_generator, steps_per_epoch, epochs)`메소드를 사용 하실 수 있습니다.
 
-You can see batch training in action in our [CIFAR10 example](https://github.com/keras-team/keras/blob/master/examples/cifar10_cnn.py).
+[CIFAR10 예제](https://github.com/keras-team/keras/blob/master/examples/cifar10_cnn.py)에서의 batch 학습이 어떻게 동작하는지를 확인해 보실 수 있습니다.
 
 ---
 
-### How can I interrupt training when the validation loss isn't decreasing anymore?
+### 검증 손실이 더 이상 감소핮 않을때, 어떻게 학습을 중단할 수 있는가?
 
-You can use an `EarlyStopping` callback:
+`EarlyStopping`콜백을 사용할 수 있습니다:
 
 ```python
 from keras.callbacks import EarlyStopping
@@ -332,30 +332,30 @@ early_stopping = EarlyStopping(monitor='val_loss', patience=2)
 model.fit(x, y, validation_split=0.2, callbacks=[early_stopping])
 ```
 
-Find out more in the [callbacks documentation](/callbacks).
+[콜백 문서](/callbacks)에서 좀 더 자세한 내용을 확인하십시오.
 
 ---
 
-### How is the validation split computed?
+### 검증의 나뉨이 어떻게 계산 되는가?
+ 
+`model.fit`에 있는 `validation_split` 인자를 예를 들어 0.1로 설정한 경우, 사용되는 검증 데이터는 데이터의 *마지막 10%* 가 됩니다. 만약 그 값을 0.25로 설정 한다면, 데이터의 마지막 25%가 될 것입니다. 데이터는 검증의 나뉨을 추출하기 전엔 뒤섞잊 않아서 검증이란 말 그대로 전달받은 입력 sample들의 *마지막* x%가 됨을 알아 두십시오.
 
-If you set the `validation_split` argument in `model.fit` to e.g. 0.1, then the validation data used will be the *last 10%* of the data. If you set it to 0.25, it will be the last 25% of the data, etc. Note that the data isn't shuffled before extracting the validation split, so the validation is literally just the *last* x% of samples in the input you passed.
-
-The same validation set is used for all epochs (within a same call to `fit`).
-
----
-
-### Is the data shuffled during training?
-
-Yes, if the `shuffle` argument in `model.fit` is set to `True` (which is the default), the training data will be randomly shuffled at each epoch.
-
-Validation data is never shuffled.
+(동일한 `fit`호출 안에서)모든 epoch에 대해서 동일한 검증 데이터가 사용 됩니다. 
 
 ---
 
+### 학습 도중에 데이터가 뒤섞이는가?
 
-### How can I record the training / validation loss / accuracy at each epoch?
+네, `model.fit`에 있는 `suffle`인자가 (디폴트)`True`로 설정 되었다면, 학습 데이터는 매 epoch마 무작위로 뒤섞이게 됩니다.
 
-The `model.fit` method returns a `History` callback, which has a `history` attribute containing the lists of successive losses and other metrics.
+검증 데이터는 뒤섞이지 않습니다.
+
+---
+
+
+### 어떻게 매 epoch마다 학습 / 검증 손실 / 정확도를 기록할 수 있는가?
+
+`model.fit`메소드는 `History`라는 콜백을 반환합니다. `History`콜백은 연속적인 손실값과 다른 메트릭스에 대한 리스트를 포함하는 `history` 속성을 가집니다.
 
 ```python
 hist = model.fit(x, y, validation_split=0.2)
