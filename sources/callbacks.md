@@ -1,6 +1,6 @@
-## Usage of callbacks
+## callbacks의 용도
 
-A callback is a set of functions to be applied at given stages of the training procedure. You can use callbacks to get a view on internal states and statistics of the model during training. You can pass a list of callbacks (as the keyword argument `callbacks`) to the `.fit()` method of the `Sequential` or `Model` classes. The relevant methods of the callbacks will then be called at each stage of the training. 
+callback은 주어진 학습 단계에서 적용될 수 있는 함수들의 집합입니다. 여러분은 모델의 훈련 도중 모델 내의 상태와 통계를 보기 위해 callbacks를 이용할 수 있습니다. callbacks의 리스트(키워드 인수 'callbacks'로)를 'Sequential' 또는 'Model' 클래스의 '.fit()' 메소드에 전달할 수 있습니다. 주어진 callbacks의 메소드는 훈련의 각 단계별로 호출될 것입니다.
 
 ---
 
@@ -11,31 +11,31 @@ A callback is a set of functions to be applied at given stages of the training p
 keras.callbacks.Callback()
 ```
 
-Abstract base class used to build new callbacks.
+새로운 callbacks를 빌드하는데 사용되는 추상화 기초 클래스(abstract base class)입니다.
 
 __Properties__
 
-- __params__: dict. Training parameters
-    (eg. verbosity, batch size, number of epochs...).
-- __model__: instance of `keras.models.Model`.
-    Reference of the model being trained.
+- __params__: 딕셔너리. 훈련 매개변수
+    (eg. 자세한 정도, 배치 크기, 에포크 수 등...).
+- __model__: 'keras.models.Model'의 인스턴스.
+    훈련되고 있는 모델의 기준
 
-The `logs` dictionary that callback methods
-take as argument will contain keys for quantities relevant to
-the current batch or epoch.
+callbacks의 메소드들이 인수로 받아들이는 'logs' 딕셔너리는 
+현재 배치, 또는 에포크에 해당하는 키 값들을 갖고 있습니다.
 
-Currently, the `.fit()` method of the `Sequential` model class
-will include the following quantities in the `logs` that
-it passes to its callbacks:
+지금은 'Sequential' 모델 클래스의 '.fit()' 메소드가 'logs'
+에 다음과 같은 값들을 포함하고 있을것이며, 이 값들을 callbacks
+에 넘깁니다.:
 
-on_epoch_end: logs include `acc` and `loss`, and
-optionally include `val_loss`
-(if validation is enabled in `fit`), and `val_acc`
-(if validation and accuracy monitoring are enabled).
-on_batch_begin: logs include `size`,
-the number of samples in the current batch.
-on_batch_end: logs include `loss`, and optionally `acc`
-(if accuracy monitoring is enabled).
+on_epoch_end: 한 에포크가 끝날 때 logs에는 'acc' 와 'loss',
+그리고 선택적으로 'val_loss'(만약 validation이 'fit'에 활성화되어있다면)
+와 'val_acc'(만약 validation과 accuracy 모니터링이 활성화 되어있다면)
+를 포함합니다.
+on_batch_begin: 한 배치의 시작점에 logs는 현재 배치에 들어 있는
+샘플의 수인 'size'를 포함합니다.
+on_batch_end: 한 배치가 끝나는 지점에 logs는 'loss'를 포함하고,
+선택적으로 'acc'(만약 accuracy 모니터링이 활성화 되어있다면)를
+포함합니다.
 
 ----
 
@@ -45,17 +45,16 @@ on_batch_end: logs include `loss`, and optionally `acc`
 ```python
 keras.callbacks.BaseLogger(stateful_metrics=None)
 ```
+측정 단위의 에포크별 평균을 누적시키는 콜백
 
-Callback that accumulates epoch averages of metrics.
-
-This callback is automatically applied to every Keras model.
+이 콜백은 모든 케라스 모델에 자동으로 적용됩니다.
 
 __Arguments__
 
-- __stateful_metrics__: Iterable of string names of metrics that
-    should *not* be averaged over an epoch.
-    Metrics in this list will be logged as-is in `on_epoch_end`.
-    All others will be averaged in `on_epoch_end`.
+- __stateful_metrics__: 에포크 단위별로 평균을 취하지 *말아야* 할
+    반복될 수 있는 측정 단위의 이름(스트링)
+    이 리스트에 해당하는 측정 단위들은 'on_epoch_end' log에 값 그대로
+    포함 되며, 다른 측정 단위들은 'on_epoch_end'에 평균되어 들어갑니다.
     
 ----
 
@@ -66,6 +65,7 @@ __Arguments__
 keras.callbacks.TerminateOnNaN()
 ```
 
+훈련 도중 loss 값이 NaN이 나왔을 때 종결시키는 콜백.
 Callback that terminates training when a NaN loss is encountered.
 
 ----
@@ -77,21 +77,20 @@ Callback that terminates training when a NaN loss is encountered.
 keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
 ```
 
-Callback that prints metrics to stdout.
+stdout 에 측정단위들을 프린트하는 콜백
 
 __Arguments__
 
-- __count_mode__: One of "steps" or "samples".
-    Whether the progress bar should
-    count samples seen or steps (batches) seen.
-- __stateful_metrics__: Iterable of string names of metrics that
-    should *not* be averaged over an epoch.
-    Metrics in this list will be logged as-is.
-    All others will be averaged over time (e.g. loss, etc).
+- __count_mode__: "steps"나 "samples"중 하나.
+    진행 표시줄이 샘플 갯수를 셀 지 배치 단계를 셀 지 정해줍니다.
+- __stateful_metrics__: 에포크 단위별로 평균을 취하지 *말아야* 할
+    반복될 수 있는 측정 단위의 이름(스트링)
+    이 리스트에 해당하는 측정 단위들은 값 그대로
+    포함 되며, 다른 측정 단위들은 평균되어 들어갑니다.(eg. loss, etc..)
 
 __Raises__
 
-- __ValueError__: In case of invalid `count_mode`.
+- __ValueError__: 적절치 않은 'count_mode'가 주어졌을 때.
     
 ----
 
@@ -102,11 +101,11 @@ __Raises__
 keras.callbacks.History()
 ```
 
-Callback that records events into a `History` object.
+'History' 오브젝트에 이벤트를 기록하는 콜백.
 
-This callback is automatically applied to
-every Keras model. The `History` object
-gets returned by the `fit` method of models.
+이 콜백은 모든 케라스 모델에 자동적으로 적용됩니다.
+'History' 오브젝트는 모델의 'fit' 메소드에 의해
+반환됩니다.
 
 ----
 
