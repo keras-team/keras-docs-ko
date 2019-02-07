@@ -1,7 +1,7 @@
 
-## Usage of activations
+## Activations의 이용
 
-Activations can either be used through an `Activation` layer, or through the `activation` argument supported by all forward layers:
+Activations는 'Activation' 층이나 앞선 층에서 지원하는 모든 'activation' argument로 이용 가능합니다:
 
 ```python
 from keras.layers import Activation, Dense
@@ -10,13 +10,13 @@ model.add(Dense(64))
 model.add(Activation('tanh'))
 ```
 
-This is equivalent to:
+이것은 다음과 같습니다:
 
 ```python
 model.add(Dense(64, activation='tanh'))
 ```
 
-You can also pass an element-wise TensorFlow/Theano/CNTK function as an activation:
+여러분은 Tensorflow/Theano/CNTK 의 element-wise 함수도 활성함수로 이용할 수 있습니다:
 
 ```python
 from keras import backend as K
@@ -24,7 +24,7 @@ from keras import backend as K
 model.add(Dense(64, activation=K.tanh))
 ```
 
-## Available activations
+## 사용 가능한 activations
 
 ### softmax
 
@@ -34,20 +34,20 @@ keras.activations.softmax(x, axis=-1)
 ```
 
 
-Softmax activation function.
+Softmax 활성화 함수.
 
 __Arguments__
 
-- __x__: Input tensor.
-- __axis__: Integer, axis along which the softmax normalization is applied.
+- __x__: 입력 텐서.
+- __axis__: 정수, softmax 정규화가 적용되는 축
 
 __Returns__
 
-Tensor, output of softmax transformation.
+텐서, softmax 변환의 출력.
 
 __Raises__
 
-- __ValueError__: In case `dim(x) == 1`.
+- __ValueError__: `dim(x) == 1`일 때.
     
 ----
 
@@ -63,13 +63,13 @@ Exponential linear unit.
 
 __Arguments__
 
-- __x__: Input tensor.
-- __alpha__: A scalar, slope of negative section.
+- __x__: 입력 텐서.
+- __alpha__: 스칼라, 음수 부분의 기울기
 
 __Returns__
 
-The exponential linear activation: `x` if `x > 0` and
-`alpha * (exp(x)-1)` if `x < 0`.
+The exponential linear activation: `x > 0` 라면 'x',
+`x < 0`라면 `alpha * (exp(x)-1)`.
 
 __References__
 
@@ -88,25 +88,24 @@ keras.activations.selu(x)
 
 Scaled Exponential Linear Unit (SELU).
 
-SELU is equal to: `scale * elu(x, alpha)`, where alpha and scale
-are pre-defined constants. The values of `alpha` and `scale` are
-chosen so that the mean and variance of the inputs are preserved
-between two consecutive layers as long as the weights are initialized
-correctly (see `lecun_normal` initialization) and the number of inputs
-is "large enough" (see references for more information).
+SELU는 다음과 같습니다: `scale * elu(x, alpha)`, 여기서 alpha와 scale은 
+미리 정해지는 상수입니다. 'alpha'와 'scale'의 값은 입력의 평균값과 분산값이
+두 개의 연속되는 층 사이에서 보존되도록 결정됩니다. 조건은 가중치의 초기치
+설정이 올바르게 되고(`lecun_normal` 초기치 설정 참조) 입력의 수가 "충분히
+클 때"입니다(references에서 더 많은 정보를 확인해주십시오).
 
 __Arguments__
 
-- __x__: A tensor or variable to compute the activation function for.
+- __x__: 활성 함수를 적용하는 텐서, 또는 변수.
 
 __Returns__
 
-   The scaled exponential unit activation: `scale * elu(x, alpha)`.
+   scaled exponential unit activation의 값: `scale * elu(x, alpha)`.
 
 __Note__
 
-- To be used together with the initialization "lecun_normal".
-- To be used together with the dropout variant "AlphaDropout".
+- "lecun_normal"과 함께 사용되어야 합니다.
+- "AlphaDropout"드롭아웃 변수와 함께 이용되어야 합니다.
 
 __References__
 
@@ -122,15 +121,15 @@ keras.activations.softplus(x)
 ```
 
 
-Softplus activation function.
+Softplus 활성화 함수.
 
 __Arguments__
 
-- __x__: Input tensor.
+- __x__: 입력 텐서.
 
 __Returns__
 
-The softplus activation: `log(exp(x) + 1)`.
+softplus 활성 함수: `log(exp(x) + 1)`.
     
 ----
 
@@ -142,15 +141,15 @@ keras.activations.softsign(x)
 ```
 
 
-Softsign activation function.
+Softsign 활성화 함수.
 
 __Arguments__
 
-- __x__: Input tensor.
+- __x__: 입력 텐서.
 
 __Returns__
 
-The softsign activation: `x / (abs(x) + 1)`.
+softsign 활성화 함수: `x / (abs(x) + 1)`.
     
 ----
 
@@ -164,23 +163,23 @@ keras.activations.relu(x, alpha=0.0, max_value=None, threshold=0.0)
 
 Rectified Linear Unit.
 
-With default values, it returns element-wise `max(x, 0)`.
+디폴트 값들로는, element-wise 'max(x, 0)'를 반환합니다.
 
-Otherwise, it follows:
-`f(x) = max_value` for `x >= max_value`,
-`f(x) = x` for `threshold <= x < max_value`,
-`f(x) = alpha * (x - threshold)` otherwise.
+값을 준다면, 다음을 따릅니다:
+`x >= max_value` 일 때 'f(x) = max_value`,
+`threshold <= x < max_value` 일 때 `f(x) = x`,
+그 외는 `f(x) = alpha * (x - threshold)`.
 
 __Arguments__
 
-- __x__: Input tensor.
-- __alpha__: float. Slope of the negative part. Defaults to zero.
-- __max_value__: float. Saturation threshold.
-- __threshold__: float. Threshold value for thresholded activation.
+- __x__: 입력 텐서.
+- __alpha__: 부동소수점. 음수 부분의 기울기. 디폴트는 0
+- __max_value__: 부동소수점. 포화 임계값
+- __threshold__: 부동소수점. 임계값 활성화를 위한 임계치
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -218,19 +217,19 @@ keras.activations.hard_sigmoid(x)
 
 Hard sigmoid activation function.
 
-Faster to compute than sigmoid activation.
+sigmoid 활성화 함수보다 컴퓨팅 속도가 빠릅니다.
 
 __Arguments__
 
-- __x__: Input tensor.
+- __x__: 입력 텐서.
 
 __Returns__
 
 Hard sigmoid activation:
 
-- `0` if `x < -2.5`
-- `1` if `x > 2.5`
-- `0.2 * x + 0.5` if `-2.5 <= x <= 2.5`.
+- `x < -2.5` 라면 '0'
+- `x > 2.5` 라면 '1'
+- `-2.5 <= x <= 2.5` 라면 `0.2 * x + 0.5`.
 
 ----
 
@@ -242,7 +241,7 @@ keras.activations.exponential(x)
 ```
 
 
-Exponential (base e) activation function.
+지수(밑은 e) 활성화 함수.
 
 ----
 
@@ -254,9 +253,9 @@ keras.activations.linear(x)
 ```
 
 
-Linear (i.e. identity) activation function.
+선형(i.e. identity) 활성화 함수.
 
 
-## On "Advanced Activations"
+## "고급 Activations"에 대하여
 
-Activations that are more complex than a simple TensorFlow/Theano/CNTK function (eg. learnable activations, which maintain a state) are available as [Advanced Activation layers](layers/advanced-activations.md), and can be found in the module `keras.layers.advanced_activations`. These include `PReLU` and `LeakyReLU`.
+간단한 TensorFlow/Theano/CNTK 활성화 함수보다 더 복잡한 함수들(eg. 상태를 유지하는 학습 가능한 활성화 함수) 는 [Advanced Activation layers](layers/advanced-activations.md) 에서 확인할 수 있으며, `keras.layers.advanced_activations` 모듈에서 찾을 수 있습니다. 이는 'PReLU'와 'LeakyReLU'를 포함합니다.
