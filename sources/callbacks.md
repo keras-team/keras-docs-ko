@@ -1,6 +1,6 @@
 ## callbacks의 용도
 
-callback은 주어진 학습 단계에서 적용될 수 있는 함수들의 집합입니다. 여러분은 모델의 훈련 도중 모델 내의 상태와 통계를 보기 위해 callbacks를 이용할 수 있습니다. callbacks의 리스트(키워드 인수 'callbacks'로)를 'Sequential' 또는 'Model' 클래스의 '.fit()' 메소드에 전달할 수 있습니다. 주어진 callbacks의 메소드는 훈련의 각 단계별로 호출될 것입니다.
+callback은 주어진 학습 단계에서 적용될 수 있는 함수들의 집합입니다. 여러분은 모델의 훈련 도중 모델 내의 상태와 통계를 보기 위해 callbacks를 이용할 수 있습니다. callbacks의 리스트(키워드 인수 `callbacks`로)를 `Sequential` 또는 `Model` 클래스의 `.fit()` 메소드에 전달할 수 있습니다. 주어진 callbacks의 메소드는 훈련의 각 단계별로 호출될 것입니다.
 
 ---
 
@@ -53,8 +53,8 @@ __Arguments__
 
 - __stateful_metrics__: 에포크 단위별로 평균을 취하지 *말아야* 할
     반복될 수 있는 측정 단위의 이름(스트링)
-    이 리스트에 해당하는 측정 단위들은 'on_epoch_end' log에 값 그대로
-    포함 되며, 다른 측정 단위들은 'on_epoch_end'에 평균되어 들어갑니다.
+    이 리스트에 해당하는 측정 단위들은 `on_epoch_end` log에 값 그대로
+    포함 되며, 다른 측정 단위들은 `on_epoch_end`에 평균되어 들어갑니다.
     
 ----
 
@@ -66,7 +66,6 @@ keras.callbacks.TerminateOnNaN()
 ```
 
 훈련 도중 loss 값이 NaN이 나왔을 때 종결시키는 콜백.
-Callback that terminates training when a NaN loss is encountered.
 
 ----
 
@@ -101,10 +100,10 @@ __Raises__
 keras.callbacks.History()
 ```
 
-'History' 오브젝트에 이벤트를 기록하는 콜백.
+`History` 오브젝트에 이벤트를 기록하는 콜백.
 
 이 콜백은 모든 케라스 모델에 자동적으로 적용됩니다.
-'History' 오브젝트는 모델의 'fit' 메소드에 의해
+`History` 오브젝트는 모델의 `fit` 메소드에 의해
 반환됩니다.
 
 ----
@@ -116,36 +115,34 @@ keras.callbacks.History()
 keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 ```
 
-Save the model after every epoch.
+모든 에포크 이후에 모델을 저장합니다.
 
-`filepath` can contain named formatting options,
-which will be filled with the values of `epoch` and
-keys in `logs` (passed in `on_epoch_end`).
+`filepath`는 포매팅 옵션으로 경로를 지정할 수 있으며,
+`epoch`의 값들과 `logs`(`on_epoch_end`로부터 전달된)
+값들을 갖고 있게 됩니다.
 
-For example: if `filepath` is `weights.{epoch:02d}-{val_loss:.2f}.hdf5`,
-then the model checkpoints will be saved with the epoch number and
-the validation loss in the filename.
+예를 들어: 만약 `filepath` 가 `weights.{epoch:02d}-{val_loss:.2f}.hdf5`라면,
+모델 체크포인트는 파일명에 에포크의 수와 validation loss를 포함하게 됩니다.
+
 
 __Arguments__
 
-- __filepath__: string, path to save the model file.
-- __monitor__: quantity to monitor.
-- __verbose__: verbosity mode, 0 or 1.
-- __save_best_only__: if `save_best_only=True`,
-    the latest best model according to
-    the quantity monitored will not be overwritten.
-- __mode__: one of {auto, min, max}.
-    If `save_best_only=True`, the decision
-    to overwrite the current save file is made
-    based on either the maximization or the
-    minimization of the monitored quantity. For `val_acc`,
-    this should be `max`, for `val_loss` this should
-    be `min`, etc. In `auto` mode, the direction is
-    automatically inferred from the name of the monitored quantity.
-- __save_weights_only__: if True, then only the model's weights will be
-    saved (`model.save_weights(filepath)`), else the full model
-    is saved (`model.save(filepath)`).
-- __period__: Interval (number of epochs) between checkpoints.
+- __filepath__: 스트링, 모델을 저장하는 경로
+- __monitor__: 모니터하는 값
+- __verbose__: 자세함의 정도를 설정하는 모드, 0 또는 1.
+- __save_best_only__: `save_best_only=True` 라면,
+    측정된 값 기준 가장 좋은 모델 중 마지막 모델이 더
+    새로운 모델에 의해 대체되지 않습니다.
+- __mode__: {auto, min, max}중 하나
+    `save_best_only=True`라면, 현재 저장된 파일을 겹쳐 쓸지에
+    대한 결정이 모니터되는 값의 최대화, 또는 최소화에 의해 결정
+    됩니다. `val_acc`의 경우 `max`가 되어야 하고, `val_loss`의
+    경우 `min`이 되어야 하는 식입니다. `auto` 모드에서는 측정되는
+    값의 이름에 따라 자동으로 이 방향이 결정됩니다.
+- __save_weights_only__: True 라면, 모델의 가중치만 
+    (`model.save_weights(filepath)`)로 저장되고, False 라면 전체
+    모드가 (`model.save(filepath)`)로 저장이 됩니다.
+- __period__: 체크포인트 간극(에포크의 수).
     
 ----
 
@@ -156,32 +153,27 @@ __Arguments__
 keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 ```
 
-Stop training when a monitored quantity has stopped improving.
+측정되는 수치가 더 이상 개선되지 않을 때 훈련을 멈춥니다.
 
 __Arguments__
 
-- __monitor__: quantity to be monitored.
-- __min_delta__: minimum change in the monitored quantity
-    to qualify as an improvement, i.e. an absolute
-    change of less than min_delta, will count as no
-    improvement.
-- __patience__: number of epochs with no improvement
-    after which training will be stopped.
-- __verbose__: verbosity mode.
-- __mode__: one of {auto, min, max}. In `min` mode,
-    training will stop when the quantity
-    monitored has stopped decreasing; in `max`
-    mode it will stop when the quantity
-    monitored has stopped increasing; in `auto`
-    mode, the direction is automatically inferred
-    from the name of the monitored quantity.
-- __baseline__: Baseline value for the monitored quantity to reach.
-    Training will stop if the model doesn't show improvement
-    over the baseline.
-- __restore_best_weights__: whether to restore model weights from
-    the epoch with the best value of the monitored quantity.
-    If False, the model weights obtained at the last step of
-    training are used.
+- __monitor__: 모니터되는 측정값
+- __min_delta__: 모니터되는 측정값이 개선이라고 판단될 수 있는
+    최소한의 변화, i.e. min_delta의 절댓값보다 작은 값이 바뀔
+    경우, 개선이라고 판단되지 않습니다.
+- __patience__: 값이 더 이상 개선이 되지 않을 때 훈련이 중단
+    되기 전까지의 에포크 수
+- __verbose__: 자세함의 정도를 설정하는 모드.
+- __mode__: {auto, min, max}중 하나. `min` 모드에서는,
+    수치가 더 이상 감소하지 않을 때 훈련이 멈춥니다;
+    `max` 모드에서는, 수치가 더 이상 증가하지 않을 때
+    훈련이 멈춥니다; `auto` 모드에서는, 측정되는 수치의
+    이름에 따라 해당하는 방향이 자동으로 결정됩니다.
+- __baseline__: 모니터되는 값이 가져야 할 기준치.
+    이 기준치 이상 모델이 더 좋아지지 않을 때 훈련은 멈춥니다.
+- __restore_best_weights__: 측정된 수치가 가장 좋았을 때의 모델
+    가중치를 다시 불러올 지를 정해줍니다. False 라면, 훈련의
+    마지막 단계에서 얻은 가중치를 사용합니다.
     
 ----
 
@@ -192,7 +184,7 @@ __Arguments__
 keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
 ```
 
-Callback used to stream events to a server.
+서버로 스트리밍 할 때 이용되는 콜백.
 
 Requires the `requests` library.
 Events are sent to `root + '/publish/epoch/end/'` by default. Calls are
