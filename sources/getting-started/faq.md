@@ -8,18 +8,18 @@
 - [왜 학습 손실이 테스트 손실보다 더 큰가?](#why-is-the-training-loss-much-higher-than-the-testing-loss)
 - [어떻게 중간 계층의 출력을 얻을 수 있는가?](#how-can-i-obtain-the-output-of-an-intermediate-layer)
 - [메모리 허용치 보다 큰 데이터셋을 Keras에서 어떻게 사용하 수 있는가?](#how-can-i-use-keras-with-datasets-that-dont-fit-in-memory)
-- [검증 손실이 더 이상 감소핮 않을때, 어떻게 학습을 중단할 수 있는가?](#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore)
+- [검증 손실이 더 이상 감소하지 않을때, 어떻게 학습을 중단할 수 있는가?](#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore)
 - [검증의 나뉨이 어떻게 계산 되는가?](#how-is-the-validation-split-computed)
 - [학습 도중에 데이터가 뒤섞이는가?](#is-the-data-shuffled-during-training)
 - [어떻게 매 epoch마다 학습 / 검증 손실 / 정확도를 기록할 수 있는가?](#how-can-i-record-the-training--validation-loss--accuracy-at-each-epoch)
-- [How can I "freeze" layers?](#how-can-i-freeze-keras-layers)
-- [How can I use stateful RNNs?](#how-can-i-use-stateful-rnns)
-- [How can I remove a layer from a Sequential model?](#how-can-i-remove-a-layer-from-a-sequential-model)
-- [How can I use pre-trained models in Keras?](#how-can-i-use-pre-trained-models-in-keras)
-- [How can I use HDF5 inputs with Keras?](#how-can-i-use-hdf5-inputs-with-keras)
-- [Where is the Keras configuration file stored?](#where-is-the-keras-configuration-file-stored)
-- [How can I obtain reproducible results using Keras during development?](#how-can-i-obtain-reproducible-results-using-keras-during-development)
-- [How can I install HDF5 or h5py to save my models in Keras?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras)
+- [어떻게 계층을 "freeze"할 수 있는가?](#how-can-i-freeze-keras-layers)
+- [어떻게 상태 기반(stateful) RNNs를 사용할 수 있는가?](#how-can-i-use-stateful-rnns)
+- [순차적 모델로 부터 어떻게 계층을 삭제할 수 있는가?](#how-can-i-remove-a-layer-from-a-sequential-model)
+- [Keras에서 어떻게 미리 학습된 모델을 사용할 수 있는가?](#how-can-i-use-pre-trained-models-in-keras)
+- [HDF5를 어떻게 Keras에 입력으로 사용할 수 있는가?](#how-can-i-use-hdf5-inputs-with-keras)
+- [Keras 설정 파일은 어디에 저장되어 있는가?](#where-is-the-keras-configuration-file-stored)
+- [개발 도중 Keras를 사용해서 어떻게 재생산 가능한 결과를 얻을 수 있는가?](#how-can-i-obtain-reproducible-results-using-keras-during-development)
+- [Keras에서 모델을 저장하기 위한 HDF5 또는 h5py를 어떻게 설치할 수 있는가?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras)
 
 ---
 
@@ -364,17 +364,17 @@ print(hist.history)
 
 ---
 
-### How can I "freeze" Keras layers?
+### 어떻게 계층을 "freeze"할 수 있는가?
 
-To "freeze" a layer means to exclude it from training, i.e. its weights will never be updated. This is useful in the context of fine-tuning a model, or using fixed embeddings for a text input.
+계층을 "freeze" 한다는 것은 학습의 대상에서 제외시킴을 의미 합니다. 예를 들어서, 그 계층의 가중치는 업데이트 되지 않습니다. 모델을 미세조정하거나 텍스트 입력에 대해서 고정된 임베딩을 사용해야하는 경우에 유용합니다.
 
-You can pass a `trainable` argument (boolean) to a layer constructor to set a layer to be non-trainable:
+계층의 생성자의 `trainable`인자에 학습가능하지 않은 계층의 집합을 넘겨줄 수 있습니다.
 
 ```python
 frozen_layer = Dense(32, trainable=False)
 ```
 
-Additionally, you can set the `trainable` property of a layer to `True` or `False` after instantiation. For this to take effect, you will need to call `compile()` on your model after modifying the `trainable` property. Here's an example:
+추가적으로, 계층을 인스턴스호 한 후에 `trainable` 속성을 `True`또는 `False`로 설정할 수 있습니다. 설정 내용이 반영되려면, `trainable`속성을 변경한 후에 모델에 대하여 `compile()`을 호출해줘야 합니다. 다음은 그에대하 예 입니다:
 
 ```python
 x = Input(shape=(32,))
@@ -383,13 +383,13 @@ layer.trainable = False
 y = layer(x)
 
 frozen_model = Model(x, y)
-# in the model below, the weights of `layer` will not be updated during training
+# 아래의 모델에서, `layer`에 대하 가중치는 학습도중 업데이트 되지 않습니다.
 frozen_model.compile(optimizer='rmsprop', loss='mse')
 
 layer.trainable = True
 trainable_model = Model(x, y)
-# with this model the weights of the layer will be updated during training
-# (which will also affect the above model since it uses the same layer instance)
+# 이번의 모델에서는 layer의 가중치가 학습도중 업데이트 됩니다.
+# (동일한 계층 인스턴스를 사용하기 때문에, 그 결과는 위의 모델에도 영향을 미칩니다.)
 trainable_model.compile(optimizer='rmsprop', loss='mse')
 
 frozen_model.fit(data, labels)  # this does NOT update the weights of `layer`
@@ -398,31 +398,31 @@ trainable_model.fit(data, labels)  # this updates the weights of `layer`
 
 ---
 
-### How can I use stateful RNNs?
+### 어떻게 상태 기반(stateful) RNNs를 사용할 수 있는가?
 
-Making a RNN stateful means that the states for the samples of each batch will be reused as initial states for the samples in the next batch.
+RNN을 상태기반으로 만든다는 것은 각 batch의 샘플에 대한 상태가 다음 batch의 샘플에 대한 초기 상태로서 재사용된다는 의미를 가집니다.
 
-When using stateful RNNs, it is therefore assumed that:
+따라서, 상태 기반 RNNs을 사용할 때, 다음과 같은것이 가정됩니다:
 
-- all batches have the same number of samples
-- If `x1` and `x2` are successive batches of samples, then `x2[i]` is the follow-up sequence to `x1[i]`, for every `i`.
+- 모든 batch는 동일한 수의 샘플을 가집니다.
+- 만야 `x1`와 `x2`가 연속적인 샘플에 대한 batch라면, 모든 i에 대해서 `x2[i]`가 `x1[i]`의 다음 순서가 됩니다.
 
-To use statefulness in RNNs, you need to:
+RNNs에서 상태 정보를 사용하려면, 다음을 수행해야 합니다:
 
-- explicitly specify the batch size you are using, by passing a `batch_size` argument to the first layer in your model. E.g. `batch_size=32` for a 32-samples batch of sequences of 10 timesteps with 16 features per timestep.
-- set `stateful=True` in your RNN layer(s).
-- specify `shuffle=False` when calling `fit()`.
+- 모델의 첫 번째 계층에 `batch_size`인자에 사용하고자 하는 batch 크기를 명시적으로 전달해 줘야 합니다. 예를 들어서, `batch_size=32`는 32개의 샘플로 구성된 batch의 순서를 16개의 특징(features)을 가지는 10번의 시간 단계로 구성합니다.
+- RNN 계층에 대하여 `stateful=True`을 설정해 주십시오.
+- `fit()`을 호출할 때, `suffle=False`을 설정해 주십시오.
 
-To reset the states accumulated:
+누적된 상태를 리셋하기 위해서는:
 
-- use `model.reset_states()` to reset the states of all layers in the model
-- use `layer.reset_states()` to reset the states of a specific stateful RNN layer
+- `model.reset_states()`을 사용해서 모델의 모든 계층에 대한 상태를 리셋 하십시오.
+- use `layer.reset_states()`을 사용해서 상태 기반의 특정 RNN 계층의 상태를 리셋 하십시오.
 
 Example:
 
 ```python
-x  # this is our input data, of shape (32, 21, 16)
-# we will feed it to our model in sequences of length 10
+x  # 입력 데이터로, 그 shape은 (32, 12, 16) 입니다.
+# 길이 10로 구성된 순서들을 모델에 주입하게 됩니다.
 
 model = Sequential()
 model.add(LSTM(32, input_shape=(10, 16), batch_size=32, stateful=True))
@@ -430,26 +430,26 @@ model.add(Dense(16, activation='softmax'))
 
 model.compile(optimizer='rmsprop', loss='categorical_crossentropy')
 
-# we train the network to predict the 11th timestep given the first 10:
+# 주어진 처음 10 시간 순서로부터, 11번째 시간 순서를 예측할 수 있도록 네트워크를 학습시킵니다.
 model.train_on_batch(x[:, :10, :], np.reshape(x[:, 10, :], (32, 16)))
 
-# the state of the network has changed. We can feed the follow-up sequences:
+# 네트워크의 상태가 변화 했고, 그 다음의 시간 순서를 주입할 수 있습니다.
 model.train_on_batch(x[:, 10:20, :], np.reshape(x[:, 20, :], (32, 16)))
 
-# let's reset the states of the LSTM layer:
+# LSTM 계층의 상태를 리셋 합니다:
 model.reset_states()
 
-# another way to do it in this case:
+# 다음과 같이 리셋을위한 다른 방법도 있습니다:
 model.layers[0].reset_states()
 ```
 
-Note that the methods `predict`, `fit`, `train_on_batch`, `predict_classes`, etc. will *all* update the states of the stateful layers in a model. This allows you to do not only stateful training, but also stateful prediction.
+`predict`, `fit`, `train_on_batch`, `predict_classes`, 등의 모든 메소드는 모델내의 상태기반 계층의 상태를 업데이트 합니다. 상태 기반 학습을 할 수 있게 해줄 뿐만 아니라, 상태기반 예측도 가능하게 해 줍니다.
 
 ---
 
-### How can I remove a layer from a Sequential model?
+### 순차적 모델로 부터 어떻게 계층을 삭제할 수 있는가?
 
-You can remove the last added layer in a Sequential model by calling `.pop()`:
+`.pop()`을 호출하여 순차적 모델에 마지막에 추가된 계층을 삭제하 수 있습니다:
 
 ```python
 model = Sequential()
@@ -464,9 +464,9 @@ print(len(model.layers))  # "1"
 
 ---
 
-### How can I use pre-trained models in Keras?
+### Keras에서 어떻게 미리 학습된 모델을 사용할 수 있는가?
 
-Code and pre-trained weights are available for the following image classification models:
+다음의 이미지 분류 모델에 대한 코드와 미리 학습된 가중치를 활용할 수 있습니다:
 
 - Xception
 - VGG16
@@ -481,7 +481,7 @@ Code and pre-trained weights are available for the following image classificatio
 - DenseNet
 - NASNet
 
-They can be imported from the module `keras.applications`:
+ `keras.applications`모듈로 부터 불러와져서 사용될 수 있습니다:
 
 ```python
 from keras.applications.xception import Xception
@@ -508,11 +508,11 @@ from keras.applications.nasnet import NASNetMobile
 model = VGG16(weights='imagenet', include_top=True)
 ```
 
-For a few simple usage examples, see [the documentation for the Applications module](/applications).
+몇 간단한 사용법 예는 [Applications 모듈에 대하 문서](/applications)를 확인하시기 바랍니다.
 
-For a detailed example of how to use such a pre-trained model for feature extraction or for fine-tuning, see [this blog post](http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html).
+미세 조정이나 특징 추출을 위해서 미리 학습된 모델을 사용하는 방법에 대한 자세한 내용은 [여기 블로그 포스트](http://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html)를 확인하시기 바랍니다.
 
-The VGG16 model is also the basis for several Keras example scripts:
+VGG16 모델은 몇 Keras의 예제 스크립트의 기본으로 사용되고 있습니다:
 
 - [Style transfer](https://github.com/keras-team/keras/blob/master/examples/neural_style_transfer.py)
 - [Feature visualization](https://github.com/keras-team/keras/blob/master/examples/conv_filter_visualization.py)
@@ -520,11 +520,11 @@ The VGG16 model is also the basis for several Keras example scripts:
 
 ---
 
-### How can I use HDF5 inputs with Keras?
+### HDF5를 어떻게 Keras에 입력으로 사용할 수 있는가?
 
-You can use the `HDF5Matrix` class from `keras.utils`. See [the HDF5Matrix documentation](/utils/#hdf5matrix) for details.
+`keras.utils`에 있는 `HDF5Matrix`클래스를 사용할 수 있습니다. 자세한 내용은 [the HDF5Matrix documentation](/utils/#hdf5matrix)를 참고하시기 바랍니다.
 
-You can also directly use a HDF5 dataset:
+HDF5 데이터셋을 직접적으로 사용할 수 있습니다:
 
 ```python
 import h5py
@@ -533,22 +533,22 @@ with h5py.File('input/file.hdf5', 'r') as f:
     model.predict(x_data)
 ```
 
-Please also see [How can I install HDF5 or h5py to save my models in Keras?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras) for instructions on how to install `h5py`.
+[Keras에서 모델을 저장하기 위한 HDF5 또는 h5py를 어떻게 설치할 수 있는가?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras) 에서 `h5py`를 설치하기 위한 설명을 참고 하십시오.
 
 ---
 
-### Where is the Keras configuration file stored?
+### Keras 설정 파일은 어디에 저장되어 있는가?
 
-The default directory where all Keras data is stored is:
+Keras의 데이터가 저장되는 디폴트 디렉토리의 위치는 다음과 같습니다:
 
 ```bash
 $HOME/.keras/
 ```
 
-Note that Windows users should replace `$HOME` with `%USERPROFILE%`.
-In case Keras cannot create the above directory (e.g. due to permission issues), `/tmp/.keras/` is used as a backup.
+Windows 사용자는 `$HOME`을 `%USERPROFILE%`로 교체하십시오.
+(권한 문제등으로 인해서) Keras가 위 디렉토리를 생성할 수 없는 경우라면, `/tmp/.keras`가 백업으로 사용 됩니다.
 
-The Keras configuration file is a JSON file stored at `$HOME/.keras/keras.json`. The default configuration file looks like this:
+Keras 설정 파일은 JSON 파일로, `$HOME/.keras/keras.json`에 저장되어 있습니다. 디폴트 설정 파일은 다음과 같은 형태를 가집니다:
 
 ```
 {
@@ -559,71 +559,71 @@ The Keras configuration file is a JSON file stored at `$HOME/.keras/keras.json`.
 }
 ```
 
-It contains the following fields:
+다음과 같은 필드 요소를 포함합니다:
 
-- The image data format to be used as default by image processing layers and utilities (either `channels_last` or `channels_first`).
-- The `epsilon` numerical fuzz factor to be used to prevent division by zero in some operations.
-- The default float data type.
-- The default backend. See the [backend documentation](/backend).
+- (`channels_last`또는 `channels_first`) 유틸리티와 이미지 철 계층에서 디폴트로 사용될 이미지 데이터의 포맷을 나타냅니다.
+- `epsilon`는 숫자의 fuzz 요소로, 몇 연산자에서 0으로 나눠지는 것을 방지하기 위해서 사용 됩니다.
+- 디폴트 자료형을 부동소수(float)로 명시 합니다.
+- 디폴트 백엔드를 명시합니다. [백엔드 문서](/backend)를 참고 하십시오.
 
-Likewise, cached dataset files, such as those downloaded with [`get_file()`](/utils/#get_file), are stored by default in `$HOME/.keras/datasets/`.
+이와 비슷하게, [`get_file()`](/utils/#get_file)같은것에 의해 다운로드된 캐쉬된 데이터셋의 파일은 디폴트로 `$HOME/.keras/datasets/`에 저장됩니다.
 
 ---
 
-### How can I obtain reproducible results using Keras during development?
+### [개발 도중 Keras를 사용해서 어떻게 재생산 가능한 결과를 얻을 수 있는가?]
 
-During development of a model, sometimes it is useful to be able to obtain reproducible results from run to run in order to determine if a change in performance is due to an actual model or data modification, or merely a result of a new random sample.
+모델을 개발하는 도중에 성능에서의 어떠 변화가 실제 모델의 의한 것인지, 데이터 변형에 의한 것인지, 또는 새로운 무작위 샘플들에 의한 결과 때문인지를 판단하 위해서 재생산이 가능한 결과를 실행할 때 마다 얻는것이 때로는 유용할 수 있습니다. 
 
-First, you need to set the `PYTHONHASHSEED` environment variable to `0` before the program starts (not within the program itself). This is necessary in Python 3.2.3 onwards to have reproducible behavior for certain hash-based operations (e.g., the item order in a set or a dict, see [Python's documentation](https://docs.python.org/3.7/using/cmdline.html#envvar-PYTHONHASHSEED) or [issue #2280](https://github.com/keras-team/keras/issues/2280#issuecomment-306959926) for further details). One way to set the environment variable is when starting python like this:
+우선, `PYTHONHASHSEED`환경 변수를 프로그램이 시작하기 전 `0`으로 설정하십시오. Python 3.2.3 이후의 버전에서는 (set이나 dict 자료구조의 저장 순서와 같은, 더 깊은 이해를 위해서는 [Python 문서](https://docs.python.org/3.7/using/cmdline.html#envvar-PYTHONHASHSEED) 또는 [이슈 #2280](https://github.com/keras-team/keras/issues/2280#issuecomment-306959926)를 확인하십시오)해쉬 기반의 연산의 행동을 재생산 하기 위한  필수 과정 입니다. 환경 변수를 설정하기 위한 한 가지 방법은 다음과 같이 Python이 실행되 때 해주는 것입니다:
 
 ```
 $ cat test_hash.py
 print(hash("keras"))
-$ python3 test_hash.py                  # non-reproducible hash (Python 3.2.3+)
+$ python3 test_hash.py                  # 재생산이 불가능한 해쉬 (Python 3.2.3+)
 -8127205062320133199
-$ python3 test_hash.py                  # non-reproducible hash (Python 3.2.3+)
+$ python3 test_hash.py                  # 재생산이 불가능한 해쉬 (Python 3.2.3+)
 3204480642156461591
-$ PYTHONHASHSEED=0 python3 test_hash.py # reproducible hash
+$ PYTHONHASHSEED=0 python3 test_hash.py # 재생산이 가능한 해쉬
 4883664951434749476
-$ PYTHONHASHSEED=0 python3 test_hash.py # reproducible hash
+$ PYTHONHASHSEED=0 python3 test_hash.py # 재생산이 가능한 해쉬
 4883664951434749476
 ```
 
-Moreover, when using the TensorFlow backend and running on a GPU, some operations have non-deterministic outputs, in particular `tf.reduce_sum()`. This is due to the fact that GPUs run many operations in parallel, so the order of execution is not always guaranteed. Due to the limited precision of floats, even adding several numbers together may give slightly different results depending on the order in which you add them. You can try to avoid the non-deterministic operations, but some may be created automatically by TensorFlow to compute the gradients, so it is much simpler to just run the code on the CPU. For this, you can set the `CUDA_VISIBLE_DEVICES` environment variable to an empty string, for example:
+더욱이 GPU에서 구동하는 TensorFlow를 백엔드 사용한다면, `tf.reduce_sum()`와 같은 몇 연산들은 비결정적(non-deterministic)인 출력을 만들어 냅니다. 많은 연산들이 병렬로 GPU에서 수행되기 때문이며, 그렇ㄱ 때문에 실행의 순서가 항상 보장되 않습니다. 부동소수에 대한 제한된 정확성 때문에, 몇 숫자들을 더하는것 조차 더해지는 순서에 따라서 약간 다른 결과를 보여줄 수 있습니다. 여러분 스스로가 비결정적 연산을 피해보려고 노력할 수는 있지만, 경사도를 계산하기 위해서 TensorFlow가 자동으로 생성하는 부분이 있기 때문에, CPU에서 코드를 실행해 보는 것이 훨씬 더 간단합니다. 그러 위해서, 다음과 같이 `CUDA_VISIBLE_DEVICES`환경 변수에 빈 문자열을 설정해 줄 수 있습니다:
 
 ```
 $ CUDA_VISIBLE_DEVICES="" PYTHONHASHSEED=0 python your_program.py
 ```
 
-The below snippet of code provides an example of how to obtain reproducible results - this is geared towards a TensorFlow backend for a Python 3 environment:
+아래의 코드 스니펫은 재생산이 가능하 결과를 얻어오기 위한 예를 보여줍니다 - 사용된 환경은 Python3와 TensorFlow를 백엔드 사용하고 있습니다:
 
 ```python
 import numpy as np
 import tensorflow as tf
 import random as rn
 
-# The below is necessary for starting Numpy generated random numbers
-# in a well-defined initial state.
+# 아래는 Numpy가 무작위 숫자의 발생을 
+# 잘 정의된 초기 상태에 따라서 시작하기 위해서 필수입니다.
 
 np.random.seed(42)
 
-# The below is necessary for starting core Python generated random numbers
-# in a well-defined state.
+# 아래는 Python 코어가 무작위 숫자의 발생을
+# 잘 정의된 초기 상태에 따라서 시작하 위해서 필수입니다.
 
 rn.seed(12345)
 
-# Force TensorFlow to use single thread.
-# Multiple threads are a potential source of non-reproducible results.
-# For further details, see: https://stackoverflow.com/questions/42022950/
+# TensorFlow가 단을 쓰레드를 사용하도록 강제 합니다.
+# 다중 쓰레드는 재생산할 수 없는 결과를 만들어내는 잠재적 요소 입니다.
+# 더 자세한 내용은 https://stackoverflow.com/questions/42022950/를 확인하십시오.
 
 session_conf = tf.ConfigProto(intra_op_parallelism_threads=1,
                               inter_op_parallelism_threads=1)
 
 from keras import backend as K
 
-# The below tf.set_random_seed() will make random number generation
-# in the TensorFlow backend have a well-defined initial state.
-# For further details, see:
+# 아래의 tf.set_random_seed()는 TensorFlow를 백엔드로 하는 
+# 잘 정의된 초기 상태에 따른 무작위 숫자 발생을 만들어 냅니다.
+# 더 자세한 내용은 다음을 확인하십시오:
 # https://www.tensorflow.org/api_docs/python/tf/set_random_seed
 
 tf.set_random_seed(1234)
@@ -631,28 +631,26 @@ tf.set_random_seed(1234)
 sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
 K.set_session(sess)
 
-# Rest of code follows ...
+# 나머 코드가 기술됩니다 ...
 ```
 
 ---
 
-### How can I install HDF5 or h5py to save my models in Keras?
+### Keras에서 모델을 저장하기 위한 HDF5 또는 h5py를 어떻게 설치할 수 있는가?
 
-In order to save your Keras models as HDF5 files, e.g. via
-`keras.callbacks.ModelCheckpoint`, Keras uses the h5py Python package. It is
- a dependency of Keras and should be installed by default. On Debian-based
- distributions, you will have to additionally install `libhdf5`:
+`keras.callbacks.ModelCheckpoint`와 같은 것을 사용하여 Keras 모델을 HDF5 파일로서 저장학 위해서,
+Keras는 h5py라는 Python 패키지를 사용합니다. Keras의 의존성(dependency)로, 디폴트 설치가 되어 합니다.
+데비안 기반의 환경에서는 `libhdf5`가 추가적으로 설치 되어야만 합니다:
 
 ```
 sudo apt-get install libhdf5-serial-dev
 ```
 
-If you are unsure if h5py is installed you can open a Python shell and load the
-module via
+h5py가 설치되었는지 잘 모르겠다면, Python 쉘을 열어 아래처럼 모듈을 불러와볼 수 있습니다:
 
 ```
 import h5py
 ```
 
-If it imports without error it is installed, otherwise you can find detailed
-installation instructions here: http://docs.h5py.org/en/latest/build.html
+import 수행시 에러가 없다면, 설치가 된 것입니다. 그렇지 않다면, 더 상세한 
+설치에 대한 설명을 여기서:http://docs.h5py.org/en/latest/build.html 참고하십시오.
