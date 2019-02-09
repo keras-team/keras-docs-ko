@@ -87,16 +87,18 @@ An external backend must be validated in order to be used, a valid backend must 
 
 ----
 
-## Using the abstract Keras backend to write new code
+## 추상 Keras 백엔드를 사용하여 새로운 코드 작성
 
 If you want the Keras modules you write to be compatible with both Theano (`th`) and TensorFlow (`tf`), you have to write them via the abstract Keras backend API. Here's an intro.
+작성한 케라스 모듈이 Theano (`th`)와 텐서플로우 (`tf`)와 호환되도록하려면 추상 케라스 백엔드 API를 통해 작성해야합니다. 여기에 소개가 있습니다.
 
-You can import the backend module via:
+다음을 통해 백엔드 모듈을 가져올 수 있습니다.
 ```python
 from keras import backend as K
 ```
 
 The code below instantiates an input placeholder. It's equivalent to `tf.placeholder()` or `th.tensor.matrix()`, `th.tensor.tensor3()`, etc.
+아래 코드는 입력 자리 표시자를 인스턴스화합니다. 그것은`tf.placeholder ()`또는`th.tensor.matrix ()`,`th.tensor.tensor3 ()`등과 같은 것입니다.
 
 ```python
 inputs = K.placeholder(shape=(2, 4, 5))
@@ -107,6 +109,7 @@ inputs = K.placeholder(ndim=3)
 ```
 
 The code below instantiates a variable. It's equivalent to `tf.Variable()` or `th.shared()`.
+아래의 코드는 변수를 인스턴스화합니다. `tf.Variable ()`또는`th.shared ()`와 동일합니다.
 
 ```python
 import numpy as np
@@ -120,6 +123,7 @@ var = K.ones(shape=(3, 4, 5))
 ```
 
 Most tensor operations you will need can be done as you would in TensorFlow or Theano:
+TensorFlow 또는 Theano에서와 같이 수행해야 할 대부분의 텐서 연산은 다음과 같습니다.
 
 ```python
 # Initializing Tensors with Random Numbers
@@ -139,9 +143,11 @@ a = K.concatenate([b, c], axis=-1)
 ----
 
 ## Backend functions
+## 백엔드 함수들
 
 
 ### epsilon
+### epsilon(엡실론)
 
 
 ```python
@@ -150,10 +156,12 @@ keras.backend.epsilon()
 
 
 Returns the value of the fuzz factor used in numeric expressions.
+수치 식에 사용되는 모호 인자의 값을 반환합니다.
 
 __Returns__
 
 A float.
+부동 소수
 
 __Example__
 
@@ -165,6 +173,7 @@ __Example__
 ----
 
 ### set_epsilon
+### set_epsilon(앱실론 셋)
 
 
 ```python
@@ -173,10 +182,12 @@ keras.backend.set_epsilon(e)
 
 
 Sets the value of the fuzz factor used in numeric expressions.
+수치 식에 사용되는 모호한 계수의 값을 설정합니다.
 
 __Arguments__
 
 - __e__: float. New value of epsilon.
+- __e__: 부동소수. 앱실론의 새로운 값.
 
 __Example__
 
@@ -201,10 +212,13 @@ keras.backend.floatx()
 
 Returns the default float type, as a string.
 (e.g. 'float16', 'float32', 'float64').
+디폴트의 float 형을 string로서 돌려줍니다.
+(예 : 'float16', 'float32', 'float64').
 
 __Returns__
 
 String, the current default float type.
+String, 현재 기본형의 float 타입
 
 __Example__
 
@@ -224,6 +238,7 @@ keras.backend.set_floatx(floatx)
 
 
 Sets the default float type.
+디폴트 float형을 세팅합니다.
 
 __Arguments__
 
@@ -251,6 +266,7 @@ keras.backend.cast_to_floatx(x)
 
 
 Cast a Numpy array to the default Keras float type.
+Numpy(넘파이) 배열을 디폴트 케라스 float 형으로 바꿉니다.
 
 __Arguments__
 
@@ -259,6 +275,7 @@ __Arguments__
 __Returns__
 
 The same Numpy array, cast to its new type.
+같은 Numpy(넘파이) 배열, 케라스의 새로운 타입으로 바꿉니다.
 
 __Example__
 
@@ -291,6 +308,7 @@ Returns the default image data format convention.
 __Returns__
 
 A string, either `'channels_first'` or `'channels_last'`
+문자열은`'channels_first'` 또는`'channels_last'` 중 하나입니다.
 
 __Example__
 
@@ -310,10 +328,12 @@ keras.backend.set_image_data_format(data_format)
 
 
 Sets the value of the data format convention.
+데이터 형식 규칙의 값을 설정합니다.
 
 __Arguments__
 
 - __data_format__: string. `'channels_first'` or `'channels_last'`.
+- __data_format__: string. `'channels_first'` 또는 `'channels_last'`.
 
 __Example__
 
@@ -337,14 +357,17 @@ keras.backend.get_uid(prefix='')
 
 
 Get the uid for the default graph.
+기본 그래프의 uid를 가져옵니다.
 
 __Arguments__
 
 - __prefix__: An optional prefix of the graph.
+- __prefix__: 그래프의 선택적 접두어.
 
 __Returns__
 
 A unique identifier for the graph.
+그래프의 고유 식별자입니다.
     
 ----
 
@@ -357,6 +380,7 @@ keras.backend.reset_uids()
 
 
 Resets graph identifiers.
+그래프의 식별자를 리셋합니다.
 
 ----
 
@@ -369,8 +393,10 @@ keras.backend.clear_session()
 
 
 Destroys the current TF graph and creates a new one.
+현재 TF 그래프를 없애고, 새로운 TF 그래프를 만듭니다.
 
 Useful to avoid clutter from old models / layers.
+오래된 모델 / 레이어에서 혼란을 피할 때 유용합니다.
 
 ----
 
@@ -383,16 +409,20 @@ keras.backend.manual_variable_initialization(value)
 
 
 Sets the manual variable initialization flag.
+수동 변수 초기화 플래그를 설정합니다.
 
 This boolean flag determines whether
 variables should be initialized
 as they are instantiated (default), or if
 the user should handle the initialization
 (e.g. via `tf.initialize_all_variables()`).
+이 boolean 플래그는 변수가 인스턴스화 될 때 (기본값) 또는 사용자가 초기화를 처리해야하는지 여부를 결정합니다.
+(e.g. via `tf.initialize_all_variables()`).
 
 __Arguments__
 
 - __value__: Python boolean.
+- __value__: 파이션 boolean.
     
 ----
 
@@ -405,15 +435,18 @@ keras.backend.learning_phase()
 
 
 Returns the learning phase flag.
+학습 단계 플래그를 리턴합니다.
 
 The learning phase flag is a bool tensor (0 = test, 1 = train)
 to be passed as input to any Keras function
 that uses a different behavior at train time and test time.
+학습 단계 플래그는 학습 시간과 테스트 시간에 다른 행동을 사용하는 케라스 함수에 입력으로 전달되는 bool 텐서 (0 = 테스트, 1 = 학습)입니다.
 
 __Returns__
 
 Learning phase (scalar integer tensor or Python integer).
-    
+학습 단계 (스칼라 정수 텐서 또는 파이썬 정수).
+
 ----
 
 ### set_learning_phase
@@ -425,14 +458,17 @@ keras.backend.set_learning_phase(value)
 
 
 Sets the learning phase to a fixed value.
+학습 단계를 고정 값으로 설정합니다.
 
 __Arguments__
 
 - __value__: Learning phase value, either 0 or 1 (integers).
+- __value__: 학습 단계는 값, 0 또는 1(정수).
 
 __Raises__
 
 - __ValueError__: if `value` is neither `0` nor `1`.
+- __ValueError__: `value` 가 `0`  과 `1` 아닌 경우.
     
 ----
 
@@ -445,13 +481,16 @@ keras.backend.is_sparse(tensor)
 
 
 Returns whether a tensor is a sparse tensor.
+텐서가 드문 드문 텐터 일지 어떨지를 돌려줍니다.
 
 __Arguments__
 
 - __tensor__: A tensor instance.
+- __tensor__: 텐셔 인스턴스.
 
 __Returns__
 
+A boolean.
 A boolean.
 
 __Example__
@@ -477,14 +516,17 @@ keras.backend.to_dense(tensor)
 
 
 Converts a sparse tensor into a dense tensor and returns it.
+스파 스 텐서를 고밀도 텐서로 변환하여 반환합니다.
 
 __Arguments__
 
 - __tensor__: A tensor instance (potentially sparse).
+- __tensor__: 텐서 인스턴스 (잠재적으로 스파 스).
 
 __Returns__
 
 A dense tensor.
+텐스 층
 
 __Examples__
 
@@ -509,18 +551,24 @@ keras.backend.variable(value, dtype=None, name=None, constraint=None)
 
 
 Instantiates a variable and returns it.
+변수를 인스턴스화하여 리턴합니다.
 
 __Arguments__
 
 - __value__: Numpy array, initial value of the tensor.
+- __value__: Numpy 배열, 텐서의 초기 값.
 - __dtype__: Tensor type.
+- __dtype__: 텐서 타입.
 - __name__: Optional name string for the tensor.
+- __name__: 텐서의 선택적 이름 문자열.
 - __constraint__: Optional projection function to be
-    applied to the variable after an optimizer update.
+- __constraint__: applied to the variable after an optimizer update.
+    옵티 마이저 업데이트 후 선택적 투영 함수가 변수에 적용됩니다.
 
 __Returns__
 
 A variable instance (with Keras metadata included).
+변수 인스턴스 (Keras 메타 데이터 포함).
 
 __Examples__
 
@@ -548,17 +596,23 @@ keras.backend.constant(value, dtype=None, shape=None, name=None)
 
 
 Creates a constant tensor.
+상수 텐서를 만듭니다.
 
 __Arguments__
 
 - __value__: A constant value (or list)
+- __value__: 상수값(또는 리스트)
 - __dtype__: The type of the elements of the resulting tensor.
+- __dtype__: 결과의 텐서의 요소의 형태.
 - __shape__: Optional dimensions of resulting tensor.
+- __shape__: 결과 텐서의 선택적인 치수.
 - __name__: Optional name for the tensor.
+- __name__: 텐서의 선택적인 이름.
 
 __Returns__
 
 A Constant Tensor.
+텐서 상수
     
 ----
 
@@ -571,21 +625,26 @@ keras.backend.is_keras_tensor(x)
 
 
 Returns whether `x` is a Keras tensor.
+`x`가 Keras 텐서인지 아닌지를 반환합니다.
 
 A "Keras tensor" is a tensor that was returned by a Keras layer,
 (`Layer` class) or by `Input`.
+"Keras 텐서"는 케라스 레이어 (`Layer` 클래스) 또는`Input`에 의해 리턴 된 텐서입니다.
 
 __Arguments__
 
 - __x__: A candidate tensor.
+- __x__: 후보 텐서
 
 __Returns__
 
 A boolean: Whether the argument is a Keras tensor.
+A boolean: 인수가 Keras 텐서인지 여부.
 
 __Raises__
 
 - __ValueError__: In case `x` is not a symbolic tensor.
+- __ValueError__: `x`가 상징적 인 텐서가 아닌 경우.
 
 __Examples__
 
