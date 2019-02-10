@@ -92,7 +92,7 @@ keras.initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
 __Arguments__
 
 - __minval__: 파이썬 스칼라 또는 스칼라 텐서. 생성된 랜덤 값 범위의 하한.
-- __maxval__: 파이썬 스칼라 또는 스칼라 텐서. 생성된 랜덤 값 범위의 상한, 기본값은 float형 1.
+- __maxval__: 파이썬 스칼라 또는 스칼라 텐서. 생성된 랜덤 값 범위의 상한, 기본값은 float 타입 1.
 - __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
     
 ----
