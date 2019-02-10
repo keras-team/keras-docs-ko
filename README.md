@@ -32,4 +32,6 @@ Existing files in `sources/` should be edited in-line.
 | English            | 한국어                 |
 |:-------------------|:-----------------------|
 | NumPy Array        | NumPy 배열             |
-| 1--9               | 1--9                   |
+| shape              | 크기                   |
+| tensor             | 텐서                   |
+| 1--9               | 1--9                  |
