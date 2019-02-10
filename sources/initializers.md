@@ -1,8 +1,8 @@
-## Usage of initializers
+## 이니셜라이저 사용법
 
-Initializations define the way to set the initial random weights of Keras layers.
+초기화는 케라스 레이어의 랜덤한 초기값 지정을 세팅하는 방법을 정의합니다.
 
-The keyword arguments used for passing initializers to layers will depend on the layer. Usually it is simply `kernel_initializer` and `bias_initializer`:
+이니셜라이저를 인자로 넘겨주기 위해 쓰이는 키워드는 레이어에 따라 다릅니다. 보통, 간단하게는 `kernel_initializer` 와 `bias_initializer` 입니다:
 
 ```python
 model.add(Dense(64,
@@ -10,9 +10,9 @@ model.add(Dense(64,
                 bias_initializer='zeros'))
 ```
 
-## Available initializers
+## 사용가능한 이니셜라이저들
 
-The following built-in initializers are available as part of the `keras.initializers` module:
+다음의 내장 이니셜라이저들은 `keras.initializers` 모듈의 일부로써 사용가능합니다.
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/initializers.py#L14)</span>
 ### Initializer
@@ -21,7 +21,7 @@ The following built-in initializers are available as part of the `keras.initiali
 keras.initializers.Initializer()
 ```
 
-Initializer base class: all initializers inherit from this class.
+이니셜라이저 기본 클래스: 모든 이니셜라이저는 클래스로부터 상속받습니다.
 
 ----
 
@@ -31,8 +31,7 @@ Initializer base class: all initializers inherit from this class.
 ```python
 keras.initializers.Zeros()
 ```
-
-Initializer that generates tensors initialized to 0.
+텐서를 모두 0으로 세팅하는 이니셜라이저.
 
 ----
 
@@ -43,7 +42,7 @@ Initializer that generates tensors initialized to 0.
 keras.initializers.Ones()
 ```
 
-Initializer that generates tensors initialized to 1.
+텐서를 모두 1로 세팅하는 이니셜라이저.
 
 ----
 
@@ -54,11 +53,13 @@ Initializer that generates tensors initialized to 1.
 keras.initializers.Constant(value=0)
 ```
 
-Initializer that generates tensors initialized to a constant value.
+텐서를 특정값으로 세팅하는 이니셜라이저.
+
+
 
 __Arguments__
 
-- __value__: float; the value of the generator tensors.
+- __value__: float; 제너레이터 텐서의 값
     
 ----
 
@@ -69,15 +70,13 @@ __Arguments__
 keras.initializers.RandomNormal(mean=0.0, stddev=0.05, seed=None)
 ```
 
-Initializer that generates tensors with a normal distribution.
+텐서를 정규분포로 채우는 이니셜라이저.
 
 __Arguments__
 
-- __mean__: a python scalar or a scalar tensor. Mean of the random values
-  to generate.
-- __stddev__: a python scalar or a scalar tensor. Standard deviation of the
-  random values to generate.
-- __seed__: A Python integer. Used to seed the random generator.
+- __mean__: 파이썬 스칼라 또는 스칼라 텐서. 생성된 랜덤값의 평균.
+- __stddev__: 파이썬 스칼라 또는 스칼라 텐서. 랜덤값의 표준편차.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
     
 ----
 
@@ -88,15 +87,13 @@ __Arguments__
 keras.initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
 ```
 
-Initializer that generates tensors with a uniform distribution.
+텐서를 uniform(균일) 분포로 채운 이니셜라이저.
 
 __Arguments__
 
-- __minval__: A python scalar or a scalar tensor. Lower bound of the range
-  of random values to generate.
-- __maxval__: A python scalar or a scalar tensor. Upper bound of the range
-  of random values to generate.  Defaults to 1 for float types.
-- __seed__: A Python integer. Used to seed the random generator.
+- __minval__: 파이썬 스칼라 또는 스칼라 텐서. 생성된 랜덤 값 범위의 하한.
+- __maxval__: 파이썬 스칼라 또는 스칼라 텐서. 생성된 랜덤 값 범위의 상한, 기본값은 float형 1.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
     
 ----
 
@@ -107,20 +104,16 @@ __Arguments__
 keras.initializers.TruncatedNormal(mean=0.0, stddev=0.05, seed=None)
 ```
 
-Initializer that generates a truncated normal distribution.
+Truncated 정규 분포를 생성하기 위한 이니셜라이저.
 
-These values are similar to values from a `RandomNormal`
-except that values more than two standard deviations from the mean
-are discarded and re-drawn. This is the recommended initializer for
-neural network weights and filters.
+이 값들은 2배의 표준편차 이상의 값이 폐기되고 다시 구해진다는 점을 빼면 `RandomNormal`에서 뽑힌 값들과 유사합니다. 
+본 이니셜라이저는 신경망의 웨이트와 필터 세팅에 추천합니다.
 
 __Arguments__
 
-- __mean__: a python scalar or a scalar tensor. Mean of the random values
-  to generate.
-- __stddev__: a python scalar or a scalar tensor. Standard deviation of the
-  random values to generate.
-- __seed__: A Python integer. Used to seed the random generator.
+- __mean__: 파이썬 스칼라 또는 스칼라 텐서. 랜덤값의 평균.
+- __stddev__: 파이썬 스칼라 또는 스칼라 텐서. 랜덤값의 표준편차.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
     
 ----
 
@@ -131,30 +124,26 @@ __Arguments__
 keras.initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='normal', seed=None)
 ```
 
-Initializer capable of adapting its scale to the shape of weights.
+웨이트의 모양에 맞게 눈금 크기를 조절할 수 있는 이니셜라이저.
 
-With `distribution="normal"`, samples are drawn from a truncated normal
-distribution centered on zero, with `stddev = sqrt(scale / n)` where n is:
+`distribution="normal"` 옵션은 샘플들이 중점이 0 인 truncated 정규분포로 선택되며, 표준편차에서 `stddev = sqrt(scale / n)` n은 다음을 뜻합니다:
 
-- number of input units in the weight tensor, if mode = "fan_in"
-- number of output units, if mode = "fan_out"
-- average of the numbers of input and output units, if mode = "fan_avg"
+- mode 가 "fan\_in" 일 때의 웨이트 텐서에서 입력단위의 개수
+- mode 가 "fan\_out" 일 때의 출력단위의 개수
+- mode 가 "fan\_avg" 일 때의 입력과 출력의 평균
 
-With `distribution="uniform"`,
-samples are drawn from a uniform distribution
-within [-limit, limit], with `limit = sqrt(3 * scale / n)`.
+`distribution="uniform"` 옵션에서 샘플들은 [-limit, limit], `limit = sqrt(3 * scale / n)` 범위에서 균등분포로 선택됩니다.
 
 __Arguments__
 
-- __scale__: Scaling factor (positive float).
-- __mode__: One of "fan_in", "fan_out", "fan_avg".
-- __distribution__: Random distribution to use. One of "normal", "uniform".
-- __seed__: A Python integer. Used to seed the random generator.
+- __scale__: 스케일링 인자(양수 float 타입).
+- __mode__: "fan\_in", "fan\_out", "fan\_avg" 셋 중 하나.
+- __distribution__: 사용할 랜덤 분포 선택. "normal", "uniform"중 하나.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
 
 __Raises__
 
-- __ValueError__: In case of an invalid value for the "scale", mode" or
-  "distribution" arguments.
+- __ValueError__: "scale", "mode" 또는 "distribution" 인자에서 유효하지 않은 값이 입력된 경우 발생.
     
 ----
 
@@ -165,12 +154,12 @@ __Raises__
 keras.initializers.Orthogonal(gain=1.0, seed=None)
 ```
 
-Initializer that generates a random orthogonal matrix.
+랜덤 직교행렬을 생성하는 이니셜라이저.
 
 __Arguments__
 
-- __gain__: Multiplicative factor to apply to the orthogonal matrix.
-- __seed__: A Python integer. Used to seed the random generator.
+- __gain__: 직교행렬에 적용할 곱셈인자.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
 
 __References__
 
@@ -186,15 +175,14 @@ __References__
 keras.initializers.Identity(gain=1.0)
 ```
 
-Initializer that generates the identity matrix.
+단위행렬을 생성하는 이니셜라이저.
 
-Only use for 2D matrices.
-If the desired matrix is not square, it pads with zeros on the
-additional rows/columns
+2차원 행렬에서만 사용가능.
+만일 원하는 행렬이 정사각형이 아닌 경우에 행렬에 0이 채워집니다.
 
 __Arguments__
 
-- __gain__: Multiplicative factor to apply to the identity matrix.
+- __gain__: 단위행렬에 적용할 곱셈인자.
     
 ----
 
@@ -205,20 +193,17 @@ __Arguments__
 keras.initializers.lecun_uniform(seed=None)
 ```
 
+LeCun 균등 이니셜라이저.
 
-LeCun uniform initializer.
-
-It draws samples from a uniform distribution within [-limit, limit]
-where `limit` is `sqrt(3 / fan_in)`
-where `fan_in` is the number of input units in the weight tensor.
+[-limit, limit]에서 균등 분포로 샘플을 선택합니다. 단, `limit`은 `sqrt(3 / fan_in)`이고, `fan_in`은 웨이트 텐서의 입력단위의 개수입니다.
 
 __Arguments__
 
-- __seed__: A Python integer. Used to seed the random generator.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
 
 __Returns__
 
-An initializer.
+이니셜라이저를 리턴합니다.
 
 __References__
 
@@ -232,22 +217,18 @@ __References__
 ```python
 keras.initializers.glorot_normal(seed=None)
 ```
+Glorot 정규 이니셜라이저 또는 Xavier 정규 이니셜라이저.
 
-
-Glorot normal initializer, also called Xavier normal initializer.
-
-It draws samples from a truncated normal distribution centered on 0
-with `stddev = sqrt(2 / (fan_in + fan_out))`
-where `fan_in` is the number of input units in the weight tensor
-and `fan_out` is the number of output units in the weight tensor.
+표준편차가 `stddev = sqrt(2 / (fan_in + fan_out))`이고 중심이 0인 Truncated 정규분포로 샘플을 선택합니다.
+단, `fan_in`은 웨이트 텐서의 입력단위의 개수이고, `fan_out`은 웨이트 텐서의 출력단위의 개수입니다.
 
 __Arguments__
 
-- __seed__: A Python integer. Used to seed the random generator.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
 
 __Returns__
 
-An initializer.
+이니셜라이저를 리턴합니다.
 
 __References__
 
@@ -263,21 +244,20 @@ __References__
 keras.initializers.glorot_uniform(seed=None)
 ```
 
+Glorot 균등 이니셜라이저 또는 Xavier 균등 이니셜라이저
 
-Glorot uniform initializer, also called Xavier uniform initializer.
-
-It draws samples from a uniform distribution within [-limit, limit]
-where `limit` is `sqrt(6 / (fan_in + fan_out))`
-where `fan_in` is the number of input units in the weight tensor
-and `fan_out` is the number of output units in the weight tensor.
+[-limit, limit] 구간에서 균등 분포로 생성된 값을 선택합니다.
+단, `limit`은 `sqrt(6 / (fan_in + fan_out))`이고 
+`fan_in`은 웨이트 텐서의 입력단위의 개수, 
+`fan_out`은 웨이트 텐서의 출력단위의 개수입니다.
 
 __Arguments__
 
-- __seed__: A Python integer. Used to seed the random generator.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
 
 __Returns__
 
-An initializer.
+이니셜라이저를 리턴합니다.
 
 __References__
 
@@ -294,19 +274,19 @@ keras.initializers.he_normal(seed=None)
 ```
 
 
-He normal initializer.
+He 정규 이니셜라이저.
 
-It draws samples from a truncated normal distribution centered on 0
-with `stddev = sqrt(2 / fan_in)`
-where `fan_in` is the number of input units in the weight tensor.
+표준편차가 `stddev = sqrt(2 / fan_in)`로 정의되고 0 중심의 truncated 정규 분포에서 샘플을 선택합니다.
+단, `fan_in`는 웨이트 텐서의 입력단위의 개수입니다.
+
 
 __Arguments__
 
-- __seed__: A Python integer. Used to seed the random generator.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
 
 __Returns__
 
-An initializer.
+이니셜라이저를 리턴합니다.
 
 __References__
 
@@ -322,20 +302,19 @@ __References__
 keras.initializers.lecun_normal(seed=None)
 ```
 
+LeCun 정규 이니셜라이저.
 
-LeCun normal initializer.
 
-It draws samples from a truncated normal distribution centered on 0
-with `stddev = sqrt(1 / fan_in)`
-where `fan_in` is the number of input units in the weight tensor.
+표준편차가 `stddev = sqrt(1 / fan_in)`로 정의되고 0 중심의 truncated 정규 분포에서 샘플을 선택합니다.
+단 `fan_in`는 웨이트 텐서의 입력단위의 개수입니다.
 
 __Arguments__
 
-- __seed__: A Python integer. Used to seed the random generator.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
 
 __Returns__
 
-An initializer.
+이니셜라이저를 리턴합니다.
 
 __References__
 
@@ -351,20 +330,19 @@ __References__
 keras.initializers.he_uniform(seed=None)
 ```
 
+He 균등 분산 스케일링 이니셜라이저.
 
-He uniform variance scaling initializer.
-
-It draws samples from a uniform distribution within [-limit, limit]
-where `limit` is `sqrt(6 / fan_in)`
-where `fan_in` is the number of input units in the weight tensor.
+[-limit, limit]구간에서 균등분포로 샘플을 선택합니다.
+단, `limit`은 `sqrt(6 / fan_in)`이고,
+`fan_in`은 웨이트 텐서의 입력단위의 개수입니다.
 
 __Arguments__
 
-- __seed__: A Python integer. Used to seed the random generator.
+- __seed__: 파이썬 정수. 랜덤값 생성시의 seed를 위한 값.
 
 __Returns__
 
-An initializer.
+이니셜라이저를 리턴합니다.
 
 __References__
 
@@ -372,8 +350,8 @@ __References__
    ImageNet Classification](http://arxiv.org/abs/1502.01852)
     
 
+이니셜라이저는 문자열(위에 사용가능한 이니셜라이저중 하나와 일치해야 함)이나 호출가능 매개변수로 전달할 수 있습니다.:
 
-An initializer may be passed as a string (must match one of the available initializers above), or as a callable:
 
 ```python
 from keras import initializers
@@ -385,9 +363,10 @@ model.add(Dense(64, kernel_initializer='random_normal'))
 ```
 
 
-## Using custom initializers
+## 사용자 커스텀 이니셜라이저 사용하기
 
-If passing a custom callable, then it must take the argument `shape` (shape of the variable to initialize) and `dtype` (dtype of generated values):
+
+커스텀 호출가능한 인자를 전달할 때 반드시 `shape`(초기화할 변수의 shape)와 `dtype`(생성된 값의 dtype)인자를 취할 수 있도록 해야 합니다.:
 
 ```python
 from keras import backend as K
