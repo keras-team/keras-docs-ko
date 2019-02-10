@@ -1,25 +1,25 @@
 # Keras 모델에 관하여
 
-Keras에는 두 개의 주된 모델 종류가 있습니다: [순차적 모델](/models/sequential), 그리고 [함수형 API와 함께 사용되는 Model 클래스](/models/model).
+Keras가 제공하는 모델에는 [Sequential 모델](./models/sequential.md)과 [함수형 API와 함께 사용되는 Model 클래스](/models/model) 두 가지 종류가 있습니다.
 
-이 모델들은 많은 메소드와 속성들을 공통적으로 가지고 있습니다:
+이 모델들은 아래의 메소드들과 속성들을 공통적으로 가지고 있습니다.
 
-- `model.layers`는 모델을 구성하는 계층들의 flat화된 리스트 입니다.
-- `model.inputs`는 모델의 입력 tensor의 리스트 입니다.
-- `model.outputs`는 메돌의 출력 tensor의 리스트 입니다.
-- `model.summary()`는 모델의 모양의 요약을 출력합니다. 간단하게는 [utils.print_summary](/utils/#print_summary)을 사용할 수 있습니다.
-- `model.get_config()`는 모델의 설정이 저장된 딕셔너리를 반환 합니다. 모델은 다음과 같이 설정으로 부터 다시 인스턴스화 될 수 있습니다:
+- `model.layers`: 모델을 구성하는 층들이 저장된 1차원 리스트 입니다.
+- `model.inputs`: 모델의 입력 텐서들이 저장된 1차원 리스트 입니다.
+- `model.outputs`: 모델의 출력 텐서들이 저장된 1차원 리스트 입니다.
+- `model.summary()`: 모델의 구조를 요약해 출력해 줍니다. [`utils.print_summary(model)`](/utils/#print_summary)로도 동일한 출력을 얻을 수 있습니다.
+- `model.get_config()`: 모델의 설정이 저장된 딕셔너리를 반환합니다. 모든 모델은 다음과 같이 설정 내용으로부터 다시 인스턴스화 될 수 있습니다.
 
 ```python
 config = model.get_config()
 model = Model.from_config(config)
-# 또는, 순차적 모델의 경우:
+# 또는, Sequential 모델의 경우:
 model = Sequential.from_config(config)
 ```
 
-- `model.get_weights()`는 모델의 모든 가중치 tensor의 리스트를 Numpy 배열로서 반환 합니다.
-- `model.set_weights(weights)`는 모델의 가중치 값을 Numpy 배열의 리스트로 부터 설정합니다. 리스트에 있는 배열들은 `get_wieghts()`로부터 반환된 것과 동일한 shape이어야만 합니다.
-- `model.to_json()`는 모델의 모양을 JSON 문자열로서 반환합니다. 이 때, 모양에는 가중치가 포함되지 않고, 오로지 아키텍쳐만이 포함됩니다. 이 JSON 문자열로 부터 다음과 같이 동일한 모델을 (다시 초기화된 가중치와 함께) 다시 인스턴스화 할 수 있습니다:
+- `model.get_weights()`: 모델의 가중치 텐서들이 NumPy 배열로 저장된 1차원 리스트 입니다.
+- `model.set_weights(weights)`: 모델의 가중치 값을 NumPy 배열의 리스트로부터 설정합니다. 리스트에 있는 배열들의 크기는 `get_wieghts()`로부터 반환된 것과 동일해야 합니다.
+- `model.to_json()`: 모델의 구조를 JSON 문자열로 반환합니다. 이때, 모델의 가중치는 제외되고 오로지 구조만이 포함됩니다. 이 JSON 문자열로부터 다음과 같이 동일한 모델을(다시 초기화된 가중치와 함께) 다시 인스턴스화 할 수 있습니다.
 
 ```python
 from keras.models import model_from_json
@@ -27,7 +27,8 @@ from keras.models import model_from_json
 json_string = model.to_json()
 model = model_from_json(json_string)
 ```
-- `model.to_yaml()`는 모델의 모양을 YAML 문자열로서 반환합니다. 이 때, 모양에는 가중치가 포함되지 않고, 오로지 아키텍쳐만이 포함됩니다. 이 YAML 문자열로 부터 다음과 같이 동일한 모델을 (다시 초기화된 가중치와 함께) 다시 인스턴스화 할 수 있습니다:
+
+- `model.to_yaml()`: 모델의 구조를 YAML 문자열로 반환합니다. 이때, 모델의 가중치는 제외되고 오로지 구조만이 포함됩니다. 이 YAML 문자열로부터 다음과 같이 동일한 모델을 (다시 초기화된 가중치와 함께)다시 인스턴스화 할 수 있습니다.
 
 ```python
 from keras.models import model_from_yaml
@@ -36,11 +37,10 @@ yaml_string = model.to_yaml()
 model = model_from_yaml(yaml_string)
 ```
 
-- `model.save_weights(filepath)`는 모델의 가중치를 HDF5 파일로서 저장 합니다.
-- `model.load_weights(filepath, by_name=False)`는 모델의 가중치를 (`save_weights`에 의해 생성된)HDF5 파일로 부터 불러옵니다. 디폴트로는 아키텍쳐가 변하지 않았다는 것이 가정 됩니다. 가중치를 (몇 계층들을 공통적으로 포함한)다른 아키텍쳐에 불러오고 싶다면, `by_name=True`를 사용해서 동일한 이름을 가진 계층들에 대해서만 불러 오십시오.
+- `model.save_weights(filepath)`: 모델의 가중치를 HDF5 파일로 저장 합니다.
+- `model.load_weights(filepath, by_name=False)`: 모델의 가중치를 (`save_weights`에 의해 생성된)HDF5 파일로부터 불러옵니다. 기본 설정인 `by_name=False`는 모델과 가중치 파일의 네트워크 구조가 동일하다 가정합니다. 만약 구조가 다르다면, `by_name=True`를 사용해 동일한 이름을 가진 층들에 대해서만 가중치를 불러올 수도 있습니다.
 
-메모: FAQ에 있는 `h5py`를 설치하는 지침인 [Keras에서 모델을 저장하기 위한 HDF5 또는 h5py를 어떻게 설치할 수 있는가?](/getting-started/faq/#how-can-i-install-HDF5-or-h5py-to-save-my-models-in-Keras)도 확인해 주시기 바랍니다.
-
+**Note**: `h5py`의 설치는 FAQ의 [Keras 모델을 저장하기 위한 HDF5 또는 h5py는 어떻게 설치할 수 있나요?](/getting-started/faq/#how-can-i-install-HDF5-or-h5py-to-save-my-models-in-Keras)를 참조하시길 바랍니다.
 
 ## Model 하위 클래스 만들기
 
