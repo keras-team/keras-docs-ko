@@ -1,6 +1,6 @@
 ## 이니셜라이저 사용법
 
-초기화는 케라스 레이어의 랜덤한 초기값 지정을 세팅하는 방법을 정의합니다.
+이니셜라이저는 케라스 레이어에서 랜덤한 초기값의 세팅방법을 정의합니다.
 
 이니셜라이저를 인자로 넘겨주기 위해 쓰이는 키워드는 레이어에 따라 다릅니다. 보통, 간단하게는 `kernel_initializer` 와 `bias_initializer` 입니다:
 
@@ -59,7 +59,7 @@ keras.initializers.Constant(value=0)
 
 __Arguments__
 
-- __value__: float; 제너레이터 텐서의 값
+- __value__: float 타입; 생성된 텐서의 값
     
 ----
 
@@ -87,7 +87,7 @@ __Arguments__
 keras.initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
 ```
 
-텐서를 uniform(균일) 분포로 채운 이니셜라이저.
+텐서를 균등분포로 채운 이니셜라이저.
 
 __Arguments__
 
@@ -104,9 +104,9 @@ __Arguments__
 keras.initializers.TruncatedNormal(mean=0.0, stddev=0.05, seed=None)
 ```
 
-Truncated 정규 분포를 생성하기 위한 이니셜라이저.
+Truncated 정규분포를 생성하기 위한 이니셜라이저.
 
-이 값들은 2배의 표준편차 이상의 값이 폐기되고 다시 구해진다는 점을 빼면 `RandomNormal`에서 뽑힌 값들과 유사합니다. 
+이 값들은 2배의 표준편차보다 큰 값이 폐기되고 다시 구해진다는 점을 빼면 `RandomNormal`에서 뽑힌 값들과 유사합니다. 
 본 이니셜라이저는 신경망의 웨이트와 필터 세팅에 추천합니다.
 
 __Arguments__
@@ -126,13 +126,13 @@ keras.initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='norma
 
 웨이트의 모양에 맞게 눈금 크기를 조절할 수 있는 이니셜라이저.
 
-`distribution="normal"` 옵션은 샘플들이 중점이 0 인 truncated 정규분포로 선택되며, 표준편차에서 `stddev = sqrt(scale / n)` n은 다음을 뜻합니다:
+`distribution="normal"` 옵션은 샘플들이 중점이 0 인 truncated 정규분포로 선택되며, 표준편차 `stddev = sqrt(scale / n)`에서 n은 다음을 뜻합니다:
 
 - mode 가 "fan\_in" 일 때의 웨이트 텐서에서 입력단위의 개수
 - mode 가 "fan\_out" 일 때의 출력단위의 개수
 - mode 가 "fan\_avg" 일 때의 입력과 출력의 평균
 
-`distribution="uniform"` 옵션에서 샘플들은 [-limit, limit], `limit = sqrt(3 * scale / n)` 범위에서 균등분포로 선택됩니다.
+`distribution="uniform"` 옵션에서 샘플들은 [-limit, limit] 구간 `limit = sqrt(3 * scale / n)`에서 균등분포로 선택됩니다.
 
 __Arguments__
 
@@ -195,7 +195,7 @@ keras.initializers.lecun_uniform(seed=None)
 
 LeCun 균등 이니셜라이저.
 
-[-limit, limit]에서 균등 분포로 샘플을 선택합니다. 단, `limit`은 `sqrt(3 / fan_in)`이고, `fan_in`은 웨이트 텐서의 입력단위의 개수입니다.
+[-limit, limit] 구간에서 균등 분포로 샘플을 선택합니다. 단, `limit`은 `sqrt(3 / fan_in)`이고, `fan_in`은 웨이트 텐서의 입력단위의 개수입니다.
 
 __Arguments__
 
@@ -219,7 +219,7 @@ keras.initializers.glorot_normal(seed=None)
 ```
 Glorot 정규 이니셜라이저 또는 Xavier 정규 이니셜라이저.
 
-표준편차가 `stddev = sqrt(2 / (fan_in + fan_out))`이고 중심이 0인 Truncated 정규분포로 샘플을 선택합니다.
+표준편차 `stddev = sqrt(2 / (fan_in + fan_out))`이고 중심이 0인 Truncated 정규분포로 샘플을 선택합니다.
 단, `fan_in`은 웨이트 텐서의 입력단위의 개수이고, `fan_out`은 웨이트 텐서의 출력단위의 개수입니다.
 
 __Arguments__
@@ -246,7 +246,7 @@ keras.initializers.glorot_uniform(seed=None)
 
 Glorot 균등 이니셜라이저 또는 Xavier 균등 이니셜라이저
 
-[-limit, limit] 구간에서 균등 분포로 생성된 값을 선택합니다.
+[-limit, limit] 구간에서 균등분포로 생성된 값을 선택합니다.
 단, `limit`은 `sqrt(6 / (fan_in + fan_out))`이고 
 `fan_in`은 웨이트 텐서의 입력단위의 개수, 
 `fan_out`은 웨이트 텐서의 출력단위의 개수입니다.
@@ -276,7 +276,7 @@ keras.initializers.he_normal(seed=None)
 
 He 정규 이니셜라이저.
 
-표준편차가 `stddev = sqrt(2 / fan_in)`로 정의되고 0 중심의 truncated 정규 분포에서 샘플을 선택합니다.
+표준편차 `stddev = sqrt(2 / fan_in)`로 정의되고 0 중심의 truncated 정규 분포에서 샘플을 선택합니다.
 단, `fan_in`는 웨이트 텐서의 입력단위의 개수입니다.
 
 
@@ -305,7 +305,7 @@ keras.initializers.lecun_normal(seed=None)
 LeCun 정규 이니셜라이저.
 
 
-표준편차가 `stddev = sqrt(1 / fan_in)`로 정의되고 0 중심의 truncated 정규 분포에서 샘플을 선택합니다.
+표준편차`stddev = sqrt(1 / fan_in)`로 정의되고 0 중심의 truncated 정규 분포에서 샘플을 선택합니다.
 단 `fan_in`는 웨이트 텐서의 입력단위의 개수입니다.
 
 __Arguments__
@@ -350,7 +350,7 @@ __References__
    ImageNet Classification](http://arxiv.org/abs/1502.01852)
     
 
-이니셜라이저는 문자열(위에 사용가능한 이니셜라이저중 하나와 일치해야 함)이나 호출가능 매개변수로 전달할 수 있습니다.:
+이니셜라이저는 문자열(위에 사용가능한 이니셜라이저중 하나와 일치해야 함)이나 호출가능(callable) 매개변수로 전달할 수 있습니다.:
 
 
 ```python
@@ -366,7 +366,7 @@ model.add(Dense(64, kernel_initializer='random_normal'))
 ## 사용자 커스텀 이니셜라이저 사용하기
 
 
-커스텀 호출가능한 인자를 전달할 때 반드시 `shape`(초기화할 변수의 shape)와 `dtype`(생성된 값의 dtype)인자를 취할 수 있도록 해야 합니다.:
+커스텀 호출가능한 인자를 전달할 때 반드시 `shape`(초기화할 변수의 크기)와 `dtype`(생성된 값의 dtype)인자를 취할 수 있도록 해야 합니다.:
 
 ```python
 from keras import backend as K
