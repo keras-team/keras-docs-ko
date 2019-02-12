@@ -1,7 +1,7 @@
 
-## Usage of activations
+## 활성화 함수의 사용
 
-Activations can either be used through an `Activation` layer, or through the `activation` argument supported by all forward layers:
+활성화 함수는 `Activation` layer, 또는 모든 forward layer가 지원하고 있는 `activation` argument을 통해 사용될 수 있다.
 
 ```python
 from keras.layers import Activation, Dense
@@ -10,13 +10,13 @@ model.add(Dense(64))
 model.add(Activation('tanh'))
 ```
 
-This is equivalent to:
+이는 아래의 코드와 같다 :
 
 ```python
 model.add(Dense(64, activation='tanh'))
 ```
 
-You can also pass an element-wise TensorFlow/Theano/CNTK function as an activation:
+또한 활성화 함수로 요소별 TensorFlow/Theano/CNTK 함수를 쓸 수 있다.
 
 ```python
 from keras import backend as K
@@ -24,7 +24,7 @@ from keras import backend as K
 model.add(Dense(64, activation=K.tanh))
 ```
 
-## Available activations
+## 사용가능한 활성화 함수들
 
 ### softmax
 
@@ -34,20 +34,20 @@ keras.activations.softmax(x, axis=-1)
 ```
 
 
-Softmax activation function.
+Softmax 활성화 함수.
 
 __Arguments__
 
-- __x__: Input tensor.
-- __axis__: Integer, axis along which the softmax normalization is applied.
+- __x__: 입력 Tensor.
+- __axis__: 정수형, softmax 일반화(normalization)가 적용되는 축
 
 __Returns__
 
-Tensor, output of softmax transformation.
+Tensor, softmax 변환의 출력값.
 
 __Raises__
 
-- __ValueError__: In case `dim(x) == 1`.
+- __ValueError__: `dim(x) == 1`인 경우.
     
 ----
 
