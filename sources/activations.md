@@ -38,12 +38,12 @@ keras.activations.softmax(x, axis=-1)
 
 __Arguments__
 
-- __x__: 입력 Tensor.
+- __x__: 입력 텐서.
 - __axis__: 정수형, softmax 일반화(normalization)가 적용되는 축.
 
 __Returns__
 
-Tensor, softmax 변환의 출력값.
+텐서, 소프트맥스(softmax) 변환의 출력값.
 
 __Raises__
 
@@ -63,7 +63,7 @@ keras.activations.elu(x, alpha=1.0)
 
 __Arguments__
 
-- __x__: 입력 tensor.
+- __x__: 입력 텐서.
 - __alpha__: 스칼라, 음의 구간의 경사.
 
 __Returns__
@@ -95,7 +95,7 @@ SELU 는 다음과 같습니다 : `scale * elu(x, alpha)`, alpha와 scale는 미
 
 __Arguments__
 
-- __x__: 활성화 함수를 계산하기 위한 tensor 혹은 variable
+- __x__: 활성화 함수를 계산하기 위한 텐서 혹은 변수
 
 __Returns__
 
@@ -124,7 +124,7 @@ keras.activations.softplus(x)
 
 __Arguments__
 
-- __x__: 입력 tensor.
+- __x__: 입력 텐서.
 
 __Returns__
 
@@ -144,7 +144,7 @@ keras.activations.softsign(x)
 
 __Arguments__
 
-- __x__: 입력 tensor.
+- __x__: 입력 텐서.
 
 __Returns__
 
