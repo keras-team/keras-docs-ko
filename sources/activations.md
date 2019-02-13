@@ -86,7 +86,7 @@ keras.activations.selu(x)
 ```
 
 
-스케일 지수 선형 단위(Scaled Exponential Linear Unit (SELU)).
+ 스케일 지수 선형 단위(Scaled Exponential Linear Unit (SELU)).
 
 SELU 는 다음과 같습니다 : `scale * elu(x, alpha)`, alpha와 scale는 미리 정의된 상수입니다. 
 가중치가 정확하게 초기화되고 입력 횟수가 "충분히 크다"는 한, 
@@ -120,15 +120,15 @@ keras.activations.softplus(x)
 ```
 
 
-Softplus activation function.
+소프트플러스 활성화 함수(Softplus activation function).
 
 __Arguments__
 
-- __x__: Input tensor.
+- __x__: 입력 tensor.
 
 __Returns__
 
-The softplus activation: `log(exp(x) + 1)`.
+소프트플러스 활성화 함수(The softplus activation): `log(exp(x) + 1)`.
     
 ----
 
@@ -140,15 +140,15 @@ keras.activations.softsign(x)
 ```
 
 
-Softsign activation function.
+소프트사인 활성화 함수(Softsign activation function).
 
 __Arguments__
 
-- __x__: Input tensor.
+- __x__: 입력 tensor.
 
 __Returns__
 
-The softsign activation: `x / (abs(x) + 1)`.
+소프트사인 활성화 함수(The softsign activation): `x / (abs(x) + 1)`.
     
 ----
 
