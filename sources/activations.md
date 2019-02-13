@@ -34,7 +34,7 @@ keras.activations.softmax(x, axis=-1)
 ```
 
 
-Softmax 활성화 함수.
+소프트맥스 활성화 함수(Softmax activation function).
 
 __Arguments__
 
