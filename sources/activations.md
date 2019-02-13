@@ -59,16 +59,16 @@ keras.activations.elu(x, alpha=1.0)
 ```
 
 
-Exponential linear unit.
+ 지수 선형 단위(Exponential Linear Unit(ELU)).
 
 __Arguments__
 
-- __x__: Input tensor.
-- __alpha__: A scalar, slope of negative section.
+- __x__: 입력 tensor.
+- __alpha__: 스칼라, 음의 구간의 경사.
 
 __Returns__
 
-The exponential linear activation: `x` if `x > 0` and
+지수 선형 활성화 함수 : `x` if `x > 0` and
 `alpha * (exp(x)-1)` if `x < 0`.
 
 __References__
@@ -86,27 +86,25 @@ keras.activations.selu(x)
 ```
 
 
-Scaled Exponential Linear Unit (SELU).
+스케일 지수 선형 단위(Scaled Exponential Linear Unit (SELU)).
 
-SELU is equal to: `scale * elu(x, alpha)`, where alpha and scale
-are pre-defined constants. The values of `alpha` and `scale` are
-chosen so that the mean and variance of the inputs are preserved
-between two consecutive layers as long as the weights are initialized
-correctly (see `lecun_normal` initialization) and the number of inputs
-is "large enough" (see references for more information).
+SELU 는 다음과 같습니다 : `scale * elu(x, alpha)`, alpha와 scale는 미리 정의된 상수입니다. 
+가중치가 정확하게 초기화되고 입력 횟수가 "충분히 크다"는 한, 
+입력의 평균과 분산을 2개의 연속 레이어 사이에 보존하도록 `alpha`와 `scale`의 값을 선택합니다.
+(더 많은 정보를 위해 reference를 참고하십시오.)
 
 __Arguments__
 
-- __x__: A tensor or variable to compute the activation function for.
+- __x__: 활성화 함수를 계산하기 위한 tensor 혹은 variable
 
 __Returns__
 
-   The scaled exponential unit activation: `scale * elu(x, alpha)`.
+   스케일 지수 선형 단위 함수(The scaled exponential unit activation): `scale * elu(x, alpha)`.
 
 __Note__
 
-- To be used together with the initialization "lecun_normal".
-- To be used together with the dropout variant "AlphaDropout".
+- "lecun_normal" 초기화와 함께 사용하기.
+- "AlphaDropout" dropout 변수와 함께 사용하기.
 
 __References__
 
