@@ -160,25 +160,25 @@ keras.activations.relu(x, alpha=0.0, max_value=None, threshold=0.0)
 ```
 
 
-Rectified Linear Unit.
+정류 선형 단위(Rectified Linear Unit).
 
-With default values, it returns element-wise `max(x, 0)`.
+기본적으로, `max(x, 0)`을 반환합니다.
 
-Otherwise, it follows:
-`f(x) = max_value` for `x >= max_value`,
-`f(x) = x` for `threshold <= x < max_value`,
-`f(x) = alpha * (x - threshold)` otherwise.
+그 외에는, 다음과 같습니다 :
+`f(x) = max_value` 은 `x >= max_value` 로,
+`f(x) = x` 은 `threshold <= x < max_value` 로,
+`f(x) = alpha * (x - threshold)` 그 외의 값으로 반환합니다.
 
 __Arguments__
 
-- __x__: Input tensor.
-- __alpha__: float. Slope of the negative part. Defaults to zero.
-- __max_value__: float. Saturation threshold.
-- __threshold__: float. Threshold value for thresholded activation.
+- __x__: 입력 텐서.
+- __alpha__: float 타입, 음의 기울기, 기본값은 0.
+- __max_value__: float 타입, 포화(Saturation) 임계값.
+- __threshold__: float 타입, 활성화에 대한 임계값.
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -216,11 +216,11 @@ keras.activations.hard_sigmoid(x)
 
 Hard sigmoid activation function.
 
-Faster to compute than sigmoid activation.
+sigmoid 활성화 함수보다 계산 속도가 빠릅니다.
 
 __Arguments__
 
-- __x__: Input tensor.
+- __x__: 입력 텐서.
 
 __Returns__
 
@@ -240,7 +240,7 @@ keras.activations.exponential(x)
 ```
 
 
-Exponential (base e) activation function.
+지수 (base e) 활성화 함수.
 
 ----
 
@@ -252,9 +252,9 @@ keras.activations.linear(x)
 ```
 
 
-Linear (i.e. identity) activation function.
+선형 (i.e. identity) 활성화 함수.
 
 
-## On "Advanced Activations"
+## "심화된(Advanced) 활성화 함수들"
 
-Activations that are more complex than a simple TensorFlow/Theano/CNTK function (eg. learnable activations, which maintain a state) are available as [Advanced Activation layers](layers/advanced-activations.md), and can be found in the module `keras.layers.advanced_activations`. These include `PReLU` and `LeakyReLU`.
+단순한 TensorFlow/Theano/CNTK 함수(예. 상태를 유지하는 학습가능한 활성화 함수)보다 복잡한 활성화 함수는 [Advanced Activation layers](layers/advanced-activations.md)에서 찾을 수 있으며, `keras.layers.advanced_activations` 모듈에서 확인할 수 있습니다. 이 모듈에서는 `PReLU` 와 `LeakyReLU`를 포함하고 있습니다.
