@@ -25,16 +25,16 @@ from keras.utils import model_to_dot
 SVG(model_to_dot(model).create(prog='dot', format='svg'))
 ```
 
-## Training history visualization
+## 학습 히스토리 시각화
 
-The `fit()` method on a Keras `Model` returns a `History` object. The `History.history` attribute is a dictionary recording training loss values and metrics values at successive epochs, as well as validation loss values and validation metrics values (if applicable). Here is a simple example using `matplotlib` to generate loss & accuracy plots for training & validation:
+케라스 `Model`의 `fit()` 메소드는 `History` 오브젝트를 반환합니다. `History.history` 속성은 연속된 에폭에 걸쳐 학습 손실 값과 학습 측정항목값을 기록하는 딕셔너리로, 또한 (적용 가능한 경우에는) 검증 손실 값과 검증 측정항목 값도 기록합니다. 아래 간단한 예시에서는 `matplotlib`을 사용하여 학습과 검증에 대한 손실과 정확성 플롯을 만듭니다:
 
 ```python
 import matplotlib.pyplot as plt
 
 history = model.fit(x, y, validation_split=0.25, epochs=50, batch_size=16, verbose=1)
 
-# Plot training & validation accuracy values
+# 학습 정확성 값과 검증 정확성 값을 플롯팅 합니다. 
 plt.plot(history.history['acc'])
 plt.plot(history.history['val_acc'])
 plt.title('Model accuracy')
@@ -43,7 +43,7 @@ plt.xlabel('Epoch')
 plt.legend(['Train', 'Test'], loc='upper left')
 plt.show()
 
-# Plot training & validation loss values
+# 학습 손실 값과 검증 손실 값을 플롯팅 합니다.
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
 plt.title('Model loss')
