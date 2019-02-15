@@ -186,23 +186,20 @@ keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch
 
 서버로 스트리밍 할 때 이용되는 콜백.
 
-Requires the `requests` library.
-Events are sent to `root + '/publish/epoch/end/'` by default. Calls are
-HTTP POST, with a `data` argument which is a
-JSON-encoded dictionary of event data.
-If send_as_json is set to True, the content type of the request will be
-application/json. Otherwise the serialized JSON will be send within a form
+`requests` 라이브러리를 필요로 합니다.
+사건들은 디폴트로 `root + '/publish/epoch/end/'` 로 보내집니다. 콜은 HTTP 포스트
+로 지정되고, `data` 전달인자에 JSON으로 인코딩된 데이터가 들어갑니다. send_as_json이
+True로 설정되면 내용물의 형식이 application/json이 될 것이고, 그렇지 않다면 JSON이
+직렬화되어 전송됩니다.
 
 __Arguments__
 
-- __root__: String; root url of the target server.
-- __path__: String; path relative to `root` to which the events will be sent.
-- __field__: String; JSON field under which the data will be stored.
-    The field is used only if the payload is sent within a form
-    (i.e. send_as_json is set to False).
-- __headers__: Dictionary; optional custom HTTP headers.
-- __send_as_json__: Boolean; whether the request should be send as
-    application/json.
+- __root__: 스트링; 타겟 서버의 루트 url
+- __path__: 스트링; `root` 에 상대적인 경로로, 이벤트가 보내지는 경로
+- __field__: 스트링; 데이터가 저장되는 JSON의 field.
+    정보가 형식에 맞춰 보내질 때(send_as_json이 False일 때)만 field가 이용됩니다.
+- __headers__: 딕셔너리; 선택적인 커스텀 HTTP 헤더.
+- __send_as_json__: 불린 자료형; 데이터가 application/json으로 보내질지의 여부.
     
 ----
 
@@ -213,14 +210,13 @@ __Arguments__
 keras.callbacks.LearningRateScheduler(schedule, verbose=0)
 ```
 
-Learning rate scheduler.
+학습 속도 스케쥴러.
 
 __Arguments__
 
-- __schedule__: a function that takes an epoch index as input
-    (integer, indexed from 0) and current learning rate
-    and returns a new learning rate as output (float).
-- __verbose__: int. 0: quiet, 1: update messages.
+- __schedule__: 입력으로 에포크 인덱스(정수, 인덱스는 0에서 시작)
+    와 학습 속도를 받고 새로운 학습 속도를 출력합니다(부동소수점).
+- __verbose__: 정수. 0: 메세지를 출력하지 않습니다, 1: 메세지를 업데이트 합니다.
     
 ----
 
@@ -231,11 +227,13 @@ __Arguments__
 keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None, update_freq='epoch')
 ```
 
-TensorBoard basic visualizations.
+텐서보드의 기본적인 시각화.
 
-[TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard)
-is a visualization tool provided with TensorFlow.
+[텐서보드](https://www.tensorflow.org/guide/summaries_and_tensorboard)
+는 텐서플로우와 함께 제공되는 시각화 도구입니다.
 
+이 콜백은 텐서보드를 위한 로그를 작성하며, 여러분의 훈련과 테스트 척도에 대한
+동적 
 This callback writes a log for TensorBoard, which allows
 you to visualize dynamic graphs of your training and test
 metrics, as well as activation histograms for the different
