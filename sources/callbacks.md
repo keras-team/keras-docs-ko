@@ -232,40 +232,34 @@ keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, w
 [텐서보드](https://www.tensorflow.org/guide/summaries_and_tensorboard)
 는 텐서플로우와 함께 제공되는 시각화 도구입니다.
 
-이 콜백은 텐서보드를 위한 로그를 작성하며, 여러분의 훈련과 테스트 척도에 대한
-동적 
-This callback writes a log for TensorBoard, which allows
-you to visualize dynamic graphs of your training and test
-metrics, as well as activation histograms for the different
-layers in your model.
+이 콜백은 텐서보드를 위한 로그를 작성하며, 여러분의 훈련과 테스트 척도에 대한 동적 그래프,
+활성화 함수에 대한 히스토그램, 그리고 여러분의 모델에 대한 서로 다른 레이어를 시각화할
+수 있게 합니다.
 
-If you have installed TensorFlow with pip, you should be able
-to launch TensorBoard from the command line:
+만약 여러분이 텐서플로우를 pip을 이용해 설치했다면, 다음 커맨드로 텐서보드를 론칭할 수 있습니다.
+커맨드 라인으로 텐서보드 론칭하기:
 ```sh
 tensorboard --logdir=/full_path_to_your_logs
 ```
 
-When using a backend other than TensorFlow, TensorBoard will still work
-(if you have TensorFlow installed), but the only feature available will
-be the display of the losses and metrics plots.
+텐서플로우가 아닌 다른 백엔드를 이용하고 있더라도 텐서보드는 동작합니다(텐서플로우가
+설치되어있다는 전제 하에). 그러나 시각화가 가능한 특성들은 손실 함수와 측정 척도에 대한
+플롯 뿐입니다.
 
 __Arguments__
 
-- __log_dir__: the path of the directory where to save the log
-    files to be parsed by TensorBoard.
-- __histogram_freq__: frequency (in epochs) at which to compute activation
-    and weight histograms for the layers of the model. If set to 0,
-    histograms won't be computed. Validation data (or split) must be
-    specified for histogram visualizations.
-- __write_graph__: whether to visualize the graph in TensorBoard.
-    The log file can become quite large when
-    write_graph is set to True.
-- __write_grads__: whether to visualize gradient histograms in TensorBoard.
-    `histogram_freq` must be greater than 0.
-- __batch_size__: size of batch of inputs to feed to the network
-    for histograms computation.
-- __write_images__: whether to write model weights to visualize as
-    image in TensorBoard.
+- __log_dir__: 로그 파일이 저장되는 디렉토리로, 텐서보드를 통해 분석되는
+    파일이 저장됩니다.
+- __histogram_freq__: 모델의 레이어에 대한 활성화 정도와 가중치 정도를 
+    계산하는 빈도(에포크 단위). 만약 0으로 설정 되면, 히스토그램은 계산되지 않을 것입니다.
+    검증 데이터(혹은 split)는 히스토그램 시각화를 위해 특정되어야 합니다.
+- __write_graph__: 텐서보드를 이용해 그래프를 시각화할지에 대한 여부.
+    write_graph가 True로 설정될 경우 로그 파일의 크기가 꽤 커질 수 있습니다.
+- __write_grads__: 텐서보드를 이용해 경사도를 시각화할지에 대한 여부.
+    `histogram_freq`는 0보다 커야 합니다.
+- __batch_size__: 히스토그램을 계산하기 위해
+    네트워크에 입력으로 집어 넣는 입력 배치의 크기.
+- __write_images__: 모델 가중치를 텐서보드에서 이미지로 저장할지에 대한 여부.
 - __embeddings_freq__: frequency (in epochs) at which selected embedding
     layers will be saved. If set to 0, embeddings won't be computed.
     Data to be visualized in TensorBoard's Embedding tab must be passed
