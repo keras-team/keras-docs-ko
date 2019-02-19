@@ -1,30 +1,30 @@
-# 캐라스 벡엔드
+# Keras 백엔드
 
-## "bakend"는 무엇 입니까? 
+## "백앤드"는 무엇인가요? 
 
-케라스는 딥러닝 모델을 개발하기 위한 상위-수준의 구성요성 요소를 제공하는 모델-레벨의 라이브러리입니다. 케라스는 텐서 곱셈, 컨볼루션 등의 저수준의 연산을 제공하지 않습니다. 대신 케라스의 "백엔드 엔진"역할을 하는 특수하고 잘 최적화 된 텐서 라이브러리에 의존합니다. 하나의 단일 텐서 라이브러리를 선택하고 Keras 구현을 해당 라이브러리에 묶는 대신 Keras는 모듈 방식으로 문제를 처리하며 여러 다른 백엔드 엔진을 Keras에 원활하게 연결할 수 있습니다.
+Keras는 딥러닝 모델을 개발하기 위한 고수준의 구성요성 요소를 제공하는 모델 레벨의 라이브러리입니다. Keras는 텐서 곱셈, 합성곱 등의 저수준의 연산을 제공하지 않습니다. 대신 Keras의 "백엔드 엔진" 역할을 하는 특수하고 잘 최적화 된 텐서 라이브러리에 의존합니다. 하나의 단일 텐서 라이브러리를 선택하고 Keras 구현을 해당 라이브러리에 묶는 대신, Keras는 모듈 방식으로 문제를 처리하여 여러 다른 백엔드 엔진들을 Keras에 매끄럽게 연결할 수 있게 합니다.
 
-현재, 케라스에는 3가지 벡엔드가 구현되어 있습니다: **TensorFlow(텐셔플로우)** 백엔드, **Theano(씨아노)** 백엔드, 그리고 **CNTK** 백엔드.
+현재 Keras는 **TensorFlow**, **Theano**, 그리고 **CNTK**의 세 가지 백엔드를 지원합니다.
 
 - [TensorFlow](http://www.tensorflow.org/) is an open-source symbolic tensor manipulation framework developed by Google.
 - [Theano](http://deeplearning.net/software/theano/) is an open-source symbolic tensor manipulation framework developed by LISA Lab at Université de Montréal.
 - [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/) is an open-source toolkit for deep learning developed by Microsoft.
 
-앞으로는 더 많은 백엔드 옵션을 추가 할 것입니다.
+앞으로 더 많은 백엔드 옵션을 지원할 예정입니다.
 
 ----
 
 ## 한 백엔드에서 다른 백엔드로의 전환
 
-케라스를 적어도 한 번 실행하면 다음 위치에서 케라스 구성 파일을 찾을 수 있습니다:
+Keras를 한 번이라도 실행한 적이 있다면, 아래의 위치에서 Keras 구성 파일을 찾을 수 있습니다.
 
 `$HOME/.keras/keras.json`
 
-거기에 없다면, 위의 파일을 만들수 있습니다.
+만약 파일이 없다면, 해당 위치에 구성 파일을 만들 수 있습니다.
 
-**Windows(윈도우) 사용자를 위한 노트:** `$ HOME`을`% USERPROFILE %`로 바꾸십시오.
+**Windows(윈도우) 사용자를 위한 노트:** `$HOME`을 `%USERPROFILE%`로 바꾸십시오.
 
-기본 구성파일은 다음과 같습니다:
+기본 구성 파일의 내용은 다음과 같습니다.
 
 ```
 {
@@ -35,17 +35,19 @@
 }
 ```
 
-`backend` 필드를``theano``,``tensorflow`` 또는``cntk``로 바꾸기 만하면 케라스는 다음 번에 케라스 코드를 실행할 때 새로운 설정을 사용하게됩니다.
+단순히 `backend` 필드의 값을 `"theano"`, `"tensorflow"` 또는 `"cntk"`로 바꿔주는 것 만으로
+새로운 백엔드를 사용해 Keras 코드를 실행할 수 있습니다. 
 
-당신은 환경 변수``KERAS_BACKEND``을 정의 할 수도 있으며, 
-이는 당신의 설정 파일에 정의 된 것으로 대체 가능 할 것입니다 :
+또는 아래와 같이 환경 변수 `KERAS_BACKEND`를 정의해 설정 파일에 정의된 것을 대체할 수도 있습니다. 
 
 ```bash
 KERAS_BACKEND=tensorflow python -c "from keras import backend"
 Using TensorFlow backend.
 ```
 
-케라스는 "tensorflow"`, `"theano"`, 그리고 `"cntk" 보다 많은 벡엔드를 로드하는 것이 가능합니다. 케라스는 외부 백엔드도 사용 할수 있으며, `keras.json`구성파일과 `"backend"`설정을 변경함으로써 수행 될 수 있습니다. 당신의 외부 벡엔드를 사용하기를 원하는 `my_module`이라는 파이션 모듈 가지고 있다고 합시다. `keras.json` 설정파일은 다움과 같이 바뀔 것입니다:
+Keras에서는 `"tensorflow"`, `"theano"` 그리고 `"cntk"`외에도 사용자가 지정한 임의의 백엔드를 로드하는 것이 가능합니다.
+만약 `my_module`이라는 이름의 Python 모듈을 백엔드로 사용하고자 한다면,
+`keras.json` 파일의 `"backend"` 변수 값을 아래와 같이 바꿔주어야 합니다.  
 
 ```
 {
@@ -55,17 +57,17 @@ Using TensorFlow backend.
     "backend": "my_package.my_module"
 }
 ```
-An external backend must be validated in order to be used, a valid backend must have the following functions: `placeholder`, `variable` and `function`.
-외부 백엔드를 사용하려면 유효성을 검사해야하며, 유효한 외부 백엔드는 다음의 함수를 반드시 가지고 있어야 합니다: `placeholder`,`variable`,`function` 
 
-만약, 외부 백엔드가 필수 항목이 누락되어 유효하지 않은 경우라면, 오류는 누락 된 항목/항목들을 알리기 위해 기록(로깅)됩니다.
+사용하고자 하는 외부 백엔드는 반드시 검증된 것이어야 하며,
+`placeholder`, `variable` 그리고 `function` 세 함수들을 지원해야 합니다.
+
+만약, 외부 백엔드가 필수 항목이 누락되어 유효하지 않은 경우라면, 누락된 항목/항목들에 대한 오류가 기록됩니다.
 
 ----
 
 ## keras.json 상세
 
-
-`keras.json` 구성파일은 아래 따라 나오는 세팅을 포함합니다:
+`keras.json` 구성 파일은 아래의 설정들을 포함합니다.
 
 ```
 {
@@ -76,7 +78,7 @@ An external backend must be validated in order to be used, a valid backend must 
 }
 ```
 
-`$ HOME / .keras / keras.json`을 편집하여 설정을 변경할 수 있습니다.  
+`$HOME/.keras/keras.json` 파일을 편집하여 설정을 변경할 수 있습니다.  
 
 * `image_data_format`: String, either `"channels_last"` or `"channels_first"`. It specifies which data format convention Keras will follow. (`keras.backend.image_data_format()` returns it.)
   - For 2D data (e.g. image), `"channels_last"` assumes `(rows, cols, channels)` while `"channels_first"` assumes `(channels, rows, cols)`. 
@@ -87,18 +89,19 @@ An external backend must be validated in order to be used, a valid backend must 
 
 ----
 
-## 추상 Keras 백엔드를 사용하여 새로운 코드 작성
+## 추상화된 Keras 백엔드를 사용하여 새로운 코드 작성하기
 
-If you want the Keras modules you write to be compatible with both Theano (`th`) and TensorFlow (`tf`), you have to write them via the abstract Keras backend API. Here's an intro.
-작성한 케라스 모듈이 Theano (`th`)와 텐서플로우 (`tf`)와 호환되도록하려면 추상 케라스 백엔드 API를 통해 작성해야합니다. 여기에 소개가 있습니다.
+만약 Theano(`th`)와 Tensorflow(`tf`) 모두와 호환이 되는 Keras 모듈을 작성하고자 한다면,
+아래와 같이 추상화된 Keras 백엔드 API를 사용해야 합니다. 
 
-다음을 통해 백엔드 모듈을 가져올 수 있습니다.
+다음과 같이 백엔드 모듈을 사용할 수 있습니다.
+
 ```python
 from keras import backend as K
 ```
 
-The code below instantiates an input placeholder. It's equivalent to `tf.placeholder()` or `th.tensor.matrix()`, `th.tensor.tensor3()`, etc.
-아래 코드는 입력 자리 표시자를 인스턴스화합니다. 그것은`tf.placeholder ()`또는`th.tensor.matrix ()`,`th.tensor.tensor3 ()`등과 같은 것입니다.
+아래는 입력 `placeholder`를 인스턴스화하는 코드입니다. 
+이는 `tf.placeholder()`, `th.tensor.matrix()` 또는 `th.tensor.tensor()` 등을 실행하는 것과 같습니다.
 
 ```python
 inputs = K.placeholder(shape=(2, 4, 5))
@@ -108,8 +111,7 @@ inputs = K.placeholder(shape=(None, 4, 5))
 inputs = K.placeholder(ndim=3)
 ```
 
-The code below instantiates a variable. It's equivalent to `tf.Variable()` or `th.shared()`.
-아래의 코드는 변수를 인스턴스화합니다. `tf.Variable ()`또는`th.shared ()`와 동일합니다.
+아래의 코드는 변수를 인스턴스화합니다. `tf.Variable()` 또는 `th.shared()`를 실행하는 것과 같습니다.
 
 ```python
 import numpy as np
@@ -122,8 +124,7 @@ var = K.zeros(shape=(3, 4, 5))
 var = K.ones(shape=(3, 4, 5))
 ```
 
-Most tensor operations you will need can be done as you would in TensorFlow or Theano:
-TensorFlow 또는 Theano에서와 같이 수행해야 할 대부분의 텐서 연산은 다음과 같습니다.
+구현에 필요한 대부분의 텐서 연산들은 TensorFlow나 Theano에서 하는 것과 크게 다르지 않습니다. 
 
 ```python
 # Initializing Tensors with Random Numbers
@@ -142,12 +143,10 @@ a = K.concatenate([b, c], axis=-1)
 
 ----
 
-## Backend functions
 ## 백엔드 함수들
 
 
 ### epsilon
-### epsilon(엡실론)
 
 
 ```python
@@ -155,8 +154,7 @@ keras.backend.epsilon()
 ```
 
 
-Returns the value of the fuzz factor used in numeric expressions.
-수치 식에 사용되는 모호 인자의 값을 반환합니다.
+수치 식에 사용되는 fuzz factor의 값을 반환합니다.
 
 __Returns__
 
@@ -173,7 +171,6 @@ __Example__
 ----
 
 ### set_epsilon
-### set_epsilon(앱실론 셋)
 
 
 ```python
@@ -181,13 +178,11 @@ keras.backend.set_epsilon(e)
 ```
 
 
-Sets the value of the fuzz factor used in numeric expressions.
-수치 식에 사용되는 모호한 계수의 값을 설정합니다.
+수치 식에 사용되는 fuzz factor의 값을 설정합니다.
 
 __Arguments__
 
 - __e__: float. New value of epsilon.
-- __e__: 부동소수. 앱실론의 새로운 값.
 
 __Example__
 
@@ -212,13 +207,12 @@ keras.backend.floatx()
 
 Returns the default float type, as a string.
 (e.g. 'float16', 'float32', 'float64').
-디폴트의 float 형을 string로서 돌려줍니다.
+ float 형을 string로서 돌려줍니다.
 (예 : 'float16', 'float32', 'float64').
 
 __Returns__
 
 String, the current default float type.
-String, 현재 기본형의 float 타입
 
 __Example__
 
@@ -237,8 +231,7 @@ keras.backend.set_floatx(floatx)
 ```
 
 
-Sets the default float type.
-디폴트 float형을 세팅합니다.
+디폴트 float 타입을 설정합니다.
 
 __Arguments__
 
@@ -265,8 +258,7 @@ keras.backend.cast_to_floatx(x)
 ```
 
 
-Cast a Numpy array to the default Keras float type.
-Numpy(넘파이) 배열을 디폴트 케라스 float 형으로 바꿉니다.
+NumPy 배열을 Keras의 디폴트 float 타입으로 변환합니다.
 
 __Arguments__
 
@@ -274,8 +266,7 @@ __Arguments__
 
 __Returns__
 
-The same Numpy array, cast to its new type.
-같은 Numpy(넘파이) 배열, 케라스의 새로운 타입으로 바꿉니다.
+변환된 NumPy 배열
 
 __Example__
 
@@ -308,7 +299,6 @@ Returns the default image data format convention.
 __Returns__
 
 A string, either `'channels_first'` or `'channels_last'`
-문자열은`'channels_first'` 또는`'channels_last'` 중 하나입니다.
 
 __Example__
 
@@ -328,7 +318,6 @@ keras.backend.set_image_data_format(data_format)
 
 
 Sets the value of the data format convention.
-데이터 형식 규칙의 값을 설정합니다.
 
 __Arguments__
 
@@ -356,18 +345,15 @@ keras.backend.get_uid(prefix='')
 ```
 
 
-Get the uid for the default graph.
-기본 그래프의 uid를 가져옵니다.
+디폴트 그래프의 uid 값을 가져옵니다.
 
 __Arguments__
 
 - __prefix__: An optional prefix of the graph.
-- __prefix__: 그래프의 선택적 접두어.
 
 __Returns__
 
-A unique identifier for the graph.
-그래프의 고유 식별자입니다.
+그래프의 고유 식별자(uid)
     
 ----
 
@@ -380,7 +366,7 @@ keras.backend.reset_uids()
 
 
 Resets graph identifiers.
-그래프의 식별자를 리셋합니다.
+그래프의 식별자를 재설정합니다.
 
 ----
 
@@ -392,11 +378,9 @@ keras.backend.clear_session()
 ```
 
 
-Destroys the current TF graph and creates a new one.
 현재 TF 그래프를 없애고, 새로운 TF 그래프를 만듭니다.
 
-Useful to avoid clutter from old models / layers.
-오래된 모델 / 레이어에서 혼란을 피할 때 유용합니다.
+오래된 모델 혹은 층과의 혼란을 피할 때 유용합니다.
 
 ----
 
