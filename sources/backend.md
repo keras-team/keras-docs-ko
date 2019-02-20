@@ -124,7 +124,7 @@ var = K.zeros(shape=(3, 4, 5))
 var = K.ones(shape=(3, 4, 5))
 ```
 
-구현에 필요한 대부분의 텐서 연산들을 수행하는 것은 TensorFlow나 Theano에서 하는 것과 크게 다르지 않습니다. 
+구현에 필요한 대부분의 텐서 연산들은 사용법이 TensorFlow나 Theano와 크게 다르지 않습니다. 
 
 ```python
 # Initializing Tensors with Random Numbers
