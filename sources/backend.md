@@ -1,30 +1,30 @@
-# Keras backends
+# Keras 백엔드
 
-## What is a "backend"?
+## "백앤드"는 무엇인가요? 
 
-Keras is a model-level library, providing high-level building blocks for developing deep learning models. It does not handle itself low-level operations such as tensor products, convolutions and so on. Instead, it relies on a specialized, well-optimized tensor manipulation library to do so, serving as the "backend engine" of Keras. Rather than picking one single tensor library and making the implementation of Keras tied to that library, Keras handles the problem in a modular way, and several different backend engines can be plugged seamlessly into Keras.
+Keras는 딥러닝 모델을 개발하기 위한 고수준의 구성요성 요소를 제공하는 모델 레벨의 라이브러리입니다. Keras는 텐서 곱셈, 합성곱 등의 저수준의 연산을 제공하지 않습니다. 대신 Keras의 "백엔드 엔진" 역할을 하는 특수하고 잘 최적화 된 텐서 라이브러리에 의존합니다. 하나의 단일 텐서 라이브러리를 선택하고 Keras 구현을 해당 라이브러리에 묶는 대신, Keras는 모듈 방식으로 문제를 처리하여 여러 다른 백엔드 엔진들을 Keras에 매끄럽게 연결할 수 있게 합니다.
 
-At this time, Keras has three backend implementations available: the **TensorFlow** backend, the **Theano** backend, and the **CNTK** backend.
+현재 Keras는 **TensorFlow**, **Theano**, 그리고 **CNTK**의 세 가지 백엔드를 지원합니다.
 
 - [TensorFlow](http://www.tensorflow.org/) is an open-source symbolic tensor manipulation framework developed by Google.
 - [Theano](http://deeplearning.net/software/theano/) is an open-source symbolic tensor manipulation framework developed by LISA Lab at Université de Montréal.
 - [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/) is an open-source toolkit for deep learning developed by Microsoft.
 
-In the future, we are likely to add more backend options.
+앞으로 더 많은 백엔드 옵션을 지원할 예정입니다.
 
 ----
 
-## Switching from one backend to another
+## 한 백엔드에서 다른 백엔드로의 전환
 
-If you have run Keras at least once, you will find the Keras configuration file at:
+Keras를 한 번이라도 실행한 적이 있다면, 아래의 위치에서 Keras 구성 파일을 찾을 수 있습니다.
 
 `$HOME/.keras/keras.json`
 
-If it isn't there, you can create it.
+만약 파일이 없다면, 해당 위치에 구성 파일을 만들 수 있습니다.
 
-**NOTE for Windows Users:** Please replace `$HOME` with `%USERPROFILE%`.
+**Windows(윈도우) 사용자를 위한 노트:** `$HOME`을 `%USERPROFILE%`로 바꾸십시오.
 
-The default configuration file looks like this:
+기본 구성 파일의 내용은 다음과 같습니다.
 
 ```
 {
@@ -35,17 +35,19 @@ The default configuration file looks like this:
 }
 ```
 
-Simply change the field `backend` to `"theano"`, `"tensorflow"`, or `"cntk"`, and Keras will use the new configuration next time you run any Keras code.
+단순히 `backend` 필드의 값을 `"theano"`, `"tensorflow"` 또는 `"cntk"`로 바꿔주는 것 만으로
+새로운 백엔드를 사용해 Keras 코드를 실행할 수 있습니다. 
 
-You can also define the environment variable ``KERAS_BACKEND`` and this will
-override what is defined in your config file :
+또는 아래와 같이 환경 변수 `KERAS_BACKEND`를 정의해 설정 파일에 정의된 것을 대체할 수도 있습니다. 
 
 ```bash
 KERAS_BACKEND=tensorflow python -c "from keras import backend"
 Using TensorFlow backend.
 ```
 
-In Keras it is possible to load more backends than `"tensorflow"`, `"theano"`, and `"cntk"`. Keras can use external backends as well, and this can be performed by changing the `keras.json` configuration file, and the `"backend"` setting. Suppose you have a Python module called `my_module` that you wanted to use as your external backend. The `keras.json` configuration file would be changed as follows:
+Keras에서는 `"tensorflow"`, `"theano"` 그리고 `"cntk"`외에도 사용자가 지정한 임의의 백엔드를 로드하는 것이 가능합니다.
+만약 `my_module`이라는 이름의 Python 모듈을 백엔드로 사용하고자 한다면,
+`keras.json` 파일의 `"backend"` 변수 값을 아래와 같이 바꿔주어야 합니다.  
 
 ```
 {
@@ -55,16 +57,17 @@ In Keras it is possible to load more backends than `"tensorflow"`, `"theano"`, a
     "backend": "my_package.my_module"
 }
 ```
-An external backend must be validated in order to be used, a valid backend must have the following functions: `placeholder`, `variable` and `function`.
 
-If an external backend is not valid due to missing a required entry, an error will be logged notifying which entry/entries are missing.
+사용하고자 하는 외부 백엔드는 반드시 검증된 것이어야 하며,
+`placeholder`, `variable` 그리고 `function` 세 함수들을 지원해야 합니다.
+
+만약, 외부 백엔드가 필수 항목이 누락되어 유효하지 않은 경우라면, 누락된 항목/항목들에 대한 오류가 기록됩니다.
 
 ----
 
-## keras.json details
+## keras.json 상세
 
-
-The `keras.json` configuration file contains the following settings:
+`keras.json` 구성 파일은 아래의 설정들을 포함합니다.
 
 ```
 {
@@ -75,7 +78,7 @@ The `keras.json` configuration file contains the following settings:
 }
 ```
 
-You can change these settings by editing `$HOME/.keras/keras.json`. 
+`$HOME/.keras/keras.json` 파일을 편집하여 설정을 변경할 수 있습니다.  
 
 * `image_data_format`: String, either `"channels_last"` or `"channels_first"`. It specifies which data format convention Keras will follow. (`keras.backend.image_data_format()` returns it.)
   - For 2D data (e.g. image), `"channels_last"` assumes `(rows, cols, channels)` while `"channels_first"` assumes `(channels, rows, cols)`. 
@@ -86,16 +89,19 @@ You can change these settings by editing `$HOME/.keras/keras.json`.
 
 ----
 
-## Using the abstract Keras backend to write new code
+## 추상화된 Keras 백엔드를 사용하여 새로운 코드 작성하기
 
-If you want the Keras modules you write to be compatible with both Theano (`th`) and TensorFlow (`tf`), you have to write them via the abstract Keras backend API. Here's an intro.
+만약 Theano(`th`)와 Tensorflow(`tf`) 모두와 호환이 되는 Keras 모듈을 작성하고자 한다면,
+아래와 같이 추상화된 Keras 백엔드 API를 사용해야 합니다. 
 
-You can import the backend module via:
+다음과 같이 백엔드 모듈을 사용할 수 있습니다.
+
 ```python
 from keras import backend as K
 ```
 
-The code below instantiates an input placeholder. It's equivalent to `tf.placeholder()` or `th.tensor.matrix()`, `th.tensor.tensor3()`, etc.
+아래는 입력 `placeholder`를 인스턴스화하는 코드입니다. 
+이는 `tf.placeholder()`, `th.tensor.matrix()` 또는 `th.tensor.tensor()` 등을 실행하는 것과 같습니다.
 
 ```python
 inputs = K.placeholder(shape=(2, 4, 5))
@@ -105,7 +111,7 @@ inputs = K.placeholder(shape=(None, 4, 5))
 inputs = K.placeholder(ndim=3)
 ```
 
-The code below instantiates a variable. It's equivalent to `tf.Variable()` or `th.shared()`.
+아래의 코드는 변수를 인스턴스화합니다. `tf.Variable()` 또는 `th.shared()`를 실행하는 것과 같습니다.
 
 ```python
 import numpy as np
@@ -118,7 +124,7 @@ var = K.zeros(shape=(3, 4, 5))
 var = K.ones(shape=(3, 4, 5))
 ```
 
-Most tensor operations you will need can be done as you would in TensorFlow or Theano:
+구현에 필요한 대부분의 텐서 연산들은 사용법이 TensorFlow나 Theano와 크게 다르지 않습니다. 
 
 ```python
 # Initializing Tensors with Random Numbers
@@ -137,7 +143,7 @@ a = K.concatenate([b, c], axis=-1)
 
 ----
 
-## Backend functions
+## 백엔드 함수들
 
 
 ### epsilon
@@ -148,7 +154,7 @@ keras.backend.epsilon()
 ```
 
 
-Returns the value of the fuzz factor used in numeric expressions.
+수치 식에 사용되는 fuzz factor의 값을 반환합니다.
 
 __Returns__
 
@@ -171,7 +177,7 @@ keras.backend.set_epsilon(e)
 ```
 
 
-Sets the value of the fuzz factor used in numeric expressions.
+수치 식에 사용되는 fuzz factor의 값을 설정합니다.
 
 __Arguments__
 
@@ -201,6 +207,7 @@ keras.backend.floatx()
 Returns the default float type, as a string.
 (e.g. 'float16', 'float32', 'float64').
 
+
 __Returns__
 
 String, the current default float type.
@@ -222,7 +229,7 @@ keras.backend.set_floatx(floatx)
 ```
 
 
-Sets the default float type.
+디폴트 float 타입을 설정합니다.
 
 __Arguments__
 
@@ -249,15 +256,15 @@ keras.backend.cast_to_floatx(x)
 ```
 
 
-Cast a Numpy array to the default Keras float type.
+NumPy 배열을 Keras의 디폴트 float 타입으로 변환합니다.
 
 __Arguments__
 
-- __x__: Numpy array.
+- __x__: NumPy 배열.
 
 __Returns__
 
-The same Numpy array, cast to its new type.
+변환된 NumPy 배열
 
 __Example__
 
@@ -312,7 +319,7 @@ Sets the value of the data format convention.
 
 __Arguments__
 
-- __data_format__: string. `'channels_first'` or `'channels_last'`.
+- __data_format__: string. `'channels_first'` 또는 `'channels_last'`.
 
 __Example__
 
@@ -335,7 +342,7 @@ keras.backend.get_uid(prefix='')
 ```
 
 
-Get the uid for the default graph.
+디폴트 그래프의 uid 값을 가져옵니다.
 
 __Arguments__
 
@@ -343,7 +350,7 @@ __Arguments__
 
 __Returns__
 
-A unique identifier for the graph.
+그래프의 고유 식별자(uid)
     
 ----
 
@@ -355,7 +362,7 @@ keras.backend.reset_uids()
 ```
 
 
-Resets graph identifiers.
+그래프의 식별자를 재설정합니다.
 
 ----
 
@@ -367,9 +374,9 @@ keras.backend.clear_session()
 ```
 
 
-Destroys the current TF graph and creates a new one.
+현재 TF 그래프를 없애고, 새로운 TF 그래프를 만듭니다.
 
-Useful to avoid clutter from old models / layers.
+오래된 모델 혹은 층과의 혼란을 피할 때 유용합니다.
 
 ----
 
@@ -381,12 +388,10 @@ keras.backend.manual_variable_initialization(value)
 ```
 
 
-Sets the manual variable initialization flag.
+수동 변수 초기화 플래그를 설정합니다.
 
-This boolean flag determines whether
-variables should be initialized
-as they are instantiated (default), or if
-the user should handle the initialization
+이 boolean 플래그는 변수가 인스턴스화 될 때 초기화 되어야 하는지(기본값),
+혹은 사용자가 직접 초기화를 처리해야 하는지 여부를 결정합니다. 
 (e.g. via `tf.initialize_all_variables()`).
 
 __Arguments__
@@ -403,16 +408,16 @@ keras.backend.learning_phase()
 ```
 
 
-Returns the learning phase flag.
+학습 단계를 나타내는 플래그를 반환합니다.
 
-The learning phase flag is a bool tensor (0 = test, 1 = train)
-to be passed as input to any Keras function
-that uses a different behavior at train time and test time.
+
+해당 플래그 변수는 학습과 테스트시에 다른 행동을 취하는 
+Keras 함수에 입력으로 전달되는 bool형 텐서 (0 = 테스트, 1 = 학습)입니다.
 
 __Returns__
 
 Learning phase (scalar integer tensor or Python integer).
-    
+
 ----
 
 ### set_learning_phase
@@ -423,15 +428,15 @@ keras.backend.set_learning_phase(value)
 ```
 
 
-Sets the learning phase to a fixed value.
+학습 단계 변수를 주어진 값으로 고정합니다.
 
 __Arguments__
 
-- __value__: Learning phase value, either 0 or 1 (integers).
+- __value__: 학습 단계 값, 0 또는 1(정수).
 
 __Raises__
 
-- __ValueError__: if `value` is neither `0` nor `1`.
+- __ValueError__: `value` 가 `0` 또는 `1`이 아닌 경우.
     
 ----
 
@@ -507,19 +512,18 @@ keras.backend.variable(value, dtype=None, name=None, constraint=None)
 ```
 
 
-Instantiates a variable and returns it.
+변수를 인스턴스화한 후 반환합니다.
 
 __Arguments__
 
-- __value__: Numpy array, initial value of the tensor.
-- __dtype__: Tensor type.
-- __name__: Optional name string for the tensor.
-- __constraint__: Optional projection function to be
-    applied to the variable after an optimizer update.
+- __value__: NumPy 배열, 텐서의 초기 값.
+- __dtype__: 텐서 타입.
+- __name__: 텐서의 이름(선택사항).
+- __constraint__: 옵티마이저 업데이트 후 변수에 적용되는 투영 함수입니다(선택사항).
 
 __Returns__
 
-A variable instance (with Keras metadata included).
+변수 인스턴스(Keras 메타 데이터 포함).
 
 __Examples__
 
@@ -546,18 +550,19 @@ keras.backend.constant(value, dtype=None, shape=None, name=None)
 ```
 
 
-Creates a constant tensor.
+상수 텐서를 만듭니다.
 
 __Arguments__
 
 - __value__: A constant value (or list)
-- __dtype__: The type of the elements of the resulting tensor.
-- __shape__: Optional dimensions of resulting tensor.
-- __name__: Optional name for the tensor.
+- __value__: 상수 값(또는 리스트)
+- __dtype__: 결과의 텐서의 요소의 형태.
+- __shape__: 결과 텐서의 크기(선택사항).
+- __name__: 텐서의 이름(선택사항).
 
 __Returns__
 
-A Constant Tensor.
+상수 텐서
     
 ----
 
@@ -569,22 +574,21 @@ keras.backend.is_keras_tensor(x)
 ```
 
 
-Returns whether `x` is a Keras tensor.
+`x`가 Keras 텐서인지 아닌지를 반환합니다.
 
-A "Keras tensor" is a tensor that was returned by a Keras layer,
-(`Layer` class) or by `Input`.
+"Keras 텐서"란 Keras 층(`Layer` 클래스) 또는 `Input`에 의해 반환된 텐서입니다.
 
 __Arguments__
 
-- __x__: A candidate tensor.
+- __x__: 후보 텐서.
 
 __Returns__
 
-A boolean: Whether the argument is a Keras tensor.
+A boolean: 주어진 인자가 Keras 텐서인지의 여부.
 
 __Raises__
 
-- __ValueError__: In case `x` is not a symbolic tensor.
+- __ValueError__: `x`가 심볼릭 텐서가 아닌 경우.
 
 __Examples__
 
