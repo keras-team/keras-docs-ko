@@ -1,28 +1,28 @@
 # Keras 백엔드
 
-## "백앤드"는 무엇인가요? 
+## "백엔드"란 무엇인가요? 
 
-Keras는 딥러닝 모델을 개발하기 위한 고수준의 구성요성 요소를 제공하는 모델 레벨의 라이브러리입니다. Keras는 텐서 곱셈, 합성곱 등의 저수준의 연산을 제공하지 않습니다. 대신 Keras의 "백엔드 엔진" 역할을 하는 특수하고 잘 최적화 된 텐서 라이브러리에 의존합니다. 하나의 단일 텐서 라이브러리를 선택하고 Keras 구현을 해당 라이브러리에 묶는 대신, Keras는 모듈 방식으로 문제를 처리하여 여러 다른 백엔드 엔진들을 Keras에 매끄럽게 연결할 수 있게 합니다.
+Keras는 딥러닝 모델을 만들기 위한 고수준의 구성 요소를 제공하는 모델 수준의 라이브러리입니다. 텐서 곱셈이나 합성곱 같은 저수준의 연산을 다루지 않습니다. 그 대신 Keras의 "백엔드 엔진"에서 제공하는 최적화되고 특화된 텐서 라이브러리를 사용합니다. Keras는 하나의 텐서 라이브러리에 국한하여 구현되어 있지 않고 모듈 구조로 구성되어 있어 여러 가지 백엔드 엔진이 Keras와 매끄럽게 연동됩니다.
 
-현재 Keras는 **TensorFlow**, **Theano**, 그리고 **CNTK**의 세 가지 백엔드를 지원합니다.
+Keras는 현재 **TensorFlow**, **Theano**, **CNTK** 세 가지를 백엔드 엔진으로 사용할 수 있습니다.
 
-- [TensorFlow](http://www.tensorflow.org/) is an open-source symbolic tensor manipulation framework developed by Google.
-- [Theano](http://deeplearning.net/software/theano/) is an open-source symbolic tensor manipulation framework developed by LISA Lab at Université de Montréal.
-- [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/) is an open-source toolkit for deep learning developed by Microsoft.
+- [TensorFlow](http://www.tensorflow.org/)는 구글에서 개발한 심볼릭 텐서를 조작하는 오픈소스 프레임워크입니다.
+- [Theano](http://deeplearning.net/software/theano/)는 몬트리올 대학 LISA 연구소에서 개발한 심볼릭 텐서를 조작하는 오픈소스 프레임워크입니다.
+- [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/)는 마이크로소프트에서 개발한 딥러닝 툴킷입니다.
 
-앞으로 더 많은 백엔드 옵션을 지원할 예정입니다.
+향후에는 더 많은 딥러닝 엔진을 Keras에서 사용할 수 있을 것입니다.
 
 ----
 
-## 한 백엔드에서 다른 백엔드로의 전환
+## 다른 백엔드로 전환하기
 
-Keras를 한 번이라도 실행한 적이 있다면, 아래의 위치에서 Keras 구성 파일을 찾을 수 있습니다.
+Keras를 한 번이라도 실행했다면, 아래 위치에서 Keras 구성 파일을 찾을 수 있습니다.
 
 `$HOME/.keras/keras.json`
 
 만약 파일이 없다면, 해당 위치에 구성 파일을 만들 수 있습니다.
 
-**Windows(윈도우) 사용자를 위한 노트:** `$HOME`을 `%USERPROFILE%`로 바꾸십시오.
+**Windows를 사용하는 경우:** `$HOME`을 `%USERPROFILE%`로 바꾸십시오.
 
 기본 구성 파일의 내용은 다음과 같습니다.
 
@@ -35,19 +35,16 @@ Keras를 한 번이라도 실행한 적이 있다면, 아래의 위치에서 Ker
 }
 ```
 
-단순히 `backend` 필드의 값을 `"theano"`, `"tensorflow"` 또는 `"cntk"`로 바꿔주는 것 만으로
-새로운 백엔드를 사용해 Keras 코드를 실행할 수 있습니다. 
+단순히 `backend` 필드의 값을 `"theano"`, `"tensorflow"`, `"cntk"` 등으로 바꿔주기만 하면 새로운 백엔드를 사용해 Keras 코드를 실행할 수 있습니다.
 
-또는 아래와 같이 환경 변수 `KERAS_BACKEND`를 정의해 설정 파일에 정의된 것을 대체할 수도 있습니다. 
+또는 아래와 같이 환경 변수 `KERAS_BACKEND`를 정의해 설정 파일에 정의된 백엔드를 대체할 수도 있습니다.
 
 ```bash
 KERAS_BACKEND=tensorflow python -c "from keras import backend"
 Using TensorFlow backend.
 ```
 
-Keras에서는 `"tensorflow"`, `"theano"` 그리고 `"cntk"`외에도 사용자가 지정한 임의의 백엔드를 로드하는 것이 가능합니다.
-만약 `my_module`이라는 이름의 Python 모듈을 백엔드로 사용하고자 한다면,
-`keras.json` 파일의 `"backend"` 변수 값을 아래와 같이 바꿔주어야 합니다.  
+Keras에서는 `"tensorflow"`, `"theano"`, `"cntk"` 외에도 사용자가 지정한 임의의 백엔드를 가져오는 것이 가능합니다. 만약 `my_module` 이라는 이름의 Python 모듈을 백엔드로 사용하고자 한다면, `keras.json` 파일의 `"backend"` 변수 값을 아래와 같이 바꿔주면 됩니다.
 
 ```
 {
@@ -58,16 +55,15 @@ Keras에서는 `"tensorflow"`, `"theano"` 그리고 `"cntk"`외에도 사용자�
 }
 ```
 
-사용하고자 하는 외부 백엔드는 반드시 검증된 것이어야 하며,
-`placeholder`, `variable` 그리고 `function` 세 함수들을 지원해야 합니다.
+사용하고자 하는 외부 백엔드는 사용 전 반드시 검증되어야 하며, `placeholder`,  `variable` , `function` 세 함수를 지원해야 합니다.
 
-만약, 외부 백엔드가 필수 항목이 누락되어 유효하지 않은 경우라면, 누락된 항목/항목들에 대한 오류가 기록됩니다.
+만약 외부 백엔드의 필수 항목이 누락되어 검증되지 않은 경우라면, 누락된 항목에 대한 오류 로그가 기록됩니다.
 
 ----
 
 ## keras.json 상세
 
-`keras.json` 구성 파일은 아래의 설정들을 포함합니다.
+`keras.json` 구성 파일은 아래 설정을 포함합니다.
 
 ```
 {
@@ -78,30 +74,28 @@ Keras에서는 `"tensorflow"`, `"theano"` 그리고 `"cntk"`외에도 사용자�
 }
 ```
 
-`$HOME/.keras/keras.json` 파일을 편집하여 설정을 변경할 수 있습니다.  
+`$HOME/.keras/keras.json` 파일에서 설정을 변경할 수 있습니다.  
 
-* `image_data_format`: String, either `"channels_last"` or `"channels_first"`. It specifies which data format convention Keras will follow. (`keras.backend.image_data_format()` returns it.)
-  - For 2D data (e.g. image), `"channels_last"` assumes `(rows, cols, channels)` while `"channels_first"` assumes `(channels, rows, cols)`. 
-  - For 3D data, `"channels_last"` assumes `(conv_dim1, conv_dim2, conv_dim3, channels)` while `"channels_first"` assumes `(channels, conv_dim1, conv_dim2, conv_dim3)`.
-* `epsilon`: Float, a numeric fuzzing constant used to avoid dividing by zero in some operations.
-* `floatx`: String, `"float16"`, `"float32"`, or `"float64"`. Default float precision.
-* `backend`: String, `"tensorflow"`, `"theano"`, or `"cntk"`.
+* `image_data_format`:  `"channels_last"` 또는 `"channels_first"`. Keras가 따를 데이터 포맷 규칙을 결정합니다. (`keras.backend.image_data_format()`이 반환합니다.)
+  - 2D 데이터 (예: 이미지): `"channels_last"`이면 `(rows, cols, channels)`로 판단하고, `"channels_first"` 이면 `(channels, rows, cols)`로 판단합니다.
+  - 3D 데이터: `"channels_last"` 이면 `(conv_dim1, conv_dim2, conv_dim3, channels)` 로 판단하고, `"channels_first"`이면  `(channels, conv_dim1, conv_dim2, conv_dim3)`로 판단합니다.
+* `epsilon`: Float. 0으로 나누어지는 연산을 막는 데 사용되는 fuzz constant입니다.
+* `floatx`:  `"float16"`, `"float32"`,  `"float64"`. 기본 float 정밀도입니다.
+* `backend`:  `"tensorflow"`, `"theano"`,  `"cntk"`
 
 ----
 
 ## 추상화된 Keras 백엔드를 사용하여 새로운 코드 작성하기
 
-만약 Theano(`th`)와 Tensorflow(`tf`) 모두와 호환이 되는 Keras 모듈을 작성하고자 한다면,
-아래와 같이 추상화된 Keras 백엔드 API를 사용해야 합니다. 
+만약 Theano(`th`)와 Tensorflow(`tf`) 둘다 호환이 되는 Keras 모듈을 작성하고자 한다면, 아래와 같이 추상화된 Keras 백엔드 API를 사용해야 합니다.
 
-다음과 같이 백엔드 모듈을 사용할 수 있습니다.
+다음과 같이 백엔드 모듈을 가져올 수 있습니다.
 
 ```python
 from keras import backend as K
 ```
 
-아래는 입력 `placeholder`를 인스턴스화하는 코드입니다. 
-이는 `tf.placeholder()`, `th.tensor.matrix()` 또는 `th.tensor.tensor()` 등을 실행하는 것과 같습니다.
+아래는 입력 `placeholder`를 인스턴스화 하는 코드입니다. 이는 `tf.placeholder()`, `th.tensor.matrix()`, `th.tensor.tensor()` 등을 실행하는 것과 같습니다.
 
 ```python
 inputs = K.placeholder(shape=(2, 4, 5))
@@ -111,7 +105,7 @@ inputs = K.placeholder(shape=(None, 4, 5))
 inputs = K.placeholder(ndim=3)
 ```
 
-아래의 코드는 변수를 인스턴스화합니다. `tf.Variable()` 또는 `th.shared()`를 실행하는 것과 같습니다.
+아래 코드는 변수를 인스턴스화합니다. `tf.Variable()` 또는 `th.shared()`를 실행하는 것과 같습니다.
 
 ```python
 import numpy as np
@@ -124,7 +118,7 @@ var = K.zeros(shape=(3, 4, 5))
 var = K.ones(shape=(3, 4, 5))
 ```
 
-구현에 필요한 대부분의 텐서 연산들은 사용법이 TensorFlow나 Theano와 크게 다르지 않습니다. 
+구현에 필요한 대부분의 텐서 연산 사용법은 TensorFlow나 Theano와 크게 다르지 않습니다. 
 
 ```python
 # Initializing Tensors with Random Numbers
@@ -143,7 +137,28 @@ a = K.concatenate([b, c], axis=-1)
 
 ----
 
-## 백엔드 함수들
+## 백엔드 함수
+
+### backend
+
+```python
+keras.backend.backend()
+```
+
+현재 백엔드를 결정하기 위해 공개적으로 접근 가능한 메서드입니다.
+
+**Returns**
+
+String, the name of the backend Keras is currently using.
+
+**Example**
+
+```python
+>>> keras.backend.backend()
+'tensorflow'
+```
+
+------
 
 
 ### epsilon
@@ -166,7 +181,7 @@ __Example__
 >>> keras.backend.epsilon()
 1e-07
 ```
-    
+
 ----
 
 ### set_epsilon
@@ -193,7 +208,7 @@ __Example__
 >>> K.epsilon()
 1e-05
 ```
-    
+
 ----
 
 ### floatx
@@ -203,8 +218,7 @@ __Example__
 keras.backend.floatx()
 ```
 
-
-Returns the default float type, as a string.
+기본 float 타입을 string으로 반환합니다.
 (e.g. 'float16', 'float32', 'float64').
 
 
@@ -218,7 +232,7 @@ __Example__
 >>> keras.backend.floatx()
 'float32'
 ```
-    
+
 ----
 
 ### set_floatx
@@ -245,7 +259,7 @@ __Example__
 >>> K.floatx()
 'float16'
 ```
-    
+
 ----
 
 ### cast_to_floatx
@@ -281,7 +295,7 @@ array([ 1.,  2.], dtype=float32)
 >>> new_arr.dtype
 dtype('float32')
 ```
-    
+
 ----
 
 ### image_data_format
@@ -304,7 +318,7 @@ __Example__
 >>> keras.backend.image_data_format()
 'channels_first'
 ```
-    
+
 ----
 
 ### set_image_data_format
@@ -331,7 +345,7 @@ __Example__
 >>> K.image_data_format()
 'channels_last'
 ```
-    
+
 ----
 
 ### get_uid
@@ -397,7 +411,7 @@ keras.backend.manual_variable_initialization(value)
 __Arguments__
 
 - __value__: Python boolean.
-    
+  
 ----
 
 ### learning_phase
@@ -437,7 +451,7 @@ __Arguments__
 __Raises__
 
 - __ValueError__: `value` 가 `0` 또는 `1`이 아닌 경우.
-    
+  
 ----
 
 ### is_sparse
@@ -469,7 +483,7 @@ False
 >>> print(K.is_sparse(b))
 True
 ```
-    
+
 ----
 
 ### to_dense
@@ -501,7 +515,7 @@ True
 >>> print(K.is_sparse(c))
 False
 ```
-    
+
 ----
 
 ### variable
@@ -539,7 +553,7 @@ example_var
 array([[ 1.,  2.],
        [ 3.,  4.]])
 ```
-    
+
 ----
 
 ### constant
@@ -618,7 +632,7 @@ True
 >>> K.is_keras_tensor(keras_layer_output)
 True
 ```
-    
+
 ----
 
 ### is_tensor
@@ -665,7 +679,7 @@ __Examples__
 >>> input_ph
 <tf.Tensor 'Placeholder_4:0' shape=(2, 4, 5) dtype=float32>
 ```
-    
+
 ----
 
 ### is_placeholder
@@ -725,7 +739,7 @@ array([2, 2], dtype=int32)
 >>> K.shape(inputs).eval(session=tf_session)
 array([2, 4, 5], dtype=int32)
 ```
-    
+
 ----
 
 ### int_shape
@@ -767,7 +781,6 @@ def int_shape(x):
     return x.shape
 ```
 
-
 ----
 
 ### ndim
@@ -808,7 +821,6 @@ __Numpy implementation__
 def ndim(x):
     return x.ndim
 ```
-
 
 ----
 
@@ -856,7 +868,6 @@ def dtype(x):
     return x.dtype.name
 ```
 
-
 ----
 
 ### eval
@@ -893,7 +904,6 @@ __Numpy implementation__
 def eval(x):
     return x
 ```
-
 
 ----
 
@@ -937,7 +947,6 @@ def zeros(shape, dtype=floatx(), name=None):
     return np.zeros(shape, dtype=dtype)
 ```
 
-
 ----
 
 ### ones
@@ -980,7 +989,6 @@ def ones(shape, dtype=floatx(), name=None):
     return np.ones(shape, dtype=dtype)
 ```
 
-
 ----
 
 ### eye
@@ -1020,7 +1028,6 @@ __Numpy implementation__
 def eye(size, dtype=None, name=None):
     return np.eye(size, dtype=dtype)
 ```
-
 
 ----
 
@@ -1063,7 +1070,6 @@ def zeros_like(x, dtype=floatx(), name=None):
     return np.zeros_like(x, dtype=dtype)
 ```
 
-
 ----
 
 ### ones_like
@@ -1104,7 +1110,6 @@ __Numpy implementation__
 def ones_like(x, dtype=floatx(), name=None):
     return np.ones_like(x, dtype=dtype)
 ```
-
 
 ----
 
@@ -1171,7 +1176,6 @@ def random_uniform_variable(shape, low, high, dtype=None, name=None, seed=None):
     return (high - low) * np.random.random(shape).astype(dtype) + low
 ```
 
-
 ----
 
 ### random_normal_variable
@@ -1216,7 +1220,6 @@ def random_normal_variable(shape, mean, scale, dtype=None, name=None, seed=None)
     return scale * np.random.randn(*shape).astype(dtype) + mean
 ```
 
-
 ----
 
 ### count_params
@@ -1255,7 +1258,6 @@ __Numpy implementation__
 def count_params(x):
     return x.size
 ```
-
 
 ----
 
@@ -1297,7 +1299,7 @@ __Example__
 >>> input
 <tf.Tensor 'Cast_2:0' shape=(2, 3) dtype=float16>
 ```
-    
+
 ----
 
 ### update
@@ -1444,7 +1446,6 @@ def dot(x, y):
     return np.dot(x, y)
 ```
 
-
 ----
 
 ### batch_dot
@@ -1577,7 +1578,6 @@ def batch_dot(x, y, axes=None):
 
 </details>
 
-
 ----
 
 ### transpose
@@ -1629,7 +1629,6 @@ def transpose(x):
     return np.transpose(x)
 ```
 
-
 ----
 
 ### gather
@@ -1658,7 +1657,6 @@ __Numpy implementation__
 def gather(reference, indices):
     return reference[indices]
 ```
-
 
 ----
 
@@ -1697,7 +1695,6 @@ def max(x, axis=None, keepdims=False):
     return np.max(x, axis=axis, keepdims=keepdims)
 ```
 
-
 ----
 
 ### min
@@ -1734,7 +1731,6 @@ def min(x, axis=None, keepdims=False):
         axis = tuple(axis)
     return np.min(x, axis=axis, keepdims=keepdims)
 ```
-
 
 ----
 
@@ -1773,7 +1769,6 @@ def sum(x, axis=None, keepdims=False):
     return np.sum(x, axis=axis, keepdims=keepdims)
 ```
 
-
 ----
 
 ### prod
@@ -1811,7 +1806,6 @@ def prod(x, axis=None, keepdims=False):
     return np.prod(x, axis=axis, keepdims=keepdims)
 ```
 
-
 ----
 
 ### cumsum
@@ -1840,7 +1834,6 @@ def cumsum(x, axis=0):
     return np.cumsum(x, axis=axis)
 ```
 
-
 ----
 
 ### cumprod
@@ -1868,7 +1861,6 @@ __Numpy implementation__
 def cumprod(x, axis=0):
     return np.cumprod(x, axis=axis)
 ```
-
 
 ----
 
@@ -1906,7 +1898,6 @@ def var(x, axis=None, keepdims=False):
     return np.var(x, axis=axis, keepdims=keepdims)
 ```
 
-
 ----
 
 ### std
@@ -1942,7 +1933,6 @@ def std(x, axis=None, keepdims=False):
         axis = tuple(axis)
     return np.std(x, axis=axis, keepdims=keepdims)
 ```
-
 
 ----
 
@@ -1980,7 +1970,6 @@ def mean(x, axis=None, keepdims=False):
     return np.mean(x, axis=axis, keepdims=keepdims)
 ```
 
-
 ----
 
 ### any
@@ -2013,7 +2002,6 @@ def any(x, axis=None, keepdims=False):
         axis = tuple(axis)
     return np.any(x, axis=axis, keepdims=keepdims)
 ```
-
 
 ----
 
@@ -2048,7 +2036,6 @@ def all(x, axis=None, keepdims=False):
     return np.all(x, axis=axis, keepdims=keepdims)
 ```
 
-
 ----
 
 ### argmax
@@ -2077,7 +2064,6 @@ def argmax(x, axis=-1):
     return np.argmax(x, axis=axis)
 ```
 
-
 ----
 
 ### argmin
@@ -2105,7 +2091,6 @@ __Numpy implementation__
 def argmin(x, axis=-1):
     return np.argmin(x, axis=axis)
 ```
-
 
 ----
 
@@ -2175,7 +2160,6 @@ def sqrt(x):
     y[np.isnan(y)] = 0.
     return y
 ```
-
 
 ----
 
@@ -2257,7 +2241,6 @@ def logsumexp(x, axis=None, keepdims=False):
     return sp.misc.logsumexp(x, axis=axis, keepdims=keepdims)
 ```
 
-
 ----
 
 ### round
@@ -2328,7 +2311,6 @@ def pow(x, a=1.):
     return np.power(x, a)
 ```
 
-
 ----
 
 ### clip
@@ -2357,7 +2339,6 @@ __Numpy implementation__
 def clip(x, min_value, max_value):
     return np.clip(x, min_value, max_value)
 ```
-
 
 ----
 
@@ -2388,7 +2369,6 @@ def equal(x, y):
     return x == y
 ```
 
-
 ----
 
 ### not_equal
@@ -2417,7 +2397,6 @@ __Numpy implementation__
 def not_equal(x, y):
     return x != y
 ```
-
 
 ----
 
@@ -2448,7 +2427,6 @@ def greater(x, y):
     return x > y
 ```
 
-
 ----
 
 ### greater_equal
@@ -2477,7 +2455,6 @@ __Numpy implementation__
 def greater_equal(x, y):
     return x >= y
 ```
-
 
 ----
 
@@ -2508,7 +2485,6 @@ def less(x, y):
     return x < y
 ```
 
-
 ----
 
 ### less_equal
@@ -2537,7 +2513,6 @@ __Numpy implementation__
 def less_equal(x, y):
     return x <= y
 ```
-
 
 ----
 
@@ -2568,7 +2543,6 @@ def maximum(x, y):
     return np.maximum(x, y)
 ```
 
-
 ----
 
 ### minimum
@@ -2597,7 +2571,6 @@ __Numpy implementation__
 def minimum(x, y):
     return np.minimum(x, y)
 ```
-
 
 ----
 
@@ -2897,7 +2870,6 @@ __Returns__
 
 An integer tensor.
 
-
 ----
 
 ### tile
@@ -3090,7 +3062,6 @@ __Raises__
 
 neither `"channels_last"` or `"channels_first"`.
 
-
 ----
 
 ### stack
@@ -3119,7 +3090,6 @@ __Numpy implementation__
 def stack(x, axis=0):
     return np.stack(x, axis=axis)
 ```
-
 
 ----
 
@@ -3176,7 +3146,6 @@ def reverse(x, axes):
     return np.flip(x, axes)
 ```
 
-
 ----
 
 ### slice
@@ -3214,7 +3183,6 @@ def slice(x, start, size):
     slices = [py_slice(i, i + j) for i, j in zip(start, size)]
     return x[tuple(slices)]
 ```
-
 
 ----
 
@@ -3348,7 +3316,7 @@ Output values as Numpy arrays.
 __Raises__
 
 - __ValueError__: if invalid kwargs are passed in.
-    
+  
 ----
 
 ### gradients
@@ -3506,7 +3474,6 @@ def rnn(step_function, inputs, initial_states,
 
 </details>
 
-
 ----
 
 ### switch
@@ -3546,7 +3513,6 @@ def switch(condition, then_expression, else_expression):
         cond_float = cond_float[..., np.newaxis]
     return cond_float * then_expression + (1 - cond_float) * else_expression
 ```
-
 
 ----
 
@@ -3648,7 +3614,6 @@ def relu(x, alpha=0., max_value=None, threshold=0.):
     return below_threshold + above_threshold
 ```
 
-
 ----
 
 ### elu
@@ -3677,7 +3642,6 @@ __Numpy implementation__
 def elu(x, alpha=1.):
     return x * (x > 0) + alpha * (np.exp(x) - 1.) * (x < 0)
 ```
-
 
 ----
 
@@ -3710,7 +3674,6 @@ def softmax(x, axis=-1):
     return y / np.sum(y, axis, keepdims=True)
 ```
 
-
 ----
 
 ### softplus
@@ -3739,7 +3702,6 @@ def softplus(x):
     return np.log(1. + np.exp(x))
 ```
 
-
 ----
 
 ### softsign
@@ -3767,7 +3729,6 @@ __Numpy implementation__
 def softsign(x):
     return x / (1 + np.abs(x))
 ```
-
 
 ----
 
@@ -3889,7 +3850,6 @@ def sigmoid(x):
     return 1. / (1. + np.exp(-x))
 ```
 
-
 ----
 
 ### hard_sigmoid
@@ -3923,7 +3883,6 @@ def hard_sigmoid(x):
     return np.clip(y, 0, 1)
 ```
 
-
 ----
 
 ### tanh
@@ -3951,7 +3910,6 @@ __Numpy implementation__
 def tanh(x):
     return np.tanh(x)
 ```
-
 
 ----
 
@@ -3999,7 +3957,6 @@ def dropout(x, level, noise_shape=None, seed=None):
 
 </details>
 
-
 ----
 
 ### l2_normalize
@@ -4029,7 +3986,6 @@ def l2_normalize(x, axis=-1):
     y = np.max(np.sum(x ** 2, axis, keepdims=True), axis, keepdims=True)
     return x / np.sqrt(y)
 ```
-
 
 ----
 
@@ -4340,7 +4296,7 @@ __Raises__
 neither `"channels_last"` or `"channels_first"`.
 
 - __ValueError__: if `pool_mode` is neither `"max"` or `"avg"`.
-    
+  
 ----
 
 ### pool3d
@@ -4373,7 +4329,7 @@ __Raises__
 neither `"channels_last"` or `"channels_first"`.
 
 - __ValueError__: if `pool_mode` is neither `"max"` or `"avg"`.
-    
+  
 ----
 
 ### bias_add
@@ -4423,7 +4379,6 @@ def bias_add(x, y, data_format):
 ```
 
 </details>
-
 
 ----
 
@@ -4762,7 +4717,7 @@ __Raises__
 
 - __ValueError__: if `data_format` is neither
             `channels_last` or `channels_first`.
-    
+
 ----
 
 ### backend
@@ -4786,7 +4741,7 @@ __Example__
 >>> keras.backend.backend()
 'tensorflow'
 ```
-    
+
 
 
 
