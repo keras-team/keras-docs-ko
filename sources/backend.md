@@ -159,7 +159,6 @@ keras.backend.epsilon()
 __Returns__
 
 A float.
-부동 소수
 
 __Example__
 
@@ -261,7 +260,7 @@ NumPy 배열을 Keras의 디폴트 float 타입으로 변환합니다.
 
 __Arguments__
 
-- __x__: Numpy array.
+- __x__: NumPy 배열.
 
 __Returns__
 
