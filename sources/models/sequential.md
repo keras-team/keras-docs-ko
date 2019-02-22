@@ -1,10 +1,10 @@
-# The Sequential model API
+# Sequential 모델 API
 
-To get started, read [this guide to the Keras Sequential model](/getting-started/sequential-model-guide).
+시작하려면, [케라스 Sequential 모델 가이드](/getting-started/sequential-model-guide)를 읽어보십시오.
 
 ----
 
-## Sequential model methods
+## Sequential 모델 메서드
 
 ### compile
 
@@ -14,58 +14,58 @@ compile(optimizer, loss=None, metrics=None, loss_weights=None, sample_weight_mod
 ```
 
 
-Configures the model for training.
+학습을 위해서 모델을 구성합니다.
 
-__Arguments__
+__인수__
 
-- __optimizer__: String (name of optimizer) or optimizer instance.
-    See [optimizers](/optimizers).
-- __loss__: String (name of objective function) or objective function.
-    See [losses](/losses).
-    If the model has multiple outputs, you can use a different loss
-    on each output by passing a dictionary or a list of losses.
-    The loss value that will be minimized by the model
-    will then be the sum of all individual losses.
-- __metrics__: List of metrics to be evaluated by the model
-    during training and testing.
-    Typically you will use `metrics=['accuracy']`.
-    To specify different metrics for different outputs of a
-    multi-output model, you could also pass a dictionary,
-    such as `metrics={'output_a': 'accuracy'}`.
-- __loss_weights__: Optional list or dictionary specifying scalar
-    coefficients (Python floats) to weight the loss contributions
-    of different model outputs.
-    The loss value that will be minimized by the model
-    will then be the *weighted sum* of all individual losses,
-    weighted by the `loss_weights` coefficients.
-    If a list, it is expected to have a 1:1 mapping
-    to the model's outputs. If a tensor, it is expected to map
-    output names (strings) to scalar coefficients.
-- __sample_weight_mode__: If you need to do timestep-wise
-    sample weighting (2D weights), set this to `"temporal"`.
-    `None` defaults to sample-wise weights (1D).
-    If the model has multiple outputs, you can use a different
-    `sample_weight_mode` on each output by passing a
-    dictionary or a list of modes.
-- __weighted_metrics__: List of metrics to be evaluated and weighted
-    by sample_weight or class_weight during training and testing.
-- __target_tensors__: By default, Keras will create placeholders for the
-    model's target, which will be fed with the target data during
-    training. If instead you would like to use your own
-    target tensors (in turn, Keras will not expect external
-    Numpy data for these targets at training time), you
-    can specify them via the `target_tensors` argument. It can be
-    a single tensor (for a single-output model), a list of tensors,
-    or a dict mapping output names to target tensors.
-- __**kwargs__: When using the Theano/CNTK backends, these arguments
-    are passed into `K.function`.
-    When using the TensorFlow backend,
-    these arguments are passed into `tf.Session.run`.
+- __optimizer__: 문자열 (옵티마이저의 이름) 혹은 옵티마이저 인스턴스.
+    [옵티마이저](/optimizers)를 참고하십시오.
+- __loss__: 문자열 (목적 함수의 이름) 혹은 목적 함수.
+    [손실](/losses)을 참고 하십시오.
+    모델이 다중 아웃풋을 갖는 경우, 손실의 리스트나 
+    딕셔너리를 전달해서 각 아웃풋에 다른 종류의 손실을
+    사용할 수 있습니다. 그러면 모델이 최소화할
+    손실값은 모든 개별 손실의 합이 됩니다.
+- __metrics__: 학습 혹은 테스트 과정에서 평가할
+    측정항목의 리스트.
+    보통은 `metrics=['accuracy']`를 사용하게 됩니다.
+    다중 아웃풋 모델의 다양한 아웃풋에 각기 다른 측정항목을
+    특정하려면, `metrics={'output_a': 'accuracy'}`와 같은
+    딕셔너리를 전달하는 수도 있습니다.
+- __loss_weights__: 각기 다른 모델 아웃풋의 손실 기여도에
+    가중치를 부여하는 스칼라 계수(파이썬 부동소수점)를 특정하는
+    선택적 리스트 혹은 딕셔너리.
+    따라서 모델이 최소화할 손실 값은
+    `loss_weights` 계수에 따라 *가중치가 적용된*
+    모든 개별 손실의 합이 됩니다.
+    리스트의 경우 모델의 아웃풋에
+    1:1 매핑을 가져야 합니다. 텐서일 경우 아웃풋 이름(문자열)을
+    스칼라 계수에 매핑해야 합니다.
+- __sample_weight_mode__: 시간 단계별로 샘플 가중치를 주어야
+    하는 경우 (2D 가중치), 이 인수를 `"temporal"`로 설정해야 합니다.
+    디폴트 값은 `None`으로 (1D) 샘플별 가중치를 적용합니다.
+    모델이 다중 아웃풋을 갖는 경우, 모드의 
+    딕셔너리 혹은 모드의 리스트를 전달하여 각 아웃풋마다
+    별도의 `sample_weight_mode`를 사용할 수 있습니다.
+- __weighted_metrics__: 학습과 테스트 과정에서 sample_weight이나
+    class_weight로 가중치를 적용하여 평가할 측정항목의 리스트
+- __target_tensors__: 케라스는 디폴트 설정으로 모델의 표적을
+    담을 플레이스 홀더를 만들고, 학습 과정 중 이 플레이스 홀더에는 
+    표적 데이터가 들어가게 됩니다. 디폴트 설정 대신 직접 만든
+    표적 텐서를 사용하고 싶다면(이 경우 케라스는 학습 과정에서 이러한
+    표적의 외부 Numpy 데이터를 기대하지 않습니다),
+    `target_tensors` 인수를 통해서 표적 텐서를 특정하면 됩니다.
+    표적 텐서는 (단일 아웃풋 모델의 경우) 단일 텐서, 텐서 리스트,
+    혹은 표적 텐서에 아웃풋 이름을 매핑하는 딕셔너리가 될 수 있습니다.
+- __**kwargs__: Theano/CNTK 백엔드를 사용하는 경우,
+    이 인수는 `K.function`에 전달됩니다.
+    텐서플로우 백엔드를 사용하는 경우,
+    인수가 `tf.Session.run`에 전달됩니다.
 
-__Raises__
+__오류처리__
 
-- __ValueError__: In case of invalid arguments for
-    `optimizer`, `loss`, `metrics` or `sample_weight_mode`.
+- __ValueError__: `optimizer`, `loss`, `metrics` 혹은 `sample_weight_mode`의
+    인수가 유효하지 않은 경우 오류가 발생합니다.
     
 ----
 
@@ -77,101 +77,101 @@ fit(x=None, y=None, batch_size=None, epochs=1, verbose=1, callbacks=None, valida
 ```
 
 
-Trains the model for a given number of epochs (iterations on a dataset).
+정해진 수의 세대에 걸쳐 모델을 학습시킵니다 (데이터셋에 대한 반복).
 
-__Arguments__
+__인수__
 
-- __x__: Numpy array of training data (if the model has a single input),
-    or list of Numpy arrays (if the model has multiple inputs).
-    If input layers in the model are named, you can also pass a
-    dictionary mapping input names to Numpy arrays.
-    `x` can be `None` (default) if feeding from
-    framework-native tensors (e.g. TensorFlow data tensors).
-- __y__: Numpy array of target (label) data
-    (if the model has a single output),
-    or list of Numpy arrays (if the model has multiple outputs).
-    If output layers in the model are named, you can also pass a
-    dictionary mapping output names to Numpy arrays.
-    `y` can be `None` (default) if feeding from
-    framework-native tensors (e.g. TensorFlow data tensors).
-- __batch_size__: Integer or `None`.
-    Number of samples per gradient update.
-    If unspecified, `batch_size` will default to 32.
-- __epochs__: Integer. Number of epochs to train the model.
-    An epoch is an iteration over the entire `x` and `y`
-    data provided.
-    Note that in conjunction with `initial_epoch`,
-    `epochs` is to be understood as "final epoch".
-    The model is not trained for a number of iterations
-    given by `epochs`, but merely until the epoch
-    of index `epochs` is reached.
-- __verbose__: Integer. 0, 1, or 2. Verbosity mode.
-    0 = silent, 1 = progress bar, 2 = one line per epoch.
-- __callbacks__: List of `keras.callbacks.Callback` instances.
-    List of callbacks to apply during training and validation
-    (if ).
-    See [callbacks](/callbacks).
-- __validation_split__: Float between 0 and 1.
-    Fraction of the training data to be used as validation data.
-    The model will set apart this fraction of the training data,
-    will not train on it, and will evaluate
-    the loss and any model metrics
-    on this data at the end of each epoch.
-    The validation data is selected from the last samples
-    in the `x` and `y` data provided, before shuffling.
-- __validation_data__: tuple `(x_val, y_val)` or tuple
-    `(x_val, y_val, val_sample_weights)` on which to evaluate
-    the loss and any model metrics at the end of each epoch.
-    The model will not be trained on this data.
-    `validation_data` will override `validation_split`.
-- __shuffle__: Boolean (whether to shuffle the training data
-    before each epoch) or str (for 'batch').
-    'batch' is a special option for dealing with the
-    limitations of HDF5 data; it shuffles in batch-sized chunks.
-    Has no effect when `steps_per_epoch` is not `None`.
-- __class_weight__: Optional dictionary mapping class indices (integers)
-    to a weight (float) value, used for weighting the loss function
-    (during training only).
-    This can be useful to tell the model to
-    "pay more attention" to samples from
-    an under-represented class.
-- __sample_weight__: Optional Numpy array of weights for
-    the training samples, used for weighting the loss function
-    (during training only). You can either pass a flat (1D)
-    Numpy array with the same length as the input samples
-    (1:1 mapping between weights and samples),
-    or in the case of temporal data,
-    you can pass a 2D array with shape
-    `(samples, sequence_length)`,
-    to apply a different weight to every timestep of every sample.
-    In this case you should make sure to specify
-    `sample_weight_mode="temporal"` in `compile()`.
-- __initial_epoch__: Integer.
-    Epoch at which to start training
-    (useful for resuming a previous training run).
-- __steps_per_epoch__: Integer or `None`.
-    Total number of steps (batches of samples)
-    before declaring one epoch finished and starting the
-    next epoch. When training with input tensors such as
-    TensorFlow data tensors, the default `None` is equal to
-    the number of samples in your dataset divided by
-    the batch size, or 1 if that cannot be determined.
-- __validation_steps__: Only relevant if `steps_per_epoch`
-    is specified. Total number of steps (batches of samples)
-    to validate before stopping.
+- __x__: (모델이 단일 인풋을 갖는 경우) 표적(라벨) 데이터의 Numpy 배열,
+    혹은 (모델이 다중 아웃풋을 갖는 경우) Numpy 배열의 리스트.
+    모델의 아웃풋 레이어에 이름이 명명된 경우는 아웃풋
+    이름을 Numpy 배열에 매핑하는 딕셔너리를 전달할 수도 있습니다.
+    프레임워크 네이티브 텐서(예. 텐서플로우 데이터 텐서)를
+    전달받는 경우 `x`를 `None`(디폴트 값)으로 둘 수 있습니다.
+- __y__: (모델이 단일 인풋을 갖는 경우)
+    표적(라벨) 데이터의 Numpy 배열,
+    혹은 (모델이 다중 아웃풋을 갖는 경우) Numpy 배열의 리스트.
+    모델의 아웃풋 레이어에 이름이 명명된 경우는 아웃풋
+    이름을 Numpy 배열에 매핑하는 딕셔너리를 전달할 수도 있습니다.
+    프레임워크 네이티브 텐서(예. 텐서플로우 데이터 텐서)를
+    전달받는 경우 `y`를 `None`(디폴트 값)으로 둘 수 있습니다.
+- __batch_size__: 정수 혹은 `None`.
+    경사 업데이트 별 샘플의 수.
+    따로 정하지 않으면 `batch_size`는 디폴트 값인 32가 됩니다.
+- __epochs__: 정수. 모델을 학습시킬 세대의 수.
+    한 세대는 제공된 모든 `x`와 `y` 데이터에
+    대한 반복입니다.
+    `initial_epoch`이 첫 세대라면,
+    `epochs`은 "마지막 세대"로 이해하면 됩니다.
+    모델은 `epochs`에 주어진 반복의 수만큼
+    학습되는 것이 아니라, 단지 `epochs` 색인의 세대에 
+    도달할 때까지만 학습됩니다.
+- __verbose__: 정수. 0, 1, 혹은 2. 다변 모드.
+    0 = 자동, 1 = 진행 표시줄, 2 = 세대 당 한 라인.
+- __callbacks__: `keras.callbacks.Callback` 인스턴스의 리스트.
+    학습과 검증 과정에서 적용할 콜백의 리스트입니다.
+    
+    [콜백](/callbacks)을 참조하십시오.
+- __validation_split__: 0과 1사이 부동소수점.
+    검증 데이터로 사용할 학습 데이터의 비율.
+    이 비율만큼의 학습 데이터를 따로 두어,
+    모델이 학습하지 않도록 하며, 각
+    세대의 끝에서 이 데이터에 대한 손실과
+    모델 측정항목을 평가합니다.
+    제공된 `x`와 `y` 데이터를 뒤섞기 전
+    끝 부분의 샘플을 골라 검증 데이터를 만듭니다.
+- __validation_data__: 각 세대의 끝에서 손실과
+    모델 측정항목을 평가할 `(x_val, y_val)` 튜플,
+    혹은 `(x_val, y_val, val_sample_weights)` 튜플.
+    모델은 이 데이터에 대해서는 학습되지 않습니다.
+    `validation_data`는 `validation_split`에 대해 우선순위를 갖습니다.
+- __shuffle__: 불리언 (각 세대를 시작하기 전
+    학습 데이터를 뒤섞을지 여부) 혹은 ('batch'에 넣을) 문자열.
+    'batch'는 HDF5 데이터의 제한사항을 다루기 위한
+    특별 옵션으로, 배치 크기 조각 단위로 데이터를 뒤섞습니다.
+    `steps_per_epoch`이 `None`이 아닌 경우 아무 효과도 없습니다.
+- __class_weight__: 가중치 값(부동소수점)에 클래스 색인(정수)을
+    매핑하는 선택적 딕셔너리로, (학습 과정 중에 한해)
+    손실 함수에 가중치를 적용하는데 사용됩니다.
+    모델이 상대적으로 적은 수의 샘플을 가진
+    클래스의 샘플에 "더 주의를 기울이도록"
+    하는데 유용합니다.
+- __sample_weight__: 학습 샘플에 적용할 가중치의
+    선택적 Numpy 배열로, (학습 과정 중에 한해) 손실함수에
+    가중치를 적용하는데 사용됩니다. 인풋 샘플과 
+    동일한 길이의 플랫 (1D) Numpy 배열(가중치와 샘플간 1:1 매핑)을 
+    전달할 수 있고, 혹은
+    시간적 데이터의 경우
+    `(samples, sequence_length)`의 형태를 가진
+    2D 배열을 전달하여 모든 샘플의 
+    모든 시간 단계에 각기 다른 가중치를 적용할 수 있습니다.
+    이러한 경우 반드시 `compile()` 내에서
+    `sample_weight_mode="temporal"`를 특정해야 합니다.
+- __initial_epoch__: 정수.
+    학습을 시작하는 세대
+    (이전의 학습 과정을 재개하는데 유용합니다).
+- __steps_per_epoch__: 정수 혹은 `None`.
+    한 세대의 종료를 선언하고 다음 세대를
+    시작하기까지 단계(샘플 배치)의 총 개수.
+    텐서플로우 데이터 텐서와 같은
+    인풋 텐서로 학습하는 경우, 디폴트 값인 `None`은
+    데이터셋의 샘플 수를 배치 크기로 나눈 값을 갖거나,
+    그런 값이 확정될 수 없는 경우 1의 값이 됩니다.
+- __validation_steps__: `steps_per_epoch`이 특정된 경우에만
+    유의미합니다. 정지 전 검증할 단계(샘플 배치)의
+    총 개수입니다.
 
-__Returns__
+__반환값__
 
-A `History` object. Its `History.history` attribute is
-a record of training loss values and metrics values
-at successive epochs, as well as validation loss values
-and validation metrics values (if applicable).
+`History` 객체. `History.history` 속성은
+연속된 세대에 걸친 학습 손실 값과 
+측정항목 값, 그리고 (적용 가능한 경우) 검증 손실 값과
+검증 측정항목 값의 기록입니다.
 
-__Raises__
+__오류처리__
 
-- __RuntimeError__: If the model was never compiled.
-- __ValueError__: In case of mismatch between the provided input data
-    and what the model expects.
+- __RuntimeError__: 모델이 컴파일되지 않은 경우 오류가 발생됩니다.
+- __ValueError__: 제공된 인풋 데이터가 모델의 예상과 다른 경우
+    오류가 발생됩니다.
     
 ----
 
@@ -183,55 +183,55 @@ evaluate(x=None, y=None, batch_size=None, verbose=1, sample_weight=None, steps=N
 ```
 
 
-Returns the loss value & metrics values for the model in test mode.
+테스트 모드에서의 모델의 손실 값과 측정항목 값을 반환합니다.
 
-Computation is done in batches.
+계산은 배치 단위로 실행됩니다.
 
-__Arguments__
+__인수__
 
-- __x__: Numpy array of test data (if the model has a single input),
-    or list of Numpy arrays (if the model has multiple inputs).
-    If input layers in the model are named, you can also pass a
-    dictionary mapping input names to Numpy arrays.
-    `x` can be `None` (default) if feeding from
-    framework-native tensors (e.g. TensorFlow data tensors).
-- __y__: Numpy array of target (label) data
-    (if the model has a single output),
-    or list of Numpy arrays (if the model has multiple outputs).
-    If output layers in the model are named, you can also pass a
-    dictionary mapping output names to Numpy arrays.
-    `y` can be `None` (default) if feeding from
-    framework-native tensors (e.g. TensorFlow data tensors).
-- __batch_size__: Integer or `None`.
-    Number of samples per evaluation step.
-    If unspecified, `batch_size` will default to 32.
-- __verbose__: 0 or 1. Verbosity mode.
-    0 = silent, 1 = progress bar.
-- __sample_weight__: Optional Numpy array of weights for
-    the test samples, used for weighting the loss function.
-    You can either pass a flat (1D)
-    Numpy array with the same length as the input samples
-    (1:1 mapping between weights and samples),
-    or in the case of temporal data,
-    you can pass a 2D array with shape
-    `(samples, sequence_length)`,
-    to apply a different weight to every timestep of every sample.
-    In this case you should make sure to specify
-    `sample_weight_mode="temporal"` in `compile()`.
-- __steps__: Integer or `None`.
-    Total number of steps (batches of samples)
-    before declaring the evaluation round finished.
-    Ignored with the default value of `None`.
-- __callbacks__: List of `keras.callbacks.Callback` instances.
-    List of callbacks to apply during evaluation.
-    See [callbacks](/callbacks).
+- __x__: (모델이 단일 인풋을 갖는 경우) 표적(라벨) 데이터의 Numpy 배열,
+    혹은 (모델이 다중 아웃풋을 갖는 경우) Numpy 배열의 리스트.
+    모델의 아웃풋 레이어에 이름이 명명된 경우는 아웃풋
+    이름을 Numpy 배열에 매핑하는 딕셔너리를 전달할 수도 있습니다.
+    프레임워크 네이티브 텐서(예. 텐서플로우 데이터 텐서)를
+    전달받는 경우 `x`를 `None`(디폴트 값)으로 둘 수 있습니다.
+- __y__: (모델이 단일 인풋을 갖는 경우)
+    표적(라벨) 데이터의 Numpy 배열,
+    혹은 (모델이 다중 아웃풋을 갖는 경우) Numpy 배열의 리스트.
+    모델의 아웃풋 레이어에 이름이 명명된 경우는 아웃풋
+    이름을 Numpy 배열에 매핑하는 딕셔너리를 전달할 수도 있습니다.
+    프레임워크 네이티브 텐서(예. 텐서플로우 데이터 텐서)를
+    전달받는 경우 `y`를 `None`(디폴트 값)으로 둘 수 있습니다.
+- __batch_size__: 정수 혹은 `None`.
+    경사 업데이트 별 샘플의 수.
+    따로 정하지 않으면 `batch_size`는 디폴트 값인 32가 됩니다.
+- __verbose__: 0 혹은 1. 다변 모드.
+    0 = 자동, 1 = 진행 표시줄.
+- __sample_weight__: 테스트 샘플에 적용할
+    가중치의 선택적 배열로, 손실 함수에
+    가중치를 적용하는데 사용됩니다. 인풋 샘플과 
+    동일한 길이의 플랫 (1D) Numpy 배열(가중치와 샘플간 1:1 매핑)을 
+    전달할 수 있고, 혹은
+    시간적 데이터의 경우
+    `(samples, sequence_length)`의 형태를 가진
+    2D 배열을 전달하여 모든 샘플의 
+    모든 시간 단계에 각기 다른 가중치를 적용할 수 있습니다.
+    이러한 경우 반드시 `compile()` 내에서
+    `sample_weight_mode="temporal"`를 특정해야 합니다.
+- __steps__: 정수 혹은 `None`.
+    평가가 한 회 완료되었음을
+    선언하기까지 단계(샘플 배치)의 총 개수.
+    디폴트 값인 `None`의 경우 고려되지 않습니다.
+- __callbacks__: `keras.callbacks.Callback` 인스턴스의 리스트.
+    학습과 검증 과정에서 적용할 콜백의 리스트입니다.
+    [콜백](/callbacks)을 참조하십시오.
 
-__Returns__
+__반환값__
 
-Scalar test loss (if the model has a single output and no metrics)
-or list of scalars (if the model has multiple outputs
-and/or metrics). The attribute `model.metrics_names` will give you
-the display labels for the scalar outputs.
+(모델이 단일 아웃풋만 갖고 측정항목을 보유하지 않는 경우)
+스칼라 테스트 손실, 혹은 (모델이 다중 아웃풋, 그리고/혹은 측정항목을
+갖는 경우) 스칼라 리스트. `model.metrics_names`속성은
+스칼라 아웃풋에 대한 디스플레이 라벨을 제공합니다.
     
 ----
 
@@ -243,33 +243,33 @@ predict(x, batch_size=None, verbose=0, steps=None, callbacks=None)
 ```
 
 
-Generates output predictions for the input samples.
+인풋 샘플에 대한 아웃풋 예측을 생성합니다.
 
-Computation is done in batches.
+계산은 배치 단위로 실행됩니다.
 
-__Arguments__
+__이수__
 
-- __x__: The input data, as a Numpy array
-    (or list of Numpy arrays if the model has multiple inputs).
-- __batch_size__: Integer. If unspecified, it will default to 32.
-- __verbose__: Verbosity mode, 0 or 1.
-- __steps__: Total number of steps (batches of samples)
-    before declaring the prediction round finished.
-    Ignored with the default value of `None`.
-- __callbacks__: List of `keras.callbacks.Callback` instances.
-    List of callbacks to apply during prediction.
-    See [callbacks](/callbacks).
+- __x__: Numpy 배열
+    (혹은 모델이 다중 인풋을 갖는 경우 Numpy 배열의 리스트) 형태의 인풋 데이터.
+- __batch_size__: 정수. 따로 정하지 않으면 디폴트 값인 32가 됩니다.
+- __verbose__: 다변 모드, 0 혹은 1.
+- __steps__: 예측이 한 회 완료되었음을
+    선언하기까지 단계(샘플 배치)의 총 개수.
+    디폴트 값인 `None`의 경우 고려되지 않습니다.
+- __callbacks__: `keras.callbacks.Callback` 인스턴스의 리스트.
+    학습과 검증 과정에서 적용할 콜백의 리스트입니다.
+    [콜백](/callbacks)을 참조하십시오.
 
-__Returns__
+__반환값__
 
-Numpy array(s) of predictions.
+예측 값의 Numpy 배열.
 
-__Raises__
+__오류처리__
 
-- __ValueError__: In case of mismatch between the provided
-    input data and the model's expectations,
-    or in case a stateful model receives a number of samples
-    that is not a multiple of the batch size.
+- __ValueError__: 제공된 인풋 데이터가 모델의 
+    예상과 다른 경우 혹은,
+    상태 기반 모델이 배치 크기의 배수가 아닌 수의  
+    샘플을 받은 경우 오류가 발생합니다.
     
 ----
 
@@ -281,41 +281,41 @@ train_on_batch(x, y, sample_weight=None, class_weight=None)
 ```
 
 
-Runs a single gradient update on a single batch of data.
+하나의 데이터 배치에 대해서 경사 업데이트를 1회 실시합니다.
 
-__Arguments__
+__인수__
 
-- __x__: Numpy array of training data,
-    or list of Numpy arrays if the model has multiple inputs.
-    If all inputs in the model are named,
-    you can also pass a dictionary
-    mapping input names to Numpy arrays.
-- __y__: Numpy array of target data,
-    or list of Numpy arrays if the model has multiple outputs.
-    If all outputs in the model are named,
-    you can also pass a dictionary
-    mapping output names to Numpy arrays.
-- __sample_weight__: Optional array of the same length as x, containing
-    weights to apply to the model's loss for each sample.
-    In the case of temporal data, you can pass a 2D array
-    with shape (samples, sequence_length),
-    to apply a different weight to every timestep of every sample.
-    In this case you should make sure to specify
-    sample_weight_mode="temporal" in compile().
-- __class_weight__: Optional dictionary mapping
-    class indices (integers) to
-    a weight (float) to apply to the model's loss for the samples
-    from this class during training.
-    This can be useful to tell the model to "pay more attention" to
-    samples from an under-represented class.
+- __x__: 학습 데이터의 Numpy 배열, 혹은
+    모델이 다중 인풋을 갖는 경우 Numpy 배열의 리스트.
+    모델의 모든 인풋에 이름이 명명된 경우
+    인풋 이름을 Numpy 배열에 매핑하는
+    딕셔너리를 전달할 수도 있습니다.
+- __y__: 표적 데이터의 Numpy 배열,
+    혹은 모델이 다중 아웃풋을 갖는 경우 Numpy 배열의 리스트..
+    모델의 모든 아웃풋에 이름이 명명된 경우
+    아웃풋 이름을 Numpy 배열에 매핑하는
+    딕셔너리를 전달할 수도 있습니다.
+- __sample_weight__: x와 동일한 길의의 선택적 배열로,
+    각 샘플에 대한 모델의 손실에 적용할 가중치를 담습니다.
+    시간적 데이터의 경우, (samples, sequence_length)의
+    형태를 가진 2D 배열을 전달하여 모든 샘플의
+    모든 시간 단계에 대해 각기 다른 가중치를 적용할 수 있습니다.
+    이러한 경우 반드시 `compile()` 내에서
+    `sample_weight_mode="temporal"`를 특정해야 합니다.
+- __class_weight__: 가중치 값(부동소수점)에 클래스 색인(정수)을
+    매핑하는 선택적 딕셔너리로, (학습 과정 중에 한해)
+    손실 함수에 가중치를 적용하는데 사용됩니다.
+    모델이 상대적으로 적은 수의 샘플을 가진
+    클래스의 샘플에 "더 주의를 기울이도록"
+    하는데 유용합니다.
 
-__Returns__
+__반환값__
 
-Scalar training loss
-(if the model has a single output and no metrics)
-or list of scalars (if the model has multiple outputs
-and/or metrics). The attribute `model.metrics_names` will give you
-the display labels for the scalar outputs.
+(모델이 단일 아웃풋만 갖고
+측정항목을 보유하지 않는 경우) 스칼라 테스트
+손실, 혹은 (모델이 다중 아웃풋, 그리고/혹은 측정항목을
+갖는 경우) 스칼라 리스트. `model.metrics_names`속성은
+스칼라 아웃풋에 대한 디스플레이 라벨을 제공합니다.
     
 ----
 
@@ -327,34 +327,34 @@ test_on_batch(x, y, sample_weight=None)
 ```
 
 
-Test the model on a single batch of samples.
+하나의 샘플 배치에 대해서 모델을 테스트합니다.
 
-__Arguments__
+__인수__
 
-- __x__: Numpy array of test data,
-    or list of Numpy arrays if the model has multiple inputs.
-    If all inputs in the model are named,
-    you can also pass a dictionary
-    mapping input names to Numpy arrays.
-- __y__: Numpy array of target data,
-    or list of Numpy arrays if the model has multiple outputs.
-    If all outputs in the model are named,
-    you can also pass a dictionary
-    mapping output names to Numpy arrays.
-- __sample_weight__: Optional array of the same length as x, containing
-    weights to apply to the model's loss for each sample.
-    In the case of temporal data, you can pass a 2D array
-    with shape (samples, sequence_length),
-    to apply a different weight to every timestep of every sample.
-    In this case you should make sure to specify
-    sample_weight_mode="temporal" in compile().
+- __x__: 테스트 데이터의 Numpy 배열, 혹은
+    모델이 다중 인풋을 갖는 경우 Numpy 배열의 리스트.
+    모델의 모든 인풋에 이름이 명명된 경우
+    인풋 이름을 Numpy 배열에 매핑하는
+    딕셔너리를 전달할 수도 있습니다.
+- __y__: 표적 데이터의 Numpy 배열,
+    혹은 모델이 다중 아웃풋을 갖는 경우 Numpy 배열의 리스트..
+    모델의 모든 아웃풋에 이름이 명명된 경우
+    아웃풋 이름을 Numpy 배열에 매핑하는
+    딕셔너리를 전달할 수도 있습니다.
+- __sample_weight__: x와 동일한 길의의 선택적 배열로,
+    각 샘플에 대한 모델의 손실에 적용할 가중치를 담습니다.
+    시간적 데이터의 경우, (samples, sequence_length)의
+    형태를 가진 2D 배열을 전달하여 모든 샘플의
+    모든 시간 단계에 대해 각기 다른 가중치를 적용할 수 있습니다.
+    이러한 경우 반드시 `compile()` 내에서
+    `sample_weight_mode="temporal"`를 특정해야 합니다.
 
-__Returns__
+__반환값__
 
-Scalar test loss (if the model has a single output and no metrics)
-or list of scalars (if the model has multiple outputs
-and/or metrics). The attribute `model.metrics_names` will give you
-the display labels for the scalar outputs.
+(모델이 단일 아웃풋만 갖고 측정항목을 보유하지 않는 경우)
+스칼라 테스트 손실, 혹은 (모델이 다중 아웃풋, 그리고/혹은 측정항목을
+갖는 경우) 스칼라 리스트. `model.metrics_names`속성은
+스칼라 아웃풋에 대한 디스플레이 라벨을 제공합니다.
     
 ----
 
@@ -366,15 +366,15 @@ predict_on_batch(x)
 ```
 
 
-Returns predictions for a single batch of samples.
+하나의 샘플 배치에 대한 예측 값을 반환합니다.
 
-__Arguments__
+__인수__
 
-- __x__: Input samples, as a Numpy array.
+- __x__: 인풋 샘플의 Numpy 배열.
 
-__Returns__
+__반환값__
 
-Numpy array(s) of predictions.
+예측 값의 Numpy 배열.
     
 ----
 
@@ -386,112 +386,112 @@ fit_generator(generator, steps_per_epoch=None, epochs=1, verbose=1, callbacks=No
 ```
 
 
-Trains the model on data generated batch-by-batch by a Python generator
-(or an instance of `Sequence`).
+파이썬 생성기(혹은 `Sequence` 인스턴스)가 배치 단위로 생산한
+데이터에 대해서 모델을 학습시킵니다.
 
-The generator is run in parallel to the model, for efficiency.
-For instance, this allows you to do real-time data augmentation
-on images on CPU in parallel to training your model on GPU.
+효율성을 높이기 위해 생성기는 모델에 병행하여 작동합니다.
+예를 들어 이는 CPU의 이미지에 대해 실시간 데이터 증강을 실행하는
+동시에 GPU에서 모델을 학습하는 작업을 가능케 합니다.
 
-The use of `keras.utils.Sequence` guarantees the ordering
-and guarantees the single use of every input per epoch when
-using `use_multiprocessing=True`.
+`keras.utils.Sequence`는 순서를 정렬하고,
+또한 `use_multiprocessing=True`를 같이 사용하면
+모든 인풋이 세대당 한 번만 사용됩니다.
 
-__Arguments__
+__인수__
 
-- __generator__: A generator or an instance of `Sequence`
-    (`keras.utils.Sequence`) object in order to avoid
-    duplicate data when using multiprocessing.
-    The output of the generator must be either
-    - a tuple `(inputs, targets)`
-    - a tuple `(inputs, targets, sample_weights)`.
+- __generator__: 다중 처리 과정을  
+    사용하는 경우 데이터 중복을 피하기 위한 생성기,
+    혹은 `Sequence` (`keras.utils.Sequence`) 객체.
+    생성기의 아웃풋은 반드시 다음 중 하나이어야 합니다: 
+    - `(inputs, targets)` 튜플
+    - `(inputs, targets, sample_weights)` 튜플.
 
-    This tuple (a single output of the generator) makes a single
-    batch. Therefore, all arrays in this tuple must have the same
-    length (equal to the size of this batch). Different batches may
-    have different sizes. For example, the last batch of the epoch
-    is commonly smaller than the others, if the size of the dataset
-    is not divisible by the batch size.
-    The generator is expected to loop over its data
-    indefinitely. An epoch finishes when `steps_per_epoch`
-    batches have been seen by the model.
+    이 튜플(생성기의 단일 아웃풋)은 하나의 배치가 됩니다.
+    따라서  이 튜플의 모든 배열은 동일한 (이 배치의 크기와 같은)
+    길이를 가져야 합니다. 배치에 따라 크기는 다를 수 있습니다.
+    예를 들어 데이터셋의 크기가 배치 크기로
+    딱 떨어지게 나누어지지 않으면 한 세대의 마지막
+    배치는 다른 배치보다 작은 경우가 흔합니다.
+    생성기는 데이터에 대해서 무기한으로
+    루프됩니다. 모델이 `steps_per_epoch`개의 배치를
+    처리하면 한 세대가 끝나게 됩니다.
 
-- __steps_per_epoch__: Integer.
-    Total number of steps (batches of samples)
-    to yield from `generator` before declaring one epoch
-    finished and starting the next epoch. It should typically
-    be equal to the number of samples of your dataset
-    divided by the batch size.
-    Optional for `Sequence`: if unspecified, will use
-    the `len(generator)` as a number of steps.
-- __epochs__: Integer. Number of epochs to train the model.
-    An epoch is an iteration over the entire data provided,
-    as defined by `steps_per_epoch`.
-    Note that in conjunction with `initial_epoch`,
-    `epochs` is to be understood as "final epoch".
-    The model is not trained for a number of iterations
-    given by `epochs`, but merely until the epoch
-    of index `epochs` is reached.
-- __verbose__: Integer. 0, 1, or 2. Verbosity mode.
-    0 = silent, 1 = progress bar, 2 = one line per epoch.
-- __callbacks__: List of `keras.callbacks.Callback` instances.
-    List of callbacks to apply during training.
-    See [callbacks](/callbacks).
-- __validation_data__: This can be either
-    - a generator or a `Sequence` object for the validation data
-    - tuple `(x_val, y_val)`
-    - tuple `(x_val, y_val, val_sample_weights)`
+- __steps_per_epoch__: 정수.
+    한 세대의 종료를 선언하고 다음 세대를
+    시작하기까지 `generator`에서 생성할
+    단계(샘플 배치)의 총 개수. 보통은
+    데이터셋의 샘플 수를 배치 크기로
+    나눈 값을 갖습니다.
+    `Sequence`에 대한 선택사항입니다: 따로 정하지 않으면,
+    단계의 개수는 `len(generator)`의 값이 됩니다.
+- __epochs__: 정수. 모델을 학습시킬 세대의 수.
+    한 세대는 `steps_per_epoch`에서 정의된 대로
+    제공된 모든 데이터에 대한 1회 반복입니다.
+    `initial_epoch`이 첫 세대라면,
+    `epochs`은 "마지막 세대"로 이해하면 됩니다.
+    모델은 `epochs`에 주어진 반복의 수만큼
+    학습되는 것이 아니라, 단지 `epochs` 색인의 세대에 
+    도달할 때까지만 학습됩니다.
+- __verbose__: 정수. 0, 1, 혹은 2. 다변 모드.
+    0 = 자동, 1 = 진행 표시줄, 2 = 세대 당 한 라인.
+- __callbacks__: `keras.callbacks.Callback` 인스턴스의 리스트.
+    학습과 검증 과정에서 적용할 콜백의 리스트입니다.
+    [콜백](/callbacks)을 참조하십시오.
+- __validation_data__: 다음 중 하나의 형태를 취합니다:
+    - 생성기 혹은 검증 데이터용 `Sequence` 객체
+    - `(x_val, y_val)` 튜플
+    - `(x_val, y_val, val_sample_weights)` 튜플
 
-    on which to evaluate
-    the loss and any model metrics at the end of each epoch.
-    The model will not be trained on this data.
+    이를 기준으로
+    각 세대의 끝에 손실과 모델 측정항목을 평가합니다.
+    모델은 이 데이터에 대해서는 학습되지 않습니다.
 
-- __validation_steps__: Only relevant if `validation_data`
-    is a generator. Total number of steps (batches of samples)
-    to yield from `validation_data` generator before stopping
-    at the end of every epoch. It should typically
-    be equal to the number of samples of your
-    validation dataset divided by the batch size.
-    Optional for `Sequence`: if unspecified, will use
-    the `len(validation_data)` as a number of steps.
-- __class_weight__: Optional dictionary mapping class indices (integers)
-    to a weight (float) value, used for weighting the loss function
-    (during training only). This can be useful to tell the model to
-    "pay more attention" to samples
-    from an under-represented class.
-- __max_queue_size__: Integer. Maximum size for the generator queue.
-    If unspecified, `max_queue_size` will default to 10.
-- __workers__: Integer. Maximum number of processes to spin up
-    when using process-based threading.
-    If unspecified, `workers` will default to 1. If 0, will
-    execute the generator on the main thread.
-- __use_multiprocessing__: Boolean.
-    If `True`, use process-based threading.
-    If unspecified, `use_multiprocessing` will default to `False`.
-    Note that because this implementation
-    relies on multiprocessing,
-    you should not pass non-picklable arguments to the generator
-    as they can't be passed easily to children processes.
-- __shuffle__: Boolean. Whether to shuffle the order of the batches at
-    the beginning of each epoch. Only used with instances
-    of `Sequence` (`keras.utils.Sequence`).
-    Has no effect when `steps_per_epoch` is not `None`.
-- __initial_epoch__: Integer.
-    Epoch at which to start training
-    (useful for resuming a previous training run).
+- __validation_steps__: `validation_data`가
+    생성기인 경우에만 유의미한, 매 세대 정지하기전
+    `validation_data` 생성기에서 만들어 낼
+    단계(샘플 배치)의 총 개수. 보통은 검증
+    데이터셋의 샘플 수를 배치 크기로 
+    나눈 값을 갖습니다.
+    `Sequence`에 대한 선택사항입니다: 따로 정하지 않으면,
+    단계의 개수는 `len(validation_data)`의 값이 됩니다.
+- __class_weight__: 가중치 값(부동소수점)에 클래스 색인(정수)을
+    매핑하는 선택적 딕셔너리로, (학습 과정 중에 한해)
+    손실 함수에 가중치를 적용하는데 사용됩니다.
+    모델이 상대적으로 적은 수의 샘플을 가진 클래스의
+    샘플에 "더 주의를 기울이도록" 하는데 유용합니다.
+- __max_queue_size__: 정수. 생성기 큐의 최대 크기.
+    따로 정하지 않으면, `max_queue_size`의 디폴트 값은 10입니다.
+- __workers__: 정수. 스레딩 기반의 처리 과정을 사용하는 경우
+    가동할 수 있는 처리 과정의 최대 개수.
+    따로 정하지 않으면, `workers`의 디폴트 값은 1입니다. 0인 경우
+    생성기를 메인 스레드에서 실행합니다.
+- __use_multiprocessing__: 불리언.
+    `True`인 경우 스레딩 기반의 처리 과정을 사용합니다.
+    따로 정하지 않으면, `use_multiprocessing`의 디폴트 값은 `False`입니다.
+    이러한 구현 방식은
+    다중 처리에 기반하기 때문에,
+    자식 처리과정에 쉽게 전달할 수 없는
+    비-picklable 인수를 생성기에 전달하면 안됩니다.
+- __shuffle__: 불리언. 각 세대의 시작에
+    배치의 순서를 뒤섞을지 여부.
+    반드시 `Sequence` (`keras.utils.Sequence`) 인스턴스와 같이 사용합니다.
+    `steps_per_epoch`이 `None`이 아닌 경우 아무 효과도 없습니다.
+- __initial_epoch__: 정수.
+    학습을 시작하는 세대
+    (이전의 학습 과정을 재개하는데 유용합니다).
 
-__Returns__
+__반환값__
 
-A `History` object. Its `History.history` attribute is
-a record of training loss values and metrics values
-at successive epochs, as well as validation loss values
-and validation metrics values (if applicable).
+`History` 객체. `History.history` 속성은
+연속된 세대에 걸친 학습 손실 값과 측정항목 값,
+그리고 (적용 가능한 경우) 검증 손실 값과
+검증 측정항목 값의 기록입니다.
 
-__Raises__
+__오류처리__
 
-- __ValueError__: In case the generator yields data in an invalid format.
+- __ValueError__: 생성기가 유효하지 않은 형식의 데이터를 만들어 내는 경우 오류가 발생합니다.
 
-__Example__
+__예시__
 
 
 ```python
@@ -499,8 +499,8 @@ def generate_arrays_from_file(path):
     while True:
         with open(path) as f:
             for line in f:
-                # create numpy arrays of input data
-                # and labels, from each line in the file
+                # 파일의 각 라인으로부터
+                # 인풋 데이터와 라벨의 numpy 배열을 만듭니다
                 x1, x2, y = process_line(line)
                 yield ({'input_1': x1, 'input_2': x2}, {'output': y})
 
@@ -518,50 +518,50 @@ evaluate_generator(generator, steps=None, callbacks=None, max_queue_size=10, wor
 ```
 
 
-Evaluates the model on a data generator.
+데이터 생성기에 대해서 모델을 평가합니다.
 
-The generator should return the same kind of data
-as accepted by `test_on_batch`.
+생성기는 `test_on_batch`에서 수용되는 것과 동일한
+종류의 데이터를 반환해야 합니다.
 
-__Arguments__
+__인수__
 
-- __generator__: Generator yielding tuples (inputs, targets)
-    or (inputs, targets, sample_weights)
-    or an instance of Sequence (keras.utils.Sequence)
-    object in order to avoid duplicate data
-    when using multiprocessing.
-- __steps__: Total number of steps (batches of samples)
-    to yield from `generator` before stopping.
-    Optional for `Sequence`: if unspecified, will use
-    the `len(generator)` as a number of steps.
-- __callbacks__: List of `keras.callbacks.Callback` instances.
-    List of callbacks to apply during training.
-    See [callbacks](/callbacks).
-- __max_queue_size__: maximum size for the generator queue
-- __workers__: Integer. Maximum number of processes to spin up
-    when using process based threading.
-    If unspecified, `workers` will default to 1. If 0, will
-    execute the generator on the main thread.
-- __use_multiprocessing__: if True, use process based threading.
-    Note that because
-    this implementation relies on multiprocessing,
-    you should not pass
-    non picklable arguments to the generator
-    as they can't be passed
-    easily to children processes.
-- __verbose__: verbosity mode, 0 or 1.
+- __generator__: 다중 처리 과정을 사용하는 경우 Generator yielding tuples 
+    데이터 중복을 피하기 위해
+    (inputs, targets) 튜플이나
+    (inputs, targets, sample_weights) 튜플을 만들어내는 생성기,
+    혹은 Sequence (keras.utils.Sequence) 객체.
+- __steps__: 정지전 `generator`에서
+    만들어 낼 단계(샘플 배치)의 총 개수.
+    `Sequence`에 대한 선택사항입니다: 따로 정하지 않으면,
+    단계의 개수는 `len(generator)`의 값이 됩니다.
+- __callbacks__: `keras.callbacks.Callback` 인스턴스의 리스트.
+    학습과 검증 과정에서 적용할 콜백의 리스트입니다.
+    [콜백](/callbacks)을 참조하십시오.
+- __max_queue_size__: 생성기 큐의 최대 크기.
+- __workers__: 정수. 스레딩 기반의 처리 과정을 사용하는 경우
+    가동할 수 있는 처리 과정의 최대 개수.
+    따로 정하지 않으면, `workers`의 디폴트 값은 1입니다. 0인 경우
+    생성기를 메인 스레드에서 실행합니다.
+- __use_multiprocessing__: `True`인 경우
+    스레딩 기반의 처리 과정을 사용합니다. 따로 정하지 않으면,
+    `use_multiprocessing`의 디폴트 값은 `False`입니다.
+    이러한 구현 방식은
+    다중 처리에 기반하기 때문에,
+    자식 처리과정에 쉽게 전달할 수 없는
+    비-picklable 인수를 생성기에 전달하면 안됩니다.
+- __verbose__: 다변 모드, 0 혹은 1.
 
-__Returns__
+__반환값__
 
-Scalar test loss (if the model has a single output and no metrics)
-or list of scalars (if the model has multiple outputs
-and/or metrics). The attribute `model.metrics_names` will give you
-the display labels for the scalar outputs.
+(모델이 단일 아웃풋만 갖고 측정항목을 보유하지 않는 경우)
+스칼라 테스트 손실, 혹은 (모델이 다중 아웃풋, 그리고/혹은 측정항목을
+갖는 경우) 스칼라 리스트. `model.metrics_names`속성은
+스칼라 아웃풋에 대한 디스플레이 라벨을 제공합니다.
 
-__Raises__
+__오류처리__
 
-- __ValueError__: In case the generator yields
-    data in an invalid format.
+- __ValueError__: 생성기가 유효하지 않은 형식의 데이터를 만들어 내는 경우
+    오류가 발생합니다.
     
 ----
 
@@ -573,46 +573,46 @@ predict_generator(generator, steps=None, callbacks=None, max_queue_size=10, work
 ```
 
 
-Generates predictions for the input samples from a data generator.
+데이터 생성기의 인풋 샘플에 대해서 예측 값을 생성합니다.
 
-The generator should return the same kind of data as accepted by
-`predict_on_batch`.
+생성기는 `predict_on_batch`에서 수용되는 것과 동일한
+종류의 데이터를 반환해야 합니다.
 
-__Arguments__
+__인수__
 
-- __generator__: Generator yielding batches of input samples
-    or an instance of Sequence (keras.utils.Sequence)
-    object in order to avoid duplicate data
-    when using multiprocessing.
-- __steps__: Total number of steps (batches of samples)
-    to yield from `generator` before stopping.
-    Optional for `Sequence`: if unspecified, will use
-    the `len(generator)` as a number of steps.
-- __callbacks__: List of `keras.callbacks.Callback` instances.
-    List of callbacks to apply during training.
-    See [callbacks](/callbacks).
-- __max_queue_size__: Maximum size for the generator queue.
-- __workers__: Integer. Maximum number of processes to spin up
-    when using process based threading.
-    If unspecified, `workers` will default to 1. If 0, will
-    execute the generator on the main thread.
-- __use_multiprocessing__: If `True`, use process based threading.
-    Note that because
-    this implementation relies on multiprocessing,
-    you should not pass
-    non picklable arguments to the generator
-    as they can't be passed
-    easily to children processes.
-- __verbose__: verbosity mode, 0 or 1.
+- __generator__: 다중 처리 과정을
+    사용하는 경우 데이터 중복을
+    피하기 위한 생성기, 혹은
+    `Sequence` (`keras.utils.Sequence`) 객체
+- __steps__: 정지전 `generator`에서
+    만들어 낼 단계(샘플 배치)의 총 개수.
+    `Sequence`에 대한 선택사항입니다: 따로 정하지 않으면,
+    단계의 개수는 `len(generator)`의 값이 됩니다.
+- __callbacks__: `keras.callbacks.Callback` 인스턴스의 리스트.
+    학습과 검증 과정에서 적용할 콜백의 리스트입니다.
+    [콜백](/callbacks)을 참조하십시오.
+- __max_queue_size__: 생성기 큐의 최대 크기.
+- __workers__: 정수. 스레딩 기반의 처리 과정을 사용하는 경우
+    가동할 수 있는 처리 과정의 최대 개수.
+    따로 정하지 않으면, `workers`의 디폴트 값은 1입니다. 0인 경우
+    생성기를 메인 스레드에서 실행합니다.
+- __use_multiprocessing__: `True`인 경우 스레딩 기반의
+     처리 과정을 사용합니다.
+    이러한 구현 방식은
+    다중 처리에 기반하기 때문에,
+    자식 처리과정에 쉽게
+    전달할 수 없는 비-picklable 인수를
+    생성기에 전달하면 안됩니다.
+- __verbose__: 다변 모드, 0 혹은 1.
 
-__Returns__
+__반환값__
 
-Numpy array(s) of predictions.
+예측 값의 Numpy 배열.
 
-__Raises__
+__오류처리__
 
-- __ValueError__: In case the generator yields
-    data in an invalid format.
+- __ValueError__: 생성기가 유효하지 않은 형식의 데이터를 만들어 내는 경우
+    오류가 발생합니다.
     
 ----
 
@@ -624,22 +624,22 @@ get_layer(name=None, index=None)
 ```
 
 
-Retrieves a layer based on either its name (unique) or index.
+레이어의 (고유한) 이름, 혹은 색인에 따라 레이어를 회수합니다.
 
-If `name` and `index` are both provided, `index` will take precedence.
+`name`과 `index`가 모두 제공되는 경우, `index`가 우선 순위를 갖습니다.
 
-Indices are based on order of horizontal graph traversal (bottom-up).
+색인은 (상향식) 가로 그래프 횡단 순서에 기반합니다.
 
-__Arguments__
+__인수__
 
-- __name__: String, name of layer.
-- __index__: Integer, index of layer.
+- __name__: 문자열, 레이어의 이름.
+- __index__: 정수, 레이어의 색인.
 
-__Returns__
+__반환__
 
-A layer instance.
+레이어 인스턴스.
 
-__Raises__
+__오류처리__
 
-- __ValueError__: In case of invalid layer name or index.
+- __ValueError__: 레이어 이름이나 색인이 유효하지 않은 경우 오류가 발생합니다.
     
