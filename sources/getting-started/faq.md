@@ -1,31 +1,31 @@
-# Keras FAQ: Frequently Asked Keras Questions
+# Keras FAQ: 자주 등장하는 케라스 질문들 모음입니다.
 
-- [How should I cite Keras?](#how-should-i-cite-keras)
-- [How can I run Keras on GPU?](#how-can-i-run-keras-on-gpu)
-- [How can I run a Keras model on multiple GPUs?](#how-can-i-run-a-keras-model-on-multiple-gpus)
-- [What does "sample", "batch", "epoch" mean?](#what-does-sample-batch-epoch-mean)
-- [How can I save a Keras model?](#how-can-i-save-a-keras-model)
-- [Why is the training loss much higher than the testing loss?](#why-is-the-training-loss-much-higher-than-the-testing-loss)
-- [How can I obtain the output of an intermediate layer?](#how-can-i-obtain-the-output-of-an-intermediate-layer)
-- [How can I use Keras with datasets that don't fit in memory?](#how-can-i-use-keras-with-datasets-that-dont-fit-in-memory)
-- [How can I interrupt training when the validation loss isn't decreasing anymore?](#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore)
-- [How is the validation split computed?](#how-is-the-validation-split-computed)
-- [Is the data shuffled during training?](#is-the-data-shuffled-during-training)
-- [How can I record the training / validation loss / accuracy at each epoch?](#how-can-i-record-the-training--validation-loss--accuracy-at-each-epoch)
-- [How can I "freeze" layers?](#how-can-i-freeze-keras-layers)
-- [How can I use stateful RNNs?](#how-can-i-use-stateful-rnns)
-- [How can I remove a layer from a Sequential model?](#how-can-i-remove-a-layer-from-a-sequential-model)
-- [How can I use pre-trained models in Keras?](#how-can-i-use-pre-trained-models-in-keras)
-- [How can I use HDF5 inputs with Keras?](#how-can-i-use-hdf5-inputs-with-keras)
-- [Where is the Keras configuration file stored?](#where-is-the-keras-configuration-file-stored)
-- [How can I obtain reproducible results using Keras during development?](#how-can-i-obtain-reproducible-results-using-keras-during-development)
-- [How can I install HDF5 or h5py to save my models in Keras?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras)
+- [Keras를 어떻게 인용해야 합니까?](#how-should-i-cite-keras)
+- [GPU로 Keras를 실행하려면 어떻게 해야 합니까?](#how-can-i-run-keras-on-gpu)
+- [여러 대의 GPU로 Keras를 실행하려면 어떻게 해야 합니까?](#how-can-i-run-a-keras-model-on-multiple-gpus)
+- ["sample", "batch", "epoch"가 의미하는 것이 무엇입니까?](#what-does-sample-batch-epoch-mean)
+- [어떻게 Keras 모델을 저장할 수 있습니까?](#how-can-i-save-a-keras-model)
+- [왜 training loss가 testing loss보다 훨씬 높습니까?](#why-is-the-training-loss-much-higher-than-the-testing-loss)
+- [어떻게 중간층의 출력을 얻을 수 있습니까?](#how-can-i-obtain-the-output-of-an-intermediate-layer)
+- [메모리 사이즈에 맞지 않는 데이터 셋을 Keras에서 사용하려면 어떻게 해야 합니까?](#how-can-i-use-keras-with-datasets-that-dont-fit-in-memory)
+- [validation loss가 더이상 감소하지 않을때 어떻게 하면 학습을 중단시킬 수 있습니까?](#how-can-i-interrupt-training-when-the-validation-loss-isnt-decreasing-anymore)
+- [validation 세트는 어떤 식으로 분할됩니까?](#how-is-the-validation-split-computed)
+- [학습 수행 시 데이터가 무작위로 섞입니까?](#is-the-data-shuffled-during-training)
+- [어떻게 각 epoch별 training / validation loss / accuracy를 기록할 수 있습니까?](#how-can-i-record-the-training--validation-loss--accuracy-at-each-epoch)
+- [어떻게 레이어를 잠글 수 있습니까?](#how-can-i-freeze-keras-layers)
+- [stateful RNNs는 어떻게 사용할 수 있습니까?](#how-can-i-use-stateful-rnns)
+- [Sequential model에서 레이어를 삭제하려면 어떻게 해야 합니까?](#how-can-i-remove-a-layer-from-a-sequential-model)
+- [Keras에서 사전 훈련된 모델을 사용하려면 어떻게 해야 합니까?](#how-can-i-use-pre-trained-models-in-keras)
+- [Keras에서 HDF5 입력을 사용하려면 어떻게 해야 합니까?](#how-can-i-use-hdf5-inputs-with-keras)
+- [Keras 설정 파일은 어디에 저장됩니까?](#where-is-the-keras-configuration-file-stored)
+- [Keras를 사용하여 개발하는 중에 어떻게 다시 재현 가능한 결과를 얻을 수 있습니까?](#how-can-i-obtain-reproducible-results-using-keras-during-development)
+- [Keras에서 내 모델을 저장하기 위해서 어떻게 하면 HDF5 또는 h5py를 설치할 수 있습니까?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras)
 
 ---
 
-### How should I cite Keras?
+### Keras를 어떻게 인용해야 합니까?
 
-Please cite Keras in your publications if it helps your research. Here is an example BibTeX entry:
+귀하의 연구에 Keras가 도움이 되셨다면 귀하의 출판물에 Keras를 인용하십시오. 다음은 BibTeX entry 예시입니다:
 
 ```
 @misc{chollet2015keras,
@@ -38,22 +38,22 @@ Please cite Keras in your publications if it helps your research. Here is an exa
 
 ---
 
-### How can I run Keras on GPU?
+### GPU로 Keras를 실행하려면 어떻게 해야 합니까?
 
-If you are running on the **TensorFlow** or **CNTK** backends, your code will automatically run on GPU if any available GPU is detected.
+만일 **TensorFlow** 또는 **CNTK** 백엔드에서 실행 중이라면, 여러분의 코드는 사용 가능한 GPU가 있을 시 자동으로 GPU상에서 구동됩니다. 
 
-If you are running on the **Theano** backend, you can use one of the following methods:
+만일 **Theano** 백엔드에서 실행 중이라면, 여러분은 다음 중 하나의 방법을 따라야 합니다. 
 
-**Method 1**: use Theano flags.
+**방법 1**: Theano flags 사용하기.
 ```bash
 THEANO_FLAGS=device=gpu,floatX=float32 python my_keras_script.py
 ```
 
-The name 'gpu' might have to be changed depending on your device's identifier (e.g. `gpu0`, `gpu1`, etc).
+기기의 식별자에 따라 'gpu' 이름을 변경해야 할 수 있습니다. (e.g. `gpu0`, `gpu1`, 등등).
 
-**Method 2**: set up your `.theanorc`: [Instructions](http://deeplearning.net/software/theano/library/config.html)
+**방법 2**: 여러분의 `.theanorc`를 설정합니다: [설명서](http://deeplearning.net/software/theano/library/config.html)
 
-**Method 3**: manually set `theano.config.device`, `theano.config.floatX` at the beginning of your code:
+**방법 3**: 여러분의 코드가 시작하는 부분에 수동으로 `theano.config.device`, `theano.config.floatX`를 설정하십시오:
 ```python
 import theano
 theano.config.device = 'gpu'
@@ -62,38 +62,38 @@ theano.config.floatX = 'float32'
 
 ---
 
-### How can I run a Keras model on multiple GPUs?
+### 여러 대의 GPU로 Keras를 실행하려면 어떻게 해야 합니까?
 
-We recommend doing so using the **TensorFlow** backend. There are two ways to run a single model on multiple GPUs: **data parallelism** and **device parallelism**.
+여러 대의 GPU를 사용하는 경우 저희는 **TensorFlow** 백엔드 사용을 권장합니다. 여러 GPU에서 단일 모델을 실행하는 데엔 **데이터 병렬 처리**와 **장치 병렬 처리** 두 가지 방법이 있습니다.
 
-In most cases, what you need is most likely data parallelism.
+대부분의 경우에서 여러분이 필요한 것은 데이터 병렬 처리일 것입니다. 
 
-#### Data parallelism
+#### 데이터 병렬 처리
 
-Data parallelism consists in replicating the target model once on each device, and using each replica to process a different fraction of the input data.
-Keras has a built-in utility, `keras.utils.multi_gpu_model`, which can produce a data-parallel version of any model, and achieves quasi-linear speedup on up to 8 GPUs.
+데이터 병렬 처리는 각 장치에서 타겟 모델을 한번 복제한 후 각 복제본을 이용하여 입력 데이터의 각각 다른 일부분을 처리하게끔 되어 있습니다. 
+Keras는 `keras.utils.multi_gpu_model`라는 내부 유틸리티 함수를 내장하고 있는데, 이것은 어떠한 모델이던지 간에 데이터를 병렬로 처리할 수 있도록 해 줍니다. 또한 최대 8 GPU의 준 선형 속도 향상 기능을 제공합니다. 
 
-For more information, see the documentation for [multi_gpu_model](/utils/#multi_gpu_model). Here is a quick example:
+더 많은 정보를 얻고 싶으시다면, 다음의 문서를 참고하십시오: [multi_gpu_model](/utils/#multi_gpu_model). 다음은 쉬운 사용법 예시입니다:
 
 ```python
 from keras.utils import multi_gpu_model
 
-# Replicates `model` on 8 GPUs.
-# This assumes that your machine has 8 available GPUs.
+# 8 GPUs에서 `model`를 복제합니다.
+# 여기선 컴퓨터에 8개의 사용 가능한 GPU가 있다고 가정합니다.
 parallel_model = multi_gpu_model(model, gpus=8)
 parallel_model.compile(loss='categorical_crossentropy',
                        optimizer='rmsprop')
 
-# This `fit` call will be distributed on 8 GPUs.
-# Since the batch size is 256, each GPU will process 32 samples.
+# 이 `fit` 함수 호출은 8 GPUs에 대해 분배됩니다.
+# 배치 크기가 256이므로, 각 GPU는 32개의 샘플들을 처리할 것입니다. 
 parallel_model.fit(x, y, epochs=20, batch_size=256)
 ```
 
-#### Device parallelism
+#### 장치 병렬 처리
 
-Device parallelism consists in running different parts of a same model on different devices. It works best for models that have a parallel architecture, e.g. a model with two branches.
+장치 병렬 처리는 다른 장치에서 동일한 모델의 각각 다른 일부분을 실행합니다. 이 방법은 병렬 구조를 가진 모델에서 가장 잘 작동합니다. (예: 2개의 분기가 있는 모델)
 
-This can be achieved by using TensorFlow device scopes. Here is a quick example:
+이 작업은 텐서플로의 device scopes를 통해 수행할 수 있습니다. 다음은 쉬운 사용법 예시입니다:
 
 ```python
 # Model where a shared LSTM is used to encode two different sequences in parallel
@@ -117,7 +117,7 @@ with tf.device_scope('/cpu:0'):
 
 ---
 
-### What does "sample", "batch", "epoch" mean?
+### "sample", "batch", "epoch"가 의미하는 것이 무엇입니까?
 
 Below are some common definitions that are necessary to know and understand to correctly utilize Keras:
 
@@ -132,9 +132,9 @@ Below are some common definitions that are necessary to know and understand to c
 
 ---
 
-### How can I save a Keras model?
+### 어떻게 Keras 모델을 저장할 수 있습니까?
 
-#### Saving/loading whole models (architecture + weights + optimizer state)
+#### 전체 모델을 저장/로딩하기 (구조 + 가중치들 + 옵티마이저의 상태)
 
 *It is not recommended to use pickle or cPickle to save a Keras model.*
 
@@ -163,57 +163,57 @@ model = load_model('my_model.h5')
 
 Please also see [How can I install HDF5 or h5py to save my models in Keras?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras) for instructions on how to install `h5py`.
 
-#### Saving/loading only a model's architecture
+#### 모델의 구조만 저장/로딩하는 방법
 
-If you only need to save the **architecture of a model**, and not its weights or its training configuration, you can do:
+**모델의 구조**만 저장하고 싶다면, 가중치나 훈련과 관련한 설정들은 제외하고 싶다면, 이렇게 하시면 됩니다:
 
 ```python
-# save as JSON
+# JSON 형태로 저장
 json_string = model.to_json()
 
-# save as YAML
+# YAML 형태로 저장
 yaml_string = model.to_yaml()
 ```
 
-The generated JSON / YAML files are human-readable and can be manually edited if needed.
+생성된 JSON / YAML 파일은 사람이 읽을 수 있는 형태이며, 필요한 경우 수동으로 편집할 수 있습니다. 
 
-You can then build a fresh model from this data:
+그런 다음 이 데이터로 새로운 모델을 만들 수 있습니다:
 
 ```python
-# model reconstruction from JSON:
+# JSON 파일로부터 새로운 모델 재구축하기:
 from keras.models import model_from_json
 model = model_from_json(json_string)
 
-# model reconstruction from YAML:
+# YAML 파일로부터 새로운 모델 재구축하기:
 from keras.models import model_from_yaml
 model = model_from_yaml(yaml_string)
 ```
 
-#### Saving/loading only a model's weights
+#### 모델의 가중치들만 저장/로딩하는 방법
 
-If you need to save the **weights of a model**, you can do so in HDF5 with the code below:
+**모델의 가중치**들만 저장하고 싶다면, HDF5를 통해 아래처럼 진행할 수 있습니다:
 
 ```python
 model.save_weights('my_model_weights.h5')
 ```
 
-Assuming you have code for instantiating your model, you can then load the weights you saved into a model with the *same* architecture:
+여러분의 모델이 인스턴싱되어 있는 상태라면, 여러분은 저장되어 있는 **모델의 가중치**들을 *동일한* 구조를 가진 모델에 로드할 수 있습니다:
 
 ```python
 model.load_weights('my_model_weights.h5')
 ```
 
-If you need to load the weights into a *different* architecture (with some layers in common), for instance for fine-tuning or transfer-learning, you can load them by *layer name*:
+여러분이 미세 조정이나 전이 학습을 위하여 *다른* 구조를 가진 모델에 저장되어 있는 가중치를 로드해야 한다면(일부 공통되는 레이어와 함께), 여러분은  *레이어 이름*을 통해서 이 가중치들을 로드할 수 있습니다:
 
 ```python
 model.load_weights('my_model_weights.h5', by_name=True)
 ```
 
-Example:
+예시:
 
 ```python
 """
-Assuming the original model looks like this:
+원래 모델이 다음과 같이 생겼다고 가정합시다:
     model = Sequential()
     model.add(Dense(2, input_dim=3, name='dense_1'))
     model.add(Dense(3, name='dense_2'))
@@ -221,29 +221,28 @@ Assuming the original model looks like this:
     model.save_weights(fname)
 """
 
-# new model
+# 새로운 모델을 만들겠습니다.
 model = Sequential()
-model.add(Dense(2, input_dim=3, name='dense_1'))  # will be loaded
-model.add(Dense(10, name='new_dense'))  # will not be loaded
+model.add(Dense(2, input_dim=3, name='dense_1'))  # 로드될 것입니다. 
+model.add(Dense(10, name='new_dense'))  # 로드되지 않을 것입니다. 
 
-# load weights from first model; will only affect the first layer, dense_1.
+# 첫 번째 모델에서 가중치를 로드합니다. 이것은 첫 번째 레이어, dense_1에만 영향을 끼칩니다.
 model.load_weights(fname, by_name=True)
 ```
 
-Please also see [How can I install HDF5 or h5py to save my models in Keras?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras) for instructions on how to install `h5py`.
+`h5py`를 설치하는 방법에 대해서는 [Keras에서 내 모델을 저장하기 위해서 어떻게 하면 HDF5 또는 h5py를 설치할 수 있습니까?](#how-can-i-install-hdf5-or-h5py-to-save-my-models-in-keras)를 참조하십시오.
 
-#### Handling custom layers (or other custom objects) in saved models
+#### 저장된 모델 속의 커스텀 레이어(또는 다른 커스텀 오브젝트)를 제어하는 방법
 
-If the model you want to load includes custom layers or other custom classes or functions, 
-you can pass them to the loading mechanism via the `custom_objects` argument: 
+여러분이 로드하고자 하는 모델이 커스텀 레이어 또는 커스텀 클래스, 함수를 포함한다면, 그것들을 `custom_objects`인자를 통해 로딩 매커니즘에 전달할 수 있습니다. 
 
 ```python
 from keras.models import load_model
-# Assuming your model includes instance of an "AttentionLayer" class
+# 여러분의 모델에 "AttentionLayer" 클래스의 인스턴스가 포함되어 있다고 가정합니다. 
 model = load_model('my_model.h5', custom_objects={'AttentionLayer': AttentionLayer})
 ```
 
-Alternatively, you can use a [custom object scope](https://keras.io/utils/#customobjectscope):
+또는, [custom object scope](https://keras.io/utils/#customobjectscope)를 사용할 :
 
 ```python
 from keras.utils import CustomObjectScope
@@ -261,7 +260,7 @@ model = model_from_json(json_string, custom_objects={'AttentionLayer': Attention
 
 ---
 
-### Why is the training loss much higher than the testing loss?
+### 왜 training loss가 testing loss보다 훨씬 높습니까?
 
 A Keras model has two modes: training and testing. Regularization mechanisms, such as Dropout and L1/L2 weight regularization, are turned off at testing time.
 
@@ -269,7 +268,7 @@ Besides, the training loss is the average of the losses over each batch of train
 
 ---
 
-### How can I obtain the output of an intermediate layer?
+### 어떻게 중간층의 출력을 얻을 수 있습니까?
 
 One simple way is to create a new `Model` that will output the layers that you are interested in:
 
@@ -312,7 +311,7 @@ layer_output = get_3rd_layer_output([x, 1])[0]
 
 ---
 
-### How can I use Keras with datasets that don't fit in memory?
+### 메모리 사이즈에 맞지 않는 데이터 셋을 Keras에서 사용하려면 어떻게 해야 합니까?
 
 You can do batch training using `model.train_on_batch(x, y)` and `model.test_on_batch(x, y)`. See the [models documentation](/models/sequential).
 
@@ -322,7 +321,7 @@ You can see batch training in action in our [CIFAR10 example](https://github.com
 
 ---
 
-### How can I interrupt training when the validation loss isn't decreasing anymore?
+### Validation loss가 더이상 감소하지 않을때 어떻게 하면 학습을 중단시킬 수 있습니까?
 
 You can use an `EarlyStopping` callback:
 
@@ -336,7 +335,7 @@ Find out more in the [callbacks documentation](/callbacks).
 
 ---
 
-### How is the validation split computed?
+### Validation 세트는 어떤 식으로 분할됩니까?
 
 If you set the `validation_split` argument in `model.fit` to e.g. 0.1, then the validation data used will be the *last 10%* of the data. If you set it to 0.25, it will be the last 25% of the data, etc. Note that the data isn't shuffled before extracting the validation split, so the validation is literally just the *last* x% of samples in the input you passed.
 
@@ -344,7 +343,7 @@ The same validation set is used for all epochs (within a same call to `fit`).
 
 ---
 
-### Is the data shuffled during training?
+### 학습 수행 시 데이터가 무작위로 섞입니까?
 
 Yes, if the `shuffle` argument in `model.fit` is set to `True` (which is the default), the training data will be randomly shuffled at each epoch.
 
@@ -353,7 +352,7 @@ Validation data is never shuffled.
 ---
 
 
-### How can I record the training / validation loss / accuracy at each epoch?
+### 어떻게 각 epoch별 training / validation loss / accuracy를 기록할 수 있습니까?
 
 The `model.fit` method returns a `History` callback, which has a `history` attribute containing the lists of successive losses and other metrics.
 
@@ -364,7 +363,7 @@ print(hist.history)
 
 ---
 
-### How can I "freeze" Keras layers?
+### 어떻게 Keras 레이어를 잠글 수 있습니까?
 
 To "freeze" a layer means to exclude it from training, i.e. its weights will never be updated. This is useful in the context of fine-tuning a model, or using fixed embeddings for a text input.
 
@@ -398,7 +397,7 @@ trainable_model.fit(data, labels)  # this updates the weights of `layer`
 
 ---
 
-### How can I use stateful RNNs?
+### Stateful RNNs는 어떻게 사용할 수 있습니까?
 
 Making a RNN stateful means that the states for the samples of each batch will be reused as initial states for the samples in the next batch.
 
@@ -447,7 +446,7 @@ Note that the methods `predict`, `fit`, `train_on_batch`, `predict_classes`, etc
 
 ---
 
-### How can I remove a layer from a Sequential model?
+### Sequential model에서 레이어를 삭제하려면 어떻게 해야 합니까?
 
 You can remove the last added layer in a Sequential model by calling `.pop()`:
 
@@ -464,7 +463,7 @@ print(len(model.layers))  # "1"
 
 ---
 
-### How can I use pre-trained models in Keras?
+### Keras에서 사전 훈련된 모델을 사용하려면 어떻게 해야 합니까?
 
 Code and pre-trained weights are available for the following image classification models:
 
@@ -520,7 +519,7 @@ The VGG16 model is also the basis for several Keras example scripts:
 
 ---
 
-### How can I use HDF5 inputs with Keras?
+### Keras에서 HDF5 입력을 사용하려면 어떻게 해야 합니까?
 
 You can use the `HDF5Matrix` class from `keras.utils`. See [the HDF5Matrix documentation](/utils/#hdf5matrix) for details.
 
@@ -537,7 +536,7 @@ Please also see [How can I install HDF5 or h5py to save my models in Keras?](#ho
 
 ---
 
-### Where is the Keras configuration file stored?
+### Keras 설정 파일은 어디에 저장됩니까?
 
 The default directory where all Keras data is stored is:
 
@@ -570,7 +569,7 @@ Likewise, cached dataset files, such as those downloaded with [`get_file()`](/ut
 
 ---
 
-### How can I obtain reproducible results using Keras during development?
+### Keras를 사용하여 개발하는 중에 어떻게 다시 재현 가능한 결과를 얻을 수 있습니까?
 
 During development of a model, sometimes it is useful to be able to obtain reproducible results from run to run in order to determine if a change in performance is due to an actual model or data modification, or merely a result of a new random sample.
 
@@ -636,7 +635,7 @@ K.set_session(sess)
 
 ---
 
-### How can I install HDF5 or h5py to save my models in Keras?
+### Keras에서 내 모델을 저장하기 위해서 어떻게 하면 HDF5 또는 h5py를 설치할 수 있습니까?
 
 In order to save your Keras models as HDF5 files, e.g. via
 `keras.callbacks.ModelCheckpoint`, Keras uses the h5py Python package. It is
