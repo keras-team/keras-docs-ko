@@ -1,41 +1,41 @@
 ## Usage of callbacks
 
-A callback is a set of functions to be applied at given stages of the training procedure. You can use callbacks to get a view on internal states and statistics of the model during training. You can pass a list of callbacks (as the keyword argument `callbacks`) to the `.fit()` method of the `Sequential` or `Model` classes. The relevant methods of the callbacks will then be called at each stage of the training. 
+콜백은 학습 과정의 특정 단계에서 적용할 함수의 세트입니다. 학습 과정 중 콜백을 사용해서 모델의 내적 상태와 통계자료를 확인 할 수 있습니다. 콜백의 리스트는 (키워드 인수 `callbacks`로) `Sequential`이나 `Model` 클래스의 `.fit()` 메서드에 전달이 가능합니다. 그에 따라 학습의 각 단계에서 콜백의 적절한 메서드가 호출됩니다. 
 
 ---
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L274)</span>
-### Callback
+### 콜백
 
 ```python
 keras.callbacks.Callback()
 ```
 
-Abstract base class used to build new callbacks.
+새로운 콜백을 만드는데 사용되는 추상 베이스 클래스.
 
-__Properties__
+__특성__
 
-- __params__: dict. Training parameters
-    (eg. verbosity, batch size, number of epochs...).
-- __model__: instance of `keras.models.Model`.
-    Reference of the model being trained.
+- __params__: 딕셔너리. 학습 매개변수
+    (예. 다변 모드, 배치 크기, 세대 수…).
+- __model__:`keras.models.Model`의 인스턴스.
+    학습 중인 모델의 참조.
 
-The `logs` dictionary that callback methods
-take as argument will contain keys for quantities relevant to
-the current batch or epoch.
+콜백 메서드가 인수로 받는
+`logs` 딕셔너리는 현재 배치 혹은 세대에 적절한
+수치에 대한 키를 담습니다.
 
-Currently, the `.fit()` method of the `Sequential` model class
-will include the following quantities in the `logs` that
-it passes to its callbacks:
+현재 `Sequential` 모델 클래스의 `.fit()` 메서드는
+콜백에 전달하는 `logs`에 다음의
+수치를 포함합니다:
 
-on_epoch_end: logs include `acc` and `loss`, and
-optionally include `val_loss`
-(if validation is enabled in `fit`), and `val_acc`
-(if validation and accuracy monitoring are enabled).
-on_batch_begin: logs include `size`,
-the number of samples in the current batch.
-on_batch_end: logs include `loss`, and optionally `acc`
-(if accuracy monitoring is enabled).
+on_epoch_end: 로그에 `acc`와 `loss`가 포함되고
+`val_loss`와 (`fit`에서 검증이 사용으로 설정된 경우)
+`val_acc`는(검증과 정확성 모니터링이 사용으로 설정된 경우)
+선택적으로 포함됩니다.
+on_batch_begin: 로그에는 `size`와
+현재 배치의 샘플의 수가 포함됩니다.
+on_batch_end: 로그에는 `loss`가 포함되고, 선택적으로 `acc`가 포함됩니다
+(정확성 모니터링이 사용으로 설정된 경우).
 
 ----
 
@@ -46,16 +46,16 @@ on_batch_end: logs include `loss`, and optionally `acc`
 keras.callbacks.BaseLogger(stateful_metrics=None)
 ```
 
-Callback that accumulates epoch averages of metrics.
+측정항목의 세대 평균을 축적하는 콜백..
 
-This callback is automatically applied to every Keras model.
+이 콜백은 모든 케라스 모델에 자동적으로 적용됩니다.
 
-__Arguments__
+__인수__
 
-- __stateful_metrics__: Iterable of string names of metrics that
-    should *not* be averaged over an epoch.
-    Metrics in this list will be logged as-is in `on_epoch_end`.
-    All others will be averaged in `on_epoch_end`.
+- __stateful_metrics__: 세대에 걸쳐 평균을 내면 *안 되는*
+    측정 항목의 문자열 이름의 Iterable.
+    `on_epoch_end`에서는 이 리스트의 측정 항목을 원본 그대로 로그합니다.
+    그 외 측정 항목은 `on_epoch_end`에서 평균을 구해 로그합니다.
     
 ----
 
@@ -66,7 +66,7 @@ __Arguments__
 keras.callbacks.TerminateOnNaN()
 ```
 
-Callback that terminates training when a NaN loss is encountered.
+NaN 손실이 발생했을 때 학습을 종료시키는 콜백.
 
 ----
 
@@ -77,21 +77,21 @@ Callback that terminates training when a NaN loss is encountered.
 keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
 ```
 
-Callback that prints metrics to stdout.
+측정항목을 stdout에 프린트하는 콜백
 
-__Arguments__
+__인수__
 
-- __count_mode__: One of "steps" or "samples".
-    Whether the progress bar should
-    count samples seen or steps (batches) seen.
-- __stateful_metrics__: Iterable of string names of metrics that
-    should *not* be averaged over an epoch.
-    Metrics in this list will be logged as-is.
-    All others will be averaged over time (e.g. loss, etc).
+- __count_mode__: "steps" 혹은 "samples" 중 하나.
+    진행 표시줄이 검사한 샘플의 수에 기반하는지
+    검사한 단계(배치)의 수에 기반하는지 여부.
+- __stateful_metrics__: 세대에 걸쳐 평균을 내면 *안 되는*
+    측정 항목의 문자열 이름의 Iterable.
+    이 리스트의 측정 항목을 원본 그대로 로그합니다.
+    그 외 측정 항목은 평균을 구해 로그합니다 (예. 손실 등).
 
-__Raises__
+__오류 알림__
 
-- __ValueError__: In case of invalid `count_mode`.
+- __ValueError__: 유효하지 않은 `count_mode`의 경우 오류를 알립니다.
     
 ----
 
@@ -102,11 +102,11 @@ __Raises__
 keras.callbacks.History()
 ```
 
-Callback that records events into a `History` object.
+`History` 객체에 이벤트를 기록하는 콜백.
 
-This callback is automatically applied to
-every Keras model. The `History` object
-gets returned by the `fit` method of models.
+이 콜백은 모든 케라스 모델에
+자동적으로 적용됩니다. `History` 객체는
+모델의 `fit` 메서드를 통해 반환됩니다.
 
 ----
 
@@ -117,36 +117,36 @@ gets returned by the `fit` method of models.
 keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 ```
 
-Save the model after every epoch.
+각 세대 후 모델을 저장합니다.
 
-`filepath` can contain named formatting options,
-which will be filled with the values of `epoch` and
-keys in `logs` (passed in `on_epoch_end`).
+`filepath`는 (`on_epoch_end`에서 전달되는)
+`epoch`의 값과 `logs`의 키로 채워진
+이름 형식 옵션을 가질 수 있습니다.
 
-For example: if `filepath` is `weights.{epoch:02d}-{val_loss:.2f}.hdf5`,
-then the model checkpoints will be saved with the epoch number and
-the validation loss in the filename.
+예를 들어 `filepath`가 `weights.{epoch:02d}-{val_loss:.2f}.hdf5`라면,
+파일 이름에 세대 번호와 검증 손실을 넣어
+모델의 체크포인트가 저장됩니다.
 
-__Arguments__
+__인수__
 
-- __filepath__: string, path to save the model file.
-- __monitor__: quantity to monitor.
-- __verbose__: verbosity mode, 0 or 1.
-- __save_best_only__: if `save_best_only=True`,
-    the latest best model according to
-    the quantity monitored will not be overwritten.
-- __mode__: one of {auto, min, max}.
-    If `save_best_only=True`, the decision
-    to overwrite the current save file is made
-    based on either the maximization or the
-    minimization of the monitored quantity. For `val_acc`,
-    this should be `max`, for `val_loss` this should
-    be `min`, etc. In `auto` mode, the direction is
-    automatically inferred from the name of the monitored quantity.
-- __save_weights_only__: if True, then only the model's weights will be
-    saved (`model.save_weights(filepath)`), else the full model
-    is saved (`model.save(filepath)`).
-- __period__: Interval (number of epochs) between checkpoints.
+- __filepath__: 문자열, 모델 파일을 저장할 경로.
+- __monitor__: 관찰할 수량.
+- __verbose__: 다변 모드, 0 혹은 1.
+- __save_best_only__: `save_best_only=True`인 경우
+    관찰하는 수량을 기준으로 가장 
+    최신의 최고 모델은 덧씌우지 않습니다.
+- __mode__: {auto, min, max} 중 하나.
+    `save_best_only=True`이면
+    현재 저장 파일을 덧씌울지는
+    관찰하는 수량의 최대화 혹은 최소화를
+    기준으로 결정합니다. `val_acc`의 경우
+    이는 `max`가 되어야 하며, `val_loss`라면
+    `min`이 되어야 합니다. `auto`의 경우
+    관찰하는 수량의 이름에서 방향성이 자동적으로 유추됩니다.
+- __save_weights_only__: 참인 경우 모델의 가중치만 저장되고
+    (`model.save_weights(filepath)`), 아닌 경우
+    전체 모델이 저장됩니다 (`model.save(filepath)`).
+- __period__: 체크포인트간 간격 (세대의 수).
     
 ----
 
@@ -157,32 +157,32 @@ __Arguments__
 keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 ```
 
-Stop training when a monitored quantity has stopped improving.
+관찰하는 수량이 개선되지 않으면 학습을 멈춥니다.
 
-__Arguments__
+__인수__
 
-- __monitor__: quantity to be monitored.
-- __min_delta__: minimum change in the monitored quantity
-    to qualify as an improvement, i.e. an absolute
-    change of less than min_delta, will count as no
-    improvement.
-- __patience__: number of epochs with no improvement
-    after which training will be stopped.
-- __verbose__: verbosity mode.
-- __mode__: one of {auto, min, max}. In `min` mode,
-    training will stop when the quantity
-    monitored has stopped decreasing; in `max`
-    mode it will stop when the quantity
-    monitored has stopped increasing; in `auto`
-    mode, the direction is automatically inferred
-    from the name of the monitored quantity.
-- __baseline__: Baseline value for the monitored quantity to reach.
-    Training will stop if the model doesn't show improvement
-    over the baseline.
-- __restore_best_weights__: whether to restore model weights from
-    the epoch with the best value of the monitored quantity.
-    If False, the model weights obtained at the last step of
-    training are used.
+- __monitor__: 관찰할 수량.
+- __min_delta__: 관찰하는 수량이 향상되었다고 판단할
+    최소한의 변화, 다시 말해 min_delta
+    미만의 절대적 변화는 향상되었다고 
+    판단하지 않습니다.
+- __patience__: 몇 세대가 향상없이 지나야 학습이 멈추는지
+    결정하는 세대 수.
+- __verbose__: 다변 모드.
+- __mode__: {auto, min, max} 중 하나. `min` 모드에서는
+    관찰하는 수량이 더 이상 감소하지
+    않으면 학습이 멈춥니다. `max` 모드에서는
+    관찰하는 수량이 더 이상 증가하지
+    않으면 학습이 멈춥니다; `auto` 모드에서는
+    관찰하는 수량의 이름에서
+    방향성이 자동적으로 유추됩니다.
+- __baseline__: 관찰하는 수량이 도달해야 하는 베이스라인 값.
+    모델이 베이스라인을 초과하는 향상을 보이지 않으면
+    학습이 멈춥니다.
+- __restore_best_weights__: 관찰하는 수량의 최선 값이 발생한 세대에서
+    모델 가중치를 복원할지 여부.
+    거짓인 경우, 학습의 마지막 단계에서 얻어진
+    모델 가중치가 사용됩니다.
     
 ----
 
@@ -193,25 +193,25 @@ __Arguments__
 keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
 ```
 
-Callback used to stream events to a server.
+이벤트를 서버에 스트림할 콜백
 
-Requires the `requests` library.
-Events are sent to `root + '/publish/epoch/end/'` by default. Calls are
-HTTP POST, with a `data` argument which is a
-JSON-encoded dictionary of event data.
-If send_as_json is set to True, the content type of the request will be
-application/json. Otherwise the serialized JSON will be send within a form
+`requests` 라이브러리를 필요로 합니다.
+디폴트 설정으로 이벤트는 `root + '/publish/epoch/end/'`으로 보내집니다.
+호출은 HTTP POST와 JSON-인코딩 이벤트 데이터 딕셔너리인
+`data` 인수로 합니다.
+send_as_json이 참으로 설정된 경우, 요청의 내용 종류는
+application/json입니다. 그 외는 형식 내 직렬화된 JSON이 보내집니다.
 
-__Arguments__
+__인수__
 
-- __root__: String; root url of the target server.
-- __path__: String; path relative to `root` to which the events will be sent.
-- __field__: String; JSON field under which the data will be stored.
-    The field is used only if the payload is sent within a form
-    (i.e. send_as_json is set to False).
-- __headers__: Dictionary; optional custom HTTP headers.
-- __send_as_json__: Boolean; whether the request should be send as
-    application/json.
+- __root__: 문자열; 표적 서버의 최상위 url.
+- __path__: 문자열; 이벤트가 보내질 `root`를 기준으로 한 상대적 경로
+- __field__: 문자열; 데이터가 저장될 JSON 필드.
+    형식 내 payload가 보내지는 경우에만 필드가 사용됩니다
+    (다시 말해 send_as_json이 거짓으로 설정된 경우).
+- __headers__: 딕셔너리; 선택적 커스텀 HTTP 헤더
+- __send_as_json__: 불리언; 요청을 application/json으로
+    보내는지 여부.
     
 ----
 
@@ -222,14 +222,14 @@ __Arguments__
 keras.callbacks.LearningRateScheduler(schedule, verbose=0)
 ```
 
-Learning rate scheduler.
+학습 속도 스케쥴러.
 
-__Arguments__
+__인수__
 
-- __schedule__: a function that takes an epoch index as input
-    (integer, indexed from 0) and current learning rate
-    and returns a new learning rate as output (float).
-- __verbose__: int. 0: quiet, 1: update messages.
+- __schedule__: 세대 색인(정수, 0에서 색인 시작)과 현재
+    학습 속도를 인풋으로 받고, 새로운 학습 속도를
+    아웃풋(부정소수점)으로 반환하는 함수.
+- __verbose__: 정수. 0: 자동, 1: 최신화 메시지.
     
 ----
 
@@ -240,65 +240,65 @@ __Arguments__
 keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None, update_freq='epoch')
 ```
 
-TensorBoard basic visualizations.
+TensorBoard 기초 시각화.
 
-[TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard)
-is a visualization tool provided with TensorFlow.
+[TensorBoard](https://www.tensorflow.org/guide/summaries_and_tensorboard)는
+텐서플로우가 제공하는 시각화 도구입니다.
 
-This callback writes a log for TensorBoard, which allows
-you to visualize dynamic graphs of your training and test
-metrics, as well as activation histograms for the different
-layers in your model.
+이 콜백은 TensorBoard에 로그를 기록하여
+학습과 테스트 측정 항목에 대한 동적 그래프나
+모델 내 다양한 레이어에 대한 활성화 히스토그램을
+시각화 할 수 있도록 합니다.
 
-If you have installed TensorFlow with pip, you should be able
-to launch TensorBoard from the command line:
+pip으로 텐서플로우를 설치했다면, 다음과 같이
+명령 줄에서 TensorBoard를 시작할 수 있습니다:
 ```sh
 tensorboard --logdir=/full_path_to_your_logs
 ```
 
-When using a backend other than TensorFlow, TensorBoard will still work
-(if you have TensorFlow installed), but the only feature available will
-be the display of the losses and metrics plots.
+텐서플로우 외의 백엔드를 사용하는 경우에도
+(텐서플로우가 설치만 되어있다면), TensorBoard가 동작하기는 하지만,
+손실과 측정 항목 플롯을 보여주는 기능만 사용이 가능합니다.
 
-__Arguments__
+__인수__
 
-- __log_dir__: the path of the directory where to save the log
-    files to be parsed by TensorBoard.
-- __histogram_freq__: frequency (in epochs) at which to compute activation
-    and weight histograms for the layers of the model. If set to 0,
-    histograms won't be computed. Validation data (or split) must be
-    specified for histogram visualizations.
-- __write_graph__: whether to visualize the graph in TensorBoard.
-    The log file can become quite large when
-    write_graph is set to True.
-- __write_grads__: whether to visualize gradient histograms in TensorBoard.
-    `histogram_freq` must be greater than 0.
-- __batch_size__: size of batch of inputs to feed to the network
-    for histograms computation.
-- __write_images__: whether to write model weights to visualize as
-    image in TensorBoard.
-- __embeddings_freq__: frequency (in epochs) at which selected embedding
-    layers will be saved. If set to 0, embeddings won't be computed.
-    Data to be visualized in TensorBoard's Embedding tab must be passed
-    as `embeddings_data`.
-- __embeddings_layer_names__: a list of names of layers to keep eye on. If
-    None or empty list all the embedding layer will be watched.
-- __embeddings_metadata__: a dictionary which maps layer name to a file name
-    in which metadata for this embedding layer is saved. See the
-    [details](https://www.tensorflow.org/guide/embedding#metadata)
-    about metadata files format. In case if the same metadata file is
-    used for all embedding layers, string can be passed.
-- __embeddings_data__: data to be embedded at layers specified in
-    `embeddings_layer_names`. Numpy array (if the model has a single
-    input) or list of Numpy arrays (if the model has multiple inputs).
-    Learn [more about embeddings](
+- __log_dir__: TensorBoard가 구문 분석할 로그 파일을
+    저장할 위치 경로.
+- __histogram_freq__: 모델의 레이어에 대해 활성화와 가중치 히스토그램을 계산할
+    (세대 내) 빈도. 0으로 설정되어 있으면 히스토그램을 계산하지
+    않습니다. 히스토그램 시각화를 하려면 검증 데이터(혹은 데이터 조각)이
+    특정되어야 합니다.
+- __write_graph__: TensorBoard에서 그래프를 시각화할지 여부.
+    write_graph이 참으로 설정되어 있으면
+    로그 파일이 상당히 커질 수 있습니다.
+- __write_grads__: TensorBoard에서 경사 히스토그램를 시각화할지 여부.
+    `histogram_freq`이 0보다 커야 합니다.
+- __batch_size__: 히스토그램 계산 목적으로 네트워크에 전달할
+    인풋 배치의 크기.
+- __write_images__: TensorBoard에서 이미지로 시각화할 모델 가중치를
+    작성할지 여부.
+- __embeddings_freq__: 선택된 임베딩 레이어가 저장되는 (세대 내) 빈도.
+    0으로 설정되어 있으면, 임베딩이 계산되지 않습니다.
+    TensorBoard의 Embedding 탭에서 시각화할 데이터는
+    `embeddings_data`로 전달되어야 합니다.
+- __embeddings_layer_names__: 관찰할 레이어 이름의 리스트.
+    None이나 빈 리스트의 경우 모든 임베딩 레이어가 관찰됩니다.
+- __embeddings_metadata__: 레이어 이름을 해당 임베딩 레이어의 메타데이터가 저장되는
+    파일 이름에 매핑하는 딕셔너리. 메타데이터 파일 형식에 대해서는
+    [세부사항](https://www.tensorflow.org/guide/embedding#metadata)을
+    참고하십시오. 모든 임베딩 레이어에 대해서 동일한 메타데이터
+    파일이 사용되는 경우는 문자열을 전달할 수 있습니다.
+- __embeddings_data__: `embeddings_layer_names`에 특정되어 레이어에 
+    임베딩할 데이터. Numpy 배열 (모델이 하나의 인풋을 갖는 경우) 혹은
+    Numpy 배열의 리스트 (모델이 여러 인풋을 갖는 경우).
+    임베딩에 대해서 [더 알아보려면](
     https://www.tensorflow.org/guide/embedding).
-- __update_freq__: `'batch'` or `'epoch'` or integer. When using `'batch'`, writes
-    the losses and metrics to TensorBoard after each batch. The same
-    applies for `'epoch'`. If using an integer, let's say `10000`,
-    the callback will write the metrics and losses to TensorBoard every
-    10000 samples. Note that writing too frequently to TensorBoard
-    can slow down your training.
+- __update_freq__: `'batch'`, `'epoch'`, 혹은 정수. `'batch'`를 사용하는 경우
+    각 배치 이후 손실과 특정항목을 TensorBoard에 기록합니다.
+    `'epoch'`의 경우에도 마찬가지입니다. 정수를 사용하는 경우,
+    예를 들어 `10000`이라면, 10000 샘플마다 콜백이 측정 항목과 손실을
+    TensorBoard에 작성합니다. TensorBoard에 너무 자주 기록하면
+    학습이 느려질 수도 있다는 점을 참고하십시오.
     
 ----
 
@@ -309,14 +309,14 @@ __Arguments__
 keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
 ```
 
-Reduce learning rate when a metric has stopped improving.
+측정 항목이 향상되지 않는 경우 학습 속도를 줄입니다.
 
-Models often benefit from reducing the learning rate by a factor
-of 2-10 once learning stagnates. This callback monitors a
-quantity and if no improvement is seen for a 'patience' number
-of epochs, the learning rate is reduced.
+모델은 종종 학습이 부진할 때 학습 속도를 2-10의 인수로 줄여
+효과를 보기도 합니다. 이 콜백은 수량을 관찰하여
+'patience' 수의 세대 동안 향상되는 기미가 없으면
+'patience' 수의 세대 동안 향상되는 기미가 없으면
 
-__Example__
+__예시__
 
 
 ```python
@@ -325,26 +325,26 @@ reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
 model.fit(X_train, Y_train, callbacks=[reduce_lr])
 ```
 
-__Arguments__
+__인수__
 
-- __monitor__: quantity to be monitored.
-- __factor__: factor by which the learning rate will
-    be reduced. new_lr = lr * factor
-- __patience__: number of epochs with no improvement
-    after which learning rate will be reduced.
-- __verbose__: int. 0: quiet, 1: update messages.
-- __mode__: one of {auto, min, max}. In `min` mode,
-    lr will be reduced when the quantity
-    monitored has stopped decreasing; in `max`
-    mode it will be reduced when the quantity
-    monitored has stopped increasing; in `auto`
-    mode, the direction is automatically inferred
-    from the name of the monitored quantity.
-- __min_delta__: threshold for measuring the new optimum,
-    to only focus on significant changes.
-- __cooldown__: number of epochs to wait before resuming
-    normal operation after lr has been reduced.
-- __min_lr__: lower bound on the learning rate.
+- __monitor__: 관찰할 수량.
+- __factor__: 학습 속도를 줄일 인수.
+    new_lr = lr * factor
+- __patience__: 얼마나 많은 세대간 학습이 부진하면 학습 속도를
+    줄일지 결정하는 세대의 수.
+- __verbose__: 정수. 0: 자동, 1: 최신화 메시지.
+- __mode__: {auto, min, max} 중 하나. `min` 모드에서는
+    관찰하는 수량이 더 이상 감소하지
+    않으면 학습이 멈춥니다. `max` 모드에서는
+    관찰하는 수량이 더 이상 증가하지
+    않으면 학습이 멈춥니다; `auto` 모드에서는
+    관찰하는 수량의 이름에서
+    방향성이 자동적으로 유추됩니다.
+- __min_delta__: 유의미한 변화에만 집중해 새로운
+    최적값을 계산할 한계점.
+- __cooldown__: 학습 속도가 감소 된 후 몇 세대를 기다려야 평소
+    가동이 재개되는지를 결정하는 세대의 수.
+- __min_lr__: 학습 속도에 대한 하한선.
     
 ----
 
@@ -355,12 +355,12 @@ __Arguments__
 keras.callbacks.CSVLogger(filename, separator=',', append=False)
 ```
 
-Callback that streams epoch results to a csv file.
+세대 결과를 csv 파일에 스트림하는 콜백.
 
-Supports all values that can be represented as a string,
-including 1D iterables such as np.ndarray.
+np.ndarray와 같은 1D interable을 포함,
+문자열로 표현 가능한 모든 값을 지원합니다.
 
-__Example__
+__예시__
 
 
 ```python
@@ -368,12 +368,12 @@ csv_logger = CSVLogger('training.log')
 model.fit(X_train, Y_train, callbacks=[csv_logger])
 ```
 
-__Arguments__
+__인수__
 
-- __filename__: filename of the csv file, e.g. 'run/log.csv'.
-- __separator__: string used to separate elements in the csv file.
-- __append__: True: append if file exists (useful for continuing
-    training). False: overwrite existing file,
+- __filename__: csv 파일의 파일 이름, 예. 'run/log.csv'.
+- __separator__: csv 파일의 성분을 분리하는데 사용할 문자열.
+- __append__: 참: 파일이 존재하는 경우 뒤에 덧붙입니다 (학습을 이어나갈 때
+    유용합니다). 거짓: 기존의 파일을 덧씌웁니다.
     
 ----
 
@@ -384,38 +384,38 @@ __Arguments__
 keras.callbacks.LambdaCallback(on_epoch_begin=None, on_epoch_end=None, on_batch_begin=None, on_batch_end=None, on_train_begin=None, on_train_end=None)
 ```
 
-Callback for creating simple, custom callbacks on-the-fly.
+간단한 커스텀 콜백을 즉석에서 만드는 콜백.
 
-This callback is constructed with anonymous functions that will be called
-at the appropriate time. Note that the callbacks expects positional
-arguments, as:
+이 콜백은 적절한 시점에 호출될 익명 함수로 생성됩니다.
+콜백이 다음과 같이 위치적 인수를 전달 받는다는 것을
+참고하십시오:
 
-- `on_epoch_begin` and `on_epoch_end` expect two positional arguments:
+- `on_epoch_begin`과 `on_epoch_end`는 다음 두 가지 위치적 인수를 전달 받습니다:
 `epoch`, `logs`
-- `on_batch_begin` and `on_batch_end` expect two positional arguments:
+- `on_batch_begin`과 `on_batch_end`는 다음 두 가지 위치적 인수를 전달 받습니다:
 `batch`, `logs`
-- `on_train_begin` and `on_train_end` expect one positional argument:
+- `on_train_begin`과 `on_train_end`는 다음 위치적 인수를 전달 받습니다:
 `logs`
 
-__Arguments__
+__인수__
 
-- __on_epoch_begin__: called at the beginning of every epoch.
-- __on_epoch_end__: called at the end of every epoch.
-- __on_batch_begin__: called at the beginning of every batch.
-- __on_batch_end__: called at the end of every batch.
-- __on_train_begin__: called at the beginning of model training.
-- __on_train_end__: called at the end of model training.
+- __on_epoch_begin__: 각 세대의 시작에 호출됩니다.
+- __on_epoch_end__: 각 세대의 끝에 호출됩니다.
+- __on_batch_begin__: 각 배치의 시작에 호출됩니다.
+- __on_batch_end__: 각 배치의 끝에 호출됩니다.
+- __on_train_begin__: 모델 학습의 시작에 호출됩니다.
+- __on_train_end__: 모델 학습의 끝에 호출됩니다.
 
-__Example__
+__예시__
 
 
 ```python
-# Print the batch number at the beginning of every batch.
+# 각 배치가 시작할 때 배치 번호를 프린트합니다
 batch_print_callback = LambdaCallback(
     on_batch_begin=lambda batch,logs: print(batch))
 
-# Stream the epoch loss to a file in JSON format. The file content
-# is not well-formed JSON but rather has a JSON object per line.
+# 세대 손실을 JSON 형식으로 파일에 스트림합니다
+# 파일 내용은 명확히 구성된 JSON이 아니며 줄 별로 JSON 객체를 가집니다
 import json
 json_log = open('loss_log.json', mode='wt', buffering=1)
 json_logging_callback = LambdaCallback(
@@ -424,7 +424,7 @@ json_logging_callback = LambdaCallback(
     on_train_end=lambda logs: json_log.close()
 )
 
-# Terminate some processes after having finished model training.
+# 모델 학습을 끝낸 후 몇몇 처리 과정을 종료합니다
 processes = ...
 cleanup_callback = LambdaCallback(
     on_train_end=lambda logs: [
@@ -440,11 +440,11 @@ model.fit(...,
 ---
 
 
-# Create a callback
+# 콜백을 만드십시오
 
-You can create a custom callback by extending the base class `keras.callbacks.Callback`. A callback has access to its associated model through the class property `self.model`.
+베이스 클래스인 `keras.callbacks.Callback`를 확장해서 커스텀 콜백을 만들 수 있습니다. 콜백은 클래스 재산인 `self.model`을 통해서 관련 모델에 접근할 수 있습니다.
 
-Here's a simple example saving a list of losses over each batch during training:
+다음은 학습 과정 중 각 배치에 대한 손실 리스트를 저장하는 간단한 예시입니다:
 ```python
 class LossHistory(keras.callbacks.Callback):
     def on_train_begin(self, logs={}):
@@ -456,7 +456,7 @@ class LossHistory(keras.callbacks.Callback):
 
 ---
 
-### Example: recording loss history
+### 예시: 손실 역사 기록
 
 ```python
 class LossHistory(keras.callbacks.Callback):
@@ -475,7 +475,7 @@ history = LossHistory()
 model.fit(x_train, y_train, batch_size=128, epochs=20, verbose=0, callbacks=[history])
 
 print(history.losses)
-# outputs
+# 아웃풋
 '''
 [0.66047596406559383, 0.3547245744908703, ..., 0.25953155204159617, 0.25901699725311789]
 '''
@@ -483,7 +483,7 @@ print(history.losses)
 
 ---
 
-### Example: model checkpoints
+### 예시: 모델 체크포인트
 
 ```python
 from keras.callbacks import ModelCheckpoint
