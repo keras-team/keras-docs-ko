@@ -1,17 +1,17 @@
-## Usage of regularizers
+## Regularizer의 사용법
 
-Regularizers allow to apply penalties on layer parameters or layer activity during optimization. These penalties are incorporated in the loss function that the network optimizes.
+Regularizer는 최적화 과정 중에 각 층별 파라미터 또는 출력값에 대하여 페널티를 적용할 수 있게 해줍니다. 이러한 페널티는 네트워크가 최적화 하려는 손실 함수의 일부로 포함됩니다.
 
-The penalties are applied on a per-layer basis. The exact API will depend on the layer, but the layers `Dense`, `Conv1D`, `Conv2D` and `Conv3D` have a unified API.
+페널티는 층별로 다르게 적용될 수 있습니다. 정확한 API는 층마다 서로 다르지만, `Dense`, `Conv1D`, `Conv2D` 그리고 `Conv3D`는 동일한 API를 가지고 있습니다.
 
-These layers expose 3 keyword arguments:
+이 층들은 다음 세 개의 키워드 인자들을 공통적으로 가지고 있습니다.
 
-- `kernel_regularizer`: instance of `keras.regularizers.Regularizer`
-- `bias_regularizer`: instance of `keras.regularizers.Regularizer`
-- `activity_regularizer`: instance of `keras.regularizers.Regularizer`
+- `kernel_regularizer`: `keras.regularizers.Regularizer`의 객체입니다.
+- `bias_regularizer`: `keras.regularizers.Regularizer`의 객체입니다.
+- `activity_regularizer`: `keras.regularizers.Regularizer`의 객체입니다.
 
 
-## Example
+## 예제
 
 ```python
 from keras import regularizers
@@ -20,7 +20,7 @@ model.add(Dense(64, input_dim=64,
                 activity_regularizer=regularizers.l1(0.01)))
 ```
 
-## Available penalties
+## 사용 가능한 페널티
 
 ```python
 keras.regularizers.l1(0.)
@@ -28,9 +28,9 @@ keras.regularizers.l2(0.)
 keras.regularizers.l1_l2(l1=0.01, l2=0.01)
 ```
 
-## Developing new regularizers
+## 새로운 regularizer를 개발하려면
 
-Any function that takes in a weight matrix and returns a loss contribution tensor can be used as a regularizer, e.g.:
+아래와 같이 가중치 행렬을 입력으로 받고, 그에 해당하는 페널티를 계산해 반환하는 함수라면 모두 regularizer로 사용할 수 있습니다.
 
 ```python
 from keras import backend as K
@@ -42,5 +42,4 @@ model.add(Dense(64, input_dim=64,
                 kernel_regularizer=l1_reg))
 ```
 
-Alternatively, you can write your regularizers in an object-oriented way;
-see the [keras/regularizers.py](https://github.com/keras-team/keras/blob/master/keras/regularizers.py) module for examples.
+좀 더 객체 지향적인 방법을 원한다면 [여기](https://github.com/keras-team/keras/blob/master/keras/regularizers.py)에서 예시를 확인할 수 있습니다.
