@@ -31,7 +31,26 @@ Existing files in `sources/` should be edited in-line.
 
 | English            | 한국어                 |
 |:-------------------|:-----------------------|
+| batch              |배치    |
+| callback           |              |
+| checkpoint         |체크포인트              |
+| compile            |컴파일              |
+| dropout            |              |
+| embedding          |              |
+| epoch              |              |
+| hyperparameter     |              |
+| import             |              |
+| label              |              |
+| layer              | 층             |
+| mini-batch         |              |
+| neuron             |              |
+| node               |              |
 | NumPy Array        | NumPy 배열             |
-| shape              | 크기                   |
+| one-hot encoding   |              |
+| optimizer          |              |
+| padding            |              |
+| penalty            |              |
+| shape              | 크기        |
+| target             |              |
 | tensor             | 텐서                   |
 | 1--9               | 1--9                  |
