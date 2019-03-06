@@ -31,14 +31,14 @@ Existing files in `sources/` should be edited in-line.
 
 | English            | 한국어                 |
 |:-------------------|:-----------------------|
-| batch              |배치    |
-| callback           |              |
-| checkpoint         |체크포인트              |
-| compile            |컴파일              |
-| dropout            |              |
-| embedding          |              |
-| epoch              |              |
-| hyperparameter     |              |
+| batch              | 배치    |
+| callback           | 콜백           |
+| checkpoint         | 체크포인트              |
+| compile            | 컴파일              |
+| dropout            | 드롭아웃             |
+| embedding          | 임베딩         |
+| epoch              | 에폭           |
+| hyperparameter     | 하이퍼파라미터        |
 | import             |              |
 | label              |              |
 | layer              | 층             |
@@ -46,11 +46,12 @@ Existing files in `sources/` should be edited in-line.
 | neuron             |              |
 | node               |              |
 | NumPy Array        | NumPy 배열             |
-| one-hot encoding   |              |
-| optimizer          |              |
-| padding            |              |
+| one-hot encoding   | 원-핫 인코딩           |
+| optimizer          | 옵티마이저          |
+| padding            | 패딩           |
+| parameter          | 매개변수           |
 | penalty            |              |
 | shape              | 크기        |
-| target             |              |
+| target             | 타겟           |
 | tensor             | 텐서                   |
 | 1--9               | 1--9                  |
