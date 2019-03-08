@@ -261,4 +261,4 @@ Linear (i.e. identity) 활성화 함수.
 
 ## "고급 활성화" (Advanced Activations)에 대하여
 
-단순한 TensorFlow/Theano/CNTK 기능(예를 들어 상태를 유지하는 학습 가능한 활성화)보다 복잡한 활성화는 [Advanced Activation layers](layers/advanced-activations.md) 으로 제공되며, 'caras.layer.advanced_activations' 모듈에서 확인할 수 있습니다. 여기에는 "PReLU"와 "LeakyReLU"가 포함됩니다.
+단순한 TensorFlow/Theano/CNTK 기능(예를 들어 상태를 유지하는 학습 가능한 활성화)보다 복잡한 활성화는 [Advanced Activation layers](layers/advanced-activations.md) 으로 제공되며, 'Keras.layers.advanced_activations' 모듈에서 확인할 수 있습니다. 여기에는 "PReLU"와 "LeakyReLU"가 포함됩니다.
