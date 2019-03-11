@@ -38,11 +38,15 @@ Existing files in `sources/` should be edited in-line.
 | dropout            | 드롭아웃             |
 | embedding          | 임베딩         |
 | epoch              | 에폭           |
+| gradient descent   | 경사 하강법           |
 | hyperparameter     | 하이퍼파라미터        |
 | import             |              |
 | label              |              |
 | layer              | 층             |
+| learning rate      | 학습률              |
+| learning rate decay| 학습률 감소          |
 | mini-batch         |              |
+| momentum           | 모멘텀             |
 | neuron             |              |
 | node               |              |
 | NumPy Array        | NumPy 배열             |
@@ -52,6 +56,7 @@ Existing files in `sources/` should be edited in-line.
 | parameter          | 매개변수           |
 | penalty            |              |
 | shape              | 크기        |
+| stochastic gradient descent | 확률적 경사 하강법           |
 | target             | 타겟           |
 | tensor             | 텐서                   |
 | 1--9               | 1--9                  |
