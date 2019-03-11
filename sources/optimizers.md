@@ -1,7 +1,6 @@
+## 옵티마이저의 사용법
 
-## Optimizers의 용법
-
-optimizer는 Keras 모델을 컴파일하기 위해 요구되는 두 인자 중 하나 입니다:
+옵티마이저는 Keras 모델을 컴파일하기 위해 필요한 두 개의 매개변수(parameter) 중 하나입니다.
 
 ```python
 from keras import optimizers
@@ -14,33 +13,34 @@ sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
 model.compile(loss='mean_squared_error', optimizer=sgd)
 ```
 
-위의 예제와 같이 `model.compile()`에 전달하기 전에 optimizer의 인스턴스를 만들거나, 또는 이름을 이용해서 호출할 수 있습니다. 후자의 경우에는 optimizer를 위한 디폴트 파라메터가 사용됩니다.
+옵티마이저는 위의 예제와 같이 객체를 만들어 `model.compile()`의 인자로 전달하거나, 아래와 같이 이름으로 사용할 수도 있습니다. 후자의 경우에는 해당 옵티마이저의 기본 설정이 사용됩니다.
 
 ```python
-# 이름으로 optimizer를 전달: 디폴트 파라메터가 사용됨
+# 옵티마이저의 이름을 사용하는 경우에는
+# 기본 설정이 사용됩니다. 
 model.compile(loss='mean_squared_error', optimizer='sgd')
 ```
 
 ---
 
-## 모든 Keras의 Optimizer에 공통적인 파라메터
+## 모든 Keras 옵티마이저에 공통적인 매개변수
 
-`clipnorm` 그리고 `clipvalue` 파라메터는 경사도 자르기(gradient clipping)을 조절하기 위한 모든 optimizer에서 사용될 수 있습니다:
+모든 옵티마이저는 `clipnorm`과 `clipvalue` 매개변수를 통해 경사도 클리핑(gradient clipping)을 조절할 수 있습니다.
 
 ```python
 from keras import optimizers
 
-# 경사도가 자르게될 모든 파라메터에 대한
-# Norm의 최대값을 1로 설정
+# All parameter gradients will be clipped to
+# a maximum norm of 1.
 sgd = optimizers.SGD(lr=0.01, clipnorm=1.)
 ```
 
 ```python
 from keras import optimizers
 
-# A경사도가 자르게될 모든 파라메터의
-# 최대값을 0.5, 그리고
-# 최소값을 -0.5로 설정
+# All parameter gradients will be clipped to
+# a maximum value of 0.5 and
+# a minimum value of -0.5.
 sgd = optimizers.SGD(lr=0.01, clipvalue=0.5)
 ```
 
@@ -53,16 +53,17 @@ sgd = optimizers.SGD(lr=0.01, clipvalue=0.5)
 keras.optimizers.SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
 ```
 
-Stochastic Gradient Descent optimizer.
+확률적 경사 하강법(Stochastic Gradient Descent, SGD) 옵티마이저.
 
-모멘텀(momentum), 학습률 붕괴(learning rate decay), 그리고 네스테로프 모멘텀(Nesterov momentum)의 지원을 포함합니다.
+모멘텀과 네스테로프 모멘텀(Nesterov momentum), 그리고 학습률 감소 기법(learning rate decay)을 지원합니다.
 
 __인자__
 
-- __lr__: >= 0인 부동소수. 학습률 .
-- __momentum__: >= 0인 부동소수. SGD를 적절한 방향으로 가속화 하고, 흔들림(진동)을 약화시키기 위한 파라메터 입니다.
-- __decay__: >= 0인 부동소수. 각 업데이트마다의 학습률 붕괴값 입니다.
-- __nesterov__: 불리언. 네스테로프 모멘텀을 적용할지 말지를 설정합니다.
+- __lr__: 0보다 크거나 같은 float 값. 학습률.
+- __momentum__: 0보다 크거나 같은 float 값. 
+    SGD를 적절한 방향으로 가속화하며, 흔들림(진동)을 줄여주는 매개변수입니다.
+- __decay__: 0보다 크거나 같은 float 값. 매 업데이트 시 적용되는 학습률의 감소율입니다.
+- __nesterov__: 불리언. 네스테로프 모멘텀을 적용할지 여부를 설정합니다.
     
 ----
 
@@ -73,19 +74,19 @@ __인자__
 keras.optimizers.RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.0)
 ```
 
-RMSProp optimizer.
+RMSProp 옵티마이저.
 
-이 optimizer의 파라메터를 디폴트 값으로 사용하는 것이 권고 됩니다.
-(자유롭게 튜닝될 수 있는 학습률은 제외)
+RMSProp을 사용할 때는 학습률을 제외한 모든 인자의 기본값을 사용하는 것이 권장됩니다. 
 
-이 optimizer는 보통 순환 신경망(Recurrent Neural Networks)을 위한 좋은 선택입니다.
+일반적으로 순환 신경망(Recurrent Neural Networks)의 옵티마이저로 많이 사용됩니다.
 
 __인자__
 
-- __lr__:  >= 0인 부동소수. 학습률 입니다.
-- __rho__: >= 0인 부동소수.
-- __epsilon__: >= 0인 부동소수. Fuzzy 인자. `None`으로 설정되면, `K.epsilon()`가 사용됩니다.
-- __decay__: >= 0인 부동소수. 각 업데이트마다의 학습률 붕괴값 입니다.
+- __lr__: 0보다 크거나 같은 float 값. 학습률.
+- __rho__: 0보다 크거나 같은 float 값.
+- __epsilon__:  0보다 크거나 같은 float형 fuzz factor. 
+    `None`으로 설정될 시, `K.epsilon()`이 사용됩니다.
+- __decay__: 0보다 크거나 같은 float 값. 매 업데이트 시 적용되는 학습률의 감소율입니다.
 
 __참고__
 
@@ -100,7 +101,7 @@ __참고__
 keras.optimizers.Adagrad(lr=0.01, epsilon=None, decay=0.0)
 ```
 
-Adagrad optimizer.
+Adagrad 옵티마이저.
 
 Adagrad는 학습 도중 얼마나 빈번히 파라메터가 업데이트되는 연관성에의해  
 파라메터에 특정한 학습률과 함께 사용되는 optmizer 입니다.
@@ -110,7 +111,7 @@ Adagrad는 학습 도중 얼마나 빈번히 파라메터가 업데이트되는 
 
 __인자__
 
-- __lr__: >= 0인 부동소수. 학습률 .
+- __lr__: 0보다 크거나 같은 float 값. 학습률.
 - __epsilon__: >= 0인 부동소수. `None`으로 설정되면, `K.epsilon()`가 사용됩니다.
 - __decay__: >= 0인 부동소수. 각 업데이트마다의 학습률 붕괴값 입니다.
 
