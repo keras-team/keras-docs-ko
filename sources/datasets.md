@@ -84,11 +84,11 @@ from keras.datasets import imdb
 
 ---
 
-## Reuters newswire topics classification
+## 로이터 뉴스 토픽 분류
 
-Dataset of 11,228 newswires from Reuters, labeled over 46 topics. As with the IMDB dataset, each wire is encoded as a sequence of word indexes (same conventions).
+46가지 토픽으로 라벨이 달린 11,228개의 로이터 뉴스로 이루어진 데이터셋. IMDB 데이터셋과 마찬가지로, 각 뉴스는 (같은 방식을 사용한) 단어 인덱스의 시퀀스로 인코딩되어 있습니다.
 
-### Usage:
+### 사용법:
 
 ```python
 from keras.datasets import reuters
@@ -104,30 +104,30 @@ from keras.datasets import reuters
                                                          index_from=3)
 ```
 
-The specifications are the same as that of the IMDB dataset, with the addition of:
+세부사항은 IMDB 데이터셋과 동일하나, 다음의 추가사항이 있습니다:
 
-- __test_split__: float. Fraction of the dataset to be used as test data.
+- __test_split__: float. 테스트 데이터로 사용할 데이터셋의 비율.
 
-This dataset also makes available the word index used for encoding the sequences:
+또한 이 데이터셋은 시퀀스를 인코딩하는데 사용할 단어 인덱스를 제공합니다:
 
 ```python
 word_index = reuters.get_word_index(path="reuters_word_index.json")
 ```
 
-- __Returns:__ A dictionary where key are words (str) and values are indexes (integer). eg. `word_index["giraffe"]` might return `1234`. 
+- __반환값:__ 키가 단어(str)이고 값이 인덱스(integer)인 하나의 딕셔너리. 예시. `word_index["giraffe"]`는 `1234`라는 값을 반환할 수 있습니다. 
 
-- __Arguments:__
+- __인수:__
 
-    - __path__: if you do not have the index file locally (at `'~/.keras/datasets/' + path`), it will be downloaded to this location.
+    - __path__: (`'~/.keras/datasets/' + path`)의 위치에 인덱스 파일이 없다면, 이 위치로 다운로드 됩니다.
     
 
 ---
 
-## MNIST database of handwritten digits
+## 손으로 쓴 숫자들로 이루어진 MNIST 데이터베이스
 
-Dataset of 60,000 28x28 grayscale images of the 10 digits, along with a test set of 10,000 images.
+10가지 숫자에 대한 60,000개의 28x28 그레이 스케일 이미지 데이터셋과, 그에 더해 10,000개의 이미지로 이루어진 테스트셋.
 
-### Usage:
+### 사용법:
 
 ```python
 from keras.datasets import mnist
@@ -135,36 +135,36 @@ from keras.datasets import mnist
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 ```
 
-- __Returns:__
-    - 2 tuples:
-        - __x_train, x_test__: uint8 array of grayscale image data with shape (num_samples, 28, 28).
-        - __y_train, y_test__: uint8 array of digit labels (integers in range 0-9) with shape (num_samples,).
+- __반환값:__
+    - 2개의 튜플:
+        - __x_train, x_test__: 그레이 스케일 이미지 데이터의 uint8 배열. (num_samples, 28, 28)의 형태를 취합니다.
+        - __y_train, y_test__: 숫자 라벨의 uint8 배열 (0-9 범위의 정수). (num_samples,)의 형태를 취합니다.
 
-- __Arguments:__
+- __인수:__
 
-    - __path__: if you do not have the index file locally (at `'~/.keras/datasets/' + path`), it will be downloaded to this location.
+    - __path__: ('~/.keras/datasets/' + path`)의 위치에 인덱스 파일이 없다면, 이 위치로 다운로드 됩니다.
 
 
 ---
 
-## Fashion-MNIST database of fashion articles
+## 패션 이미지로 이루어진 패션-MNIST 데이터베이스
 
-Dataset of 60,000 28x28 grayscale images of 10 fashion categories, along with a test set of 10,000 images. This dataset can be used as a drop-in replacement for MNIST. The class labels are:
+10가지 패션 범주에 대한 60,000개의 28x28 그레일 스케일 이미지로 이루어진 데이터셋과, 그에 더해 10,000개의 이미지로 이루어진 테스트셋. 이 데이터 셋은 MNIST를 간편하게 대체하는 용도로 사용할 수 있습니다. 클래스 라벨은 다음과 같습니다:
 
-| Label | Description |
+| 라벨 | 설명 |
 | --- | --- |
-| 0 | T-shirt/top |
-| 1 | Trouser |
-| 2 | Pullover |
-| 3 | Dress |
-| 4 | Coat |
-| 5 | Sandal |
-| 6 | Shirt |
-| 7 | Sneaker |
-| 8 | Bag |
-| 9 | Ankle boot |
+| 0 | 티셔츠/상의 |
+| 1 | 바지 |
+| 2 | 점퍼 |
+| 3 | 드레스 |
+| 4 | 코트 |
+| 5 | 샌들 |
+| 6 | 셔츠 |
+| 7 | 운동화 |
+| 8 | 가방 |
+| 9 | 앵클 부츠 |
 
-### Usage:
+### 사용법:
 
 ```python
 from keras.datasets import fashion_mnist
@@ -172,24 +172,24 @@ from keras.datasets import fashion_mnist
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 ```
 
-- __Returns:__
-    - 2 tuples:
-        - __x_train, x_test__: uint8 array of grayscale image data with shape (num_samples, 28, 28).
-        - __y_train, y_test__: uint8 array of labels (integers in range 0-9) with shape (num_samples,).
+- __반환값:__
+    - 2개의 튜플:
+        - __x_train, x_test__: 그레이 스케일 이미지 데이터의 uint8 배열. (num_samples, 28, 28)의 형태를 취합니다.
+        - __y_train, y_test__: 숫자 라벨의 uint8 배열 (0-9 범위의 정수). (num_samples,)의 형태를 취합니다.
 
 
 ---
 
-## Boston housing price regression dataset
+## 보스턴 주택 가격 회귀 데이터셋
 
 
-Dataset taken from the StatLib library which is maintained at Carnegie Mellon University. 
+카네기 멜론 대학이 관리하는 StatLib 도서관의 데이터셋. 
 
-Samples contain 13 attributes of houses at different locations around the Boston suburbs in the late 1970s.
-Targets are the median values of the houses at a location (in k$).
+각 샘플은 1970년대 보스턴 근교 여러지역에 위치한 주택의 13가지 속성으로 이루어져 있습니다.
+타겟은 한 지역의 주택들의 (1,000$ 단위) 중앙값입니다.
 
 
-### Usage:
+### 사용법:
 
 ```python
 from keras.datasets import boston_housing
@@ -197,12 +197,11 @@ from keras.datasets import boston_housing
 (x_train, y_train), (x_test, y_test) = boston_housing.load_data()
 ```
 
-- __Arguments:__
-    - __path__: path where to cache the dataset locally
-        (relative to ~/.keras/datasets).
-    - __seed__: Random seed for shuffling the data
-        before computing the test split.
-    - __test_split__: fraction of the data to reserve as test set.
+- __인수:__
+    - __path__: 데이터셋을 로컬로 캐싱할 경로
+        (~/.keras/datasets를 기준으로).
+    - __seed__: 테스트 데이터를 분할하기 전 데이터 셔플링을 위한 시드.
+    - __test_split__: 테스트셋으로 남겨둘 데이터의 비율.
 
-- __Returns:__
-    Tuple of Numpy arrays: `(x_train, y_train), (x_test, y_test)`.
+- __반환값:__
+    Numpy 배열들로 이루어진 튜플: `(x_train, y_train), (x_test, y_test)`.
