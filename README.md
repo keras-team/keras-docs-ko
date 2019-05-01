@@ -12,12 +12,12 @@ Existing files in `sources/` should be edited in-line.
 ## 번역 가이드라인
 
 - 번역은 문서화 내에 있는 본문 내용과 코드 주석들을 대상으로 합니다.
-- 번역시 문장 끝에 붙는 격식체는 존댓말의 아주높임인 ~하십시오체를 사용합니다.
-- 큰따옴표나 작은따옴표는（'，"）특수문자를 사용하지 않고 기본적으로 제공된 것을 사용합니다.
-- 코드 강조 (syntax highlight) 뒤에 조사가 붙는 경우, 공백을 넣지 않습니다. (e.g. `model.fit()`을 실행하면)
+- 번역시 문장 끝에 붙는 격식체는 'ㅂ니다'체를 따르며 존칭이나 반말은 쓰지 않습니다.
+- 큰따옴표나 작은따옴표는('，") 특수문자를 사용하지 않고 기본적으로 제공된 것을 사용합니다.
+- 코드 강조(syntax highlight) 뒤에 조사가 붙는 경우, 공백을 넣지 않습니다(e.g. `model.fit()`을 실행하면).
 - 키워드를 번역할 때 아래에 있는 용어집을 사용합니다.
 
-※ 번역은 다른 언어로 된 문서의 의미를 이해하고 한국어로 다시 표현하는 것이니 번역체는 자제해 주시기 바랍니다. (e.g. ~~우리는 한다 번역을~~)
+※ 번역은 다른 언어로 된 문서의 의미를 이해하고 한국어로 다시 표현하는 것이니 번역체는 자제해 주시기 바랍니다(~~우리는 한다 번역을~~).
 
 ---
 
@@ -31,7 +31,36 @@ Existing files in `sources/` should be edited in-line.
 
 | English            | 한국어                 |
 |:-------------------|:-----------------------|
+| batch              | 배치    |
+| callback           | 콜백           |
+| checkpoint         | 체크포인트              |
+| compile            | 컴파일              |
+| dropout            | 드롭아웃             |
+| embedding          | 임베딩         |
+| epoch              | 에폭           |
+| gradient           | 그래디언트           |
+| gradient descent   | 경사 하강법           |
+| hyperparameter     | 하이퍼파라미터        |
+| import             |              |
+| label              |              |
+| layer              | 층             |
+| learning rate      | 학습률              |
+| learning rate decay| 학습률 감소          |
+| loss function      | 손실 함수           |
+| mini-batch         |              |
+| momentum           | 모멘텀             |
+| neuron             |              |
+| node               |              |
 | NumPy Array        | NumPy 배열             |
-| shape              | 크기                   |
+| objective function | 목적 함수              |
+| one-hot encoding   | 원-핫 인코딩           |
+| optimizer          | 옵티마이저          |
+| padding            | 패딩           |
+| parameter          | (함수의) 매개변수           |
+| parameter          | (모델의) 파라미터           |
+| penalty            |              |
+| shape              | 크기        |
+| stochastic gradient descent | 확률적 경사 하강법           |
+| target             | 타겟           |
 | tensor             | 텐서                   |
 | 1--9               | 1--9                  |
