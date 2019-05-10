@@ -63,28 +63,28 @@ Theano를 쉽게 업데이트 하려면: `pip install git+git://github.com/Thean
 
 2. 코드를 작성하십시오 (아니면 다른 이들이 작성토록 해주십시오). 여기가 어려운 부분입니다!
 
-3. Make sure any new function or class you introduce has proper docstrings. Make sure any code you touch still has up-to-date docstrings and documentation. **Docstring style should be respected.** In particular, they should be formatted in MarkDown, and there should be sections for `Arguments`, `Returns`, `Raises` (if applicable). Look at other docstrings in the codebase for examples.
+3. 새로 만드신 함수나 클래스는 제대로 된 독스트링을 갖춰야 합니다. 작업하신 모든 코드에는 최신화된 독스트링과 사용설명서가 있어야 합니다. **독스트링 스타일을 지켜주십시오.** 특히 MarkDown 포맷으로 작업해야 하고, (가능한 경우) `Arguments`, `Returns`, `Raises`의 섹션이 있어야 합니다. 코드베이스에 있는 다른 독스트링을 참고해 주십시오.
 
-4. Write tests. Your code should have full unit test coverage. If you want to see your PR merged promptly, this is crucial.
+4. 테스트를 작성해 주십시오. 작성하신 코드는 전 부분에 걸쳐 유닛 테스트를 갖춰야 합니다. 이는 PR을 신속하게 병합하려면 꼭 필요합니다.
 
-5. Run our test suite locally. It's easy: from the Keras folder, simply run: `py.test tests/`.
-    - You will need to install the test requirements as well: `pip install -e .[tests]`.
+5. 저희 테스트슈트를 로컬컴퓨터에 작동시키십시오. 어렵지 않습니다: 케라스 폴더에서, 다음을 실행하면 됩니다: `py.test tests/`.
+    - 또한 테스트 필요요소도 설치하셔야 합니다: `pip install -e .[tests]`.
 
-6. Make sure all tests are passing:
-    - with the Theano backend, on Python 2.7 and Python 3.6. Make sure you have the development version of Theano.
-    - with the TensorFlow backend, on Python 2.7 and Python 3.6. Make sure you have the development version of TensorFlow.
-    - with the CNTK backend, on Python 2.7 and Python 3.6. Make sure you have the development version of CNTK.
+6. 다음 조건에서 테스트가 전부 통과되는지 확인해 주십시오:
+    - Theano 백엔드, Python 2.7과 Python 3.6. Theano가 개발 버전인지 확인하십시오.
+    - TensorFlow 백엔드, Python 2.7과 Python 3.6. TensorFlow가 개발 버전인지 확인하십시오.
+    - CNTK 백엔드, Python 2.7과 Python 3.6. CNTK가 개발 버전인지 확인하십시오.
 
-7. We use PEP8 syntax conventions, but we aren't dogmatic when it comes to line length. Make sure your lines stay reasonably sized, though. To make your life easier, we recommend running a PEP8 linter:
-    - Install PEP8 packages: `pip install pep8 pytest-pep8 autopep8`
-    - Run a standalone PEP8 check: `py.test --pep8 -m pep8`
-    - You can automatically fix some PEP8 error by running: `autopep8 -i --select <errors> <FILENAME>` for example: `autopep8 -i --select E128 tests/keras/backend/test_backends.py`
+7. 저희는 PEP8 문법 규칙을 사용합니다만, 각 라인의 길이에 대해서는 크게 신경쓰지 않습니다. 그래도 각 라인의 길이가 적당한지는 확인해 주십시오. 보다 손쉬운 방법으로, PEP8 linter를 사용하시는 것을 추천드립니다:
+    - PEP8 packages를 설치합니다: `pip install pep8 pytest-pep8 autopep8`
+    - 독립형 PEP8 check을 실행합니다: `py.test --pep8 -m pep8`
+    - 몇몇 PEP8 에러는 다음을 실행해서 자동적으로 수정할 수 있습니다: `autopep8 -i --select <errors> <FILENAME>` 예를 들면: `autopep8 -i --select E128 tests/keras/backend/test_backends.py`
 
-8. When committing, use appropriate, descriptive commit messages.
+8. 커밋 시 적절하고 자세한 커밋 메시지를 첨부해 주십시오.
 
-9. Update the documentation. If introducing new functionality, make sure you include code snippets demonstrating the usage of your new feature.
+9. 사용설명서를 최신화 시켜주십시오. 새로운 기능을 도입한다면, 그 새로운 기능의 사용처를 보여주는 코드를 포함시켜주시기 바랍니다.
 
-10. Submit your PR. If your changes have been approved in a previous discussion, and if you have complete (and passing) unit tests as well as proper docstrings/documentation, your PR is likely to be merged promptly.
+10. PR을 제출하십시오. 이전 논의에서 요구하신 변경사항이 승인되었거나 적절한 독스트링/사용설명서와 함께 완전한 유닛테스트를 갖추셨다면, PR이 신속하게 병합될 가능성이 높습니다.
 
 ---
 
