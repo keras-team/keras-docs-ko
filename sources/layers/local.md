@@ -5,68 +5,68 @@
 keras.layers.LocallyConnected1D(filters, kernel_size, strides=1, padding='valid', data_format=None, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-Locally-connected layer for 1D inputs.
+1D 인풋용 국소 연결 레이어.
 
-The `LocallyConnected1D` layer works similarly to
-the `Conv1D` layer, except that weights are unshared,
-that is, a different set of filters is applied at each different patch
-of the input.
+`LocallyConnected1D` 레이어는 `Conv1D` 레이어와 비슷한 방식으로 작동하지만
+가중치가 공유되지 않는다는 점에서 다른데,
+이는 인풋의 각 부분에 각기 다른 필터 세트가 적용된다는 
+의미입니다.
 
-__Example__
+__예시__
 
 ```python
-# apply a unshared weight convolution 1d of length 3 to a sequence with
-# 10 timesteps, with 64 output filters
+# 공유되지 않은 길이 3의 1D 컨볼루션 가중치를 10개의 시간 단계와
+# 64개의 아웃풋 필터로 이루어진 시퀀스에 적용합니다.
 model = Sequential()
 model.add(LocallyConnected1D(64, 3, input_shape=(10, 32)))
-# now model.output_shape == (None, 8, 64)
-# add a new conv1d on top
+# 현재 model.output_shape == (None, 8, 64)
+# 그 위에 새로운 conv1d를 추가합니다
 model.add(LocallyConnected1D(32, 3))
-# now model.output_shape == (None, 6, 32)
+# 현재 model.output_shape == (None, 6, 32)
 ```
 
-__Arguments__
+__인수__
 
-- __filters__: Integer, the dimensionality of the output space
-    (i.e. the number of output filters in the convolution).
-- __kernel_size__: An integer or tuple/list of a single integer,
-    specifying the length of the 1D convolution window.
-- __strides__: An integer or tuple/list of a single integer,
-    specifying the stride length of the convolution.
-    Specifying any stride value != 1 is incompatible with specifying
-    any `dilation_rate` value != 1.
-- __padding__: Currently only supports `"valid"` (case-insensitive).
-    `"same"` may be supported in the future.
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    If you don't specify anything, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __activity_regularizer__: Regularizer function applied to
-    the output of the layer (its "activation").
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to the kernel matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
+- __filters__: 정수, 출력 공간의 차원
+    (다시 말해 컨볼루션의 아웃풋 필터의 개수).
+- __kernel_size__: 단일 정수 혹은 단일 정수의 튜플/리스트
+    1D 컨볼루션 윈도우의 길이를 특정합니다.
+- __strides__: 단일 정수 혹은 단일 정수의 튜플/리스트,
+    컨볼루션의 보폭 길이를 특정합니다.
+    보폭 값이 1이 아니도록 특정하는 경우는 `dilation_rate`의 값이
+    1이 아니도록 특정하는 경우와 양립할 수 없습니다.
+- __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
+    차후 `"same"`을 지원할 계획입니다.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md) 참조).
+    따로 특정하지 않는 경우 활성화가 적용되지 않습니다
+    (다시 말해 "선형적" 활성화: `a(x) = x`).
+- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬용 초기값 설정기
+    ([초기값 설정기](../initializers.md) 참조).
+- __bias_initializer__: 편향 벡터용 초기값 설정기
+    ([초기값 설정기](../initializers.md) 참조).
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용되는
+    정규화 함수 
+    ([정규화](../regularizers.md) 참조).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ([정규화](../regularizers.md) 참조).
+- __activity_regularizer__: 레이어의 아웃풋(레이어의 "활성화")에
+    적용되는 정규화 함수.
+    ([정규화](../regularizers.md) 참조).
+- __kernel_constraint__: 커널 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md) 참조).
+- __bias_constraint__: 편향 벡터에 적용되는 제약 함수
+    ([제약](../constraints.md) 참조).
 
-__Input shape__
+__인풋 형태__
 
-3D tensor with shape: `(batch_size, steps, input_dim)`
+3D 텐서: `(batch_size, steps, input_dim)`의 형태
 
-__Output shape__
+__아웃풋 형태__
 
-3D tensor with shape: `(batch_size, new_steps, filters)`
-`steps` value might have changed due to padding or strides.
+3D 텐서: `(batch_size, new_steps, filters)`의 형태
+패딩 혹은 보폭의 결과로 `steps` 값이 변했을 수도 있습니다.
     
 ----
 
@@ -77,87 +77,87 @@ __Output shape__
 keras.layers.LocallyConnected2D(filters, kernel_size, strides=(1, 1), padding='valid', data_format=None, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-Locally-connected layer for 2D inputs.
+2D 인풋용 국소 연결 레이어.
 
-The `LocallyConnected2D` layer works similarly
-to the `Conv2D` layer, except that weights are unshared,
-that is, a different set of filters is applied at each
-different patch of the input.
+`LocallyConnected2D` 레이어는 `Conv2D` 레이어와 비슷한 방식으로 작동하지만
+가중치가 공유되지 않는다는 점에서 다른데,
+이는 인풋의 각 부분에 각기 다른 필터 세트가 적용된다는 
+의미입니다.
 
-__Examples__
+__예시__
 
 ```python
-# apply a 3x3 unshared weights convolution with 64 output filters
-# on a 32x32 image with `data_format="channels_last"`:
+# 64개의 아웃풋 필터와 더불어 3x3 비공유 가중치 컨볼루션을
+# `data_format="channels_last"`으로 설정된 32x32 이미지에 적용합니다:
 model = Sequential()
 model.add(LocallyConnected2D(64, (3, 3), input_shape=(32, 32, 3)))
-# now model.output_shape == (None, 30, 30, 64)
-# notice that this layer will consume (30*30)*(3*3*3*64)
-# + (30*30)*64 parameters
+# 현재 model.output_shape == (None, 30, 30, 64)
+# 이 레이어가 (30*30)*(3*3*3*64) + (30*30)*64개의
+# 매개변수를 사용한다는 점을 유의하십시오
 
-# add a 3x3 unshared weights convolution on top, with 32 output filters:
+# 32개의 아웃풋 필터와 더불어 3x3 비공유 가중치 컨볼루션을 상부에 추가하십시오:
 model.add(LocallyConnected2D(32, (3, 3)))
-# now model.output_shape == (None, 28, 28, 32)
+# 현재 model.output_shape == (None, 28, 28, 32)
 ```
 
-__Arguments__
+__인수__
 
-- __filters__: Integer, the dimensionality of the output space
-    (i.e. the number of output filters in the convolution).
-- __kernel_size__: An integer or tuple/list of 2 integers, specifying the
-    width and height of the 2D convolution window.
-    Can be a single integer to specify the same value for
-    all spatial dimensions.
-- __strides__: An integer or tuple/list of 2 integers,
-    specifying the strides of the convolution along the width and height.
-    Can be a single integer to specify the same value for
-    all spatial dimensions.
-- __padding__: Currently only support `"valid"` (case-insensitive).
-    `"same"` will be supported in future.
-- __data_format__: A string,
-    one of `channels_last` (default) or `channels_first`.
-    The ordering of the dimensions in the inputs.
-    `channels_last` corresponds to inputs with shape
-    `(batch, height, width, channels)` while `channels_first`
-    corresponds to inputs with shape
-    `(batch, channels, height, width)`.
-    It defaults to the `image_data_format` value found in your
-    Keras config file at `~/.keras/keras.json`.
-    If you never set it, then it will be "channels_last".
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    If you don't specify anything, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __activity_regularizer__: Regularizer function applied to
-    the output of the layer (its "activation").
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to the kernel matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
+- __filters__: 정수, 아웃풋 공간의 차원
+    (다시 말해 컨볼루션의 아웃풋 필터의 개수).
+- __kernel_size__: 단일 정수, 혹은 2D 컨볼루션 윈도우의
+    넓이와 높이를 특정하는 2개 정수의 튜플/리스트.
+    단일 정수로는 모든 공간 차원에 대해서
+    같은 값을 특정할 수 있습니다.
+- __strides__: 단일 정수, 혹은 넓이와 높이에 따라
+    컨볼루션 보폭을 특정하는 2개 정수의 튜플/리스트.
+    단일 정수로는 모든 공간 차원에 대해서
+    같은 값을 특정할 수 있습니다.
+- __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
+    차후 `"same"`을 지원할 계획입니다.
+- __data_format__: 문자열,
+    `channels_last` (디폴트 값) 혹은 `channels_first` 중 하나.
+    인풋 내 차원의 순서.
+    `channels_last`는 `(batch, height, width, channels)`의 형태를 갖는
+    인풋에 호응하는 반면, `channels_first`는
+    `(batch, channels, height, width)`의 형태를
+    갖는 인풋에 호응합니다.
+    디폴트 값은 `~/.keras/keras.json`에 위치한
+    케라스 구성 파일 내 `image_data_format` 값으로 설정됩니다.
+    따로 지정하지 않았다면, 이 값은 "channels_last"입니다.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md) 참조).
+    따로 특정하지 않는 경우 활성화가 적용되지 않습니다
+    (다시 말해 "선형적" 활성화: `a(x) = x`).
+- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬용 초기값 설정기
+    ([초기값 설정기](../initializers.md) 참조).
+- __bias_initializer__: 편향 벡터용 초기값 설정기
+    ([초기값 설정기](../initializers.md) 참조).
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용되는
+    정규화 함수 
+    ([정규화](../regularizers.md) 참조).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ([정규화](../regularizers.md) 참조).
+- __activity_regularizer__: 레이어의 아웃풋(레이어의 "활성화")에
+    적용되는 정규화 함수.
+    ([정규화](../regularizers.md) 참조).
+- __kernel_constraint__: 커널 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md) 참조).
+- __bias_constraint__: 편향 벡터에 적용되는 제약 함수
+    ([제약](../constraints.md) 참조).
 
-__Input shape__
+__인풋 형태__
 
-4D tensor with shape:
-`(samples, channels, rows, cols)` if data_format='channels_first'
-or 4D tensor with shape:
-`(samples, rows, cols, channels)` if data_format='channels_last'.
+4D 텐서:
+data_format='channels_first'의 경우 `(samples, channels, rows, cols)`의 형태, 
+혹은 data_format='channels_last'의 경우
+`(samples, rows, cols, channels)`의 형태를 갖습니다.
 
-__Output shape__
+__아웃풋 형태__
 
-4D tensor with shape:
-`(samples, filters, new_rows, new_cols)` if data_format='channels_first'
-or 4D tensor with shape:
-`(samples, new_rows, new_cols, filters)` if data_format='channels_last'.
-`rows` and `cols` values might have changed due to padding.
+4D 텐서:
+data_format='channels_first'의 경우 `(samples, filters, new_rows, new_cols)`의 형태
+혹은 data_format='channels_last'의 경우
+`(samples, new_rows, new_cols, filters)`의 형태를 갖습니다.
+패딩의 결과로 `rows`와 `cols` 값이 달라졌을 수도 있습니다.
     
