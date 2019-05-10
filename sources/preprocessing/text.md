@@ -1,5 +1,5 @@
 
-### Text Preprocessing
+### 텍스트 전처리
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/preprocessing/text.py#L138)</span>
 ### Tokenizer
@@ -9,33 +9,33 @@ keras.preprocessing.text.Tokenizer(num_words=None, filters='!"#$%&()*+,-./:;<=>?
 ', lower=True, split=' ', char_level=False, oov_token=None, document_count=0)
 ```
 
-Text tokenization utility class.
+텍스트 토큰화 유틸리티 클래스.
 
-This class allows to vectorize a text corpus, by turning each
-text into either a sequence of integers (each integer being the index
-of a token in a dictionary) or into a vector where the coefficient
-for each token could be binary, based on word count, based on tf-idf...
+이 클래스는 각 텍스트를 (딕셔너리 내 하나의 정수가 한 토큰의
+색인 역할을 하는) 정수 시퀀스로, 혹은 
+단어 실셈이나 tf-idf 등을 기반으로 각 토큰의 계수가
+이진인 벡터로 변환하여 말뭉치를 벡터화할 수 있도록 해줍니다.
 
-__Arguments__
+__인수__
 
-- __num_words__: the maximum number of words to keep, based
-    on word frequency. Only the most common `num_words` words will
-    be kept.
-- __filters__: a string where each element is a character that will be
-    filtered from the texts. The default is all punctuation, plus
-    tabs and line breaks, minus the `'` character.
-- __lower__: boolean. Whether to convert the texts to lowercase.
-- __split__: str. Separator for word splitting.
-- __char_level__: if True, every character will be treated as a token.
-- __oov_token__: if given, it will be added to word_index and used to
-    replace out-of-vocabulary words during text_to_sequence calls
+- __num_words__: 단어 빈도에 따른
+    사용할 단어 개수의 최대값. 가장 빈번하게 사용되는 `num_words`개의
+    단어만 보존합니다.
+- __filters__: 문자열로, 각 성분이 텍스트에서 걸러진 문자에 해당됩니다.
+    디폴트 값은 모든 구두점이며, 거기에 탭과 줄 바꿈은 추가하고
+    `'` 문자는 제외합니다.
+- __lower__: 불리언. 텍스트를 소문자로 변환할지 여부.
+- __split__: 문자열. 단어 분해 용도의 분리기.
+- __char_level__: 참인 경우 모든 문자가 토큰으로 처리됩니다.
+- __oov_token__: 값이 지정된 경우, text_to_sequence 호출 과정에서
+    단어색인(word_index)에 추가되어 어휘목록 외 단어를 대체합니다.
 
-By default, all punctuation is removed, turning the texts into
-space-separated sequences of words
-(words maybe include the `'` character). These sequences are then
-split into lists of tokens. They will then be indexed or vectorized.
+디폴트 설정으로는, 모든 구두점을 삭제하여 텍스트를
+공백으로 구분된 (`'` 문자가 포함될 수 있는)
+단어의 시퀀스로 변환합니다. 이러한 시퀀스는 그 후
+토큰의 리스트로 분해됩니다. 이어서 토큰 리스트는 색인처리되거나 벡터화됩니다.
 
-`0` is a reserved index that won't be assigned to any word.
+`0`은 어느 단어에도 배정되지 않는 예비 색인입니다.
 
 ----
 
@@ -48,38 +48,38 @@ keras.preprocessing.text.hashing_trick(text, n, hash_function=None, filters='!"#
 ```
 
 
-Converts a text to a sequence of indexes in a fixed-size hashing space.
+고정된 크기의 해시 공간에서 텍스트를 색인 시퀀스로 변환합니다.
 
-__Arguments__
+__인수__
 
-- __text__: Input text (string).
-- __n__: Dimension of the hashing space.
-- __hash_function__: defaults to python `hash` function, can be 'md5' or
-    any function that takes in input a string and returns a int.
-    Note that 'hash' is not a stable hashing function, so
-    it is not consistent across different runs, while 'md5'
-    is a stable hashing function.
-- __filters__: list (or concatenation) of characters to filter out, such as
-    punctuation. Default: ``!"#$%&()*+,-./:;<=>?@[\]^_`{|}~	
+- __text__: 인풋 텍스트 (문자열).
+- __n__: 해시 공간의 차원.
+- __hash_function__: 디폴트 값은 파이썬 `hash` 함수로, 'md5' 혹은
+    문자열을 입력받고 정수를 반환하는 어느 함수나 사용할 수 있습니다.
+    'hash'는 안정적인 해시 함수가 아니어서
+    매 작동마다 일관성을 유지하지 못하는 반면, 'md5'는
+    안정적인 해시 함수임을 참고하십시오.
+- __filters__: 구두점과 같은 걸러낼 문자의 리스트 (혹은 연결)
+    디폴트 값: ``!"#$%&()*+,-./:;<=>?@[\]^_`{|}~	
 
 ``,
-    includes basic punctuation, tabs, and newlines.
+    이는 기본적인 구두점, 탭, 개행문자를 포함합니다.
 
-- __lower__: boolean. Whether to set the text to lowercase.
-- __split__: str. Separator for word splitting.
+- __lower__: 불리언. 텍스트를 소문자로 변환할지 여부.
+- __split__: 문자열. 단어 분해 용도의 분리기.
 
-__Returns__
+__반환값__
 
-A list of integer word indices (unicity non-guaranteed).
+정수 단어 색인의 리스트 (단일성이 보증되지 않습니다).
 
-`0` is a reserved index that won't be assigned to any word.
+`0`은 어느 단어에도 배정되지 않는 예비 색인입니다.
 
-Two or more words may be assigned to the same index, due to possible
-collisions by the hashing function.
-The [probability](
+해시 함수의 충돌로 인해 두 개 이상의 단어가 동일한 색인에
+배정될 수 있습니다.
+이러한 충돌의 [확률]은(
 https://en.wikipedia.org/wiki/Birthday_problem#Probability_table)
-of a collision is in relation to the dimension of the hashing space and
-the number of distinct objects.
+해시 공간의 차원과 개별 객체의 개수에 따라
+달라집니다.
 
 ----
 
@@ -92,28 +92,28 @@ keras.preprocessing.text.one_hot(text, n, filters='!"#$%&()*+,-./:;<=>?@[\]^_`{|
 ```
 
 
-One-hot encodes a text into a list of word indexes of size n.
+텍스트를 n의 크기의 단더 색인 리스트로 원-핫 인코딩합니다.
 
-This is a wrapper to the `hashing_trick` function using `hash` as the
-hashing function; unicity of word to index mapping non-guaranteed.
+이는 `hash`를 해시 함수로 사용하는 `hashing_trick` 함수에 대한
+래퍼입니다; 단어에서 색인으로의 매핑에 대한 단일성은 보증되지 않습니다.
 
-__Arguments__
+__인수__
 
-- __text__: Input text (string).
-- __n__: int. Size of vocabulary.
-- __filters__: list (or concatenation) of characters to filter out, such as
-    punctuation. Default: ``!"#$%&()*+,-./:;<=>?@[\]^_`{|}~	
+- __text__: 인풋 텍스트 (문자열).
+- __n__: 정수. 어휘 목록의 크기.
+- __filters__: 구두점과 같은 걸러낼 문자의 리스트 (혹은 연결)
+    디폴트 값: ``!"#$%&()*+,-./:;<=>?@[\]^_`{|}~	
 
 ``,
-    includes basic punctuation, tabs, and newlines.
+    이는 기본적인 구두점, 탭, 개행문자를 포함합니다.
 
-- __lower__: boolean. Whether to set the text to lowercase.
-- __split__: str. Separator for word splitting.
+- __lower__: 불리언. 텍스트를 소문자로 변환할지 여부.
+- __split__: 문자열. 단어 분해 용도의 분리기.
 
-__Returns__
+__반환값__
 
-List of integers in [1, n]. Each integer encodes a word
-(unicity non-guaranteed).
+[1, n] 구간의 정수로 이루어진 리스트. 각 정수는 한 단어를 인코딩합니다
+(단일성은 보증되지 않습니다).
     
 ----
 
@@ -126,21 +126,21 @@ keras.preprocessing.text.text_to_word_sequence(text, filters='!"#$%&()*+,-./:;<=
 ```
 
 
-Converts a text to a sequence of words (or tokens).
+텍스트를 단어(혹은 토큰)의 시퀀스로 변환합니다.
 
-__Arguments__
+__인수__
 
-- __text__: Input text (string).
-- __filters__: list (or concatenation) of characters to filter out, such as
-    punctuation. Default: ``!"#$%&()*+,-./:;<=>?@[\]^_`{|}~	
+- __text__: 인풋 텍스트 (문자열).
+- __filters__: 구두점 등과 같은 걸러낼 문자의 리스트 (혹은 연결)
+    디폴트 값: ``!"#$%&()*+,-./:;<=>?@[\]^_`{|}~	
 
 ``,
-    includes basic punctuation, tabs, and newlines.
+    이는 기본적인 구두점, 탭, 개행문자를 포함합니다.
 
-- __lower__: boolean. Whether to convert the input to lowercase.
-- __split__: str. Separator for word splitting.
+- __lower__: 불리언. 텍스트를 소문자로 변환할지 여부.
+- __split__: 문자열. 단어 분해 용도의 분리기.
 
-__Returns__
+__반환값__
 
-A list of words (or tokens).
+단어(혹은 토큰)의 리스트.
     
