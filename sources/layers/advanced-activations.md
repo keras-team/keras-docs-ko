@@ -57,7 +57,7 @@ __인자 설명__
 - __alpha_initializer__: weights를 위한 초기화 함수입니다. 
 - __alpha_regularizer__: weights를 위한 규제기입니다.
 - __alpha_constraint__: weights에 대한 제약 조건입니다. 
-- __shared_axes__: 활성화 함수에 대해 학습 가능한 매개 변수들을 공유할 축을 의미합니다. 예를 들어, 입력 feature map이 output shape(batch, height, width, channels) 형태로 2D convolution을 거쳐 나온 것일때, 각 필터가 하나의 매개 변수 세트를 공유하도록 하고 싶으신 경우 'shared_axes=[1, 2]'로 설정하십시오. 
+- __shared_axes__: 활성화 함수에 대해 학습 가능한 매개 변수들을 공유할 축을 의미합니다. 예를 들어, 입력 feature map이 output shape `(batch, height, width, channels)` 형태로 2D convolution을 거쳐 나온 것일때, 각 필터가 하나의 매개 변수 세트를 공유하도록 하고 싶으신 경우 `shared_axes=[1, 2]`로 설정하십시오. 
 
 __참고 자료__
 
