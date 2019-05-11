@@ -1,8 +1,7 @@
-# Getting started with the Keras Sequential model
+# 케라스 Sequential 모델 시작하기
 
-The `Sequential` model is a linear stack of layers.
-
-You can create a `Sequential` model by passing a list of layer instances to the constructor:
+`Sequential` 모델은 레이어를 선형으로 연결하여 구성합니다. 
+레이어 인스턴스를 생성자에게 넘겨줌으로써 `Sequential` 모델을 구성할 수 있습니다.
 
 ```python
 from keras.models import Sequential
@@ -16,7 +15,7 @@ model = Sequential([
 ])
 ```
 
-You can also simply add layers via the `.add()` method:
+또한, `.add()` 메소드를 통해서 쉽게 레이어를 추가할 수 있습니다.
 
 ```python
 model = Sequential()
@@ -26,15 +25,15 @@ model.add(Activation('relu'))
 
 ----
 
-## Specifying the input shape
+## 입력 형태 지정하기
 
-The model needs to know what input shape it should expect. For this reason, the first layer in a `Sequential` model (and only the first, because following layers can do automatic shape inference) needs to receive information about its input shape. There are several possible ways to do this:
+만들어진 모델은 입력 형태에 대한 정보를 필요로 합니다. 때문에 `Sequential` 모델의 첫 번째 레이어는 입력 형태에 대한 정보를 받습니다. 두 번째 이후 레이어들은 자동으로 형태를 추정할 수 있기 때문에 형태 정보를 갖고 있을 필요는 없습니다. 형태 정보를 전달하기 위한 방법은 다음과 같습니다.
 
-- Pass an `input_shape` argument to the first layer. This is a shape tuple (a tuple of integers or `None` entries, where `None` indicates that any positive integer may be expected). In `input_shape`, the batch dimension is not included.
-- Some 2D layers, such as `Dense`, support the specification of their input shape via the argument `input_dim`, and some 3D temporal layers support the arguments `input_dim` and `input_length`.
-- If you ever need to specify a fixed batch size for your inputs (this is useful for stateful recurrent networks), you can pass a `batch_size` argument to a layer. If you pass both `batch_size=32` and `input_shape=(6, 8)` to a layer, it will then expect every batch of inputs to have the batch shape `(32, 6, 8)`.
+- 정수형 또는 `None`으로 구성된 형태 튜플(shape tuple)의 `input_shape` 인자를 첫번째 레이어에 전달합니다. 여기서 `None`은 음이 아닌 어떠한 정수를 받을 수 있음을 의미합니다. 참고로 `input_shape`에는 배치 차원은(batch dimension) 포함되지 않습니다.
+- `Dense`와 같은 일부 2D 레이어의 경우, 입력 형태를 `input_dim` 인자를 통해 지정할 수 있으며 일부 의 임시적인 3D 레이어는 `input_dim`과 `input_length` 인자를 지원합니다. 
+- 입력 데이터를 위해 고정된 배치 형태를 필요로 하는 경우에는 레이어에 `batch_size` 인자를 넘길 수 있습니다. 이는 순환 신경망(recurrent network)를 사용할 때 유용합니다. 예를 들어, `batch_size=32`와 `input_shape=(6,8)`을 레이어에 넘겨주면 이후의 모든 입력을 `32, 6, 8`의 형태로 기대하여 처리합니다.
 
-As such, the following snippets are strictly equivalent:
+따라서, 다음의 예시들은 동치입니다.
 ```python
 model = Sequential()
 model.add(Dense(32, input_shape=(784,)))
@@ -46,13 +45,13 @@ model.add(Dense(32, input_dim=784))
 
 ----
 
-## Compilation
+## 컴파일
 
-Before training a model, you need to configure the learning process, which is done via the `compile` method. It receives three arguments:
+모델을 학습시키기 이전에, `compile` 메소드를 통해서 학습 방식에 대한 환경설정을 해야 합니다. 다음의 세 개의 인자를 입력으로 받습니다.
 
-- An optimizer. This could be the string identifier of an existing optimizer (such as `rmsprop` or `adagrad`), or an instance of the `Optimizer` class. See: [optimizers](/optimizers).
-- A loss function. This is the objective that the model will try to minimize. It can be the string identifier of an existing loss function (such as `categorical_crossentropy` or `mse`), or it can be an objective function. See: [losses](/losses).
-- A list of metrics. For any classification problem you will want to set this to `metrics=['accuracy']`. A metric could be the string identifier of an existing metric or a custom metric function.
+- 정규화기 (optimizer). `rmsprp`나 `adagrad`와 같은 기존의 정규화기에 대한 문자열 식별자 또는 `Optimizer` 클래스의 인스턴스를 사용할 수 있습니다. 참고: [정규화기](/optimizers) 
+- 손실 함수 (loss function). 모델이 최적화에 사용되는 목적 함수입니다. `categorical_crossentropy` 또는 `mse`와 같은 기존의 손실 함수의 문자열 식별자 또는 목적 함수를 사용할 수 있습니다. 참고: [손실](/losses)
+- 기준(metric) 리스트. 분류 문제에 대해서는 `metrics=['accuracy']`로 설정합니다. 기준은 문자열 식별자 또는 사용자 정의 기준 함수를 사용할 수 있습니다. 
 
 ```python
 # For a multi-class classification problem
@@ -82,9 +81,9 @@ model.compile(optimizer='rmsprop',
 
 ----
 
-## Training
+## 학습
 
-Keras models are trained on Numpy arrays of input data and labels. For training a model, you will typically use the `fit` function. [Read its documentation here](/models/sequential).
+케라스 모델들은 입력 데이터와 라벨로 구성된 Numpy 배열 위에서 이루어집니다. 모델을 학습기키기 위해서는 일반적으로 `fit`함수를 사용합니다. [여기서 자세한 정보를 알 수 있습니다](/models/sequential).
 
 ```python
 # For a single-input model with 2 classes (binary classification):
@@ -130,22 +129,22 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 ----
 
 
-## Examples
+## 예시
 
-Here are a few examples to get you started!
+바로 실험해볼 수 있는 예시들입니다!
 
-In the [examples folder](https://github.com/keras-team/keras/tree/master/examples), you will also find example models for real datasets:
+[examples 폴더](https://github.com/keras-team/keras/tree/master/examples) 안에서 실제 데이터셋에 대한 예시 모델들을 볼 수 있습니다.
 
-- CIFAR10 small images classification: Convolutional Neural Network (CNN) with realtime data augmentation
-- IMDB movie review sentiment classification: LSTM over sequences of words
-- Reuters newswires topic classification: Multilayer Perceptron (MLP)
-- MNIST handwritten digits classification: MLP & CNN
-- Character-level text generation with LSTM
+- CIFAR10 소형 이미지 분류: 실시간 데이터 증강을 포함하는 합성곱 인공 신경망 (CNN)
+- IMDB 영화 감상 분류: 연속적인 문자에 대한 LSTM
+- Reuters newswires 주제 분류: 다계층 신경망 (MLP)
+- MNIST 손으로 쓴 숫자 이미지 분류: MLP & CNN
+- LSTM을 이용한 문자열 수준의 텍스트 생성기
 
-...and more.
+...등등.
 
 
-### Multilayer Perceptron (MLP) for multi-class softmax classification:
+### 다중 클레스 소프트맥스 분류를 위한 다계층 인공 신경망 (MLP) :
 
 ```python
 import keras
@@ -182,7 +181,7 @@ score = model.evaluate(x_test, y_test, batch_size=128)
 ```
 
 
-### MLP for binary classification:
+### 이진 분류를 위한 MLP:
 
 ```python
 import numpy as np
@@ -213,7 +212,7 @@ score = model.evaluate(x_test, y_test, batch_size=128)
 ```
 
 
-### VGG-like convnet:
+### VGG 스타일 convnet:
 
 ```python
 import numpy as np
@@ -255,7 +254,7 @@ score = model.evaluate(x_test, y_test, batch_size=32)
 ```
 
 
-### Sequence classification with LSTM:
+### 시퀀스 분류를 위한 LSTM:
 
 ```python
 from keras.models import Sequential
@@ -279,7 +278,7 @@ model.fit(x_train, y_train, batch_size=16, epochs=10)
 score = model.evaluate(x_test, y_test, batch_size=16)
 ```
 
-### Sequence classification with 1D convolutions:
+### 시퀀스 분류를 위한 1D 합성곱:
 
 ```python
 from keras.models import Sequential
@@ -307,14 +306,11 @@ model.fit(x_train, y_train, batch_size=16, epochs=10)
 score = model.evaluate(x_test, y_test, batch_size=16)
 ```
 
-### Stacked LSTM for sequence classification
+### 시퀀스 분류를 위한 축적형 LSTM
 
-In this model, we stack 3 LSTM layers on top of each other,
-making the model capable of learning higher-level temporal representations.
+보다 고수준의 한시적 표현(temporal representation)을 학습하기 위하여 3개의 LSTM 레이어를 연결하여 사용합니다.
 
-The first two LSTMs return their full output sequences, but the last one only returns
-the last step in its output sequence, thus dropping the temporal dimension
-(i.e. converting the input sequence into a single vector).
+앞의 두 LSTM은 각각의 전체 출력 시퀀스를 반환하지만, 마지막 남은 LSTM은 출력 시퀀스의 마지막 단계만을 반환합니다. 결과적으로 한시적 차원(temporal dimension)을 생략하게 됩니다. 이를테면 입력 시퀀스를 하나의 벡터로 변환합니다.
 
 <img src="https://keras.io/img/regular_stacked_lstm.png" alt="stacked LSTM" style="width: 300px;"/>
 
@@ -353,13 +349,10 @@ model.fit(x_train, y_train,
 ```
 
 
-### Same stacked LSTM model, rendered "stateful"
+### 축적형 렌더링 LSTM
 
-A stateful recurrent model is one for which the internal states (memories) obtained after processing a batch
-of samples are reused as initial states for the samples of the next batch. This allows to process longer sequences
-while keeping computational complexity manageable.
-
-[You can read more about stateful RNNs in the FAQ.](/getting-started/faq/#how-can-i-use-stateful-rnns)
+축적형 순환 신경망(stateful recurrent model)은 배치 샘플을 처리한 후의 내부 상태를 다음 배치 샘플에 대한 초기 상태로 재사용합니다. 이를 통해서 계산 복잡도가 지나치게 높지 않게끔 유지하면서 보다 긴 시퀀스를 처리할 수 있도록 합니다.
+[FAQ에서 축적형 LSTM에 대한 정보를 더 보실 수 있습니다.](/getting-started/faq/#how-can-i-use-stateful-rnns)
 
 ```python
 from keras.models import Sequential
