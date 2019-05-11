@@ -11,15 +11,15 @@ __인수__
 
 - __cell__: 순환 신경망 셀 인스턴스. 순환 신경망 셀은 다음의 요소를 가진 클래스입니다:
     - `(output_at_t, states_at_t_plus_1)`을 반환하는
-        `call(input_at_t, states_at_t)` 메서드. 셀의 호출 메서드는 
-        선택적 인수인 `constants`를 받을 수도 있습니다.
-        밑의 "외부 상수 전달에 대한 안내" 섹션을 참고하십시오.
+        `call(input_at_t, states_at_t)` 메서드. 셀의 호출
+        메서드는 선택적 인수인 `constants`를 받을 수도 있습니다.
+        밑의 "외부 상수 전달의 유의점" 섹션을 참고하십시오.
     - `state_size` 속성. 단일 정수(단일 상태)일 경우
         순환 상태의 크기를
-        나타냅니다. (이는 셀 아웃풋의
+        나타냅니다 (이는 셀 아웃풋의
         크기와 동일해야 합니다).
-        또한 정수의 리스트/튜플의 형태를 취할 수도 있습니다.
-        (상태당 크기 하나).
+        정수의 리스트/튜플의 형태(상태당 하나의 크기)를 
+        취할 수도 있습니다.
     - `output_size` 속성. 단일 정수, 혹은
         아웃풋의 형태를 나타내는 TensorShape.
         역방향 호환성 이유로 셀에서 이 속성을 사용할 수
@@ -50,8 +50,8 @@ __인수__
     이 인수(혹은 키워드 인수 `input_shape`)는
     현재 레이어를 모델의
     첫 번째 레이어로 사용하는 경우 요구됩니다.
-- __input_length__: 인풋 시퀀스의 길이,
-    길이가 고정적일 경우 특정합니다.
+- __input_length__: 인풋 시퀀스의 길이.
+    값이 상수일 경우 특정합니다.
     `Flatten`과 상위의 `Dense` 레이어를 연결하는
     경우 이 인수가 필요합니다
     (이 인수 없이는 밀집 아웃풋의 형태를 계산할 수 없습니다). 이 인수는
@@ -62,7 +62,7 @@ __인수__
 
 __인풋 형태__
 
-3D tensor `(batch_size, timesteps, input_dim)` 형태의 3D 텐서.
+`(batch_size, timesteps, input_dim)` 형태의 3D 텐서.
 
 __아웃풋 형태__
 
@@ -70,7 +70,7 @@ __아웃풋 형태__
     아웃풋 입니다. 나머지 텐서는 마지막 상태로, 각각
     `(batch_size, units)`의 형태를 갖습니다. 예를 들어 , (순환 신경망과
     회로형 순환 유닛의 경우) 1, (장단기 메모리의 경우) 2입니다.
-- `return_sequences`인 경우: `(batch_size, timesteps, units)`의
+- `return_sequences`인 경우: `(batch_size, timesteps, units)`
     형태의 3D 텐서.
 - 그 외의 경우, `(batch_size, units)` 형태의 2D 텐서.
 
@@ -78,12 +78,12 @@ __마스킹__
 
 이 레이어는 가변적 시간 단계의 개수를 가진 인풋 데이터에 대한
 마스킹을 지원합니다. 데이터에 마스크를 도입하려면
-`mask_zero` 매개변수를 `True`로 설정한 [Embedding](embeddings.md) 레이어를
+`mask_zero` 매개변수를 `True`로 설정한 ‘[Embedding](embeddings.md) 레이어를
 사용하십시오.
 
-__순환 신경망의 상태 기반 모드 사용에 대한 안내__
+__순환 신경망의 상태 기반 모드 사용에 대한 주의점__
 
-순환 신경망 레이어를 ‘stateful’로 설정할 수 있습니다.
+순환 신경망 레이어를 ‘stateful’로 설정할 수 있는데,
 이는 한 배치 내 샘플의 상태를 계산하여, 이 값을
 다음 배치 내 샘플의 초기 상태로 재사용한다는 의미입니다.
 이는 연속된 배치 내 샘플간 일대일 매핑을 가정합니다.
@@ -91,13 +91,13 @@ __순환 신경망의 상태 기반 모드 사용에 대한 안내__
 상태 기반 모드를 사용하려면:
 - 레이어 생성자에 `stateful=True`를 특정하십시오.
 - 다음을 전달하여 모델의 고정 배치 크기를 특정하십시오:
-시쿼느 모델의 경우
+시퀀스 모델의 경우
 모델의 첫 레이어에 `batch_input_shape=(...)`를 전달하십시오.
-그 외 1개 이상의 인풋 레이어를 가진 기능적 모델의 경우
+그 외의 1개 이상의 인풋 레이어를 가진 기능적 모델의 경우
 모델의 모든 첫 레이어에 `batch_shape=(...)`를 전달하십시오.
 이는 *배치 크기를 포함한* 인풋의
 예상되는 형태를 나타냅니다.
-정수 튜플이 되어야 합니다. 예. `(32, 10, 100)`.
+그 값은 정수 튜플이 되어야 합니다. 예. `(32, 10, 100)`
 - fit()을 호출할 때 `shuffle=False`로 설정하십시오.
 
 모델의 상태를 재설정하려면, 특정 레이어 혹은 전체 모델에 대해서
@@ -111,7 +111,7 @@ __순환 신경망 초기 상태 특정에 대한 안내__
 텐서 혹은 텐서의 리스트이 되어야 합니다.
 
 키워드 인수 `states`로 `reset_states`를 호출하여
-순환 신경망 레이어의 초기 상태를 계수적으로 특정할 수 있습니다.
+순환 신경망 레이어의 초기 상태를 특정할 수 있습니다.
 `states`의 값은 순환 신경망 레이어의 초기 상태를 나타내는
 numpy 배열 혹은 numpy 배열의 리스트가 되어야 합니다.
 
@@ -184,7 +184,7 @@ __인수__
 - __units__: 양의 정수, 아웃풋 공간의 차원입니다.
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md)를 참조하십시오).
-    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    디폴트: 쌍곡 탄젠트 (`tanh`).
     `None`을 전달하는 경우, 활성화가 적용되지 않습니다
     (다시 말해, "선형적" 활성화: `a(x) = x`).
 - __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
@@ -199,28 +199,28 @@ __인수__
     ( [초기값 설정기](../initializers.md)를 참조하십시오).
 - __kernel_regularizer__: `kernel` 가중치 행렬에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __kernel_constraint__: `kernel` 가중치 행렬에
     적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
-- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
-    적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
 - __dropout__: 0과 1사이 부동소수점.
-    인풋의 선형적 변형의 실행에
+    인풋의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __recurrent_dropout__: 0과 1사이 부동소수점.
-    순환 상태의 선형적 변형의 실행에
+    순환 상태의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
     혹은 시퀀스 전체를 반환할지 여부.
@@ -250,9 +250,9 @@ keras.layers.GRU(units, activation='tanh', recurrent_activation='hard_sigmoid', 
 
 회로형 순환 유닛 - Cho et al. 2014.
 
-두 가지 종류가 있습니다. 디폴트인 첫 번째 종류는 1406.1078v3에
+두 가지 종류가 있습니다. 디폴트인 첫 번째 종류는 1406.1078v3에 
 기반하고 행렬 곱셈 전 재설정 회로가 은닉 상태에 적용됩니다. 다른 하나는
-원래의 1406.1078v1에 기반하고 작업 순서가 반대입니다.
+원래의 1406.1078v1에 기반하고 그 순서가 반대입니다.
 
 두 번째 종류는 (GPU 전용) CuDNNGRU와 호환이 가능하며
 CPU 상에서 유추를 실행할 수 있도록 합니다. 따라서 `kernel`과
@@ -264,7 +264,7 @@ __인수__
 - __units__: 양의 정수, 아웃풋 공간의 차원입니다.
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md)를 참조하십시오).
-    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    디폴트: 쌍곡 탄젠트 (`tanh`).
     `None`을 전달하는 경우, 활성화가 적용되지 않습니다
     (다시 말해, "선형적" 활성화: `a(x) = x`).
 - __recurrent_activation__: 순환 단계에 사용할
@@ -285,28 +285,28 @@ __인수__
     ( [초기값 설정기](../initializers.md)를 참조하십시오).
 - __kernel_regularizer__: `kernel` 가중치 행렬에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __kernel_constraint__: `kernel` 가중치 행렬에
     적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
-- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
-    적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
 - __dropout__: 0과 1사이 부동소수점.
-    인풋의 선형적 변형의 실행에
+    인풋의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __recurrent_dropout__: 0과 1사이 부동소수점.
-    순환 상태의 선형적 변형의 실행에
+    순환 상태의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __implementation__: 실행 모드, 1 혹은 2.
     모드 1은 비교적 많은 수의 소규모의 점곱과 덧셈을
@@ -332,7 +332,7 @@ __인수__
     신경망 펼치기는 짧은 시퀀스에만 적합합니다.
 - __reset_after__: 회로형 순환 유닛의 상례 (행렬 곱셈 전이나 후에
     재설정 회로를 적용할지 여부). 거짓 = "before" (디폴트 값),
-    참 = "after" (CuDNN과 호환).
+    참 = "after" (CuDNN과 호환)
 
 __참조__
 
@@ -361,7 +361,7 @@ __인수__
 - __units__: 양의 정수, 아웃풋 공간의 차원입니다.
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md)를 참조하십시오).
-    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    디폴트: 쌍곡 탄젠트 (`tanh`).
     `None`을 전달하는 경우, 활성화가 적용되지 않습니다
     (다시 말해, "선형적" 활성화: `a(x) = x`).
 - __recurrent_activation__: 순환 단계에 사용할
@@ -387,28 +387,28 @@ __인수__
     (http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
 - __kernel_regularizer__: `kernel` 가중치 행렬에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __kernel_constraint__: `kernel` 가중치 행렬에
     적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
-- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
-    적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
 - __dropout__: 0과 1사이 부동소수점.
-    인풋의 선형적 변형의 실행에
+    인풋의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __recurrent_dropout__: 0과 1사이 부동소수점.
-    순환 상태의 선형적 변형의 실행에
+    순환 상태의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __implementation__: 실행 모드, 1 혹은 2.
     모드 1은 비교적 많은 수의 소규모의 점곱과 덧셈을
@@ -463,7 +463,7 @@ __인수__
 
 - __filters__: 정수, 아웃풋 공간의 차원
     (다시 말해, 컨볼루션 내 필터의 아웃풋의 개수).
-- __kernel_size__: 정수 혹은 n개 정수의 튜플/리스트.
+- __kernel_size__: 정수 혹은 n개 정주의 튜플/리스트.
     컨볼루션 윈도우의 차원을 특정합니다.
 - __strides__: 정수 혹은 n개의 정수의 튜플/리스트.
     컨볼루션의 보폭을 특정합니다.
@@ -473,10 +473,10 @@ __인수__
 - __data_format__: 문자열,
     `"channels_last"` (디폴트 값) 혹은 "channels_first"` 중 하나.
     인풋 내 차원의 정렬을 나타냅니다.
-    `"channels_last"`는 `(batch, time, ..., channels)` 형태의
-    인풋에 호응하고
-    `"channels_first"`는 `(batch, time, channels, ...)` 형태의
-    인풋에 호응합니다.
+    `"channels_last"`는 `(batch, time, ..., channels)`
+    형태의 인풋에 호응하고
+    `"channels_first"`는 `(batch, time, channels, ...)`
+    형태의 인풋에 호응합니다.
     디폴트 값은 `~/.keras/keras.json`에 위치한
     케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
     따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
@@ -486,7 +486,7 @@ __인수__
     `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md)를 참조하십시오).
-    따로 특정하지 않으면, 활성화가 적용되지 않습니다
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
     (다시 말해, "선형적" 활성화: `a(x) = x`).
 - __recurrent_activation__: 순환 단계에 사용할
     활성화 함수
@@ -508,35 +508,35 @@ __인수__
     (http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
 - __kernel_regularizer__: `kernel` 가중치 행렬에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __kernel_constraint__: `kernel` 가중치 행렬에
     적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
-- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
-    적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
 - __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
     혹은 시퀀스 전체를 반환할지 여부.
 - __go_backwards__: 불리언 (디폴트 값은 거짓).
-    참인 경우, 인풋 시퀀스를 거꾸로 처리합니다.
+    참인 경우, 인풋 프로세스를 거꾸로 처리합니다.
 - __stateful__: 불리언 (디폴트 값은 거짓). 참인 경우,
     배치 내 색인 i의 각 샘플의 마지막 상태가 다음 배치의
     색인 i 샘플의 초기 상태로 사용됩니다.
 - __dropout__: 0과 1사이 부동소수점.
-    인풋의 선형적 변형의 실행에
+    인풋의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __recurrent_dropout__: 0과 1사이 부동소수점.
-    순환 상태의 선형적 변형의 실행에
+    순환 상태의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 
 __인풋 형태__
@@ -576,7 +576,7 @@ __참조__
 
 - [Convolutional LSTM Network: A Machine Learning Approach for
   Precipitation Nowcasting](http://arxiv.org/abs/1506.04214v1)
-  현재 구현 방식은 셀의 아웃풋에 대한 피드백 루프를
+  현재 구현방식은 셀의 아웃풋에 대한 피드백 루프를
   포함하지 않습니다.
     
 ----
@@ -595,7 +595,7 @@ __인수__
 - __units__: 양의 정수, 아웃풋 공간의 차원입니다.
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md)를 참조하십시오).
-    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    디폴트: 쌍곡 탄젠트 (`tanh`).
     `None`을 전달하는 경우, 활성화가 적용되지 않습니다
     (다시 말해, "선형적" 활성화: `a(x) = x`).
 - __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
@@ -610,25 +610,25 @@ __인수__
     ( [초기값 설정기](../initializers.md)를 참조하십시오).
 - __kernel_regularizer__: `kernel` 가중치 행렬에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __kernel_constraint__: `kernel` 가중치 행렬에
     적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
-- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
-    적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
 - __dropout__: 0과 1사이 부동소수점.
-    인풋의 선형적 변형의 실행에
+    인풋의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __recurrent_dropout__: 0과 1사이 부동소수점.
-    순환 상태의 선형적 변형의 실행에
+    순환 상태의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
     
 ----
@@ -647,7 +647,7 @@ __인수__
 - __units__: 양의 정수, 아웃풋 공간의 차원입니다.
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md)를 참조하십시오).
-    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    디폴트: 쌍곡 탄젠트 (`tanh`).
     `None`을 전달하는 경우, 활성화가 적용되지 않습니다
     (다시 말해, "선형적" 활성화: `a(x) = x`).
 - __recurrent_activation__: 순환 단계에 사용할
@@ -668,25 +668,25 @@ __인수__
     ( [초기값 설정기](../initializers.md)를 참조하십시오).
 - __kernel_regularizer__: `kernel` 가중치 행렬에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __kernel_constraint__: `kernel` 가중치 행렬에
     적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
-- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
-    적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
 - __dropout__: 0과 1사이 부동소수점.
-    인풋의 선형적 변형의 실행에
+    인풋의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __recurrent_dropout__: 0과 1사이 부동소수점.
-    순환 상태의 선형적 변형의 실행에
+    순환 상태의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __implementation__: 실행 모드, 1 혹은 2.
     모드 1은 비교적 많은 수의 소규모의 점곱과 덧셈을
@@ -694,9 +694,9 @@ __인수__
     소수의 대규모 연산으로 묶습니다. 이 두 모드는,
     하드웨어나 어플리케이션에 따라서 성능의 차이를
     보입니다.
-- __reset_after__: 회로형 순환 유닛의 상례 (행렬 곱셈 전이나 후에
+- __reset_after__: 회로형 순환 유닛의 상례 (행렬 승법 전이나 후에
     재설정 회로를 적용할지 여부). 거짓 = "before" (디폴트 값),
-    참 = "after" (CuDNN과 호환).
+    참 =  "after" (CuDNN과 호환).
     
 ----
 
@@ -714,7 +714,7 @@ __인수__
 - __units__: 양의 정수, 아웃풋 공간의 차원입니다.
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md)를 참조하십시오).
-    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    디폴트: 쌍곡 탄젠트 (`tanh`).
     `None`을 전달하는 경우, 활성화가 적용되지 않습니다
     (다시 말해, "선형적" 활성화: `a(x) = x`).
 - __recurrent_activation__: 순환 단계에 사용할
@@ -740,25 +740,25 @@ __인수__
     (http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
 - __kernel_regularizer__: `kernel` 가중치 행렬에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __kernel_constraint__: `kernel` 가중치 행렬에
     적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
-- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
-    적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
 - __dropout__: 0과 1사이 부동소수점.
-    인풋의 선형적 변형의 실행에
+    인풋의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __recurrent_dropout__: 0과 1사이 부동소수점.
-    순환 상태의 선형적 변형의 실행에
+    순환 상태의 선형적 변형을 실행하는데
     드롭시킬(고려하지 않을) 유닛의 비율.
 - __implementation__: 실행 모드, 1 혹은 2.
     모드 1은 비교적 많은 수의 소규모의 점곱과 덧셈을
@@ -776,7 +776,7 @@ __인수__
 keras.layers.CuDNNGRU(units, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, return_sequences=False, return_state=False, stateful=False)
 ```
 
-[CuDNN](https://developer.nvidia.com/cudnn)에서 지원되는 빠른 회로형 순환 유닛 실행.
+[CuDNN](https://developer.nvidia.com/cudnn)을 사용한 빠른 회로형 순환 유닛 실행.
 
 텐서플로우 백엔드로 GPU에서만 실행할 수 있습니다.
 
@@ -794,23 +794,23 @@ __인수__
     ( [초기값 설정기](../initializers.md)를 참조하십시오).
 - __kernel_regularizer__: `kernel` 가중치 행렬에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __kernel_constraint__: `kernel` 가중치 행렬에
     적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
-- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
-    적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
 - __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
     혹은 시퀀스 전체를 반환할지 여부.
 - __return_state__: 불리언. 아웃풋에 더해 마지막 상태도
@@ -851,23 +851,23 @@ __인수__
     ( [초기값 설정기](../initializers.md)를 참조하십시오).
 - __kernel_regularizer__: `kernel` 가중치 행렬에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
     적용되는 정규화 함수
-    ( [정규화](../regularizers.md)를 참조하십시오).
+    ([정규화](../regularizers.md)를 참조하십시오).
 - __kernel_constraint__: `kernel` 가중치 행렬에
     적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
-- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
-    적용되는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 
+    가중치 행렬에 적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ( [제약](../constraints.md)을 참조하십시오).
+    ([제약](../constraints.md)을 참조하십시오).
 - __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
     혹은 시퀀스 전체를 반환할지 여부.
 - __return_state__: 불리언. 아웃풋에 더해 마지막 상태도
