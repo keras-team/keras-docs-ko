@@ -5,39 +5,39 @@
 keras.layers.TimeDistributed(layer)
 ```
 
-This wrapper applies a layer to every temporal slice of an input.
+이 래퍼는 인풋의 모든 시간적 조각에 대해 레이어를 적용합니다.
 
-The input should be at least 3D, and the dimension of index one
-will be considered to be the temporal dimension.
+인풋은 적어도 3D 이상이어야 하며, 그 중 색인 1의 차원은
+시간 차원으로 인식합니다.
 
-Consider a batch of 32 samples,
-where each sample is a sequence of 10 vectors of 16 dimensions.
-The batch input shape of the layer is then `(32, 10, 16)`,
-and the `input_shape`, not including the samples dimension, is `(10, 16)`.
+32개 샘플로 구성된 배치에서,
+각 샘플은 10개의 16차원 벡터로 이루어진 시퀀스라고 가정합니다.
+그렇다면 레이어의 배치 인풋 형태는 `(32, 10, 16)`이고,
+샘플 차원을 제외한 `input_shape`은 `(10, 16)`이 됩니다.
 
-You can then use `TimeDistributed` to apply a `Dense` layer
-to each of the 10 timesteps, independently:
+이어서 `TimeDistributed`를 사용해 10개의 시간 단계 각각에
+독립적으로 `Dense` 레이어를 적용할 수 있습니다:
 
 ```python
-# as the first layer in a model
+# 모델의 첫 번째 레이어로써
 model = Sequential()
 model.add(TimeDistributed(Dense(8), input_shape=(10, 16)))
-# now model.output_shape == (None, 10, 8)
+# 현재 model.output_shape == (None, 10, 8)
 ```
 
-The output will then have shape `(32, 10, 8)`.
+이 결과 아웃풋은 `(32, 10, 8)`의 형태를 갖습니다.
 
-In subsequent layers, there is no need for the `input_shape`:
+차우 레이어에서는 `input_shape`이 필요없습니다:
 
 ```python
 model.add(TimeDistributed(Dense(32)))
 # now model.output_shape == (None, 10, 32)
 ```
 
-The output will then have shape `(32, 10, 32)`.
+이 결과 아웃풋은 `(32, 10, 32)`의 형태를 갖습니다.
 
-`TimeDistributed` can be used with arbitrary layers, not just `Dense`,
-for instance with a `Conv2D` layer:
+`TimeDistributed`는 `Dense`만이 아닌, 예를 들면 `Conv2D` 레이어와 같은
+임의의 레이어와 함께 사용할 수 있습니다:
 
 ```python
 model = Sequential()
@@ -45,9 +45,9 @@ model.add(TimeDistributed(Conv2D(64, (3, 3)),
                           input_shape=(10, 299, 299, 3)))
 ```
 
-__Arguments__
+__인수__
 
-- __layer__: a layer instance.
+- __layer__: 레이어 인스턴스.
     
 ----
 
@@ -58,22 +58,22 @@ __Arguments__
 keras.layers.Bidirectional(layer, merge_mode='concat', weights=None)
 ```
 
-Bidirectional wrapper for RNNs.
+순환 신경망에 사용하는 양방향 래퍼.
 
-__Arguments__
+__인수__
 
-- __layer__: `Recurrent` instance.
-- __merge_mode__: Mode by which outputs of the
-    forward and backward RNNs will be combined.
-    One of {'sum', 'mul', 'concat', 'ave', None}.
-    If None, the outputs will not be combined,
-    they will be returned as a list.
+- __layer__: `Recurrent` 인스턴스.
+- __merge_mode__: 정방향 순환 신경망과
+    역방향 순환 신경망의 아웃풋이 병합되는 방식.
+    {'sum', 'mul', 'concat', 'ave', None} 중 하나.
+    None의 경우, 아웃풋이 합쳐지지 않고,
+    리스트로 반환됩니다.
 
-__Raises__
+__오류처리__
 
-- __ValueError__: In case of invalid `merge_mode` argument.
+- __ValueError__: `merge_mode` 인수가 유효하지 않은 경우 오류메시지를 전달합니다.
 
-__Examples__
+__예시__
 
 
 ```python
