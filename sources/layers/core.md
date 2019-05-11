@@ -5,70 +5,70 @@
 keras.layers.Dense(units, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-Just your regular densely-connected NN layer.
+보통의 밀집 연결 신경망 레이어.
 
-`Dense` implements the operation:
+`Dense`는 다음과 같은 작업을 구현합니다:
 `output = activation(dot(input, kernel) + bias)`
-where `activation` is the element-wise activation function
-passed as the `activation` argument, `kernel` is a weights matrix
-created by the layer, and `bias` is a bias vector created by the layer
-(only applicable if `use_bias` is `True`).
+여기서 `activation`은 `activation` 인수로 전달되는
+성분별 활성화 함수이고, `kernel`은 레이어가 만들어낸
+가중치 행렬이며, `bias`는 레이어가 만들어낸 편향 벡터입니다
+(`use_bias`가 `True`인 경우만 적용 가능합니다).
 
-Note: if the input to the layer has a rank greater than 2, then
-it is flattened prior to the initial dot product with `kernel`.
+참고: 레이어의 인풋이 2를 넘는 계수를 갖는 경우
+`kernel`과의 초기 점곱 전에 일렬화됩니다.
 
-__Example__
+__예시__
 
 
 ```python
-# as first layer in a sequential model:
+# sequential 모델의 첫 번째 레이어:
 model = Sequential()
 model.add(Dense(32, input_shape=(16,)))
-# now the model will take as input arrays of shape (*, 16)
-# and output arrays of shape (*, 32)
+# 모델은 (*, 16) 형태의 배열을 인풋으로 받고
+# (*, 32) 형태의 배열을 출력합니다
 
-# after the first layer, you don't need to specify
-# the size of the input anymore:
+# 첫 번째 레이어 이후에는,
+# 인풋의 크기를 특정하지 않아도 됩니다:
 model.add(Dense(32))
 ```
 
-__Arguments__
+__인수__
 
-- __units__: Positive integer, dimensionality of the output space.
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    If you don't specify anything, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __activity_regularizer__: Regularizer function applied to
-    the output of the layer (its "activation").
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
+- __units__: 양의 정수, 아웃풋 공간의 차원.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    따로 정하지 않으면, 활성화가 적용되지 않습니다.
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __use_bias__: 불리언. 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기
+    ([초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ([초기값 설정기](../initializers.md)를 참조하십시오).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
+    적용되는 정규화 함수
+    ([정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ([제약](../constraints.md)을 참조하십시오).
 
-__Input shape__
+__인풋 형태__
 
-nD tensor with shape: `(batch_size, ..., input_dim)`.
-The most common situation would be
-a 2D input with shape `(batch_size, input_dim)`.
+`(batch_size, ..., input_dim)` 형태의 nD 텐서.
+가장 흔한 경우는
+`(batch_size, input_dim)` 형태의 2D 인풋입니다.
 
-__Output shape__
+__아웃풋 형태__
 
-nD tensor with shape: `(batch_size, ..., units)`.
-For instance, for a 2D input with shape `(batch_size, input_dim)`,
-the output would have shape `(batch_size, units)`.
+`(batch_size, ..., units)` 형태의 nD 텐서.
+예를 들어, `(batch_size, input_dim)` 형태의 2D 인풋에 대해서
+아웃풋은 `(batch_size, units)`의 형태를 갖게 됩니다.
     
 ----
 
@@ -79,23 +79,23 @@ the output would have shape `(batch_size, units)`.
 keras.layers.Activation(activation)
 ```
 
-Applies an activation function to an output.
+아웃풋에 활성화 함수를 적용합니다.
 
-__Arguments__
+__인수__
 
-- __activation__: name of activation function to use
-    (see: [activations](../activations.md)),
-    or alternatively, a Theano or TensorFlow operation.
+- __activation__: 사용할 활성화 함수의 이름
+    ([활성화](../activations.md)를 참조하십시오),
+    혹은 Theano나 텐서플로우 작업.
 
-__Input shape__
+__인풋 형태__
 
-Arbitrary. Use the keyword argument `input_shape`
-(tuple of integers, does not include the samples axis)
-when using this layer as the first layer in a model.
+임의의 값. 이 레이어를 모델의 첫 번째 레이어로
+사용하는 경우, 키워드 인수 `input_shape`을 사용하십시오
+(정수 튜플, 샘플 축을 포함하지 않습니다).
 
-__Output shape__
+__아웃풋 형태__
 
-Same shape as input.
+인풋과 동일.
     
 ----
 
@@ -106,24 +106,24 @@ Same shape as input.
 keras.layers.Dropout(rate, noise_shape=None, seed=None)
 ```
 
-Applies Dropout to the input.
+인풋에 드롭아웃을 적용합니다.
 
-Dropout consists in randomly setting
-a fraction `rate` of input units to 0 at each update during training time,
-which helps prevent overfitting.
+드롭아웃은 학습 과정 중 각 업데이트에서
+임의로 인풋 유닛을 0으로 설정하는 비율 `rate`으로 구성되는데,
+이는 과적합을 방지하는데 도움이 됩니다.
 
-__Arguments__
+__인수__
 
-- __rate__: float between 0 and 1. Fraction of the input units to drop.
-- __noise_shape__: 1D integer tensor representing the shape of the
-    binary dropout mask that will be multiplied with the input.
-    For instance, if your inputs have shape
-    `(batch_size, timesteps, features)` and
-    you want the dropout mask to be the same for all timesteps,
-    you can use `noise_shape=(batch_size, 1, features)`.
-- __seed__: A Python integer to use as random seed.
+- __rate__: 0과 1사이 부동소수점. 드롭시킬 인풋 유닛의 비율.
+- __noise_shape__: 인풋과 곱할 이진 드롭아웃 마스크의
+    형태를 나타내는 1D 정수 텐서.
+    예를 들어, 인풋이 `(batch_size, timesteps, features)`의
+    형태를 가지는 경우에 드롭아웃 마스크를
+    모든 시간 단계에 대해서 동일하게 적용하고 싶다면
+    `noise_shape=(batch_size, 1, features)`를 사용하면 됩니다.
+- __seed__: 난수 시드로 사용할 파이썬 정수.
 
-__References__
+__참조__
 
 - [Dropout: A Simple Way to Prevent Neural Networks from Overfitting](
    http://www.jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)
@@ -137,34 +137,34 @@ __References__
 keras.layers.Flatten(data_format=None)
 ```
 
-Flattens the input. Does not affect the batch size.
+인풋을 일렬화 합니다. 배치 크기에는 영향을 주지 않습니다.
 
-__Arguments__
+__인수__
 
-- __data_format__: A string,
-    one of `channels_last` (default) or `channels_first`.
-    The ordering of the dimensions in the inputs.
-    The purpose of this argument is to preserve weight
-    ordering when switching a model from one data format
-    to another.
-    `channels_last` corresponds to inputs with shape
-    `(batch, ..., channels)` while `channels_first` corresponds to
-    inputs with shape `(batch, channels, ...)`.
-    It defaults to the `image_data_format` value found in your
-    Keras config file at `~/.keras/keras.json`.
-    If you never set it, then it will be "channels_last".
+- __data_format__: 문자열,
+    `channels_last` (디폴트 값) 혹은 `channels_first` 중 하나.
+    인풋 차원의 순서.
+    이 인수의 목적은 모델을 하나의 데이터 형식에서 다른 형식으로
+    바꿀 때 가중치 순서를 보존하는 것입니다.
+    `channels_last`는 `(batch, ..., channels)` 형태의
+    인풋에 호응하고, `channels_first`는
+    `(batch, channels, ...)` 형태의
+    인풋에 호응합니다.
+    디폴트 값은 `~/.keras/keras.json`에 위치한
+    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
+    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
 
-__Example__
+__예시__
 
 
 ```python
 model = Sequential()
 model.add(Conv2D(64, (3, 3),
                  input_shape=(3, 32, 32), padding='same',))
-# now: model.output_shape == (None, 64, 32, 32)
+# 현재: model.output_shape == (None, 64, 32, 32)
 
 model.add(Flatten())
-# now: model.output_shape == (None, 65536)
+# 현재: model.output_shape == (None, 65536)
 ```
     
 ----
@@ -176,53 +176,53 @@ model.add(Flatten())
 keras.engine.input_layer.Input()
 ```
 
-`Input()` is used to instantiate a Keras tensor.
+`Input()`으로 케라스 텐서를 인스턴스화합니다.
 
-A Keras tensor is a tensor object from the underlying backend
-(Theano, TensorFlow or CNTK), which we augment with certain
-attributes that allow us to build a Keras model
-just by knowing the inputs and outputs of the model.
+케라스 텐서는 기저 백엔드(Theano, 텐서플로우 혹은 CNTK)에서
+비롯된 텐서 객체로, 모델의 인풋과 아웃풋을 아는 것만으로도
+케라스 모델을 만들 수 있도록 하는
+특정한 속성을 부여해 증강시킵니다.
 
-For instance, if a, b and c are Keras tensors,
-it becomes possible to do:
+예를 들어 a, b와 c가 케라스 텐서라고 하면
+다음을 수행할 수 있습니다:
 `model = Model(input=[a, b], output=c)`
 
-The added Keras attributes are:
-`_keras_shape`: Integer shape tuple propagated
-via Keras-side shape inference.
-`_keras_history`: Last layer applied to the tensor.
-the entire layer graph is retrievable from that layer,
-recursively.
+추가된 케라스 속성은 다음과 같습니다:
+`_keras_shape`: 케라스 쪽의 형태 유추를 통해
+전파되는 정수 형태 튜플.
+`_keras_history`: 텐서에 적용된 마지막 레이어.
+해당 레이어에서 레이어 그래프 전체를 재귀적으로
+회수할 수 있습니다.
 
-__Arguments__
+__인수__
 
-- __shape__: A shape tuple (integer), not including the batch size.
-    For instance, `shape=(32,)` indicates that the expected input
-    will be batches of 32-dimensional vectors.
-- __batch_shape__: A shape tuple (integer), including the batch size.
-    For instance, `batch_shape=(10, 32)` indicates that
-    the expected input will be batches of 10 32-dimensional vectors.
-    `batch_shape=(None, 32)` indicates batches of an arbitrary number
-    of 32-dimensional vectors.
-- __name__: An optional name string for the layer.
-    Should be unique in a model (do not reuse the same name twice).
-    It will be autogenerated if it isn't provided.
-- __dtype__: The data type expected by the input, as a string
+- __shape__: 배치 크기를 제외한 형태 튜플 (정수).
+    예를 들어 `shape=(32,)`는 예상되는 인풋이
+    32차원 벡터의 배치라는 것을 나타냅니다.
+- __batch_shape__: 배치 크기를 포함한 형태 튜플 (정수).
+    예를 들어 `batch_shape=(10, 32)`는 예상되는 인풋이
+    10개의 32차원 벡터로 이루어진 배치라는 것을 나타냅니다.
+    `batch_shape=(None, 32)`는 임의의 수의 32차원 벡터로 이루어진
+    배치를 나타냅니다.
+- __name__: 레이어에 대한 선택적 이름 문자열.
+    모델 내에서 고유해야 합니다 (동일한 이름을 두 번 재사용하지 마십시오).
+    따로 제공되지 않는 경우, 자동으로 생성됩니다.
+- __dtype__: 문자열, 인풋으로 예상되는 데이터 자료형
     (`float32`, `float64`, `int32`...)
-- __sparse__: A boolean specifying whether the placeholder
-    to be created is sparse.
-- __tensor__: Optional existing tensor to wrap into the `Input` layer.
-    If set, the layer will not create a placeholder tensor.
+- __sparse__: 불리언, 만들어 낼 플레이스홀더가 희소한지
+    여부를 특정합니다.
+- __tensor__: `Input` 레이어로 래핑할 선택적 기존 텐서.
+    따로 설정하는 경우, 레이어는 플레이스홀더 텐서를 만들어 내지 않습니다.
 
-__Returns__
+__반환값__
 
-A tensor.
+텐서.
 
-__Example__
+__예시__
 
 
 ```python
-# this is a logistic regression in Keras
+# 다음은 케라스의 로지스틱 회귀입니다
 x = Input(shape=(32,))
 y = Dense(16, activation='softmax')(x)
 model = Model(x, y)
@@ -237,41 +237,41 @@ model = Model(x, y)
 keras.layers.Reshape(target_shape)
 ```
 
-Reshapes an output to a certain shape.
+아웃풋을 특정 형태로 개조합니다.
 
-__Arguments__
+__인수__
 
-- __target_shape__: target shape. Tuple of integers.
-    Does not include the batch axis.
+- __target_shape__: 표적 형태. 정수 튜플.
+    배치 축은 포함하지 않습니다.
 
-__Input shape__
+__인풋 형태__
 
-Arbitrary, although all dimensions in the input shaped must be fixed.
-Use the keyword argument `input_shape`
-(tuple of integers, does not include the batch axis)
-when using this layer as the first layer in a model.
+임의의 값. 하지만 개조된 인풋의 모든 차원은 고정되어야 합니다.
+이 레이어를 모델의 첫 번째 레이어로
+사용하는 경우, 키워드 인수 `input_shape`을 사용하십시오
+(정수 튜플, 샘플 축을 포함하지 않습니다).
 
-__Output shape__
+__아웃풋 형태__
 
 `(batch_size,) + target_shape`
 
-__Example__
+__예시__
 
 
 ```python
-# as first layer in a Sequential model
+# Sequential 모델의 첫 번째 레이어입니다
 model = Sequential()
 model.add(Reshape((3, 4), input_shape=(12,)))
-# now: model.output_shape == (None, 3, 4)
-# note: `None` is the batch dimension
+# 현재: model.output_shape == (None, 3, 4)
+# 참고: `None`은 배치 차원입니다
 
-# as intermediate layer in a Sequential model
+# Sequential 모델의 중간 레이어입니다
 model.add(Reshape((6, 2)))
-# now: model.output_shape == (None, 6, 2)
+# 현재: model.output_shape == (None, 6, 2)
 
-# also supports shape inference using `-1` as dimension
+# `-1`을 차원으로 사용해서 형태 유추를 지원합니다
 model.add(Reshape((-1, 2, 2)))
-# now: model.output_shape == (None, 3, 2, 2)
+# 현재: model.output_shape == (None, 3, 2, 2)
 ```
     
 ----
@@ -283,37 +283,37 @@ model.add(Reshape((-1, 2, 2)))
 keras.layers.Permute(dims)
 ```
 
-Permutes the dimensions of the input according to a given pattern.
+주어진 패턴에 따라서 인풋의 차원을 치환합니다.
 
-Useful for e.g. connecting RNNs and convnets together.
+예를 들면 순환 신경망과 convnet을 함께 연결하는 경우에 유용합니다.
 
-__Example__
+__예시__
 
 
 ```python
 model = Sequential()
 model.add(Permute((2, 1), input_shape=(10, 64)))
-# now: model.output_shape == (None, 64, 10)
-# note: `None` is the batch dimension
+# 현재: model.output_shape == (None, 64, 10)
+# 참고: `None`은 배치 차원입니다
 ```
 
-__Arguments__
+__인수__
 
-- __dims__: Tuple of integers. Permutation pattern, does not include the
-    samples dimension. Indexing starts at 1.
-    For instance, `(2, 1)` permutes the first and second dimension
-    of the input.
+- __dims__: 정수 튜플. 치환 패턴, 샘플 차원을 포함하지 않습니다.
+    색인은 1에서 시작합니다.
+    예를 들어, `(2, 1)`은 인풋의 첫 번째와 두 번째 차원을
+    치환합니다.
 
-__Input shape__
+__인풋 형태__
 
-Arbitrary. Use the keyword argument `input_shape`
-(tuple of integers, does not include the samples axis)
-when using this layer as the first layer in a model.
+임의의 값. 이 레이어를 모델의 첫 번째 레이어로
+사용하는 경우, 키워드 인수 `input_shape`을 사용하십시오
+(정수 튜플, 샘플 축을 포함하지 않습니다).
 
-__Output shape__
+__아웃풋 형태__
 
-Same as the input shape, but with the dimensions re-ordered according
-to the specified pattern.
+인풋 형태와 동일하나, 특정된 패턴에 따라 차원의
+순서가 재조정됩니다.
     
 ----
 
@@ -324,32 +324,32 @@ to the specified pattern.
 keras.layers.RepeatVector(n)
 ```
 
-Repeats the input n times.
+인풋을 n회 반복합니다.
 
-__Example__
+__예시__
 
 
 ```python
 model = Sequential()
 model.add(Dense(32, input_dim=32))
-# now: model.output_shape == (None, 32)
-# note: `None` is the batch dimension
+# 현재: model.output_shape == (None, 32)
+# 참고: `None`은 배치 차원입니다
 
 model.add(RepeatVector(3))
-# now: model.output_shape == (None, 3, 32)
+# 현재: model.output_shape == (None, 3, 32)
 ```
 
-__Arguments__
+__인수__
 
-- __n__: integer, repetition factor.
+- __n__: 정수, 반복 인수.
 
-__Input shape__
+__인풋 형태__
 
-2D tensor of shape `(num_samples, features)`.
+`(num_samples, features)` 형태의 2D 텐서.
 
-__Output shape__
+__아웃풋 형태__
 
-3D tensor of shape `(num_samples, n, features)`.
+`(num_samples, n, features)` 형태의 3D 텐서.
     
 ----
 
@@ -360,19 +360,19 @@ __Output shape__
 keras.layers.Lambda(function, output_shape=None, mask=None, arguments=None)
 ```
 
-Wraps arbitrary expression as a `Layer` object.
+임의의 표현을 `Layer` 객체로 래핑합니다.
 
-__Examples__
+__예시__
 
 
 ```python
-# add a x -> x^2 layer
+# x -> x^2 레이어를 더합니다
 model.add(Lambda(lambda x: x ** 2))
 ```
 ```python
-# add a layer that returns the concatenation
-# of the positive part of the input and
-# the opposite of the negative part
+# 인풋의 음성 부분과 양성 부분의
+# 연결을 반환하는
+# 레이어를 더합니다.
 
 def antirectifier(x):
     x -= K.mean(x, axis=1, keepdims=True)
@@ -391,8 +391,8 @@ model.add(Lambda(antirectifier,
                  output_shape=antirectifier_output_shape))
 ```
 ```python
-# add a layer that returns the hadamard product
-# and sum of it from two input tensors
+# 두 인풋 텐서의 아다마르 곱과
+# 합을 반환하는 레이어를 더합니다.
 
 def hadamard_product_sum(tensors):
     out1 = tensors[0] * tensors[1]
@@ -402,7 +402,7 @@ def hadamard_product_sum(tensors):
 def hadamard_product_sum_output_shape(input_shapes):
     shape1 = list(input_shapes[0])
     shape2 = list(input_shapes[1])
-    assert shape1 == shape2  # else hadamard product isn't possible
+    assert shape1 == shape2  # 그렇지 않으면 아다마르 곱이 성립하지 않습니다
     return [tuple(shape1), tuple(shape2[:-1])]
 
 x1 = Dense(32)(input_1)
@@ -411,34 +411,34 @@ layer = Lambda(hadamard_product_sum, hadamard_product_sum_output_shape)
 x_hadamard, x_sum = layer([x1, x2])
 ```
 
-__Arguments__
+__인수__
 
-- __function__: The function to be evaluated.
-    Takes input tensor or list of tensors as first argument.
-- __output_shape__: Expected output shape from function.
-    Only relevant when using Theano.
-    Can be a tuple or function.
-    If a tuple, it only specifies the first dimension onward;
-         sample dimension is assumed either the same as the input:
+- __function__: 평가할 함수.
+    첫 번째 인수로 인풋 텐서 혹은 텐서 리스트를 전달 받습니다.
+- __output_shape__: 함수에서 예상되는 아웃풋 형태.
+    Theano를 사용하는 경우에만 유효합니다.
+    튜플 혹은 함수가 될 수 있습니다.
+    튜플인 경우, 이후 첫 번째 차원만 특정합니다;
+         샘플 차원이 인풋과 동일하다고 가정하거나:
          `output_shape = (input_shape[0], ) + output_shape`
-         or, the input is `None` and
-         the sample dimension is also `None`:
+         혹은, 인풋이 `None`이고
+         샘플 차원 또한 `None`이라고 가정합니다:
          `output_shape = (None, ) + output_shape`
-    If a function, it specifies the entire shape as a function of the
-    input shape: `output_shape = f(input_shape)`
-- __arguments__: optional dictionary of keyword arguments to be passed
-    to the function.
+    함수인 경우, 전체 형태를 인풋 형태의
+    함수로 특정합니다: `output_shape = f(input_shape)`
+- __arguments__: 함수에 전달할 선택적 키워드 인수의
+    딕셔너리.
 
-__Input shape__
+__인풋 형태__
 
-Arbitrary. Use the keyword argument input_shape
-(tuple of integers, does not include the samples axis)
-when using this layer as the first layer in a model.
+임의의 값. 이 레이어를 모델의 첫 번째 레이어로
+사용하는 경우, 키워드 인수 `input_shape`을 사용하십시오
+(정수 튜플, 샘플 축을 포함하지 않습니다).
 
-__Output shape__
+__아웃풋 형태__
 
-Specified by `output_shape` argument
-(or auto-inferred when using TensorFlow or CNTK).
+`output_shape` 인수로 특정됩니다
+(혹은 텐서플로우나 CNTK를 사용하는 경우 자동 유추됩니다).
     
 ----
 
@@ -449,22 +449,22 @@ Specified by `output_shape` argument
 keras.layers.ActivityRegularization(l1=0.0, l2=0.0)
 ```
 
-Layer that applies an update to the cost function based input activity.
+인풋 활성화에 기반한 손실 함수에 최신화를 적용하는 레이어.
 
-__Arguments__
+__인수__
 
-- __l1__: L1 regularization factor (positive float).
-- __l2__: L2 regularization factor (positive float).
+- __l1__: L1 정규화 인수 (양의 부동소수점).
+- __l2__: L2 정규화 인수 (양의 부동소수점).
 
-__Input shape__
+__인풋 형태__
 
-Arbitrary. Use the keyword argument `input_shape`
-(tuple of integers, does not include the samples axis)
-when using this layer as the first layer in a model.
+임의의 값. 이 레이어를 모델의 첫 번째 레이어로
+사용하는 경우, 키워드 인수 `input_shape`을 사용하십시오
+(정수 튜플, 샘플 축을 포함하지 않습니다).
 
-__Output shape__
+__아웃풋 형태__
 
-Same shape as input.
+인풋과 동일.
     
 ----
 
@@ -475,25 +475,25 @@ Same shape as input.
 keras.layers.Masking(mask_value=0.0)
 ```
 
-Masks a sequence by using a mask value to skip timesteps.
+시간 단계를 건너 뛸 마스크 값을 사용해 시퀀스를 마스킹합니다.
 
-If all features for a given sample timestep are equal to `mask_value`,
-then the sample timestep will be masked (skipped) in all downstream layers
-(as long as they support masking).
+주어진 샘플 시간 단계의 모든 특성이 `mask_value`와 동일하다면
+(그리고 마스킹이 지원된다면), 모든 하위 레이어에서
+샘플 시간 단계를 마스킹합니다 (건너 뜁니다).
 
-If any downstream layer does not support masking yet receives such
-an input mask, an exception will be raised.
+어떤 하위 레이어가 마스킹을 지원하지 않는데도 인풋 마스킹을
+수령하는 경우는 예외가 발생합니다.
 
-__Example__
+__예시__
 
 
-Consider a Numpy data array `x` of shape `(samples, timesteps, features)`,
-to be fed to an LSTM layer.
-You want to mask sample #0 at timestep #3, and sample #2 at timestep #5,
-because you lack features for these sample timesteps. You can do:
+장단기 메모리 레이어에 전달할 `(samples, timesteps, features)`의
+형태를 가진 Numpy 데이터 배열 `x`를 고려해 봅시다.
+특성이 부족하여 시간 단계 #2의 샘플 #0과 시간 단계 #5의 샘플 #2를 
+마스킹하고 싶다면, 다음을 실행하면 됩니다:
 
-- set `x[0, 3, :] = 0.` and `x[2, 5, :] = 0.`
-- insert a `Masking` layer with `mask_value=0.` before the LSTM layer:
+- `x[0, 3, :] = 0.`, 그리고 `x[2, 5, :] = 0.`으로 설정합니다
+- 장단기 메모리 레이어 전에 `mask_value=0.`의 `Masking` 레이어를 삽입합니다:
 
 ```python
 model = Sequential()
@@ -510,30 +510,30 @@ model.add(LSTM(32))
 keras.layers.SpatialDropout1D(rate)
 ```
 
-Spatial 1D version of Dropout.
+드롭아웃의 공간적 1D 버전.
 
-This version performs the same function as Dropout, however it drops
-entire 1D feature maps instead of individual elements. If adjacent frames
-within feature maps are strongly correlated (as is normally the case in
-early convolution layers) then regular dropout will not regularize the
-activations and will otherwise just result in an effective learning rate
-decrease. In this case, SpatialDropout1D will help promote independence
-between feature maps and should be used instead.
+이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 성분 대신
+1D 특성 맵 전체를 드롭시킵니다. 특성 맵 내 인접한 프레임이
+강한 상관관계를 보인다면 (이는 초기 컨볼루션 레이어에서 흔한
+상황입니다), 보통의 드롭아웃은 활성화를 정규화 시키지 못하고
+그저 학습 속도 감소를 야기하게 됩니다.
+이러한 경우, 드롭아웃 대신 특성 맵 사이의 독립성을 촉진하는
+SpatialDropout1D을 사용해야 합니다.
 
-__Arguments__
+__인수__
 
-- __rate__: float between 0 and 1. Fraction of the input units to drop.
+- __rate__: 0과 1사이 부동소수점. 드롭시킬 인풋 유닛의 비율.
 
-__Input shape__
+__인풋 형태__
 
-3D tensor with shape:
 `(samples, timesteps, channels)`
+형태의 3D 텐서.
 
-__Output shape__
+__아웃풋 형태__
 
-Same as input
+인풋과 동일.
 
-__References__
+__참조__
 
 - [Efficient Object Localization Using Convolutional Networks](
    https://arxiv.org/abs/1411.4280)
@@ -547,39 +547,39 @@ __References__
 keras.layers.SpatialDropout2D(rate, data_format=None)
 ```
 
-Spatial 2D version of Dropout.
+드롭아웃의 공간적 2D 버전.
 
-This version performs the same function as Dropout, however it drops
-entire 2D feature maps instead of individual elements. If adjacent pixels
-within feature maps are strongly correlated (as is normally the case in
-early convolution layers) then regular dropout will not regularize the
-activations and will otherwise just result in an effective learning rate
-decrease. In this case, SpatialDropout2D will help promote independence
-between feature maps and should be used instead.
+이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 성분 대신
+2D 특성 맵 전체를 드롭시킵니다. 특성 맵 내 인접한 픽셀이
+강한 상관관계를 보인다면 (이는 초기 컨볼루션 레이어에서 흔한
+상황입니다), 보통의 드롭아웃은 활성화를 정규화 시키지 못하고
+그저 학습 속도 감소를 야기하게 됩니다.
+이러한 경우, 드롭아웃 대신 특성 맵 사이의 독립성을 촉진하는
+SpatialDropout2D을 사용해야 합니다.
 
-__Arguments__
+__인수__
 
-- __rate__: float between 0 and 1. Fraction of the input units to drop.
-- __data_format__: 'channels_first' or 'channels_last'.
-    In 'channels_first' mode, the channels dimension
-    (the depth) is at index 1,
-    in 'channels_last' mode is it at index 3.
-    It defaults to the `image_data_format` value found in your
-    Keras config file at `~/.keras/keras.json`.
-    If you never set it, then it will be "channels_last".
+- __rate__: 0과 1사이 부동소수점. 드롭시킬 인풋 유닛의 비율.
+- __data_format__: `channels_last` (디폴트 값) 혹은 `channels_first` 중 하나.
+    `channels_first` 모드에서는, 채널 차원(깊이)이
+    색인 1에 위치하고,
+    'channels_last' 모드에서는 색인 3에 위치합니다.
+    디폴트 값은 `~/.keras/keras.json`에 위치한
+    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
+    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
 
-__Input shape__
+__인풋 형태__
 
-4D tensor with shape:
-`(samples, channels, rows, cols)` if data_format='channels_first'
-or 4D tensor with shape:
-`(samples, rows, cols, channels)` if data_format='channels_last'.
+data_format='channels_first'인 경우
+`(samples, channels, rows, cols)` 형태의 4D 텐서.
+data_format='channels_last'인 경우
+`(samples, rows, cols, channels)` 형태의 4D 텐서.
 
-__Output shape__
+__아웃풋 형태__
 
-Same as input
+인풋과 동일.
 
-__References__
+__참조__
 
 - [Efficient Object Localization Using Convolutional Networks](
    https://arxiv.org/abs/1411.4280)
@@ -593,38 +593,38 @@ __References__
 keras.layers.SpatialDropout3D(rate, data_format=None)
 ```
 
-Spatial 3D version of Dropout.
+드롭아웃의 공간적 3D 버전.
 
-This version performs the same function as Dropout, however it drops
-entire 3D feature maps instead of individual elements. If adjacent voxels
-within feature maps are strongly correlated (as is normally the case in
-early convolution layers) then regular dropout will not regularize the
-activations and will otherwise just result in an effective learning rate
-decrease. In this case, SpatialDropout3D will help promote independence
-between feature maps and should be used instead.
+이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 성분 대신 
+3D 특성 맵 전체를 드롭시킵니다. 특성 맵 내 인접한 복셀이
+강한 상관관계를 보인다면 (이는 초기 컨볼루션 레이어에서 흔한
+상황입니다), 보통의 드롭아웃은 활성화를 정규화 시키지 못하고
+그저 학습 속도 감소를 야기하게 됩니다.
+이러한 경우, 드롭아웃 대신 특성 맵 사이의 독립성을 촉진하는
+SpatialDropout3D을 사용해야 합니다.
 
-__Arguments__
+__인수__
 
-- __rate__: float between 0 and 1. Fraction of the input units to drop.
-- __data_format__: 'channels_first' or 'channels_last'.
-    In 'channels_first' mode, the channels dimension (the depth)
-    is at index 1, in 'channels_last' mode is it at index 4.
-    It defaults to the `image_data_format` value found in your
-    Keras config file at `~/.keras/keras.json`.
-    If you never set it, then it will be "channels_last".
+- __rate__: 0과 1사이 부동소수점. 드롭시킬 인풋 유닛의 비율.
+- __data_format__: `channels_last` (디폴트 값) 혹은 `channels_first` 중 하나.
+    `channels_first` 모드에서는, 채널 차원(깊이)이 색인 1에
+    위치하고, 'channels_last' 모드에서는 색인 4에 위치합니다.
+    디폴트 값은 `~/.keras/keras.json`에 위치한
+    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
+    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
 
-__Input shape__
+__인풋 형태__
 
-5D tensor with shape:
-`(samples, channels, dim1, dim2, dim3)` if data_format='channels_first'
-or 5D tensor with shape:
-`(samples, dim1, dim2, dim3, channels)` if data_format='channels_last'.
+data_format='channels_first'인 경우
+`(samples, channels, dim1, dim2, dim3)` 형태의 5D 텐서.
+data_format='channels_last'인 경우
+`(samples, dim1, dim2, dim3, channels)` 형태의 5D 텐서.
 
-__Output shape__
+__아웃풋 형태__
 
-Same as input
+인풋과 동일.
 
-__References__
+__참조__
 
 - [Efficient Object Localization Using Convolutional Networks](
    https://arxiv.org/abs/1411.4280)
