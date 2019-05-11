@@ -5,130 +5,130 @@
 keras.layers.RNN(cell, return_sequences=False, return_state=False, go_backwards=False, stateful=False, unroll=False)
 ```
 
-Base class for recurrent layers.
+순환 레이어의 베이스 클래스.
 
-__Arguments__
+__인수__
 
-- __cell__: A RNN cell instance. A RNN cell is a class that has:
-    - a `call(input_at_t, states_at_t)` method, returning
-        `(output_at_t, states_at_t_plus_1)`. The call method of the
-        cell can also take the optional argument `constants`, see
-        section "Note on passing external constants" below.
-    - a `state_size` attribute. This can be a single integer
-        (single state) in which case it is
-        the size of the recurrent state
-        (which should be the same as the size of the cell output).
-        This can also be a list/tuple of integers
-        (one size per state).
-    - a `output_size` attribute. This can be a single integer or a
-        TensorShape, which represent the shape of the output. For
-        backward compatible reason, if this attribute is not available
-        for the cell, the value will be inferred by the first element
-        of the `state_size`.
+- __cell__: 순환 신경망 셀 인스턴스. 순환 신경망 셀은 다음의 요소를 가진 클래스입니다:
+    - `(output_at_t, states_at_t_plus_1)`을 반환하는
+        `call(input_at_t, states_at_t)` 메서드. 셀의 호출 메서드는 
+        선택적 인수인 `constants`를 받을 수도 있습니다.
+        밑의 "외부 상수 전달에 대한 안내" 섹션을 참고하십시오.
+    - `state_size` 속성. 단일 정수(단일 상태)일 경우
+        순환 상태의 크기를
+        나타냅니다. (이는 셀 아웃풋의
+        크기와 동일해야 합니다).
+        또한 정수의 리스트/튜플의 형태를 취할 수도 있습니다.
+        (상태당 크기 하나).
+    - `output_size` 속성. 단일 정수, 혹은
+        아웃풋의 형태를 나타내는 TensorShape.
+        역방향 호환성 이유로 셀에서 이 속성을 사용할 수
+        없는 경우, `state_size`의 첫 번째 성분에서 값을
+        유추합니다.
 
-    It is also possible for `cell` to be a list of RNN cell instances,
-    in which cases the cells get stacked on after the other in the RNN,
-    implementing an efficient stacked RNN.
+    순환 신경망 내에서 셀을 겹쳐 쌓아 효율적인
+    스택 순환 신경망을 구현하는 경우, `cell`은 순환 신경망 셀
+    인스턴스의 리스트가 될 수도 있습니다.
 
-- __return_sequences__: Boolean. Whether to return the last output
-    in the output sequence, or the full sequence.
-- __return_state__: Boolean. Whether to return the last state
-    in addition to the output.
-- __go_backwards__: Boolean (default False).
-    If True, process the input sequence backwards and return the
-    reversed sequence.
-- __stateful__: Boolean (default False). If True, the last state
-    for each sample at index i in a batch will be used as initial
-    state for the sample of index i in the following batch.
-- __unroll__: Boolean (default False).
-    If True, the network will be unrolled,
-    else a symbolic loop will be used.
-    Unrolling can speed-up a RNN,
-    although it tends to be more memory-intensive.
-    Unrolling is only suitable for short sequences.
-- __input_dim__: dimensionality of the input (integer).
-    This argument (or alternatively,
-    the keyword argument `input_shape`)
-    is required when using this layer as the first layer in a model.
-- __input_length__: Length of input sequences, to be specified
-    when it is constant.
-    This argument is required if you are going to connect
-    `Flatten` then `Dense` layers upstream
-    (without it, the shape of the dense outputs cannot be computed).
-    Note that if the recurrent layer is not the first layer
-    in your model, you would need to specify the input length
-    at the level of the first layer
-    (e.g. via the `input_shape` argument)
+- __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
+    혹은 시퀀스 전체를 반환할지 여부.
+- __return_state__: 불리언. 아웃풋에 더해 마지막 상태도
+    반환할지 여부.
+- __go_backwards__: 불리언 (디폴트 값은 거짓).
+    참인 경우, 인풋 시퀀스를 거꾸로 처리하여
+    뒤집힌 시퀀스를 반환합니다.
+- __stateful__: 불리언 (디폴트 값은 거짓). 참인 경우,
+    배치 내 색인 i의 각 샘플의 마지막 상태가 다음 배치의
+    색인 i 샘플의 초기 상태로 사용됩니다.
+- __unroll__: 불리언 (디폴트 값은 거짓).
+    참인 경우, 신경망을 펼쳐서 사용하고
+    그렇지 않은 경우 심볼릭 루프가 사용됩니다.
+    신경망을 펼쳐 순환 신경망의 속도를
+    높일 수 있지만, 메모리 소모가 큰 경향이 있습니다.
+    신경망 펼치기는 짧은 시퀀스에만 적합합니다.
+- __input_dim__: 인풋의 차원 (정수).
+    이 인수(혹은 키워드 인수 `input_shape`)는
+    현재 레이어를 모델의
+    첫 번째 레이어로 사용하는 경우 요구됩니다.
+- __input_length__: 인풋 시퀀스의 길이,
+    길이가 고정적일 경우 특정합니다.
+    `Flatten`과 상위의 `Dense` 레이어를 연결하는
+    경우 이 인수가 필요합니다
+    (이 인수 없이는 밀집 아웃풋의 형태를 계산할 수 없습니다). 이 인수는
+    순환 레이어가 모델의 첫 레이어가 아닌 경우
+    첫 레이어에서 (예. `input_shape` 인수를 통해서)
+    인풋 길이를 특정해야
+    한다는 것을 참고하십시오.
 
-__Input shape__
+__인풋 형태__
 
-3D tensor with shape `(batch_size, timesteps, input_dim)`.
+3D tensor `(batch_size, timesteps, input_dim)` 형태의 3D 텐서.
 
-__Output shape__
+__아웃풋 형태__
 
-- if `return_state`: a list of tensors. The first tensor is
-    the output. The remaining tensors are the last states,
-    each with shape `(batch_size, units)`. For example, the number of
-    state tensors is 1 (for RNN and GRU) or 2 (for LSTM).
-- if `return_sequences`: 3D tensor with shape
-    `(batch_size, timesteps, units)`.
-- else, 2D tensor with shape `(batch_size, units)`.
+- `return_state`인 경우: 텐서의 리스트. 첫 번째 텐서는
+    아웃풋 입니다. 나머지 텐서는 마지막 상태로, 각각
+    `(batch_size, units)`의 형태를 갖습니다. 예를 들어 , (순환 신경망과
+    회로형 순환 유닛의 경우) 1, (장단기 메모리의 경우) 2입니다.
+- `return_sequences`인 경우: `(batch_size, timesteps, units)`의
+    형태의 3D 텐서.
+- 그 외의 경우, `(batch_size, units)` 형태의 2D 텐서.
 
-__Masking__
+__마스킹__
 
-This layer supports masking for input data with a variable number
-of timesteps. To introduce masks to your data,
-use an [Embedding](embeddings.md) layer with the `mask_zero` parameter
-set to `True`.
+이 레이어는 가변적 시간 단계의 개수를 가진 인풋 데이터에 대한
+마스킹을 지원합니다. 데이터에 마스크를 도입하려면
+`mask_zero` 매개변수를 `True`로 설정한 [Embedding](embeddings.md) 레이어를
+사용하십시오.
 
-__Note on using statefulness in RNNs__
+__순환 신경망의 상태 기반 모드 사용에 대한 안내__
 
-You can set RNN layers to be 'stateful', which means that the states
-computed for the samples in one batch will be reused as initial states
-for the samples in the next batch. This assumes a one-to-one mapping
-between samples in different successive batches.
+순환 신경망 레이어를 ‘stateful’로 설정할 수 있습니다.
+이는 한 배치 내 샘플의 상태를 계산하여, 이 값을
+다음 배치 내 샘플의 초기 상태로 재사용한다는 의미입니다.
+이는 연속된 배치 내 샘플간 일대일 매핑을 가정합니다.
 
-To enable statefulness:
-- specify `stateful=True` in the layer constructor.
-- specify a fixed batch size for your model, by passing
-if sequential model:
-`batch_input_shape=(...)` to the first layer in your model.
-else for functional model with 1 or more Input layers:
-`batch_shape=(...)` to all the first layers in your model.
-This is the expected shape of your inputs
-*including the batch size*.
-It should be a tuple of integers, e.g. `(32, 10, 100)`.
-- specify `shuffle=False` when calling fit().
+상태 기반 모드를 사용하려면:
+- 레이어 생성자에 `stateful=True`를 특정하십시오.
+- 다음을 전달하여 모델의 고정 배치 크기를 특정하십시오:
+시쿼느 모델의 경우
+모델의 첫 레이어에 `batch_input_shape=(...)`를 전달하십시오.
+그 외 1개 이상의 인풋 레이어를 가진 기능적 모델의 경우
+모델의 모든 첫 레이어에 `batch_shape=(...)`를 전달하십시오.
+이는 *배치 크기를 포함한* 인풋의
+예상되는 형태를 나타냅니다.
+정수 튜플이 되어야 합니다. 예. `(32, 10, 100)`.
+- fit()을 호출할 때 `shuffle=False`로 설정하십시오.
 
-To reset the states of your model, call `.reset_states()` on either
-a specific layer, or on your entire model.
+모델의 상태를 재설정하려면, 특정 레이어 혹은 전체 모델에 대해서
+`.reset_states()`를 호출하십시오.
 
-__Note on specifying the initial state of RNNs__
+__순환 신경망 초기 상태 특정에 대한 안내__
 
-You can specify the initial state of RNN layers symbolically by
-calling them with the keyword argument `initial_state`. The value of
-`initial_state` should be a tensor or list of tensors representing
-the initial state of the RNN layer.
+키워드 인수 `initial_state`로 순환 레이어를
+호출하여 순환 레이어의 초기 상태를 특정할 수 있습니다.
+`initial_state`의 값은 순환 레이어의 초기 상태를 나타내는
+텐서 혹은 텐서의 리스트이 되어야 합니다.
 
-You can specify the initial state of RNN layers numerically by
-calling `reset_states` with the keyword argument `states`. The value of
-`states` should be a numpy array or list of numpy arrays representing
-the initial state of the RNN layer.
+키워드 인수 `states`로 `reset_states`를 호출하여
+순환 신경망 레이어의 초기 상태를 계수적으로 특정할 수 있습니다.
+`states`의 값은 순환 신경망 레이어의 초기 상태를 나타내는
+numpy 배열 혹은 numpy 배열의 리스트가 되어야 합니다.
 
-__Note on passing external constants to RNNs__
+__순환 신경망에 대한 외부 상수 전달의 유의점__
 
-You can pass "external" constants to the cell using the `constants`
-keyword argument of `RNN.__call__` (as well as `RNN.call`) method. This
-requires that the `cell.call` method accepts the same keyword argument
-`constants`. Such constants can be used to condition the cell
-transformation on additional static inputs (not changing over time),
-a.k.a. an attention mechanism.
+`RNN.__call__` (as well as `RNN.call`) 메서드의 `constants`
+키워드 인수를 사용해 “외부” 상수를 셀에 전달할 수 있습니다.
+이를 위해선 `cell.call` 메서드도 동일한 키워드 인수 `constants`를
+수용해야 합니다. 그러한 상수를 사용해 (시간에 따라 변하지 않는) 추가적
+고정 인풋에 대해서 셀 변형을 조정하는데, 이는
+집중 메커니즘이라고도 불립니다.
 
-__Examples__
+__예시__
 
 
 ```python
-# First, let's define a RNN Cell, as a layer subclass.
+# 우선 순환 신경망 셀을 레이어 하위클래스로 정의해 봅시다.
 
 class MinimalRNNCell(keras.layers.Layer):
 
@@ -136,7 +136,7 @@ class MinimalRNNCell(keras.layers.Layer):
         self.units = units
         self.state_size = units
         super(MinimalRNNCell, self).__init__(**kwargs)
-
+    
     def build(self, input_shape):
         self.kernel = self.add_weight(shape=(input_shape[-1], self.units),
                                       initializer='uniform',
@@ -153,14 +153,14 @@ class MinimalRNNCell(keras.layers.Layer):
         output = h + K.dot(prev_output, self.recurrent_kernel)
         return output, [output]
 
-# Let's use this cell in a RNN layer:
+# 이 셀을 순환 신경망 레이어에 사용해 봅시다:
 
 cell = MinimalRNNCell(32)
 x = keras.Input((None, 5))
 layer = RNN(cell)
 y = layer(x)
 
-# Here's how to use the cell to build a stacked RNN:
+# 다음은 스택 순환 신경망을 구성하기 위해 셀을 어떻게 사용하는지 보여줍니다:
 
 cells = [MinimalRNNCell(32), MinimalRNNCell(64)]
 x = keras.Input((None, 5))
@@ -177,67 +177,67 @@ y = layer(x)
 keras.layers.SimpleRNN(units, activation='tanh', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.0, recurrent_dropout=0.0, return_sequences=False, return_state=False, go_backwards=False, stateful=False, unroll=False)
 ```
 
-Fully-connected RNN where the output is to be fed back to input.
+아웃풋이 인풋으로 다시 연결되는 완전 연결 순환 신경망.
 
-__Arguments__
+__인수__
 
-- __units__: Positive integer, dimensionality of the output space.
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    Default: hyperbolic tangent (`tanh`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix,
-    used for the linear transformation of the inputs
-    (see [initializers](../initializers.md)).
-- __recurrent_initializer__: Initializer for the `recurrent_kernel`
-    weights matrix,
-    used for the linear transformation of the recurrent state
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __recurrent_regularizer__: Regularizer function applied to
-    the `recurrent_kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __activity_regularizer__: Regularizer function applied to
-    the output of the layer (its "activation").
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __recurrent_constraint__: Constraint function applied to
-    the `recurrent_kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
-- __dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the inputs.
-- __recurrent_dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the recurrent state.
-- __return_sequences__: Boolean. Whether to return the last output
-    in the output sequence, or the full sequence.
-- __return_state__: Boolean. Whether to return the last state
-    in addition to the output.
-- __go_backwards__: Boolean (default False).
-    If True, process the input sequence backwards and return the
-    reversed sequence.
-- __stateful__: Boolean (default False). If True, the last state
-    for each sample at index i in a batch will be used as initial
-    state for the sample of index i in the following batch.
-- __unroll__: Boolean (default False).
-    If True, the network will be unrolled,
-    else a symbolic loop will be used.
-    Unrolling can speed-up a RNN,
-    although it tends to be more memory-intensive.
-    Unrolling is only suitable for short sequences.
+- __units__: 양의 정수, 아웃풋 공간의 차원입니다.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기.
+    인풋의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의
+    초기값 설정기.
+    순환 상태의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __dropout__: 0과 1사이 부동소수점.
+    인풋의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __recurrent_dropout__: 0과 1사이 부동소수점.
+    순환 상태의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
+    혹은 시퀀스 전체를 반환할지 여부.
+- __return_state__: 불리언. 아웃풋에 더해 마지막 상태도
+    반환할지 여부.
+- __go_backwards__: 불리언 (디폴트 값은 거짓).
+    참인 경우, 인풋 시퀀스를 거꾸로 처리하여
+    뒤집힌 시퀀스를 반환합니다.
+- __stateful__: 불리언 (디폴트 값은 거짓). 참인 경우,
+    배치 내 색인 i의 각 샘플의 마지막 상태가 다음 배치의
+    색인 i 샘플의 초기 상태로 사용됩니다.
+- __unroll__: 불리언 (디폴트 값은 거짓).
+    참인 경우, 신경망을 펼쳐서 사용하고
+    그렇지 않은 경우 심볼릭 루프가 사용됩니다.
+    신경망을 펼쳐 순환 신경망의 속도를
+    높일 수 있지만, 메모리 소모가 큰 경향이 있습니다.
+    신경망 펼치기는 짧은 시퀀스에만 적합합니다.
     
 ----
 
@@ -248,93 +248,93 @@ __Arguments__
 keras.layers.GRU(units, activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.0, recurrent_dropout=0.0, implementation=1, return_sequences=False, return_state=False, go_backwards=False, stateful=False, unroll=False, reset_after=False)
 ```
 
-Gated Recurrent Unit - Cho et al. 2014.
+회로형 순환 유닛 - Cho et al. 2014.
 
-There are two variants. The default one is based on 1406.1078v3 and
-has reset gate applied to hidden state before matrix multiplication. The
-other one is based on original 1406.1078v1 and has the order reversed.
+두 가지 종류가 있습니다. 디폴트인 첫 번째 종류는 1406.1078v3에
+기반하고 행렬 곱셈 전 재설정 회로가 은닉 상태에 적용됩니다. 다른 하나는
+원래의 1406.1078v1에 기반하고 작업 순서가 반대입니다.
 
-The second variant is compatible with CuDNNGRU (GPU-only) and allows
-inference on CPU. Thus it has separate biases for `kernel` and
-`recurrent_kernel`. Use `'reset_after'=True` and
-`recurrent_activation='sigmoid'`.
+두 번째 종류는 (GPU 전용) CuDNNGRU와 호환이 가능하며
+CPU 상에서 유추를 실행할 수 있도록 합니다. 따라서 `kernel`과
+`recurrent_kernel`에 대해 별도의 편향을 갖습니다.
+`'reset_after'=True`와 `recurrent_activation='sigmoid'`를 사용하십시오.
 
-__Arguments__
+__인수__
 
-- __units__: Positive integer, dimensionality of the output space.
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    Default: hyperbolic tangent (`tanh`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __recurrent_activation__: Activation function to use
-    for the recurrent step
-    (see [activations](../activations.md)).
-    Default: hard sigmoid (`hard_sigmoid`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix,
-    used for the linear transformation of the inputs
-    (see [initializers](../initializers.md)).
-- __recurrent_initializer__: Initializer for the `recurrent_kernel`
-    weights matrix,
-    used for the linear transformation of the recurrent state
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __recurrent_regularizer__: Regularizer function applied to
-    the `recurrent_kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __activity_regularizer__: Regularizer function applied to
-    the output of the layer (its "activation").
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __recurrent_constraint__: Constraint function applied to
-    the `recurrent_kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
-- __dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the inputs.
-- __recurrent_dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the recurrent state.
-- __implementation__: Implementation mode, either 1 or 2.
-    Mode 1 will structure its operations as a larger number of
-    smaller dot products and additions, whereas mode 2 will
-    batch them into fewer, larger operations. These modes will
-    have different performance profiles on different hardware and
-    for different applications.
-- __return_sequences__: Boolean. Whether to return the last output
-    in the output sequence, or the full sequence.
-- __return_state__: Boolean. Whether to return the last state
-    in addition to the output.
-- __go_backwards__: Boolean (default False).
-    If True, process the input sequence backwards and return the
-    reversed sequence.
-- __stateful__: Boolean (default False). If True, the last state
-    for each sample at index i in a batch will be used as initial
-    state for the sample of index i in the following batch.
-- __unroll__: Boolean (default False).
-    If True, the network will be unrolled,
-    else a symbolic loop will be used.
-    Unrolling can speed-up a RNN,
-    although it tends to be more memory-intensive.
-    Unrolling is only suitable for short sequences.
-- __reset_after__: GRU convention (whether to apply reset gate after or
-    before matrix multiplication). False = "before" (default),
-    True = "after" (CuDNN compatible).
+- __units__: 양의 정수, 아웃풋 공간의 차원입니다.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __recurrent_activation__: 순환 단계에 사용할
+    활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 하드 시그모이드 (`hard_sigmoid`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기.
+    인풋의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의
+    초기값 설정기.
+    순환 상태의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __dropout__: 0과 1사이 부동소수점.
+    인풋의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __recurrent_dropout__: 0과 1사이 부동소수점.
+    순환 상태의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __implementation__: 실행 모드, 1 혹은 2.
+    모드 1은 비교적 많은 수의 소규모의 점곱과 덧셈을
+    이용해 연산을 구성하는데 반해, 모드 2는 이를
+    소수의 대규모 연산으로 묶습니다. 이 두 모드는,
+    하드웨어나 어플리케이션에 따라서 성능의 차이를
+    보입니다.
+- __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
+    혹은 시퀀스 전체를 반환할지 여부.
+- __return_state__: 불리언. 아웃풋에 더해 마지막 상태도
+    반환할지 여부.
+- __go_backwards__: 불리언 (디폴트 값은 거짓).
+    참인 경우, 인풋 시퀀스를 거꾸로 처리하여
+    뒤집힌 시퀀스를 반환합니다.
+- __stateful__: 불리언 (디폴트 값은 거짓). 참인 경우,
+    배치 내 색인 i의 각 샘플의 마지막 상태가 다음 배치의
+    색인 i 샘플의 초기 상태로 사용됩니다.
+- __unroll__: 불리언 (디폴트 값은 거짓).
+    참인 경우, 신경망을 펼쳐서 사용하고
+    그렇지 않은 경우 심볼릭 루프가 사용됩니다.
+    신경망을 펼쳐 순환 신경망의 속도를
+    높일 수 있지만, 메모리 소모가 큰 경향이 있습니다.
+    신경망 펼치기는 짧은 시퀀스에만 적합합니다.
+- __reset_after__: 회로형 순환 유닛의 상례 (행렬 곱셈 전이나 후에
+    재설정 회로를 적용할지 여부). 거짓 = "before" (디폴트 값),
+    참 = "after" (CuDNN과 호환).
 
-__References__
+__참조__
 
 - [Learning Phrase Representations using RNN Encoder-Decoder for
    Statistical Machine Translation](https://arxiv.org/abs/1406.1078)
@@ -354,87 +354,87 @@ __References__
 keras.layers.LSTM(units, activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.0, recurrent_dropout=0.0, implementation=1, return_sequences=False, return_state=False, go_backwards=False, stateful=False, unroll=False)
 ```
 
-Long Short-Term Memory layer - Hochreiter 1997.
+장단기 메모리 레이어 - Hochreiter 1997.
 
-__Arguments__
+__인수__
 
-- __units__: Positive integer, dimensionality of the output space.
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    Default: hyperbolic tangent (`tanh`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __recurrent_activation__: Activation function to use
-    for the recurrent step
-    (see [activations](../activations.md)).
-    Default: hard sigmoid (`hard_sigmoid`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix,
-    used for the linear transformation of the inputs.
-    (see [initializers](../initializers.md)).
-- __recurrent_initializer__: Initializer for the `recurrent_kernel`
-    weights matrix,
-    used for the linear transformation of the recurrent state.
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __unit_forget_bias__: Boolean.
-    If True, add 1 to the bias of the forget gate at initialization.
-    Setting it to true will also force `bias_initializer="zeros"`.
-    This is recommended in [Jozefowicz et al. (2015)](
-    http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __recurrent_regularizer__: Regularizer function applied to
-    the `recurrent_kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __activity_regularizer__: Regularizer function applied to
-    the output of the layer (its "activation").
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __recurrent_constraint__: Constraint function applied to
-    the `recurrent_kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
-- __dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the inputs.
-- __recurrent_dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the recurrent state.
-- __implementation__: Implementation mode, either 1 or 2.
-    Mode 1 will structure its operations as a larger number of
-    smaller dot products and additions, whereas mode 2 will
-    batch them into fewer, larger operations. These modes will
-    have different performance profiles on different hardware and
-    for different applications.
-- __return_sequences__: Boolean. Whether to return the last output
-    in the output sequence, or the full sequence.
-- __return_state__: Boolean. Whether to return the last state
-    in addition to the output. The returned elements of the
-    states list are the hidden state and the cell state, respectively.
-- __go_backwards__: Boolean (default False).
-    If True, process the input sequence backwards and return the
-    reversed sequence.
-- __stateful__: Boolean (default False). If True, the last state
-    for each sample at index i in a batch will be used as initial
-    state for the sample of index i in the following batch.
-- __unroll__: Boolean (default False).
-    If True, the network will be unrolled,
-    else a symbolic loop will be used.
-    Unrolling can speed-up a RNN,
-    although it tends to be more memory-intensive.
-    Unrolling is only suitable for short sequences.
+- __units__: 양의 정수, 아웃풋 공간의 차원입니다.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __recurrent_activation__: 순환 단계에 사용할
+    활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 하드 시그모이드 (`hard_sigmoid`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기.
+    인풋의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의
+    초기값 설정기.
+    순환 상태의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __unit_forget_bias__: 불리언.
+    참일 경우, 초기값 설정 시 망각 회로에 1을 더합니다.
+    참으로 설정 시 강제적으로 `bias_initializer="zeros"`가 됩니다.
+    이는 [Jozefowicz et al. (2015)] 에서 권장됩니다.
+    (http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __dropout__: 0과 1사이 부동소수점.
+    인풋의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __recurrent_dropout__: 0과 1사이 부동소수점.
+    순환 상태의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __implementation__: 실행 모드, 1 혹은 2.
+    모드 1은 비교적 많은 수의 소규모의 점곱과 덧셈을
+    이용해 연산을 구성하는데 반해, 모드 2는 이를
+    소수의 대규모 연산으로 묶습니다. 이 두 모드는,
+    하드웨어나 어플리케이션에 따라서 성능의 차이를
+    보입니다.
+- __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
+    혹은 시퀀스 전체를 반환할지 여부.
+- __return_state__: 불리언. 아웃풋에 더해 마지막 상태도
+    반환할지 여부. 상태 리스트의 반환된 성분은
+    각각 은닉 성분과 셀 상태입니다.
+- __go_backwards__: 불리언 (디폴트 값은 거짓).
+    참인 경우, 인풋 시퀀스를 거꾸로 처리하여
+    뒤집힌 시퀀스를 반환합니다.
+- __stateful__: 불리언 (디폴트 값은 거짓). 참인 경우,
+    배치 내 색인 i의 각 샘플의 마지막 상태가 다음 배치의
+    색인 i 샘플의 초기 상태로 사용됩니다.
+- __unroll__: 불리언 (디폴트 값은 거짓).
+    참인 경우, 신경망을 펼쳐서 사용하고
+    그렇지 않은 경우 심볼릭 루프가 사용됩니다.
+    신경망을 펼쳐 순환 신경망의 속도를
+    높일 수 있지만, 메모리 소모가 큰 경향이 있습니다.
+    신경망 펼치기는 짧은 시퀀스에만 적합합니다.
 
-__References__
+__참조__
 
 - [Long short-term memory](
   http://www.bioinf.jku.at/publications/older/2604.pdf)
@@ -454,130 +454,130 @@ __References__
 keras.layers.ConvLSTM2D(filters, kernel_size, strides=(1, 1), padding='valid', data_format=None, dilation_rate=(1, 1), activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, return_sequences=False, go_backwards=False, stateful=False, dropout=0.0, recurrent_dropout=0.0)
 ```
 
-Convolutional LSTM.
+컨볼루션 장단기 메모리.
 
-It is similar to an LSTM layer, but the input transformations
-and recurrent transformations are both convolutional.
+장단기 메모리 레이어와 비슷하나, 인풋 변형과
+순환 변형 둘 모두 컨볼루션이 적용됩니다.
 
-__Arguments__
+__인수__
 
-- __filters__: Integer, the dimensionality of the output space
-    (i.e. the number output of filters in the convolution).
-- __kernel_size__: An integer or tuple/list of n integers, specifying the
-    dimensions of the convolution window.
-- __strides__: An integer or tuple/list of n integers,
-    specifying the strides of the convolution.
-    Specifying any stride value != 1 is incompatible with specifying
-    any `dilation_rate` value != 1.
-- __padding__: One of `"valid"` or `"same"` (case-insensitive).
-- __data_format__: A string,
-    one of `"channels_last"` (default) or `"channels_first"`.
-    The ordering of the dimensions in the inputs.
-    `"channels_last"` corresponds to inputs with shape
-    `(batch, time, ..., channels)`
-    while `"channels_first"` corresponds to
-    inputs with shape `(batch, time, channels, ...)`.
-    It defaults to the `image_data_format` value found in your
-    Keras config file at `~/.keras/keras.json`.
-    If you never set it, then it will be `"channels_last"`.
-- __dilation_rate__: An integer or tuple/list of n integers, specifying
-    the dilation rate to use for dilated convolution.
-    Currently, specifying any `dilation_rate` value != 1 is
-    incompatible with specifying any `strides` value != 1.
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    If you don't specify anything, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __recurrent_activation__: Activation function to use
-    for the recurrent step
-    (see [activations](../activations.md)).
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix,
-    used for the linear transformation of the inputs.
-    (see [initializers](../initializers.md)).
-- __recurrent_initializer__: Initializer for the `recurrent_kernel`
-    weights matrix,
-    used for the linear transformation of the recurrent state.
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __unit_forget_bias__: Boolean.
-    If True, add 1 to the bias of the forget gate at initialization.
-    Use in combination with `bias_initializer="zeros"`.
-    This is recommended in [Jozefowicz et al. (2015)](
-    http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __recurrent_regularizer__: Regularizer function applied to
-    the `recurrent_kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __activity_regularizer__: Regularizer function applied to
-    the output of the layer (its "activation").
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __recurrent_constraint__: Constraint function applied to
-    the `recurrent_kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
-- __return_sequences__: Boolean. Whether to return the last output
-    in the output sequence, or the full sequence.
-- __go_backwards__: Boolean (default False).
-    If True, process the input sequence backwards.
-- __stateful__: Boolean (default False). If True, the last state
-    for each sample at index i in a batch will be used as initial
-    state for the sample of index i in the following batch.
-- __dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the inputs.
-- __recurrent_dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the recurrent state.
+- __filters__: 정수, 아웃풋 공간의 차원
+    (다시 말해, 컨볼루션 내 필터의 아웃풋의 개수).
+- __kernel_size__: 정수 혹은 n개 정수의 튜플/리스트.
+    컨볼루션 윈도우의 차원을 특정합니다.
+- __strides__: 정수 혹은 n개의 정수의 튜플/리스트.
+    컨볼루션의 보폭을 특정합니다.
+    보폭 값 != 1이면 `dilation_rate` 값 != 1의
+    어떤 경우와도 호환이 불가합니다.
+- __padding__: `"valid"` 혹은 `"same"`(대소문자 무시) 중 하나.
+- __data_format__: 문자열,
+    `"channels_last"` (디폴트 값) 혹은 "channels_first"` 중 하나.
+    인풋 내 차원의 정렬을 나타냅니다.
+    `"channels_last"`는 `(batch, time, ..., channels)` 형태의
+    인풋에 호응하고
+    `"channels_first"`는 `(batch, time, channels, ...)` 형태의
+    인풋에 호응합니다.
+    디폴트 값은 `~/.keras/keras.json`에 위치한
+    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
+    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
+- __dilation_rate__: 정수 혹은 n개의 정수의 튜플/리스트.
+    팽창 컨볼루션의 팽창 속도를 특정합니다.
+    현재는 `dilation_rate` 값 != 1이면
+    `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    따로 특정하지 않으면, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __recurrent_activation__: 순환 단계에 사용할
+    활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기.
+    인풋의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의
+    초기값 설정기.
+    순환 상태의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __unit_forget_bias__: 불리언.
+    참일 경우, 초기값 설정 시 망각 회로에 1을 더합니다.
+    참으로 설정 시 강제적으로 `bias_initializer="zeros"`가 됩니다.
+    이는 [Jozefowicz et al. (2015)] 에서 권장됩니다.
+    (http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
+    혹은 시퀀스 전체를 반환할지 여부.
+- __go_backwards__: 불리언 (디폴트 값은 거짓).
+    참인 경우, 인풋 시퀀스를 거꾸로 처리합니다.
+- __stateful__: 불리언 (디폴트 값은 거짓). 참인 경우,
+    배치 내 색인 i의 각 샘플의 마지막 상태가 다음 배치의
+    색인 i 샘플의 초기 상태로 사용됩니다.
+- __dropout__: 0과 1사이 부동소수점.
+    인풋의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __recurrent_dropout__: 0과 1사이 부동소수점.
+    순환 상태의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
 
-__Input shape__
+__인풋 형태__
 
-- if data_format='channels_first'
-    5D tensor with shape:
+- data_format='channels_first'의 경우
+    다음과 같은 형태의 5D 텐서:
     `(samples, time, channels, rows, cols)`
-- if data_format='channels_last'
-    5D tensor with shape:
+- data_format='channels_last'의 경우
+    다음과 같은 형태의 5D 텐서:
     `(samples, time, rows, cols, channels)`
 
-__Output shape__
+__아웃풋 형태__
 
-- if `return_sequences`
-     - if data_format='channels_first'
-        5D tensor with shape:
+- `return_sequences`의 경우
+     - data_format='channels_first'이면
+        다음과 같은 형태의 5D 텐서:
         `(samples, time, filters, output_row, output_col)`
-     - if data_format='channels_last'
-        5D tensor with shape:
+     - data_format='channels_last'이면
+        다음과 같은 형태의 5D 텐서:
         `(samples, time, output_row, output_col, filters)`
-- else
-    - if data_format='channels_first'
-        4D tensor with shape:
+- 그 외의 경우
+    - data_format='channels_first'이면
+        다음과 같은 형태의 4D 텐서:
         `(samples, filters, output_row, output_col)`
-    - if data_format='channels_last'
-        4D tensor with shape:
+    - data_format='channels_last'이면
+        다음과 같은 형태의 4D 텐서:
         `(samples, output_row, output_col, filters)`
 
-    where o_row and o_col depend on the shape of the filter and
-    the padding
+    o_row와 o_col의 값은 필터의 형태와 패딩에 따라
+    달라집니다.
 
-__Raises__
+__오류 알림__
 
-- __ValueError__: in case of invalid constructor arguments.
+- __ValueError__: 유효하지 않은 생성자 인수를 전달받는 경우 오류를 알립니다.
 
-__References__
+__참조__
 
 - [Convolutional LSTM Network: A Machine Learning Approach for
   Precipitation Nowcasting](http://arxiv.org/abs/1506.04214v1)
-  The current implementation does not include the feedback loop on the
-  cells output
+  현재 구현 방식은 셀의 아웃풋에 대한 피드백 루프를
+  포함하지 않습니다.
     
 ----
 
@@ -588,48 +588,48 @@ __References__
 keras.layers.SimpleRNNCell(units, activation='tanh', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.0, recurrent_dropout=0.0)
 ```
 
-Cell class for SimpleRNN.
+SimpleRNN의 셀 클래스.
 
-__Arguments__
+__인수__
 
-- __units__: Positive integer, dimensionality of the output space.
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    Default: hyperbolic tangent (`tanh`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix,
-    used for the linear transformation of the inputs
-    (see [initializers](../initializers.md)).
-- __recurrent_initializer__: Initializer for the `recurrent_kernel`
-    weights matrix,
-    used for the linear transformation of the recurrent state
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __recurrent_regularizer__: Regularizer function applied to
-    the `recurrent_kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __recurrent_constraint__: Constraint function applied to
-    the `recurrent_kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
-- __dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the inputs.
-- __recurrent_dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the recurrent state.
+- __units__: 양의 정수, 아웃풋 공간의 차원입니다.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기.
+    인풋의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의
+    초기값 설정기.
+    순환 상태의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __dropout__: 0과 1사이 부동소수점.
+    인풋의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __recurrent_dropout__: 0과 1사이 부동소수점.
+    순환 상태의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
     
 ----
 
@@ -640,63 +640,63 @@ __Arguments__
 keras.layers.GRUCell(units, activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.0, recurrent_dropout=0.0, implementation=1, reset_after=False)
 ```
 
-Cell class for the GRU layer.
+회로형 순환 유닛 레이어의 셀 클래스.
 
-__Arguments__
+__인수__
 
-- __units__: Positive integer, dimensionality of the output space.
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    Default: hyperbolic tangent (`tanh`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __recurrent_activation__: Activation function to use
-    for the recurrent step
-    (see [activations](../activations.md)).
-    Default: hard sigmoid (`hard_sigmoid`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix,
-    used for the linear transformation of the inputs
-    (see [initializers](../initializers.md)).
-- __recurrent_initializer__: Initializer for the `recurrent_kernel`
-    weights matrix,
-    used for the linear transformation of the recurrent state
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __recurrent_regularizer__: Regularizer function applied to
-    the `recurrent_kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __recurrent_constraint__: Constraint function applied to
-    the `recurrent_kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
-- __dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the inputs.
-- __recurrent_dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the recurrent state.
-- __implementation__: Implementation mode, either 1 or 2.
-    Mode 1 will structure its operations as a larger number of
-    smaller dot products and additions, whereas mode 2 will
-    batch them into fewer, larger operations. These modes will
-    have different performance profiles on different hardware and
-    for different applications.
-- __reset_after__: GRU convention (whether to apply reset gate after or
-    before matrix multiplication). False = "before" (default),
-    True = "after" (CuDNN compatible).
+- __units__: 양의 정수, 아웃풋 공간의 차원입니다.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __recurrent_activation__: 순환 단계에 사용할
+    활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 하드 시그모이드 (`hard_sigmoid`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기.
+    인풋의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의
+    초기값 설정기.
+    순환 상태의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __dropout__: 0과 1사이 부동소수점.
+    인풋의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __recurrent_dropout__: 0과 1사이 부동소수점.
+    순환 상태의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __implementation__: 실행 모드, 1 혹은 2.
+    모드 1은 비교적 많은 수의 소규모의 점곱과 덧셈을
+    이용해 연산을 구성하는데 반해, 모드 2는 이를
+    소수의 대규모 연산으로 묶습니다. 이 두 모드는,
+    하드웨어나 어플리케이션에 따라서 성능의 차이를
+    보입니다.
+- __reset_after__: 회로형 순환 유닛의 상례 (행렬 곱셈 전이나 후에
+    재설정 회로를 적용할지 여부). 거짓 = "before" (디폴트 값),
+    참 = "after" (CuDNN과 호환).
     
 ----
 
@@ -707,65 +707,65 @@ __Arguments__
 keras.layers.LSTMCell(units, activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.0, recurrent_dropout=0.0, implementation=1)
 ```
 
-Cell class for the LSTM layer.
+장단기 메모리의 셀 클래스.
 
-__Arguments__
+__인수__
 
-- __units__: Positive integer, dimensionality of the output space.
-- __activation__: Activation function to use
-    (see [activations](../activations.md)).
-    Default: hyperbolic tangent (`tanh`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).
-- __recurrent_activation__: Activation function to use
-    for the recurrent step
-    (see [activations](../activations.md)).
-    Default: hard sigmoid (`hard_sigmoid`).
-    If you pass `None`, no activation is applied
-    (ie. "linear" activation: `a(x) = x`).x
-- __use_bias__: Boolean, whether the layer uses a bias vector.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix,
-    used for the linear transformation of the inputs
-    (see [initializers](../initializers.md)).
-- __recurrent_initializer__: Initializer for the `recurrent_kernel`
-    weights matrix,
-    used for the linear transformation of the recurrent state
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __unit_forget_bias__: Boolean.
-    If True, add 1 to the bias of the forget gate at initialization.
-    Setting it to true will also force `bias_initializer="zeros"`.
-    This is recommended in [Jozefowicz et al. (2015)](
-    http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __recurrent_regularizer__: Regularizer function applied to
-    the `recurrent_kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __recurrent_constraint__: Constraint function applied to
-    the `recurrent_kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
-- __dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the inputs.
-- __recurrent_dropout__: Float between 0 and 1.
-    Fraction of the units to drop for
-    the linear transformation of the recurrent state.
-- __implementation__: Implementation mode, either 1 or 2.
-    Mode 1 will structure its operations as a larger number of
-    smaller dot products and additions, whereas mode 2 will
-    batch them into fewer, larger operations. These modes will
-    have different performance profiles on different hardware and
-    for different applications.
+- __units__: 양의 정수, 아웃풋 공간의 차원입니다.
+- __activation__: 사용할 활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 쌍곡 탄젠트 (`tanh`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __recurrent_activation__: 순환 단계에 사용할
+    활성화 함수
+    ([활성화](../activations.md)를 참조하십시오).
+    디폴트 값: 하드 시그모이드 (`hard_sigmoid`).
+    `None`을 전달하는 경우, 활성화가 적용되지 않습니다
+    (다시 말해, "선형적" 활성화: `a(x) = x`).
+- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기.
+    인풋의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의
+    초기값 설정기.
+    순환 상태의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __unit_forget_bias__: 불리언.
+    참일 경우, 초기값 설정 시 망각 회로에 1을 더합니다.
+    참으로 설정 시 강제적으로 `bias_initializer="zeros"`가 됩니다.
+    이는 [Jozefowicz et al. (2015)] 에서 권장됩니다.
+    (http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __dropout__: 0과 1사이 부동소수점.
+    인풋의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __recurrent_dropout__: 0과 1사이 부동소수점.
+    순환 상태의 선형적 변형의 실행에
+    드롭시킬(고려하지 않을) 유닛의 비율.
+- __implementation__: 실행 모드, 1 혹은 2.
+    모드 1은 비교적 많은 수의 소규모의 점곱과 덧셈을
+    이용해 연산을 구성하는데 반해, 모드 2는 이를
+    소수의 대규모 연산으로 묶습니다. 이 두 모드는,
+    하드웨어나 어플리케이션에 따라서 성능의 차이를
+    보입니다.
     
 ----
 
@@ -776,48 +776,48 @@ __Arguments__
 keras.layers.CuDNNGRU(units, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, return_sequences=False, return_state=False, stateful=False)
 ```
 
-Fast GRU implementation backed by [CuDNN](https://developer.nvidia.com/cudnn).
+[CuDNN](https://developer.nvidia.com/cudnn)에서 지원되는 빠른 회로형 순환 유닛 실행.
 
-Can only be run on GPU, with the TensorFlow backend.
+텐서플로우 백엔드로 GPU에서만 실행할 수 있습니다.
 
-__Arguments__
+__인수__
 
-- __units__: Positive integer, dimensionality of the output space.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix,
-    used for the linear transformation of the inputs.
-    (see [initializers](../initializers.md)).
-- __recurrent_initializer__: Initializer for the `recurrent_kernel`
-    weights matrix,
-    used for the linear transformation of the recurrent state.
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __recurrent_regularizer__: Regularizer function applied to
-    the `recurrent_kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __activity_regularizer__: Regularizer function applied to
-    the output of the layer (its "activation").
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __recurrent_constraint__: Constraint function applied to
-    the `recurrent_kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
-- __return_sequences__: Boolean. Whether to return the last output.
-    in the output sequence, or the full sequence.
-- __return_state__: Boolean. Whether to return the last state
-    in addition to the output.
-- __stateful__: Boolean (default False). If True, the last state
-    for each sample at index i in a batch will be used as initial
-    state for the sample of index i in the following batch.
+- __units__: 양의 정수, 아웃풋 공간의 차원입니다.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기.
+    인풋의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의
+    초기값 설정기.
+    순환 상태의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
+    혹은 시퀀스 전체를 반환할지 여부.
+- __return_state__: 불리언. 아웃풋에 더해 마지막 상태도
+    반환할지 여부.
+- __stateful__: 불리언 (디폴트 값은 거짓). 참인 경우,
+    배치 내 색인 i의 각 샘플의 마지막 상태가 다음 배치의
+    색인 i 샘플의 초기 상태로 사용됩니다.
     
 ----
 
@@ -828,51 +828,51 @@ __Arguments__
 keras.layers.CuDNNLSTM(units, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, return_sequences=False, return_state=False, stateful=False)
 ```
 
-Fast LSTM implementation with [CuDNN](https://developer.nvidia.com/cudnn).
+[CuDNN](https://developer.nvidia.com/cudnn)을 사용한 빠른 장단기 메모리 실행.
 
-Can only be run on GPU, with the TensorFlow backend.
+텐서플로우 백엔드로 GPU에서만 실행할 수 있습니다.
 
-__Arguments__
+__인수__
 
-- __units__: Positive integer, dimensionality of the output space.
-- __kernel_initializer__: Initializer for the `kernel` weights matrix,
-    used for the linear transformation of the inputs.
-    (see [initializers](../initializers.md)).
-- __unit_forget_bias__: Boolean.
-    If True, add 1 to the bias of the forget gate at initialization.
-    Setting it to true will also force `bias_initializer="zeros"`.
-    This is recommended in [Jozefowicz et al. (2015)](
-    http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
-- __recurrent_initializer__: Initializer for the `recurrent_kernel`
-    weights matrix,
-    used for the linear transformation of the recurrent state.
-    (see [initializers](../initializers.md)).
-- __bias_initializer__: Initializer for the bias vector
-    (see [initializers](../initializers.md)).
-- __kernel_regularizer__: Regularizer function applied to
-    the `kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __recurrent_regularizer__: Regularizer function applied to
-    the `recurrent_kernel` weights matrix
-    (see [regularizer](../regularizers.md)).
-- __bias_regularizer__: Regularizer function applied to the bias vector
-    (see [regularizer](../regularizers.md)).
-- __activity_regularizer__: Regularizer function applied to
-    the output of the layer (its "activation").
-    (see [regularizer](../regularizers.md)).
-- __kernel_constraint__: Constraint function applied to
-    the `kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __recurrent_constraint__: Constraint function applied to
-    the `recurrent_kernel` weights matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: Constraint function applied to the bias vector
-    (see [constraints](../constraints.md)).
-- __return_sequences__: Boolean. Whether to return the last output.
-    in the output sequence, or the full sequence.
-- __return_state__: Boolean. Whether to return the last state
-    in addition to the output.
-- __stateful__: Boolean (default False). If True, the last state
-    for each sample at index i in a batch will be used as initial
-    state for the sample of index i in the following batch.
+- __units__: 양의 정수, 아웃풋 공간의 차원입니다.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기.
+    인풋의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __unit_forget_bias__: 불리언.
+    참일 경우, 초기값 설정 시 망각 회로에 1을 더합니다.
+    참으로 설정 시 강제적으로 `bias_initializer="zeros"`가 됩니다.
+    이는 [Jozefowicz et al. (2015)] 에서 권장됩니다.
+    (http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf).
+- __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의
+    초기값 설정기.
+    순환 상태의 선형적 변형에 사용됩니다
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __bias_initializer__: 편향 벡터의 초기값 설정기
+    ( [초기값 설정기](../initializers.md)를 참조하십시오).
+- __kernel_regularizer__: `kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __activity_regularizer__: 레이어의 아웃풋 (레이어의 “활성화”)에
+    적용되는 정규화 함수
+    ( [정규화](../regularizers.md)를 참조하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에
+    적용되는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
+    ( [제약](../constraints.md)을 참조하십시오).
+- __return_sequences__: 불리언. 아웃풋 시퀀스의 마지막 아웃풋을 반환할지,
+    혹은 시퀀스 전체를 반환할지 여부.
+- __return_state__: 불리언. 아웃풋에 더해 마지막 상태도
+    반환할지 여부.
+- __stateful__: 불리언 (디폴트 값은 거짓). 참인 경우,
+    배치 내 색인 i의 각 샘플의 마지막 상태가 다음 배치의
+    색인 i 샘플의 초기 상태로 사용됩니다.
     
