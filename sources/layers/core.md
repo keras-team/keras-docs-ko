@@ -426,6 +426,7 @@ __인수__
          `output_shape = (None, ) + output_shape`
     함수인 경우, 전체 형태를 인풋 형태의
     함수로 특정합니다: `output_shape = f(input_shape)`
+- __mask__: Either None (indicating no masking) or a Tensor indicating the input mask for Embedding.
 - __arguments__: 함수에 전달할 선택적 키워드 인수의
     딕셔너리.
 
@@ -500,7 +501,9 @@ model = Sequential()
 model.add(Masking(mask_value=0., input_shape=(timesteps, features)))
 model.add(LSTM(32))
 ```
+__Arguments__
 
+- __mask_value__: Either None or mask value to skip
 ----
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L139)</span>
