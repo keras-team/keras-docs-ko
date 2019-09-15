@@ -1,7 +1,7 @@
 # 케라스 Sequential 모델 시작하기
 
-`Sequential` 모델은 레이어를 선형으로 연결하여 구성합니다. 
-레이어 인스턴스를 생성자에게 넘겨줌으로써 `Sequential` 모델을 구성할 수 있습니다.
+`Sequential` 모델은 층<sub>Layer</sub>을 순서대로 쌓은 것입니다. 
+각 층 인스턴스의 목록을 생성자<sub>Constructor</sub>에게 넘겨주면 `Sequential` 모델이 만들어집니다.
 
 ```python
 from keras.models import Sequential
@@ -15,7 +15,7 @@ model = Sequential([
 ])
 ```
 
-또한, `.add()` 메소드를 통해서 쉽게 레이어를 추가할 수 있습니다.
+또한, `.add()` 메소드<sub>Methods</sub>를 써서 손쉽게 새 층을 덧붙일 수 있습니다.
 
 ```python
 model = Sequential()
@@ -27,7 +27,7 @@ model.add(Activation('relu'))
 
 ## 입력 형태 지정하기
 
-만들어진 모델은 입력 형태에 대한 정보를 필요로 합니다. 때문에 `Sequential` 모델의 첫 번째 레이어는 입력 형태에 대한 정보를 받습니다. 두 번째 이후 레이어들은 자동으로 형태를 추정할 수 있기 때문에 형태 정보를 갖고 있을 필요는 없습니다. 형태 정보를 전달하기 위한 방법은 다음과 같습니다.
+각 모델은 어떤 형태<sub>Shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력 형태에 대한 정보를 받습니다. 두 번째 이후 레이어들은 자동으로 형태를 추정할 수 있기 때문에 형태 정보를 갖고 있을 필요는 없습니다. 형태 정보를 전달하기 위한 방법은 다음과 같습니다.
 
 - 정수형 또는 `None`으로 구성된 형태 튜플(shape tuple)의 `input_shape` 인자를 첫번째 레이어에 전달합니다. 여기서 `None`은 음이 아닌 어떠한 정수를 받을 수 있음을 의미합니다. 참고로 `input_shape`에는 배치 차원은(batch dimension) 포함되지 않습니다.
 - `Dense`와 같은 일부 2D 레이어의 경우, 입력 형태를 `input_dim` 인자를 통해 지정할 수 있으며 일부 의 임시적인 3D 레이어는 `input_dim`과 `input_length` 인자를 지원합니다. 
