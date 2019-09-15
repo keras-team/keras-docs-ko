@@ -382,7 +382,7 @@ flow_from_directory(directory, target_size=(256, 256), color_mode='rgb', classes
 
 __인수__
 
-- __directory__: 표적 디렉토리에의 경로.
+- __directory__: string, 표적 디렉토리에의 경로.
     반드시 한 클래스 당 하나의 하위 디렉토리가 있어야 합니다.
     각 하위 디렉토리 내에 위치한 
     어떤 PNG, JPG, BMP, PPM 혹은 TIF 이미지도
@@ -506,6 +506,10 @@ standardize(x)
 
 
 인풋의 배치에 정규화 구성을 적용합니다.
+
+`x` is changed in-place since the function is mainly used internally to standarize images and feed them to your network. If a copy of `x` would be created instead it would have a significant performance cost. If you want to apply this method without changing the input in-place you can call the method creating a copy before:
+
+standarize(np.copy(x))
 
 __인수__
 
