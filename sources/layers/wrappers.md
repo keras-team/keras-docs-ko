@@ -68,6 +68,8 @@ __인수__
     {'sum', 'mul', 'concat', 'ave', None} 중 하나.
     None의 경우, 아웃풋이 합쳐지지 않고,
     리스트로 반환됩니다.
+    
+weights: Initial weights to load in the Bidirectional model
 
 __오류처리__
 
