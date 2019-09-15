@@ -337,12 +337,16 @@ If tuple of 2 tuples of 2 ints: interpreted as ((top_crop, bottom_crop), (left_c
 data_format: A string, one of "channels_last" or "channels_first". The ordering of the dimensions in the inputs. "channels_last" corresponds to inputs with shape (batch, height, width, channels) while "channels_first" corresponds to inputs with shape (batch, channels, height, width). It defaults to the image_data_format value found in your Keras config file at ~/.keras/keras.json. If you never set it, then it will be "channels_last".
 Input shape
 
-4D tensor with shape: - If data_format is "channels_last": (batch, rows, cols, channels) - If data_format is "channels_first": (batch, channels, rows, cols)
+4D tensor with shape:
 
+If data_format is "channels_last": (batch, rows, cols, channels)
+If data_format is "channels_first": (batch, channels, rows, cols)
 Output shape
 
-4D tensor with shape: - If data_format is "channels_last": (batch, cropped_rows, cropped_cols, channels) - If data_format is "channels_first": (batch, channels, cropped_rows, cropped_cols)
+4D tensor with shape:
 
+If data_format is "channels_last": (batch, cropped_rows, cropped_cols, channels)
+If data_format is "channels_first": (batch, channels, cropped_rows, cropped_cols)
 Examples
 
 # Crop the input 2D images or feature maps
@@ -364,22 +368,20 @@ Arguments
 cropping: int, or tuple of 3 ints, or tuple of 3 tuples of 2 ints.
 If int: the same symmetric cropping is applied to depth, height, and width.
 If tuple of 3 ints: interpreted as two different symmetric cropping values for depth, height, and width: (symmetric_dim1_crop, symmetric_dim2_crop, symmetric_dim3_crop).
-If tuple of 3 tuples of 2 ints: interpreted as ((left_dim1_crop, right_dim1_crop),
-      (left_dim2_crop, right_dim2_crop),
-      (left_dim3_crop, right_dim3_crop))
+If tuple of 3 tuples of 2 ints: interpreted as ((left_dim1_crop, right_dim1_crop), (left_dim2_crop, right_dim2_crop), (left_dim3_crop, right_dim3_crop))
 data_format: A string, one of "channels_last" or "channels_first". The ordering of the dimensions in the inputs. "channels_last" corresponds to inputs with shape (batch, spatial_dim1, spatial_dim2, spatial_dim3, channels) while "channels_first" corresponds to inputs with shape (batch, channels, spatial_dim1, spatial_dim2, spatial_dim3). It defaults to the image_data_format value found in your Keras config file at ~/.keras/keras.json. If you never set it, then it will be "channels_last".
 Input shape
 
-5D tensor with shape: - If data_format is "channels_last": (batch, first_axis_to_crop, second_axis_to_crop, third_axis_to_crop,
-      depth) - If data_format is "channels_first": (batch, depth,
-      first_axis_to_crop, second_axis_to_crop, third_axis_to_crop)
+5D tensor with shape:
 
+If data_format is "channels_last": (batch, first_axis_to_crop, second_axis_to_crop, third_axis_to_crop, depth)
+If data_format is "channels_first": (batch, depth, first_axis_to_crop, second_axis_to_crop, third_axis_to_crop)
 Output shape
 
-5D tensor with shape: - If data_format is "channels_last": (batch, first_cropped_axis, second_cropped_axis, third_cropped_axis,
-      depth) - If data_format is "channels_first": (batch, depth,
-      first_cropped_axis, second_cropped_axis, third_cropped_axis)
+5D tensor with shape:
 
+If data_format is "channels_last": (batch, first_cropped_axis, second_cropped_axis, third_cropped_axis, depth)
+If data_format is "channels_first": (batch, depth, first_cropped_axis, second_cropped_axis, third_cropped_axis)
 [source]
 
 UpSampling1D
@@ -414,12 +416,16 @@ data_format: A string, one of "channels_last" or "channels_first". The ordering 
 interpolation: A string, one of nearest or bilinear. Note that CNTK does not support yet the bilinear upscaling and that with Theano, only size=(2, 2) is possible.
 Input shape
 
-4D tensor with shape: - If data_format is "channels_last": (batch, rows, cols, channels) - If data_format is "channels_first": (batch, channels, rows, cols)
+4D tensor with shape:
 
+If data_format is "channels_last": (batch, rows, cols, channels)
+If data_format is "channels_first": (batch, channels, rows, cols)
 Output shape
 
-4D tensor with shape: - If data_format is "channels_last": (batch, upsampled_rows, upsampled_cols, channels) - If data_format is "channels_first": (batch, channels, upsampled_rows, upsampled_cols)
+4D tensor with shape:
 
+If data_format is "channels_last": (batch, upsampled_rows, upsampled_cols, channels)
+If data_format is "channels_first": (batch, channels, upsampled_rows, upsampled_cols)
 [source]
 
 UpSampling3D
@@ -434,12 +440,16 @@ size: int, or tuple of 3 integers. The upsampling factors for dim1, dim2 and dim
 data_format: A string, one of "channels_last" or "channels_first". The ordering of the dimensions in the inputs. "channels_last" corresponds to inputs with shape (batch, spatial_dim1, spatial_dim2, spatial_dim3, channels) while "channels_first" corresponds to inputs with shape (batch, channels, spatial_dim1, spatial_dim2, spatial_dim3). It defaults to the image_data_format value found in your Keras config file at ~/.keras/keras.json. If you never set it, then it will be "channels_last".
 Input shape
 
-5D tensor with shape: - If data_format is "channels_last": (batch, dim1, dim2, dim3, channels) - If data_format is "channels_first": (batch, channels, dim1, dim2, dim3)
+5D tensor with shape:
 
+If data_format is "channels_last": (batch, dim1, dim2, dim3, channels)
+If data_format is "channels_first": (batch, channels, dim1, dim2, dim3)
 Output shape
 
-5D tensor with shape: - If data_format is "channels_last": (batch, upsampled_dim1, upsampled_dim2, upsampled_dim3, channels) - If data_format is "channels_first": (batch, channels, upsampled_dim1, upsampled_dim2, upsampled_dim3)
+5D tensor with shape:
 
+If data_format is "channels_last": (batch, upsampled_dim1, upsampled_dim2, upsampled_dim3, channels)
+If data_format is "channels_first": (batch, channels, upsampled_dim1, upsampled_dim2, upsampled_dim3)
 [source]
 
 ZeroPadding1D
@@ -481,12 +491,16 @@ If tuple of 2 tuples of 2 ints: interpreted as ((top_pad, bottom_pad), (left_pad
 data_format: A string, one of "channels_last" or "channels_first". The ordering of the dimensions in the inputs. "channels_last" corresponds to inputs with shape (batch, height, width, channels) while "channels_first" corresponds to inputs with shape (batch, channels, height, width). It defaults to the image_data_format value found in your Keras config file at ~/.keras/keras.json. If you never set it, then it will be "channels_last".
 Input shape
 
-4D tensor with shape: - If data_format is "channels_last": (batch, rows, cols, channels) - If data_format is "channels_first": (batch, channels, rows, cols)
+4D tensor with shape:
 
+If data_format is "channels_last": (batch, rows, cols, channels)
+If data_format is "channels_first": (batch, channels, rows, cols)
 Output shape
 
-4D tensor with shape: - If data_format is "channels_last": (batch, padded_rows, padded_cols, channels) - If data_format is "channels_first": (batch, channels, padded_rows, padded_cols)
+4D tensor with shape:
 
+If data_format is "channels_last": (batch, padded_rows, padded_cols, channels)
+If data_format is "channels_first": (batch, channels, padded_rows, padded_cols)
 [source]
 
 ZeroPadding3D
@@ -498,18 +512,17 @@ Arguments
 padding: int, or tuple of 3 ints, or tuple of 3 tuples of 2 ints.
 If int: the same symmetric padding is applied to height and width.
 If tuple of 3 ints: interpreted as two different symmetric padding values for height and width: (symmetric_dim1_pad, symmetric_dim2_pad, symmetric_dim3_pad).
-If tuple of 3 tuples of 2 ints: interpreted as ((left_dim1_pad, right_dim1_pad),
-      (left_dim2_pad, right_dim2_pad),
-      (left_dim3_pad, right_dim3_pad))
+If tuple of 3 tuples of 2 ints: interpreted as ((left_dim1_pad, right_dim1_pad), (left_dim2_pad, right_dim2_pad), (left_dim3_pad, right_dim3_pad))
 data_format: A string, one of "channels_last" or "channels_first". The ordering of the dimensions in the inputs. "channels_last" corresponds to inputs with shape (batch, spatial_dim1, spatial_dim2, spatial_dim3, channels) while "channels_first" corresponds to inputs with shape (batch, channels, spatial_dim1, spatial_dim2, spatial_dim3). It defaults to the image_data_format value found in your Keras config file at ~/.keras/keras.json. If you never set it, then it will be "channels_last".
 Input shape
 
-5D tensor with shape: - If data_format is "channels_last": (batch, first_axis_to_pad, second_axis_to_pad, third_axis_to_pad,
-      depth) - If data_format is "channels_first": (batch, depth,
-      first_axis_to_pad, second_axis_to_pad, third_axis_to_pad)
+5D tensor with shape:
 
+If data_format is "channels_last": (batch, first_axis_to_pad, second_axis_to_pad, third_axis_to_pad, depth)
+If data_format is "channels_first": (batch, depth, first_axis_to_pad, second_axis_to_pad, third_axis_to_pad)
 Output shape
 
-5D tensor with shape: - If data_format is "channels_last": (batch, first_padded_axis, second_padded_axis, third_axis_to_pad,
-      depth) - If data_format is "channels_first": (batch, depth,
-      first_padded_axis, second_padded_axis, third_axis_to_pad)
+5D tensor with shape:
+
+If data_format is "channels_last": (batch, first_padded_axis, second_padded_axis, third_axis_to_pad, depth)
+If data_format is "channels_first": (batch, depth, first_padded_axis, second_padded_axis, third_axis_to_pad)
