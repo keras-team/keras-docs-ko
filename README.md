@@ -41,6 +41,7 @@ Existing files in `sources/` should be edited in-line.
 | gradient           | 그래디언트           |
 | gradient descent   | 경사 하강법           |
 | hyperparameter     | 하이퍼파라미터        |
+| input     |         |
 | label              |              |
 | layer              | 층             |
 | learning rate      | 학습률              |
