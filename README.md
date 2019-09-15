@@ -41,6 +41,7 @@ Existing files in `sources/` should be edited in-line.
 | gradient           | 그래디언트           |
 | gradient descent   | 경사 하강법           |
 | hyperparameter     | 하이퍼파라미터        |
+| input     |         |
 | label              |              |
 | layer              | 층             |
 | learning rate      | 학습률              |
@@ -54,6 +55,7 @@ Existing files in `sources/` should be edited in-line.
 | objective function | 목적 함수              |
 | one-hot encoding   | 원-핫 인코딩           |
 | optimizer          | 옵티마이저          |
+| output    |         |
 | padding            | 패딩           |
 | parameter          | (함수의) 매개변수           |
 | parameter          | (모델의) 파라미터           |
