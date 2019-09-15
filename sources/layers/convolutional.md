@@ -15,7 +15,7 @@ keras.layers.Conv1D(filters, kernel_size, strides=1, padding='valid', data_forma
 이는 아웃풋에도 적용됩니다.
 
 이 레이어를 모델의 첫 레이어로 사용하는 경우
-`input_shape` 인수를 제공해야합니다 (정수 튜플 혹은 `None`,
+`input_shape` 인수를 제공해야 합니다 (정수 튜플 혹은 `None`,
 배치 축은 포함하지 않습니다). 예. `data_format="channels_last"`이고
 10 시간 단계에 단계 당 128 특성을 지닌 시계열 시퀀스는
 `input_shape=(10, 128)`로 표현되고, 혹은 길이가 정해지지 않은 시간 단계에 단계 당 128 특성을 지닌
