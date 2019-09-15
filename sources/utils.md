@@ -280,6 +280,10 @@ __인수__
     'LR'는 가로 플롯을 생성합니다.
 - __expand_nested__: 중첩된 모델을 클러스터로 확장할지 여부.
 - __dpi__: 도트 DPI.
+
+Returns:
+
+A Jupyter notebook Image object if Jupyter is installed. This enables in-line display of the model plots in notebooks.
     
 ----
 
