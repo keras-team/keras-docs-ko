@@ -10,7 +10,7 @@ keras.layers.Conv1D(filters, kernel_size, strides=1, padding='valid', data_forma
 이 레이어는 단일 공간적 (혹은 시간적) 차원에서
 인풋 레이어와 컨볼루션되는 컨볼루션 커넬을 생성하여
 하나의 아웃풋 텐서를 만들어냅니다.
-`use_bias`가 참인 경우, 편향 벡터<sub>bias vector</sub>를 생성해 아웃풋에 더합니다.
+`use_bias`가 참인 경우, 편향 벡터<sub>Bias vector</sub>를 생성해 아웃풋에 더합니다.
 끝으로, `activation`이 `None`이 아닌 경우
 이는 아웃풋에도 적용됩니다.
 
