@@ -55,6 +55,7 @@ Existing files in `sources/` should be edited in-line.
 | objective function | 목적 함수              |
 | one-hot encoding   | 원-핫 인코딩           |
 | optimizer          | 옵티마이저          |
+| output    |         |
 | padding            | 패딩           |
 | parameter          | (함수의) 매개변수           |
 | parameter          | (모델의) 파라미터           |
