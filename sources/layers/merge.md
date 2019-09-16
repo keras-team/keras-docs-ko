@@ -107,6 +107,21 @@ a single tensor (also of the same shape).
 
 ----
 
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/merge.py#L313)</span>
+### Minimum
+
+```python
+keras.layers.Minimum()
+```
+
+Layer that computes the minimum (element-wise) a list of inputs.
+
+It takes as input a list of tensors,
+all of the same shape, and returns
+a single tensor (also of the same shape).
+
+----
+
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/merge.py#L328)</span>
 ### Concatenate
 
@@ -287,7 +302,26 @@ __Arguments__
 __Returns__
 
 A tensor, the element-wise maximum of the inputs.
-    
+----
+
+### minimum
+
+
+```python
+keras.layers.minimum(inputs)
+```
+
+
+Functional interface to the `Maximum` layer.
+
+__Arguments__
+
+- __inputs__: A list of input tensors (at least 2).
+- __**kwargs__: Standard layer keyword arguments.
+
+__Returns__
+
+A tensor, the element-wise maximum of the inputs.    
 ----
 
 ### concatenate
