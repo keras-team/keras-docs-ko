@@ -84,6 +84,8 @@ __인수__
 - __rate__: 부동소수점, (`Dropout`에서처럼) 드롭 확률.
     이 승법적 잡음은
     `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
+- __noise_shape__ :  A 1-D `Tensor` of type `int32, representing the shape for randomly generated  
+    keep/drop flags.
 - __seed__: 난수 시드로 사용할 파이썬 정수.
 
 __인풋 형태__
