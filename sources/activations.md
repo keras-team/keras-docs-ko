@@ -163,9 +163,9 @@ Rectified Linear Unit.
 
 디폴트 인수들을 사용하면 원소별 연산된 `max(x, 0)`를 반환합니다.
 
-다른 인수를 사용하면 다음과 같습니다:
-`x >= max_value` 일 때 `f(x) = max_value`,
-`threshold <= x < max_value` 일 때 `f(x) = x`,
+다른 인수를 사용하면 다음과 같습니다:  
+`x >= max_value` 일 때 `f(x) = max_value`,  
+`threshold <= x < max_value` 일 때 `f(x) = x`,  
 그 외는 `f(x) = alpha * (x - threshold)`.
 
 __인수__
