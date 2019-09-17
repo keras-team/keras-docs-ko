@@ -22,7 +22,7 @@ from keras import backend as K
 model.add(Dense(64, activation=K.tanh))
 ```
 
-## 사용 가능한 활성화 
+## 사용 가능한 활성화 함수
 
 ### softmax
 
