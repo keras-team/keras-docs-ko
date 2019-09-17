@@ -254,6 +254,6 @@ keras.activations.linear(x)
 선형(즉, 항등) 활성화 함수.
 
 
-## "고급 Activations"에 대하여
+## "고급 활성화 함수"에 대하여
 
 간단한 TensorFlow/Theano/CNTK 활성화 함수보다 더 복잡한 함수들(eg. 학습 가능한 파라미터를 가진 활성화 함수)은 [Advanced Activation layers](layers/advanced-activations.md) 에서 확인할 수 있으며, `keras.layers.advanced_activations` 모듈에서 찾을 수 있습니다. 이는 `PReLU`와 `LeakyReLU`를 포함합니다.
