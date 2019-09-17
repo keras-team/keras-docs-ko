@@ -36,13 +36,13 @@ Softmax 활성화 함수.
 
 __인수__
 
-- __x__: 입력 텐서.
+- __x__: 입력 텐서<sub>tensor</sub>.
 - __axis__: 정수, softmax 정규화가 적용되는 축.
 
 
 __반환값__
 
-Softmax 변환으로 생성된 Tensor.
+Softmax 변환으로 생성된 텐서.
 
 __예외__
 
