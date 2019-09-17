@@ -1,7 +1,6 @@
+## Activations의 사용법
 
-## Activations의 이용
-
-Activations는 `Activation` 층이나 앞선 층에서 지원하는 모든 `activation` argument로 이용 가능합니다:
+Activations는 `Activation` 층<sub>layer</sub>이나 forward-pass에 사용되는 층들에서 지원하는 `activation` 인수<sub>argument</sub>로 사용 가능합니다:
 
 ```python
 from keras.layers import Activation, Dense
@@ -15,8 +14,7 @@ model.add(Activation('tanh'))
 ```python
 model.add(Dense(64, activation='tanh'))
 ```
-
-여러분은 Tensorflow/Theano/CNTK 의 element-wise 함수도 활성함수로 이용할 수 있습니다:
+여러분은 Tensorflow/Theano/CNTK 의 원소별 연산하는 함수도 activation으로 사용할 수 있습니다:
 
 ```python
 from keras import backend as K
@@ -36,19 +34,20 @@ keras.activations.softmax(x, axis=-1)
 
 Softmax 활성화 함수.
 
-__Arguments__
+__인수__
 
 - __x__: 입력 텐서.
-- __axis__: 정수, softmax 정규화가 적용되는 축
+- __axis__: 정수, softmax 정규화가 적용되는 축.
 
-__Returns__
 
-텐서, softmax 변환의 출력.
+__반환값__
 
-__Raises__
+softmax 변환으로 생성된 Tensor.
+
+__예외__
 
 - __ValueError__: `dim(x) == 1`일 때.
-    
+
 ----
 
 ### elu
@@ -61,21 +60,21 @@ keras.activations.elu(x, alpha=1.0)
 
 Exponential linear unit.
 
-__Arguments__
+__인수__
 
 - __x__: 입력 텐서.
-- __alpha__: 스칼라, 음수 부분의 기울기
+- __alpha__: 스칼라, 음수 부분의 기울기.
 
-__Returns__
+__반환값__
 
-The exponential linear activation: `x > 0` 라면 `x`,
-`x < 0`라면 `alpha * (exp(x)-1)`.
+Exponential linear 활성값: `x > 0` 이면 `x`,
+`x < 0`이면 `alpha * (exp(x)-1)`.
 
-__References__
+__참고 자료__
 
 - [Fast and Accurate Deep Network Learning by Exponential
    Linear Units (ELUs)](https://arxiv.org/abs/1511.07289)
-    
+
 ----
 
 ### selu
@@ -88,29 +87,28 @@ keras.activations.selu(x)
 
 Scaled Exponential Linear Unit (SELU).
 
-SELU는 다음과 같습니다: `scale * elu(x, alpha)`, 여기서 `alpha`와 `scale`은 
-미리 정해지는 상수입니다. `alpha`와 `scale`의 값은 입력의 평균값과 분산값이
-두 개의 연속되는 층 사이에서 보존되도록 결정됩니다. 조건은 가중치의 초기치
-설정이 올바르게 되고(`lecun_normal` 초기치 설정 참조) 입력의 수가 "충분히
-클 때"입니다(references에서 더 많은 정보를 확인해주십시오).
+SELU는 다음과 같습니다: `scale * elu(x, alpha)`, 여기서 `alpha`와 `scale`은
+미리 정해지는 상수입니다. 가중치가 올바르게 초기화되고(`lecun_normal`를 확인해주십시오)
+입력 수가 "충분히 많다"면(참고 자료에서 더 많은 정보를 확인해주십시오) `alpha`와 `scale`의 값은
+입력의 평균값과 분산값이 두 개의 연속되는 층 사이에서 보존되도록 결정됩니다.
 
-__Arguments__
+__인수__
 
-- __x__: 활성 함수를 적용하는 텐서, 또는 변수.
+- __x__: 활성 함수를 적용하려는 텐서 또는 변수.
 
-__Returns__
+__반환값__
 
-   scaled exponential unit activation의 값: `scale * elu(x, alpha)`.
+scaled exponential unit activation의 값: `scale * elu(x, alpha)`.
 
-__Note__
+__유의 사항__
 
 - "lecun_normal"과 함께 사용되어야 합니다.
-- "AlphaDropout"드롭아웃 변수와 함께 이용되어야 합니다.
+- "AlphaDropout"과 함께 이용되어야 합니다.
 
-__References__
+__참고 자료__
 
 - [Self-Normalizing Neural Networks](https://arxiv.org/abs/1706.02515)
-    
+
 ----
 
 ### softplus
@@ -123,14 +121,14 @@ keras.activations.softplus(x)
 
 Softplus 활성화 함수.
 
-__Arguments__
+__인수__
 
 - __x__: 입력 텐서.
 
-__Returns__
+__반환값__
 
-softplus 활성 함수: `log(exp(x) + 1)`.
-    
+softplus 활성값: `log(exp(x) + 1)`.
+
 ----
 
 ### softsign
@@ -143,14 +141,14 @@ keras.activations.softsign(x)
 
 Softsign 활성화 함수.
 
-__Arguments__
+__인수__
 
 - __x__: 입력 텐서.
 
-__Returns__
+__반환값__
 
-softsign 활성화 함수: `x / (abs(x) + 1)`.
-    
+softsign 활성값: `x / (abs(x) + 1)`.
+
 ----
 
 ### relu
@@ -163,24 +161,24 @@ keras.activations.relu(x, alpha=0.0, max_value=None, threshold=0.0)
 
 Rectified Linear Unit.
 
-디폴트 값들로는, element-wise `max(x, 0)`를 반환합니다.
+디폴트 인수들을 사용하면 원소별 연산된 `max(x, 0)`를 반환합니다.
 
-값을 준다면, 다음을 따릅니다:
+다른 인수를 사용하면 다음과 같습니다:
 `x >= max_value` 일 때 `f(x) = max_value`,
 `threshold <= x < max_value` 일 때 `f(x) = x`,
 그 외는 `f(x) = alpha * (x - threshold)`.
 
-__Arguments__
+__인수__
 
 - __x__: 입력 텐서.
-- __alpha__: 부동소수점. 음수 부분의 기울기. 디폴트는 0
-- __max_value__: 부동소수점. 포화 임계값
-- __threshold__: 부동소수점. 임계값 활성화를 위한 임계치
+- __alpha__: 부동소수. 음수 부분의 기울기. 디폴트 값은 0.
+- __max_value__: 부동소수. 포화 임계값.
+- __threshold__: 부동소수. 활성화를 위한 임계치.
 
-__Returns__
+__반환값__
 
 텐서.
-    
+
 ----
 
 ### tanh
@@ -191,7 +189,7 @@ keras.activations.tanh(x)
 ```
 
 
-Hyperbolic tangent activation function.
+Hyperbolic tangent 활성화 함수.
 
 ----
 
@@ -203,7 +201,7 @@ keras.activations.sigmoid(x)
 ```
 
 
-Sigmoid activation function.
+Sigmoid 활성화 함수.
 
 ----
 
@@ -217,19 +215,19 @@ keras.activations.hard_sigmoid(x)
 
 Hard sigmoid activation function.
 
-sigmoid 활성화 함수보다 컴퓨팅 속도가 빠릅니다.
+sigmoid 활성화 함수보다 연산 속도가 빠릅니다.
 
-__Arguments__
+__인수__
 
 - __x__: 입력 텐서.
 
-__Returns__
+__반환값__
 
-Hard sigmoid activation:
+Hard sigmoid 활성값:
 
-- `x < -2.5` 라면 `0`
-- `x > 2.5` 라면 `1`
-- `-2.5 <= x <= 2.5` 라면 `0.2 * x + 0.5`.
+- `x < -2.5` 이면 `0`
+- `x > 2.5` 이면 `1`
+- `-2.5 <= x <= 2.5` 이면 `0.2 * x + 0.5`.
 
 ----
 
@@ -253,9 +251,9 @@ keras.activations.linear(x)
 ```
 
 
-선형(i.e. identity) 활성화 함수.
+선형(즉, 항등) 활성화 함수.
 
 
 ## "고급 Activations"에 대하여
 
-간단한 TensorFlow/Theano/CNTK 활성화 함수보다 더 복잡한 함수들(eg. 상태를 유지하는 학습 가능한 활성화 함수) 는 [Advanced Activation layers](layers/advanced-activations.md) 에서 확인할 수 있으며, `keras.layers.advanced_activations` 모듈에서 찾을 수 있습니다. 이는 `PReLU`와 `LeakyReLU`를 포함합니다.
+간단한 TensorFlow/Theano/CNTK 활성화 함수보다 더 복잡한 함수들(eg. 학습 가능한 파라미터를 가진 활성화 함수)은 [Advanced Activation layers](layers/advanced-activations.md) 에서 확인할 수 있으며, `keras.layers.advanced_activations` 모듈에서 찾을 수 있습니다. 이는 `PReLU`와 `LeakyReLU`를 포함합니다.
