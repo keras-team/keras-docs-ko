@@ -15,7 +15,7 @@
 - [케라스 층들을 "동결" 시키려면 어떻게 해야 합니까?](#케라스-층들을-동결-시키려면-어떻게-해야-합니까)
 - [상태형 순환 신경망을 사용하려면 어떻게 해야 합니까?](#상태형-순환-신경망을-사용하려면-어떻게-해야-합니까)
 - [Sequential 모델에서 층을 없애려면 어떻게 해야 합니까?](#sequential-모델에서-층을-없애려면-어떻게-해야-합니까)
-- [케라스에서-선행-훈련된-모델을-사용하려면 어떻게 해야 합니까?](#케라스에서-선행-훈련된-모델을-사용하려면-어떻게-해야-합니까)
+- [케라스에서 선행 훈련된 모델을 사용하려면 어떻게 해야 합니까?](#케라스에서-선행-훈련된-모델을-사용하려면-어떻게-해야-합니까)
 - [케라스에서 HDF5 인풋을 사용하려면 어떻게 해야 합니까?](#케라스에서-hdf5-인풋을-사용하려면-어떻게-해야-합니까)
 - [케라스 구성 파일은 어디에 저장됩니까?](#케라스-구성-파일은-어디에-저장됩니까)
 - [개발 중 케라스를 사용해 재현 가능한 결과를 얻으려면 어떻게 해야 합니까?](#개발-중-케라스를-사용해-재현-가능한-결과를-얻으려면-어떻게-해야-합니까)
@@ -25,7 +25,7 @@
 
 ### 케라스는 어떻게 인용해야 합니까?
 
-Please cite Keras in your publications if it helps your research. Here is an example BibTeX entry:
+연구 중 케라스가 도움이 되었다면 출판 시 케라스를 인용해 주십시오. 다음은 BibTeX 등재 예시입니다:
 
 ```
 @misc{chollet2015keras,
@@ -40,20 +40,20 @@ Please cite Keras in your publications if it helps your research. Here is an exa
 
 ### 케라스를 GPU에서 실행하려면 어떻게 해야 합니까?
 
-If you are running on the **TensorFlow** or **CNTK** backends, your code will automatically run on GPU if any available GPU is detected.
+**텐서플로** 혹은 **CNTK** 백엔드를 사용하는 경우, 사용 가능한 GPU가 감지되면 코드가 자동으로 GPU에서 작동됩니다.
 
-If you are running on the **Theano** backend, you can use one of the following methods:
+**Theano** 백엔드를 사용하는 경우, 다음 방법 중 하나를 사용하시면 됩니다:
 
-**Method 1**: use Theano flags.
+**방법 1**: Theano 플래그를 사용합니다.
 ```bash
 THEANO_FLAGS=device=gpu,floatX=float32 python my_keras_script.py
 ```
 
-The name 'gpu' might have to be changed depending on your device's identifier (e.g. `gpu0`, `gpu1`, etc).
+본인 장치의 식별자에 따라 'gpu' 표기를 바꾸어야 할 수도 있습니다(예. `gpu0`, `gpu1`, 등).
 
-**Method 2**: set up your `.theanorc`: [Instructions](http://deeplearning.net/software/theano/library/config.html)
+**방법 2**: `.theanorc`를 설정합니다: [설명](http://deeplearning.net/software/theano/library/config.html)
 
-**Method 3**: manually set `theano.config.device`, `theano.config.floatX` at the beginning of your code:
+**방법 3**: 코드 첫 부분에 수동으로`theano.config.device`, `theano.config.floatX`를 설정합니다:
 ```python
 import theano
 theano.config.device = 'gpu'
@@ -64,52 +64,52 @@ theano.config.floatX = 'float32'
 
 ### 케라스를 여러 대의 GPU에서 실행하려면 어떻게 해야 합니까??
 
-We recommend doing so using the **TensorFlow** backend. There are two ways to run a single model on multiple GPUs: **data parallelism** and **device parallelism**.
+**텐서플로** 백엔드를 사용하실 것을 권장합니다. 단일 모델을 여러 대의 GPU에 실행하려면 다음의 두 가지 방법이 있습니다: **데이터 병렬처리**와 **장치 병렬처리**.
 
-In most cases, what you need is most likely data parallelism.
+대부분의 경우에는 데이터 병렬처리를 사용하면 됩니다.
 
-#### Data parallelism
+#### 데이터 병렬처리
 
-Data parallelism consists in replicating the target model once on each device, and using each replica to process a different fraction of the input data.
-Keras has a built-in utility, `keras.utils.multi_gpu_model`, which can produce a data-parallel version of any model, and achieves quasi-linear speedup on up to 8 GPUs.
+데이터 병렬처리는 표적 모델을 장치마다 복제하고, 각각의 복제본으로 인풋 데이터의 각기 다른 부분을 처리하는 방식으로 구성됩니다.
+케라스의 내장 유틸리티 `keras.utils.multi_gpu_model`은 어떤 모델도 병렬 데이터 버전으로 만들 수 있으며, 8대의 GPU까지는 거의 선형적으로 속도를 증가시킬 수 있습니다.
 
-For more information, see the documentation for [multi_gpu_model](/utils/#multi_gpu_model). Here is a quick example:
+더 자세한 정보는 [multi_gpu_model](/utils/#multi_gpu_model)문서를 참고하십시오. 다음은 간단한 예시입니다:
 
 ```python
 from keras.utils import multi_gpu_model
 
-# Replicates `model` on 8 GPUs.
-# This assumes that your machine has 8 available GPUs.
+# `model`을 8대의 GPU에 복제합니다.
+# 이 예시에서는 장치에 8대의 GPU가 있는 것으로 가정합니다.
 parallel_model = multi_gpu_model(model, gpus=8)
 parallel_model.compile(loss='categorical_crossentropy',
                        optimizer='rmsprop')
 
-# This `fit` call will be distributed on 8 GPUs.
-# Since the batch size is 256, each GPU will process 32 samples.
+# `fit` 호출이 8대 GPU에 분산됩니다.
+# 배치 크기가 256이므로 각 GPU는 32개 샘플을 처리합니다.
 parallel_model.fit(x, y, epochs=20, batch_size=256)
 ```
 
-#### Device parallelism
+#### 장치 병렬처리
 
-Device parallelism consists in running different parts of a same model on different devices. It works best for models that have a parallel architecture, e.g. a model with two branches.
+장치 병렬처리는 같은 모델의 다른 부분을 각기 다른 장치에서 실행하는 방식으로 구성됩니다. 두 브랜치로 구성된 모델과 같은 병렬 구조의 모델에 가장 적합합니다.
 
-This can be achieved by using TensorFlow device scopes. Here is a quick example:
+텐서플로 디바이스 스코프를 사용해 이를 구현할 수 있습니다. 다음은 간단한 예시입니다:
 
 ```python
-# Model where a shared LSTM is used to encode two different sequences in parallel
+# 공유된 LSTM이 두 가지 다른 시퀀스를 병렬로 인코딩하는 모델
 input_a = keras.Input(shape=(140, 256))
 input_b = keras.Input(shape=(140, 256))
 
 shared_lstm = keras.layers.LSTM(64)
 
-# Process the first sequence on one GPU
+# 첫 번째 시퀀스를 1대의 GPU에서 처리합니다
 with tf.device_scope('/gpu:0'):
     encoded_a = shared_lstm(tweet_a)
-# Process the next sequence on another GPU
+# 다음 시퀀스를 다른 GPU에서 처리합니다
 with tf.device_scope('/gpu:1'):
     encoded_b = shared_lstm(tweet_b)
 
-# Concatenate results on CPU
+# CPU에 결과들을 합칩니다
 with tf.device_scope('/cpu:0'):
     merged_vector = keras.layers.concatenate([encoded_a, encoded_b],
                                              axis=-1)
@@ -119,16 +119,16 @@ with tf.device_scope('/cpu:0'):
 
 ### "샘플", "배치", "에폭"은 무슨 뜻입니까?
 
-Below are some common definitions that are necessary to know and understand to correctly utilize Keras:
+다음은 케라스를 올바르게 이용하기 위해 알아두어야 할 몇 가지 일반적인 정의입니다:
 
-- **Sample**: one element of a dataset.
-  - *Example:* one image is a **sample** in a convolutional network
-  - *Example:* one audio file is a **sample** for a speech recognition model
-- **Batch**: a set of *N* samples. The samples in a **batch** are processed independently, in parallel. If training, a batch results in only one update to the model.
-  - A **batch** generally approximates the distribution of the input data better than a single input. The larger the batch, the better the approximation; however, it is also true that the batch will take longer to process and will still result in only one update. For inference (evaluate/predict), it is recommended to pick a batch size that is as large as you can afford without going out of memory (since larger batches will usually result in faster evaluation/prediction).
-- **Epoch**: an arbitrary cutoff, generally defined as "one pass over the entire dataset", used to separate training into distinct phases, which is useful for logging and periodic evaluation.
-  - When using `validation_data` or `validation_split` with the `fit` method of Keras models, evaluation will be run at the end of every **epoch**.
-  - Within Keras, there is the ability to add [callbacks](https://keras.io/callbacks/) specifically designed to be run at the end of an **epoch**. Examples of these are learning rate changes and model checkpointing (saving).
+- **샘플**: 데이터셋의 요소 하나
+  - *예시:* 하나의 이미지는 합성곱 망의 **샘플**입니다
+  - *예시:* 오디오 파일 하나는 음성 인식 모델의 **샘플**입니다.
+- **배치**: *N* 샘플들의 모음. 하나의 **배치**에서의 샘플들은 독립적으로 동시에 처리됩니다. 훈련에서 하나의 배치는 모델을 1회만 업데이트합니다.
+  - **배치**는 일반적으로 단일 인풋보다 인풋 데이터에서의 분포를 더욱 정확히 추정합니다. 배치가 클수록 추정치도 개선됩니다; 하지만 단 1회의 업데이트를 위해 배치 처리에 더 오랜 시간을 소모하는 것도 사실입니다. 유추(평가/예측)를 위해서는 메모리를 초과하지 않는 선에서 배치 크기를 가능한 한 크게 하는 것을 권장합니다(배치가 크면 보통 평가/예측도 빨라지기 때문입니다).
+- **에폭**: 임의의 차단 장치로, 보통 "전체 데이터셋을 1회 통과하는 것"으로 정의됩니다. 훈련을 국면 단위로 구분하는 데에 사용되며, 이는 로그 기록이나 주기적 평가에 유용합니다.
+  - 케라스 모델의 `fit` 메소드와 함께 `validation_data`, 혹은 `validation_split`을 사용하는 경우, 각 **에폭**이 끝날 때마다 평가가 실행됩니다.
+  - 케라스에서는 **에폭**의 끝에서 실행되도록 특별히 고안된 [콜백](https://keras.io/callbacks/)을 추가할 수 있습니다. 학습률 변화와 모델 체크포인트(저장)가 그 사례입니다.
 
 ---
 
@@ -464,7 +464,7 @@ print(len(model.layers))  # "1"
 
 ---
 
-### 케라스에서-선행-훈련된-모델을-사용하려면 어떻게 해야 합니까?
+### 케라스에서 선행 훈련된 모델을 사용하려면 어떻게 해야 합니까?
 
 Code and pre-trained weights are available for the following image classification models:
 
