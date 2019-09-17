@@ -1,6 +1,6 @@
-## Activations의 사용법
+## 활성화 함수의 사용법
 
-Activations는 `Activation` 층<sub>layer</sub>이나 forward-pass에 사용되는 층들에서 지원하는 `activation` 인수<sub>argument</sub>로 사용 가능합니다:
+활성화 함수는 `Activation` 층<sub>layer</sub>이나 forward-pass에 사용되는 층들에서 지원하는 `activation` 인수<sub>argument</sub>로 사용 가능합니다:
 
 ```python
 from keras.layers import Activation, Dense
@@ -14,7 +14,7 @@ model.add(Activation('tanh'))
 ```python
 model.add(Dense(64, activation='tanh'))
 ```
-여러분은 Tensorflow/Theano/CNTK 의 원소별 연산하는 함수도 activation으로 사용할 수 있습니다:
+여러분은 Tensorflow/Theano/CNTK 의 원소별 연산하는 함수도 활성화 함수로 사용할 수 있습니다:
 
 ```python
 from keras import backend as K
@@ -22,7 +22,7 @@ from keras import backend as K
 model.add(Dense(64, activation=K.tanh))
 ```
 
-## 사용 가능한 activations
+## 사용 가능한 활성화 
 
 ### softmax
 
@@ -42,7 +42,7 @@ __인수__
 
 __반환값__
 
-softmax 변환으로 생성된 Tensor.
+Softmax 변환으로 생성된 Tensor.
 
 __예외__
 
@@ -67,7 +67,7 @@ __인수__
 
 __반환값__
 
-Exponential linear 활성값: `x > 0` 이면 `x`,
+Exponential linear unit의 활성값: `x > 0` 이면 `x`,
 `x < 0`이면 `alpha * (exp(x)-1)`.
 
 __참고 자료__
@@ -98,7 +98,7 @@ __인수__
 
 __반환값__
 
-scaled exponential unit activation의 값: `scale * elu(x, alpha)`.
+Scaled exponential linear unit의 활성값: `scale * elu(x, alpha)`.
 
 __유의 사항__
 
@@ -127,7 +127,7 @@ __인수__
 
 __반환값__
 
-softplus 활성값: `log(exp(x) + 1)`.
+Softplus의 활성값: `log(exp(x) + 1)`.
 
 ----
 
@@ -147,7 +147,7 @@ __인수__
 
 __반환값__
 
-softsign 활성값: `x / (abs(x) + 1)`.
+Softsign의 활성값: `x / (abs(x) + 1)`.
 
 ----
 
@@ -223,7 +223,7 @@ __인수__
 
 __반환값__
 
-Hard sigmoid 활성값:
+Hard sigmoid의 활성값:
 
 - `x < -2.5` 이면 `0`
 - `x > 2.5` 이면 `1`
