@@ -67,7 +67,8 @@ __인수__
 
 __반환값__
 
-Exponential linear unit의 활성값: `x > 0` 이면 `x`,
+Exponential linear unit의 활성값:  
+`x > 0` 이면 `x`,  
 `x < 0`이면 `alpha * (exp(x)-1)`.
 
 __참고 자료__
