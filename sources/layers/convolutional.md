@@ -5,36 +5,36 @@
 keras.layers.Conv1D(filters, kernel_size, strides=1, padding='valid', data_format='channels_last', dilation_rate=1, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-1D 컨볼루션 레이어(예. 시간적 컨볼루션).
+1D 합성곱 층<sub>Convolution layer</sub> 레이어(예. 시계열 합성곱).
 
-이 레이어는 단일 공간적 (혹은 시간적) 차원에서
-인풋 레이어와 컨볼루션되는 컨볼루션 커넬을 생성하여
-하나의 아웃풋 텐서를 만들어냅니다.
-`use_bias`가 참인 경우, 편향 벡터<sub>Bias vector</sub>를 생성해 아웃풋에 더합니다.
+이 층은 단일 공간적 (혹은 시간적) 차원에서
+입력 텐서와 합성곱되는 합성곱 커널을 생성하여
+출력 텐서를 만들어냅니다.
+`use_bias`가 참인 경우, 편향 벡터<sub>Bias vector</sub>를 생성해 출력 텐서에 더합니다.
 끝으로, `activation`이 `None`이 아닌 경우
-이는 아웃풋에도 적용됩니다.
+이는 출력 텐서에도 적용됩니다.
 
-이 레이어를 모델의 첫 레이어로 사용하는 경우
-`input_shape` 인수를 제공해야 합니다 (정수 튜플 혹은 `None`,
-배치 축은 포함하지 않습니다). 예. `data_format="channels_last"`이고
-10 시간 단계에 단계 당 128 특성을 지닌 시계열 시퀀스는
-`input_shape=(10, 128)`로 표현되고, 혹은 길이가 정해지지 않은 시간 단계에 단계 당 128 특성을 지닌
+이 층을 모델의 첫번째 층으로 사용하는 경우
+`input_shape` 매개변수를 제공해야 합니다 (정수 튜플 혹은 `None`,
+배치 축은 포함하지 않습니다). 예. `data_format="channels_last"`이고 
+특성 128가지인 시간 단계 10개로 이루어진 시퀀스는 
+`input_shape=(10, 128)`로 표현되고, 혹은 특성 128가지인 시간 단계로 이루어진 가변 길이의 
 시퀀스는 `(None, 128)`로 표현됩니다.
 
 __인수__
 
-- __filters__: 정수, 아웃풋 공간의 차원
-    (다시 말해, 컨볼루션의 아웃풋 필터의 수).
+- __filters__: 정수, 출력 공간의 차원
+    (다시 말해, 합성곱의 출력 필터의 수).
 - __kernel_size__: 정수 혹은 단일 정수의 튜플/리스트.
-    1D 컨볼루션 윈도우의 길이를 특정합니다.
+    1D 합성곱 윈도우의 길이를 결정합니다.
 - __strides__: 정수 혹은 단일 정수의 튜플/리스트.
-    컨볼루션의 보폭 길이를 특정합니다.
+    합성곱의 보폭 길이를 특정합니다.
     `stride` 값 != 1이면, `dilation_rate` 값 != 1의 어떤 경우와도
     호환이 불가능합니다.
 - __padding__: `"valid"`, `"causal"` 혹은 `"same"` (대소문자 무시).
     `"valid"`는 "패딩 없음"을 의미합니다.
-    `"same"`은 아웃풋이 원래 인풋과 동일한
-    길이를 갖도록 인풋을 패딩합니다.
+    `"same"`은 출력 텐서가 원래 입력 텐서와 동일한
+    길이를 갖도록 입력 텐서를 패딩합니다.
     `"causal"`은 인과적 (팽창된) 컨볼루션을 실행합니다.
     예. `output[t]`가 `input[t + 1:]`에 종속되지 않습니다.
     제로 패딩을 사용해 아웃풋이
@@ -47,12 +47,12 @@ __인수__
     `"channels_last"` (디폴트 값) 혹은 "channels_first"` 중 하나.
     인풋 내 차원의 순서를 나타냅니다.
     `"channels_last"`는 `(batch, steps, channels)` 형태의
-    인풋에 호응하고
-    (시간적 데이터의 케라스 디폴트 형식)
+    입력에 호응하고
+    (시계열 데이터의 케라스 디폴트 형식)
     `"channels_first"`는 `(batch, channels, steps)` 형태의
-    인풋에 호응합니다.
+    입력에 호응합니다.
 - __dilation_rate__: 정수 혹은 단일 정수의 튜플/리스트.
-    팽창 컨볼루션의 팽창 속도를 특정합니다.
+    팽창 합성곱의 팽창 속도를 특정합니다.
     현재는 `dilation_rate` 값 != 1이면
     `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
 - __activation__: 사용할 활성화 함수
