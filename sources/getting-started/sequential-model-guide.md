@@ -139,7 +139,7 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 
 - CIFAR10 소형 이미지 분류: 실시간 데이터 증강을 포함하는 합성곱 신경망<sub>Convolutional Neural Network</sub>
 - IMDB 영화 후기 감정 분류: 순서를 가진 문자열을 다루는 LSTM<sub>Long Short-Term Memory</sub> 모형
-- 로이터 뉴스<sub>Reuters Newswires</sub> 주제 분류: 다층 신경망<sub>Multilayer perceptron<sub> 모형
+- 로이터 뉴스<sub>Reuters Newswires</sub> 주제 분류: 다층 신경망<sub>Multilayer Perceptron<sub> 모형
 - MNIST 손으로 쓴 숫자 이미지 분류: 다층 신경망과 합성곱 신경망
 - LSTM을 이용한 문자열 수준의 텍스트 생성기
 
@@ -312,7 +312,7 @@ score = model.evaluate(x_test, y_test, batch_size=16)
 
 고차원의 시계열 요인들을 학습할 수 있도록 LSTM 층을 세 겹으로 쌓은 모델을 만듭니다. 
 
-처음의 두 LSTM 층은 순서의 모든 지점에서 결과값을 출력합니다 `return_sequences=True`. 즉, 입력값의 순서 갯수와 출력값의 순서 갯수가 같습니다. 하지만 마지막 LSTM 층은 단 한 번 최종 시점에서만 결과를 출력합니다. 따라서 시계열 차원도 없어집니다. (이 과정은 길이를 가진 입력 시퀀스를 하나의 벡터로 변환하는 것과도 같습니다.)
+처음의 두 LSTM 층은 순서의 모든 지점에서 결과값을 출력합니다 `return_sequences=True`. 즉, 입력값의 순서 개수와 출력값의 순서 개수가 같습니다. 하지만 마지막 LSTM 층은 단 한 번 최종 시점에서만 결과를 출력합니다. 따라서 시계열 차원도 없어집니다. (이 과정은 길이를 가진 여러 벡터의 입력 시퀀스를 하나의 벡터로 변환하는 것과도 같습니다.)
 
 <img src="https://keras.io/img/regular_stacked_lstm.png" alt="stacked LSTM" style="width: 300px;"/>
 
@@ -351,7 +351,7 @@ model.fit(x_train, y_train,
 ```
 
 
-### 층을 쌓으면서, 저장한 상태를 다음 입력으로 넘기는<sub>Stateful</sub> LSTM 모델
+### 층을 쌓으면서, 저장한 상태를 다음 순서로 넘기는<sub>Stateful</sub> LSTM 모델
 
 상태 저장 순환 신경망<sub>Stateful Recurrent Model</sub>은 입력된 배치를 처리하여 얻은 내부 상태(메모리)를 다음 배치의 초기 상태로 재사용합니다. 이를 통해서 계산 복잡도가 지나치게 높지 않게끔 유지하면서 보다 긴 시퀀스를 처리할 수 있도록 합니다. (예를 들어, 하나의 매우 긴 시계열을 보다 짧은 시계열 길이로 쪼갠 뒤 연속된 배치로 바꾸어 처리하는 경우를 생각해볼 수 있습니다. 이 경우 상태 저장 옵션은 이전 배치의 결과를 다음 배치로 연결해주기 때문에 서로 다른 배치가 마치 하나의 시계열로 이어진 것과 같은 효과를 냅니다.) 
 
