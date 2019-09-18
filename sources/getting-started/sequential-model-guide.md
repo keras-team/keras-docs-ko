@@ -369,7 +369,7 @@ batch_size = 32
 
 # 입력 데이터의 크기: (batch_size, timesteps, data_dim)
 # 상태 저장을 활용하기 위해서는 모든 배치의 크기가 같아야 합니다.
-# 이 경우 input_shape 인수 대신, 배치 크기까지 함께 명시한 batch_input_shape 인수를 사용합니다.
+# 이 경우 input_shape 인수 대신 batch_input_shape 인수를 사용하여 배치 크기를 함께 명시합니다.
 # k번째 배치의 i번째 표본은 k-1번째 배치의 i번째 표본으로부터 상태를 이어받습니다.
 
 model = Sequential()
