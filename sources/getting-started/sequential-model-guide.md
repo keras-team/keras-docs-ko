@@ -162,9 +162,9 @@ x_test = np.random.random((100, 20))
 y_test = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_classes=10)
 
 model = Sequential()
-# Dense(64) is a fully-connected layer with 64 hidden units.
-# in the first layer, you must specify the expected input data shape:
-# here, 20-dimensional vectors.
+# 아래의 Dense(64)는 64개의 숨은 단위를 갖는 완전연결 신경망입니다.
+# 첫번째 층에서 반드시 입력될 데이터의 크기를 명시해야 합니다.
+# 본 예시에서는 20차원 벡터가 입력됩니다.
 model.add(Dense(64, activation='relu', input_dim=20))
 model.add(Dropout(0.5))
 model.add(Dense(64, activation='relu'))
@@ -231,8 +231,8 @@ x_test = np.random.random((20, 100, 100, 3))
 y_test = keras.utils.to_categorical(np.random.randint(10, size=(20, 1)), num_classes=10)
 
 model = Sequential()
-# input: 100x100 images with 3 channels -> (100, 100, 3) tensors.
-# this applies 32 convolution filters of size 3x3 each.
+# 입력 데이터: R, G, B 3개의 색상 채널을 가진 100x100 사이즈 이미지 -> (100, 100, 3)크기 텐서
+# 이 입력 데이터에 3x3 크기를 가진 서로 다른 합성곱 필터 32개를 적용합니다.
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
 model.add(Conv2D(32, (3, 3), activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
