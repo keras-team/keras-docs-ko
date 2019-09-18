@@ -27,11 +27,11 @@ model.add(Activation('relu'))           # Activation 층을 추가합니다.
 
 ----
 
-## 입력 크기 지정하기
+## 입력 형태 지정하기
 
-각 모델은 어떤 크기<sub>Shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 크기 정보를 받습니다 (이후의 레이어들은 첫 번째 층의 입력 정보를 바탕으로 자동으로 크기를 추정합니다). 크기 정보는 다음과 같은 방법으로 입력할 수 있습니다:
+각 모델은 어떤 형태<sub>Shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 형태 정보를 받습니다 (이후의 레이어들은 첫 번째 층의 입력 정보를 바탕으로 자동으로 형태를 추정합니다). 형태 정보는 다음과 같은 방법으로 입력할 수 있습니다:
 
-- 첫 번째 층의 `input_shape` 인수<sub>Argument</sub>에 크기를 입력하는 방법입니다. `input_shape` 인수는 입력 데이터의 각 차원별 크기를 나타내는 정수값들이 나열된 튜플<sub>Tuple</sub>이며, 정수 대신 `None`을 쓸 경우 아직 정해지지 않은 양의 정수를 나타냅니다. 배치<sub>Batch</sub> 크기는 `input_shape` 인수에 포함되지 않습니다.
+- 첫 번째 층의 `input_shape` 인수<sub>Argument</sub>에 형태를 입력하는 방법입니다. `input_shape` 인수는 입력 데이터의 각 차원별 크기를 나타내는 정수값들이 나열된 튜플<sub>Tuple</sub>이며, 정수 대신 `None`을 쓸 경우 아직 정해지지 않은 양의 정수를 나타냅니다. 배치<sub>Batch</sub> 크기는 `input_shape` 인수에 포함되지 않습니다.
 - `input_shape` 인수는 입력 값의 크기와 시계열 입력의 길이를 포괄합니다. 따라서 `Dense`와 같이 2차원 처리를 하는 층의 경우 `input_shape` 대신에 `input_dim` 인수를 통해서도 입력 크기를 지정할 수 있으며, 시계열과 같이 3차원 처리를 하는 층은 `input_dim`과 `input_length`의 두 인수를 사용해서 입력 차원의 크기와 시계열 길이를 각각 지정할 수 있습니다.
 - 배치 크기를 고정해야 하는 경우 `batch_size` 인수를 사용합니다. (순환 신경망<sub>Recurrent Neural Network</sub>과 같이 현 시점의 결과를 저장하여 다음 시점으로 넘기는 처리를 하는 경우 배치 크기 고정이 필요합니다.) 예를 들어, `batch_size=32`와 `input_shape=(6, 8)`을 층에 입력하면 이후의 모든 입력을 `(32, 6, 8)`의 형태로 기대하여 처리합니다.
 
@@ -91,8 +91,8 @@ model.compile(optimizer='rmsprop',
 # 하나의 데이터를 입력받아 두 개의 클래스로 분류하는 이항 분류 모델의 경우:
 
 model = Sequential()
-model.add(Dense(32, activation='relu', input_dim=100))      # 입력 100 크기, 출력 32크기에 'relu' 함수를 적용하는 인공신경망 층입니다.
-model.add(Dense(1, activation='sigmoid'))                   # 1 크기 출력에 'sigmoid' 함수를 적용하는 인공신경망 층입니다.
+model.add(Dense(32, activation='relu', input_dim=100))      # 입력 100차원, 출력 32차원에 'relu' 함수를 적용하는 인공신경망 층입니다.
+model.add(Dense(1, activation='sigmoid'))                   # 1차원 출력에 'sigmoid' 함수를 적용하는 인공신경망 층입니다.
 model.compile(optimizer='rmsprop',                          # 최적화 함수 = 'rmsprop'
               loss='binary_crossentropy',                   # 손실 함수 = 'binary_crossentropy'
               metrics=['accuracy'])                         # 평가 지표 = 'accuracy'
@@ -111,7 +111,7 @@ model.fit(data, labels, epochs=10, batch_size=32)           # 생성된 데이�
 
 model = Sequential()
 model.add(Dense(32, activation='relu', input_dim=100))      
-model.add(Dense(10, activation='softmax'))                  # 10 크기 출력에 'sigmoid' 함수를 적용하는 인공신경망 층입니다.
+model.add(Dense(10, activation='softmax'))                  # 10 출력에 'sigmoid' 함수를 적용하는 인공신경망 층입니다.
 model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',              # 손실 함수 = 'categorical_crossentropy'
               metrics=['accuracy'])
@@ -163,7 +163,7 @@ y_test = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_cl
 
 model = Sequential()
 # 아래의 Dense(64)는 64개의 숨은 단위를 갖는 완전연결 신경망입니다.
-# 첫번째 층에서 반드시 입력될 데이터의 크기를 명시해야 합니다.
+# 첫번째 층에서 반드시 입력될 데이터의 형태를 명시해야 합니다.
 # 본 예시에서는 20차원 벡터가 입력됩니다.
 model.add(Dense(64, activation='relu', input_dim=20))
 model.add(Dropout(0.5))
@@ -231,7 +231,7 @@ x_test = np.random.random((20, 100, 100, 3))
 y_test = keras.utils.to_categorical(np.random.randint(10, size=(20, 1)), num_classes=10)
 
 model = Sequential()
-# 입력 데이터: R, G, B 3개의 색상 채널을 가진 100x100 사이즈 이미지 -> (100, 100, 3)크기 텐서
+# 입력 데이터: R, G, B 3개의 색상 채널을 가진 100x100 사이즈 이미지 -> (100, 100, 3)의 텐서
 # 이 입력 데이터에 3x3 크기를 가진 서로 다른 합성곱 필터 32개를 적용합니다.
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(100, 100, 3)))
 model.add(Conv2D(32, (3, 3), activation='relu'))
@@ -325,7 +325,7 @@ data_dim = 16                                       # 입력 데이터는 16 차
 timesteps = 8                                       # 8개의 순서 시점을 갖습니다.
 num_classes = 10                                    # 목표 클래스는 10개 입니다.
 
-# 입력 데이터의 크기: (batch_size, timesteps, data_dim)
+# 입력 데이터의 형태: (batch_size, timesteps, data_dim)
 model = Sequential()
 model.add(LSTM(32, return_sequences=True,
                input_shape=(timesteps, data_dim)))  # 32 차원의 순서형 벡터를 반환합니다.
@@ -367,7 +367,7 @@ timesteps = 8
 num_classes = 10
 batch_size = 32
 
-# 입력 데이터의 크기: (batch_size, timesteps, data_dim)
+# 입력 데이터의 형태: (batch_size, timesteps, data_dim)
 # 상태 저장을 활용하기 위해서는 모든 배치의 크기가 같아야 합니다.
 # 이 경우 input_shape 인수 대신 batch_input_shape 인수를 사용하여 배치 크기를 함께 명시합니다.
 # k번째 배치의 i번째 표본은 k-1번째 배치의 i번째 표본으로부터 상태를 이어받습니다.
