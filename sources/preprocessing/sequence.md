@@ -5,12 +5,9 @@
 keras.preprocessing.sequence.TimeseriesGenerator(data, targets, length, sampling_rate=1, stride=1, start_index=0, end_index=None, shuffle=False, reverse=False, batch_size=128)
 ```
 
-시간적 데이터 배치를 생성하는 유틸리티 클래스.
+시계열 데이터의 배치<sub>Batch</sub>를 생성하는 유틸리티 클래스.
 
-이 클래스는 일정 간격으로 수집된 
-데이터포인트의 시퀀스를 보폭, 시계의 길이 등 
-시계열 매개변수를 전달받아 학습/검증 목적의
-배치를 생성합니다.
+이 클래스는 일정한 간격으로 수집된 연속된 데이터포인트에 보폭<sub>Stride</sub>이나 길이<sub>Length</sub>와 같이 시간을 나타내는 매개변수<sub>Parameter</sub>를 적용하여 학습/검증에 사용할 배치를 만들어냅니다.
 
 __인수__
 
