@@ -8,11 +8,11 @@
 from keras.models import Sequential             # Sequential 생성자를 불러옵니다.
 from keras.layers import Dense, Activation      # Dense와 Activation 두 층 인스턴스를 불러옵니다.
 
-# Sequential 생성자에 각 층을 순서대로 리스트[] 형식으로 입력하여 model이라는 이름의 모델을 만듭니다. 
+# Sequential 생성자에 층을 순서대로 담은 리스트를 전달하여 모델을 만듭니다. 
 model = Sequential([
     Dense(32, input_shape=(784,)),              # 784 차원의 입력을 받아 32 차원으로 출력하는 인공신경망 층입니다.
     Activation('relu'),                         # 'relu' 활성화 함수를 적용하는 층입니다.
-    Dense(10),                                  # 입력을 10 차원로 출력하는 인공신경망 층입니다.
+    Dense(10),                                  # 입력을 10차원으로 출력하는 인공신경망 층입니다.
     Activation('softmax'),                      # 'softmax' 활성화 함수를 적용하는 층입니다.
 ])
 ```
@@ -29,11 +29,11 @@ model.add(Activation('relu'))           # Activation 층을 추가합니다.
 
 ## 입력 형태 지정하기
 
-각 모델은 어떤 형태<sub>Shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 형태 정보를 받습니다 (이후의 레이어들은 첫 번째 층의 입력 정보를 바탕으로 자동으로 형태를 추정합니다). 형태 정보는 다음과 같은 방법으로 입력할 수 있습니다:
+각 모델은 어떤 형태<sub>Shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 형태 정보를 받습니다 (이후의 층들은 자동으로 이전 층의 출력 정보를 입력 정보로서 채택하여 형태를 추정합니다). 형태 정보는 다음과 같은 방법으로 입력할 수 있습니다:
 
 - 첫 번째 층의 `input_shape` 인수<sub>Argument</sub>에 형태를 입력하는 방법입니다. `input_shape` 인수는 입력 데이터의 각 차원별 크기를 나타내는 정수값들이 나열된 튜플<sub>Tuple</sub>이며, 정수 대신 `None`을 쓸 경우 아직 정해지지 않은 양의 정수를 나타냅니다. 배치<sub>Batch</sub> 크기는 `input_shape` 인수에 포함되지 않습니다.
-- `input_shape` 인수는 입력 값의 크기와 시계열 입력의 길이를 포괄합니다. 따라서 `Dense`와 같이 2차원 처리를 하는 층의 경우 `input_shape` 대신에 `input_dim` 인수를 통해서도 입력 크기를 지정할 수 있으며, 시계열과 같이 3차원 처리를 하는 층은 `input_dim`과 `input_length`의 두 인수를 사용해서 입력 차원의 크기와 시계열 길이를 각각 지정할 수 있습니다.
-- 배치 크기를 고정해야 하는 경우 `batch_size` 인수를 사용합니다. (순환 신경망<sub>Recurrent Neural Network</sub>과 같이 현 시점의 결과를 저장하여 다음 시점으로 넘기는 처리를 하는 경우 배치 크기 고정이 필요합니다.) 예를 들어, `batch_size=32`와 `input_shape=(6, 8)`을 층에 입력하면 이후의 모든 입력을 `(32, 6, 8)`의 형태로 기대하여 처리합니다.
+- `input_shape` 인수는 입력 값의 크기와 시계열 입력의 길이를 포괄합니다. 따라서 `Dense`와 같이 2D 처리를 하는 층의 경우 `input_shape` 대신에 `input_dim` 인수를 통해서도 입력 크기를 지정할 수 있으며, 시계열과 같이 3D 처리를 하는 층은 `input_dim`과 `input_length`의 두 인수를 사용해서 입력 차원의 크기와 시계열 길이를 각각 지정할 수 있습니다.
+- 배치 크기를 고정해야 하는 경우 `batch_size` 인수를 사용합니다. (순환 신경망<sub>Recurrent Neural Network</sub>과 같이 현 시점의 결과를 저장하여 다음 시점으로 넘기는 처리를 하는 경우 배치 크기 고정이 필요합니다.) 예를 들어, `batch_size=32`와 `input_shape=(6, 8)`을 층에 입력하면 이후의 모든 입력을 `(32, 6, 8)`의 형태로 처리합니다.
 
 이에 따라, 아래의 두 코드는 완전히 동일하게 작동합니다.
 ```python
@@ -56,12 +56,12 @@ model.add(Dense(32, input_dim=784))         # input_dim을 이용하여 입력 �
 - 평가 지표<sub>Metric</sub> 리스트: 모델의 성능을 평가할 지표를 리스트 형식으로 입력합니다. 예컨대 분류문제라면 `metrics=['accuracy']`를 통해 정확도<sub>Accuracy</sub>를 산출할 수 있습니다. 평가 지표는 기존 지표 함수를 문자열 식별자로 불러오거나 사용자가 함수를 정의하여 지정할 수 있습니다. 참고: [평가 지표](/metrics) 
 
 ```python
-# 다항 분류 문제 예시 
+# 다중 클래스 분류 문제 예시 
 model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
 
-# 이항 분류 문제 예시
+# 이진 분류 문제 예시
 model.compile(optimizer='rmsprop',
               loss='binary_crossentropy',
               metrics=['accuracy'])
@@ -88,7 +88,7 @@ model.compile(optimizer='rmsprop',
 케라스 모델들은 데이터와 레이블로 구성된 Numpy 배열을 입력받아 학습합니다. 모델의 학습에는 일반적으로 `fit` 함수를 사용합니다. [여기서 자세한 정보를 볼 수 있습니다](/models/sequential).
 
 ```python
-# 하나의 데이터를 입력받아 두 개의 클래스로 분류하는 이항 분류 모델의 경우:
+# 하나의 데이터를 입력받아 두 개의 클래스로 분류하는 이진 분류 모델의 경우:
 
 model = Sequential()
 model.add(Dense(32, activation='relu', input_dim=100))      # 입력 100차원, 출력 32차원에 'relu' 함수를 적용하는 인공신경망 층입니다.
@@ -107,7 +107,7 @@ model.fit(data, labels, epochs=10, batch_size=32)           # 생성된 데이�
 ```
 
 ```python
-# 하나의 데이터를 입력받아 열 개의 클래스로 분류하는 다항 분류 모델의 경우:
+# 하나의 데이터를 입력받아 열 개의 클래스로 분류하는 다중 클래스 분류 모델의 경우:
 
 model = Sequential()
 model.add(Dense(32, activation='relu', input_dim=100))      
@@ -139,14 +139,14 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 
 - CIFAR10 소형 이미지 분류: 실시간 데이터 증강을 포함하는 합성곱 신경망<sub>Convolutional Neural Network</sub>
 - IMDB 영화 후기 감정 분류: 순서를 가진 문자열을 다루는 LSTM<sub>Long Short-Term Memory</sub> 모형
-- 로이터 뉴스<sub>Reuters Newswires</sub> 주제 분류: 다층 신경망<sub>Multilayer Perceptron<sub> 모형
+- 로이터 뉴스<sub>Reuters Newswires</sub> 주제 분류: 다층 신경망<sub>Multilayer Perceptron</sub> 모형
 - MNIST 손으로 쓴 숫자 이미지 분류: 다층 신경망과 합성곱 신경망
 - LSTM을 이용한 문자열 수준의 텍스트 생성기
 
 ...등등.
 
 
-### 다항 소프트맥스 분류<sub>Multi-class Softmax Classification</sub>를 위한 다층 신경망 (MLP):
+### 다중 클래스 소프트맥스 분류<sub>Multi-class Softmax Classification</sub>를 위한 다층 신경망 (MLP):
 
 ```python
 import keras
@@ -183,7 +183,7 @@ score = model.evaluate(x_test, y_test, batch_size=128)
 ```
 
 
-### 이항 분류<sub>Binary Classification</sub>를 위한 다층 신경망 (MLP):
+### 이진 분류<sub>Binary Classification</sub>를 위한 다층 신경망 (MLP):
 
 ```python
 import numpy as np
@@ -310,9 +310,9 @@ score = model.evaluate(x_test, y_test, batch_size=16)
 
 ### 순서형 데이터 분류를 위한 LSTM 층 쌓기
 
-고차원의 시계열 요인들을 학습할 수 있도록 LSTM 층을 세 겹으로 쌓은 모델을 만듭니다. 
+고차원의 시계열 요인들을 학습할 수 있도록 3개의 LSTM 층을 연결한 모델을 만듭니다. 
 
-처음의 두 LSTM 층은 순서의 모든 지점에서 결과값을 출력합니다 `return_sequences=True`. 즉, 입력값의 순서 개수와 출력값의 순서 개수가 같습니다. 하지만 마지막 LSTM 층은 단 한 번 최종 시점에서만 결과를 출력합니다. 따라서 시계열 차원도 없어집니다. (이 과정은 길이를 가진 여러 벡터의 입력 시퀀스를 하나의 벡터로 변환하는 것과도 같습니다.)
+처음의 두 LSTM 층은 순서의 모든 지점에서 결과값을 출력합니다 `return_sequences=True`. 즉, 입력값의 순서 개수와 출력값의 순서 개수가 같습니다. 하지만 마지막 LSTM 층은 출력 시퀀스의 최종 시점에서 결과를 출력합니다. 따라서 앞서 구성한 LSTM층의 최종 출력은 시계열 차원이 없어진 크기를 가집니다. (이 과정은 길이를 가진 여러 벡터의 입력 시퀀스를 하나의 벡터로 변환하는 것과도 같습니다.)
 
 <img src="https://keras.io/img/regular_stacked_lstm.png" alt="stacked LSTM" style="width: 300px;"/>
 
