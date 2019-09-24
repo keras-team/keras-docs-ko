@@ -4,11 +4,11 @@
 
 ---
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L274)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L275)</span>
 ### 콜백
 
 ```python
-keras.callbacks.Callback()
+keras.callbacks.callbacks.Callback()
 ```
 
 새로운 콜백을 만드는데 사용되는 추상 베이스 클래스.
@@ -39,11 +39,11 @@ on_batch_end: 로그에는 `loss`가 포함되고, 선택적으로 `acc`가 포�
 
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L476)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L477)</span>
 ### BaseLogger
 
 ```python
-keras.callbacks.BaseLogger(stateful_metrics=None)
+keras.callbacks.callbacks.BaseLogger(stateful_metrics=None)
 ```
 
 측정항목의 세대 평균을 축적하는 콜백..
@@ -59,11 +59,11 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L523)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L524)</span>
 ### TerminateOnNaN
 
 ```python
-keras.callbacks.TerminateOnNaN()
+keras.callbacks.callbacks.TerminateOnNaN()
 ```
 
 NaN 손실이 발생했을 때 학습을 종료시키는 콜백.
@@ -95,11 +95,11 @@ __오류 알림__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L613)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L614)</span>
 ### History
 
 ```python
-keras.callbacks.History()
+keras.callbacks.callbacks.History()
 ```
 
 `History` 객체에 이벤트를 기록하는 콜백.
@@ -150,11 +150,11 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L732)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L733)</span>
 ### EarlyStopping
 
 ```python
-keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False)
+keras.callbacks.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 ```
 
 관찰하는 수량이 개선되지 않으면 학습을 멈춥니다.
@@ -166,8 +166,13 @@ __인수__
     최소한의 변화, 다시 말해 min_delta
     미만의 절대적 변화는 향상되었다고 
     판단하지 않습니다.
-- __patience__: 몇 세대가 향상없이 지나야 학습이 멈추는지
-    결정하는 세대 수.
+- __patience__: number of epochs that produced the monitored
+    after which training will be stopped.
+    quantity with no improvement after which training will
+    be stopped.
+    Validation quantities may not be produced for every
+    epoch, if the validation frequency
+    (`model.fit(validation_freq=5)`) is greater than one.
 - __verbose__: 다변 모드.
 - __mode__: {auto, min, max} 중 하나. `min` 모드에서는
     관찰하는 수량이 더 이상 감소하지
@@ -215,11 +220,11 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L905)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L910)</span>
 ### LearningRateScheduler
 
 ```python
-keras.callbacks.LearningRateScheduler(schedule, verbose=0)
+keras.callbacks.callbacks.LearningRateScheduler(schedule, verbose=0)
 ```
 
 학습 속도 스케쥴러.
@@ -233,11 +238,11 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L941)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/tensorboard_v1.py#L20)</span>
 ### TensorBoard
 
 ```python
-keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None, update_freq='epoch')
+keras.callbacks.tensorboard_v1.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None, update_freq='epoch')
 ```
 
 TensorBoard 기초 시각화.
@@ -268,13 +273,13 @@ __인수__
     (세대 내) 빈도. 0으로 설정되어 있으면 히스토그램을 계산하지
     않습니다. 히스토그램 시각화를 하려면 검증 데이터(혹은 데이터 조각)이
     특정되어야 합니다.
+- __batch_size__: 히스토그램 계산 목적으로 네트워크에 전달할
+    인풋 배치의 크기.
 - __write_graph__: TensorBoard에서 그래프를 시각화할지 여부.
     write_graph이 참으로 설정되어 있으면
     로그 파일이 상당히 커질 수 있습니다.
 - __write_grads__: TensorBoard에서 경사 히스토그램를 시각화할지 여부.
     `histogram_freq`이 0보다 커야 합니다.
-- __batch_size__: 히스토그램 계산 목적으로 네트워크에 전달할
-    인풋 배치의 크기.
 - __write_images__: TensorBoard에서 이미지로 시각화할 모델 가중치를
     작성할지 여부.
 - __embeddings_freq__: 선택된 임베딩 레이어가 저장되는 (세대 내) 빈도.
@@ -348,11 +353,11 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L1407)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L1071)</span>
 ### CSVLogger
 
 ```python
-keras.callbacks.CSVLogger(filename, separator=',', append=False)
+keras.callbacks.callbacks.CSVLogger(filename, separator=',', append=False)
 ```
 
 세대 결과를 csv 파일에 스트림하는 콜백.
@@ -377,11 +382,11 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L1495)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L1159)</span>
 ### LambdaCallback
 
 ```python
-keras.callbacks.LambdaCallback(on_epoch_begin=None, on_epoch_end=None, on_batch_begin=None, on_batch_end=None, on_train_begin=None, on_train_end=None)
+keras.callbacks.callbacks.LambdaCallback(on_epoch_begin=None, on_epoch_end=None, on_batch_begin=None, on_batch_end=None, on_train_begin=None, on_train_end=None)
 ```
 
 간단한 커스텀 콜백을 즉석에서 만드는 콜백.
