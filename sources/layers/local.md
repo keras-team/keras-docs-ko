@@ -37,6 +37,7 @@ __인수__
     1이 아니도록 특정하는 경우와 양립할 수 없습니다.
 - __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
     차후 `"same"`을 지원할 계획입니다.
+- __data_format__: String, one of `channels_first`, `channels_last`.    
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md) 참조).
     따로 특정하지 않는 경우 활성화가 적용되지 않습니다
@@ -70,7 +71,7 @@ __아웃풋 형태__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/local.py#L182)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/local.py#L183)</span>
 ### LocallyConnected2D
 
 ```python
