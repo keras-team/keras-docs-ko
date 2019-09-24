@@ -4,11 +4,11 @@
 
 ---
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L536)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L537)</span>
 ### ProgbarLogger
 
 ```python
-keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
+keras.callbacks.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
 ```
 
 측정항목을 stdout에 프린트하는 콜백
@@ -29,7 +29,7 @@ __오류 알림__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L632)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L633)</span>
 ### ModelCheckpoint
 
 ```python
@@ -54,6 +54,9 @@ __인수__
 - __save_best_only__: `save_best_only=True`인 경우
     관찰하는 수량을 기준으로 가장 
     최신의 최고 모델은 덧씌우지 않습니다.
+- __save_weights_only__: 참인 경우 모델의 가중치만 저장되고
+    (`model.save_weights(filepath)`), 아닌 경우
+    전체 모델이 저장됩니다 (`model.save(filepath)`).
 - __mode__: {auto, min, max} 중 하나.
     `save_best_only=True`이면
     현재 저장 파일을 덧씌울지는
@@ -62,18 +65,15 @@ __인수__
     이는 `max`가 되어야 하며, `val_loss`라면
     `min`이 되어야 합니다. `auto`의 경우
     관찰하는 수량의 이름에서 방향성이 자동적으로 유추됩니다.
-- __save_weights_only__: 참인 경우 모델의 가중치만 저장되고
-    (`model.save_weights(filepath)`), 아닌 경우
-    전체 모델이 저장됩니다 (`model.save(filepath)`).
 - __period__: 체크포인트간 간격 (세대의 수).
 
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L846)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L851)</span>
 ### RemoteMonitor
 
 ```python
-keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
+keras.callbacks.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
 ```
 
 이벤트를 서버에 스트림할 콜백
@@ -98,11 +98,11 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L1286)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L946)</span>
 ### ReduceLROnPlateau
 
 ```python
-keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
+keras.callbacks.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
 ```
 
 측정 항목이 향상되지 않는 경우 학습 속도를 줄입니다.
@@ -126,8 +126,12 @@ __인수__
 - __monitor__: 관찰할 수량.
 - __factor__: 학습 속도를 줄일 인수.
     new_lr = lr * factor
-- __patience__: 얼마나 많은 세대간 학습이 부진하면 학습 속도를
-    줄일지 결정하는 세대의 수.
+- __patience__: number of epochs that produced the monitored
+    quantity with no improvement after which training will
+    be stopped.
+    Validation quantities may not be produced for every
+    epoch, if the validation frequency
+    (`model.fit(validation_freq=5)`) is greater than one.
 - __verbose__: 정수. 0: 자동, 1: 최신화 메시지.
 - __mode__: {auto, min, max} 중 하나. `min` 모드에서는
     관찰하는 수량이 더 이상 감소하지
