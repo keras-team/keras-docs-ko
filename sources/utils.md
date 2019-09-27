@@ -26,7 +26,7 @@ with CustomObjectScope({'MyObject':MyObject}):
 
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/utils/io_utils.py#L25)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/utils/io_utils.py#L26)</span>
 ### HDF5Matrix
 
 ```python
@@ -281,10 +281,11 @@ __인수__
 - __expand_nested__: 중첩된 모델을 클러스터로 확장할지 여부.
 - __dpi__: 도트 DPI.
 
-Returns:
+__Returns__
 
-A Jupyter notebook Image object if Jupyter is installed. This enables in-line display of the model plots in notebooks.
-    
+A Jupyter notebook Image object if Jupyter is installed.
+This enables in-line display of the model plots in notebooks.
+
 ----
 
 ### multi_gpu_model
@@ -419,4 +420,3 @@ __모델 저장하기__
 다중-GPU 모델을 저장하려면, `multi_gpu_model`에 의해서 반환되는 모델보다는 
 템플릿 모델(`multi_gpu_model`에 전달되는 인수)과 함께
 `.save(fname)` 혹은 `.save_weights(fname)`를 사용하면 됩니다.
-    
