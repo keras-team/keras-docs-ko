@@ -10,9 +10,9 @@ from keras.layers import Dense, Activation      # Dense와 Activation 두 층 �
 
 # Sequential 생성자에 층을 순서대로 담은 리스트를 전달하여 모델을 만듭니다. 
 model = Sequential([
-    Dense(32, input_shape=(784,)),              # 784 차원의 입력을 받아 32 차원으로 출력하는 완전연결 신경망 층입니다.
+    Dense(32, input_shape=(784,)),              # 784 차원의 입력을 받아 32 차원으로 출력하는 완전 연결 신경망 층입니다.
     Activation('relu'),                         # 'relu' 활성화 함수를 적용하는 층입니다.
-    Dense(10),                                  # 입력을 10차원으로 출력하는 완전연결 신경망 층입니다.
+    Dense(10),                                  # 입력을 10차원으로 출력하는 완전 연결 신경망 층입니다.
     Activation('softmax'),                      # 'softmax' 활성화 함수를 적용하는 층입니다.
 ])
 ```
@@ -162,7 +162,7 @@ x_test = np.random.random((100, 20))
 y_test = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_classes=10)
 
 model = Sequential()
-# 아래의 Dense(64)는 64개의 숨은 유닛을 갖는 완전연결 신경망입니다.
+# 아래의 Dense(64)는 64개의 은닉 유닛을 갖는 완전 연결 신경망입니다.
 # 첫번째 층에서 반드시 입력될 데이터의 형태를 명시해야 합니다.
 # 본 예시에서는 20차원 벡터가 입력됩니다.
 model.add(Dense(64, activation='relu', input_dim=20))
