@@ -10,14 +10,14 @@ from keras.layers import Dense, Activation      # Dense와 Activation 두 층 �
 
 # Sequential 생성자에 층을 순서대로 담은 리스트를 전달하여 모델을 만듭니다. 
 model = Sequential([
-    Dense(32, input_shape=(784,)),              # 784 차원의 입력을 받아 32 차원으로 출력하는 인공신경망 층입니다.
+    Dense(32, input_shape=(784,)),              # 784 차원의 입력을 받아 32 차원으로 출력하는 완전연결 신경망 층입니다.
     Activation('relu'),                         # 'relu' 활성화 함수를 적용하는 층입니다.
-    Dense(10),                                  # 입력을 10차원으로 출력하는 인공신경망 층입니다.
+    Dense(10),                                  # 입력을 10차원으로 출력하는 완전연결 신경망 층입니다.
     Activation('softmax'),                      # 'softmax' 활성화 함수를 적용하는 층입니다.
 ])
 ```
 
-각 층을 리스트 형식으로 입력하는 방법 외에도, `Sequential` 생성자로 만든 모델에 `.add()` 메소드<sub>Method</sub>를 쓰면 손쉽게 새 층을 덧붙일 수 있습니다:
+각 층을 리스트 형식으로 입력하는 방법 외에도, `Sequential` 생성자로 만든 모델에 `.add()` 메소드<sub>Method</sub>를 사용하면 손쉽게 새 층을 덧붙일 수 있습니다:
 
 ```python
 model = Sequential()                    # 먼저 Sequential 생성자를 이용하여 빈 모델을 만들고,
@@ -91,8 +91,8 @@ model.compile(optimizer='rmsprop',
 # 하나의 데이터를 입력받아 두 개의 클래스로 분류하는 이진 분류 모델의 경우:
 
 model = Sequential()
-model.add(Dense(32, activation='relu', input_dim=100))      # 입력 100차원, 출력 32차원에 'relu' 함수를 적용하는 인공신경망 층입니다.
-model.add(Dense(1, activation='sigmoid'))                   # 1차원 출력에 'sigmoid' 함수를 적용하는 인공신경망 층입니다.
+model.add(Dense(32, activation='relu', input_dim=100))      # 입력 100차원, 출력 32차원에 'relu' 함수를 적용하는 Dense 층입니다.
+model.add(Dense(1, activation='sigmoid'))                   # 1차원 출력에 'sigmoid' 함수를 적용하는 Dense 층입니다.
 model.compile(optimizer='rmsprop',                          # 최적화 함수 = 'rmsprop'
               loss='binary_crossentropy',                   # 손실 함수 = 'binary_crossentropy'
               metrics=['accuracy'])                         # 평가 지표 = 'accuracy'
@@ -111,7 +111,7 @@ model.fit(data, labels, epochs=10, batch_size=32)           # 생성된 데이�
 
 model = Sequential()
 model.add(Dense(32, activation='relu', input_dim=100))      
-model.add(Dense(10, activation='softmax'))                  # 10 출력에 'sigmoid' 함수를 적용하는 인공신경망 층입니다.
+model.add(Dense(10, activation='softmax'))                  # 10 출력에 'sigmoid' 함수를 적용하는 Dense 층입니다.
 model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',              # 손실 함수 = 'categorical_crossentropy'
               metrics=['accuracy'])
@@ -121,7 +121,7 @@ import numpy as np
 data = np.random.random((1000, 100))
 labels = np.random.randint(10, size=(1000, 1))              # 0과 9사이 정수값을 갖는 100 x 1 차원 레이블 행렬을 무작위로 생성합니다.
 
-# 레이블을 열 개 클래스의 명목형 원-핫 인코딩 데이터로 변환
+# 레이블을 열 개 클래스의 원-핫 인코딩 데이터로 변환
 one_hot_labels = keras.utils.to_categorical(labels, num_classes=10)
 
 # 각 32개씩의 배치로 나누어 총 10회 학습
@@ -139,7 +139,7 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 
 - CIFAR10 소형 이미지 분류: 실시간 데이터 증강을 포함하는 합성곱 신경망<sub>Convolutional Neural Network</sub>
 - IMDB 영화 후기 감정 분류: 순서를 가진 문자열을 다루는 LSTM<sub>Long Short-Term Memory</sub> 모형
-- 로이터 뉴스<sub>Reuters Newswires</sub> 주제 분류: 다층 신경망<sub>Multilayer Perceptron</sub> 모형
+- 로이터 뉴스<sub>Reuters Newswires</sub> 주제 분류: 다층 퍼셉트론<sub>Multilayer Perceptron</sub> 모형
 - MNIST 손으로 쓴 숫자 이미지 분류: 다층 신경망과 합성곱 신경망
 - LSTM을 이용한 문자열 수준의 텍스트 생성기
 
@@ -162,7 +162,7 @@ x_test = np.random.random((100, 20))
 y_test = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_classes=10)
 
 model = Sequential()
-# 아래의 Dense(64)는 64개의 숨은 단위를 갖는 완전연결 신경망입니다.
+# 아래의 Dense(64)는 64개의 숨은 유닛을 갖는 완전연결 신경망입니다.
 # 첫번째 층에서 반드시 입력될 데이터의 형태를 명시해야 합니다.
 # 본 예시에서는 20차원 벡터가 입력됩니다.
 model.add(Dense(64, activation='relu', input_dim=20))
