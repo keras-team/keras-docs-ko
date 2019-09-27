@@ -24,7 +24,7 @@ class MyLayer(Layer):
                                       shape=(input_shape[1], self.output_dim),
                                       initializer='uniform',
                                       trainable=True)
-        super(MyLayer, self).build(input_shape)  # 마지막에 이것을 호출해야 합니다. 
+        super(MyLayer, self).build(input_shape)  # 끝에서 꼭 이 함수를 출력해야 합니다!
 
     def call(self, x):
         return K.dot(x, self.kernel)
@@ -52,7 +52,7 @@ class MyLayer(Layer):
                                       shape=(input_shape[0][1], self.output_dim),
                                       initializer='uniform',
                                       trainable=True)
-        super(MyLayer, self).build(input_shape)  # 마지막에 이것을 호출해야 합니다.
+        super(MyLayer, self).build(input_shape)  # 끝에서 꼭 이 함수를 출력해야 합니다!
 
     def call(self, x):
         assert isinstance(x, list)
