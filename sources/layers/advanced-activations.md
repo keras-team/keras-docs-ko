@@ -1,3 +1,37 @@
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/advanced_activations.py#L153)</span>
+### ELU
+
+```python
+keras.layers.ELU(alpha=1.0)
+```
+
+Exponential Linear Unit.
+
+It follows:
+`f(x) =  alpha * (exp(x) - 1.) for x < 0`,
+`f(x) = x for x >= 0`.
+
+__Input shape__
+
+Arbitrary. Use the keyword argument `input_shape`
+(tuple of integers, does not include the samples axis)
+when using this layer as the first layer in a model.
+
+__Output shape__
+
+Same shape as the input.
+
+__Arguments__
+
+- __alpha__: scale for the negative factor.
+
+__References__
+
+- [Fast and Accurate Deep Network Learning by Exponential Linear Units
+   (ELUs)](https://arxiv.org/abs/1511.07289v1)
+    
+----
+
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/advanced_activations.py#L19)</span>
 ### LeakyReLU
 
@@ -63,39 +97,7 @@ __참고 자료__
 
 - [Delving Deep into Rectifiers: Surpassing Human-Level Performance on
    ImageNet Classification](https://arxiv.org/abs/1502.01852)
-    
-----
-
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/advanced_activations.py#L153)</span>
-### ELU
-
-```python
-keras.layers.ELU(alpha=1.0)
-```
-
-지수 선형 유닛(Exponential Linear Unit) 활성화 함수입니다.
-
-다음을 따라야 합니다:
-`x < 0인 경우 f(x) =  alpha * (exp(x) - 1.)`,
-`x >= 0인 경우 f(x) = x`.
-
-__입력 크기__
-
-임의입니다. 이 레이어를 모델의 첫 번째 레이어로 사용할 때 키워드 인자 `input_shape` (정수 튜플, 샘플 축 미포함)를 사용하십시오. 
-
-__출력 크기__
-
-입력 크기와 동일합니다. 
-
-__인자 설명__
-
-- __alpha__: 음수 인자에 대한 크기입니다.
-
-__참고 자료__
-
-- [Fast and Accurate Deep Network Learning by Exponential Linear Units
-   (ELUs)](https://arxiv.org/abs/1511.07289v1)
-    
+   
 ----
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/advanced_activations.py#L193)</span>
