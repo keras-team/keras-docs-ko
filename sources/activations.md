@@ -193,6 +193,16 @@ keras.activations.tanh(x)
 
 Hyperbolic tangent activation function.
 
+__Arguments__
+
+- __x__: Input tensor.
+
+__Returns__
+
+The hyperbolic activation:
+`tanh(x) = (exp(x) - exp(-x)) / (exp(x) + exp(-x))`
+
+
 ----
 
 ### sigmoid
@@ -204,6 +214,14 @@ keras.activations.sigmoid(x)
 
 
 Sigmoid activation function.
+
+__Arguments__
+
+- __x__: Input tensor.
+
+__Returns__
+
+The sigmoid activation: `1 / (1 + exp(-x))`.
 
 ----
 
@@ -243,6 +261,14 @@ keras.activations.exponential(x)
 
 지수(밑은 e) 활성화 함수.
 
+__Arguments__
+
+- __x__: Input tensor.
+
+__Returns__
+
+Exponential activation: `exp(x)`.
+
 ----
 
 ### linear
@@ -255,6 +281,14 @@ keras.activations.linear(x)
 
 선형(i.e. identity) 활성화 함수.
 
+__Arguments__
+
+- __x__: Input tensor.
+
+__Returns__
+
+Input tensor, unchanged.
+    
 
 ## "고급 Activations"에 대하여
 
