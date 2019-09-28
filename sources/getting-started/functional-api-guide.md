@@ -24,9 +24,9 @@ from keras.models import Model
 inputs = Input(shape=(784,))
 
 # 레이어 인스턴스는 텐서에 대해 호출 가능하고, 텐서를 반환합니다
-x = Dense(64, activation='relu')(inputs)
-x = Dense(64, activation='relu')(x)
-predictions = Dense(10, activation='softmax')(x)
+output_1 = Dense(64, activation='relu')(inputs)
+output_2 = Dense(64, activation='relu')(output_1)
+predictions = Dense(10, activation='softmax')(output_2)
 
 # 이는 Input 레이어와 3개의 Dense 레이어를
 # 포함하는 모델을 만들어 냅니다
@@ -85,6 +85,8 @@ processed_sequences = TimeDistributed(model)(input_sequences)
 ```python
 from keras.layers import Input, Embedding, LSTM, Dense
 from keras.models import Model
+import numpy as np
+np.random.seed(0)  # Set a random seed for reproducibility
 
 # 헤드라인 인풋: 1에서 10000사이의 100개 정수로 이루어진 시퀀스를 전달받습니다
 # "name"인수를 전달하여 레이어를 명명할 수 있음을 참고하십시오.
@@ -138,7 +140,11 @@ model.compile(optimizer='rmsprop', loss='binary_crossentropy',
 인풋 배열과 표적 배열의 리스트를 전달하여 모델을 학습시킬 수 있습니다:
 
 ```python
-model.fit([headline_data, additional_data], [labels, labels],
+headline_data = np.round(np.abs(np.random.rand(12, 100) * 100))
+additional_data = np.random.randn(12, 5)
+headline_labels = np.random.randn(12, 1)
+additional_labels = np.random.randn(12, 1)
+model.fit([headline_data, additional_data], [headline_labels, additional_labels],
           epochs=50, batch_size=32)
 ```
 
@@ -152,8 +158,17 @@ model.compile(optimizer='rmsprop',
 
 또한 모델을 다음과 같이도 학습시킬 수 있습니다:
 model.fit({'main_input': headline_data, 'aux_input': additional_data},
-          {'main_output': labels, 'aux_output': labels},
+          {'main_output': headline_labels, 'aux_output': additional_labels},
           epochs=50, batch_size=32)
+```
+
+To use the model for inferencing, use
+```python
+model.predict({'main_input': headline_data, 'aux_input': additional_data})
+```
+or alternatively,
+```python
+pred = model.predict([headline_data, additional_data])
 ```
 
 -----
