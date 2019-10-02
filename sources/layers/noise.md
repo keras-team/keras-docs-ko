@@ -1,3 +1,37 @@
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/noise.py#L58)</span>
+### GaussianDropout
+
+```python
+keras.layers.GaussianDropout(rate)
+```
+
+평균 1의 승법적 가우시안 잡음을 적용합니다.
+
+정규화 레이어이므로, 학습 과정 중에만 활성화됩니다.
+
+__인수__
+
+- __rate__: 부동소수점, (`Dropout`에서처럼) 드롭 확률.
+    이 승법적 잡음은
+    `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
+
+__인풋 형태__
+
+임의의 형태를 취합니다. 이 레이어를 모델의 첫 번째 레이어로
+사용하려면 키워드 인수 `input_shape`(정수 튜플로 샘플 축은 포함하지 않습니다)을
+사용하십시오.
+
+__아웃풋 형태__
+
+인풋 형태와 동일.
+
+__참조__
+
+- [Dropout: A Simple Way to Prevent Neural Networks from Overfitting](
+   http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf)
+
+----
+    
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/noise.py#L14)</span>
 ### GaussianNoise
 
@@ -30,40 +64,6 @@ __아웃풋 형태__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/noise.py#L58)</span>
-### GaussianDropout
-
-```python
-keras.layers.GaussianDropout(rate)
-```
-
-평균 1의 승법적 가우시안 잡음을 적용합니다.
-
-정규화 레이어이므로, 학습 과정 중에만 활성화됩니다.
-
-__인수__
-
-- __rate__: 부동소수점, (`Dropout`에서처럼) 드롭 확률.
-    이 승법적 잡음은
-    `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
-
-__인풋 형태__
-
-임의의 형태를 취합니다. 이 레이어를 모델의 첫 번째 레이어로
-사용하려면 키워드 인수 `input_shape`(정수 튜플로 샘플 축은 포함하지 않습니다)을
-사용하십시오.
-
-__아웃풋 형태__
-
-인풋 형태와 동일.
-
-__참조__
-
-- [Dropout: A Simple Way to Prevent Neural Networks from Overfitting](
-   http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf)
-    
-----
-
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/noise.py#L106)</span>
 ### AlphaDropout
 
@@ -84,6 +84,8 @@ __인수__
 - __rate__: 부동소수점, (`Dropout`에서처럼) 드롭 확률.
     이 승법적 잡음은
     `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
+- __noise_shape__: A 1-D `Tensor` of type `int32`, representing the
+    shape for randomly generated keep/drop flags.
 - __seed__: 난수 시드로 사용할 파이썬 정수.
 
 __인풋 형태__
