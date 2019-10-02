@@ -1,11 +1,11 @@
 
 # 이미지 전처리
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/preprocessing/image.py#L233)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/preprocessing/image.py#L238)</span>
 ## ImageDataGenerator 클래스
 
 ```python
-keras.preprocessing.image.ImageDataGenerator(featurewise_center=False, samplewise_center=False, featurewise_std_normalization=False, samplewise_std_normalization=False, zca_whitening=False, zca_epsilon=1e-06, rotation_range=0, width_shift_range=0.0, height_shift_range=0.0, brightness_range=None, shear_range=0.0, zoom_range=0.0, channel_shift_range=0.0, fill_mode='nearest', cval=0.0, horizontal_flip=False, vertical_flip=False, rescale=None, preprocessing_function=None, data_format=None, validation_split=0.0, dtype=None)
+keras.preprocessing.image.ImageDataGenerator(featurewise_center=False, samplewise_center=False, featurewise_std_normalization=False, samplewise_std_normalization=False, zca_whitening=False, zca_epsilon=1e-06, rotation_range=0, width_shift_range=0.0, height_shift_range=0.0, brightness_range=None, shear_range=0.0, zoom_range=0.0, channel_shift_range=0.0, fill_mode='nearest', cval=0.0, horizontal_flip=False, vertical_flip=False, rescale=None, preprocessing_function=None, data_format='channels_last', validation_split=0.0, dtype='float32')
 ```
 
 실시간 데이터 증강을 사용해서 텐서 이미지 데이터 배치를 생성합니다.
@@ -19,8 +19,8 @@ __인수__
 - __featurewise_std_normalization__: 불리언.
     인풋을 각 특성 내에서 데이터셋의 표준편차로 나눕니다.
 - __samplewise_std_normalization__: 불리언. 각 인풋을 표준편차로 나눕니다.
-- __zca_epsilon__: 영위상 성분분석 백색화의 엡실론 값. 디폴트 값은 1e-6입니다.
 - __zca_whitening__: 불리언. 영위상 성분분석 백색화를 적용할지 여부입니다.
+- __zca_epsilon__: 영위상 성분분석 백색화의 엡실론 값. 디폴트 값은 1e-6입니다.
 - __rotation_range__: 정수. 무작위 회전의 각도 범위입니다.
 - __width_shift_range__: 부동소수점, 1D 형태의 유사배열 혹은 정수
     - 부동소수점: < 1인 경우 전체 가로넓이에서의 비율, >= 1인 경우 픽셀의 개수입니다.
@@ -31,7 +31,7 @@ __인수__
         정수인 `[-1, 0, +1]`로,
         `width_shift_range=[-1, 0, +1]`와 동일한 반면,
         `width_shift_range=1.0`인 경우 유효값은
-        `[-1.0, +1.0[`의 반개구간 사이 부동소수점입니다.
+        `[-1.0, +1.0)`의 구간 사이 부동소수점입니다.
 - __height_shift_range__: 부동소수점, 1D 형태의 유사배열 혹은 정수
     - 부동소수점: < 1인 경우 전체 세로높이에서의 비율, >= 1인 경우 픽셀의 개수입니다.
     - 1D 형태의 유사배열: 배열에서 가져온 무작위 요소입니다.
@@ -41,7 +41,7 @@ __인수__
         유효한 값은 정수인 `[-1, 0, +1]`으로
         `height_shift_range=[-1, 0, +1]`와 동일한 반면,
         `height_shift_range=1.0`인 경우 유효한 값은 
-        `[-1.0, +1.0[`의 반개구간 사이 부동소수점입니다.
+        `[-1.0, +1.0)`의 구간 사이 부동소수점입니다.
 - __brightness_range__: 두 부동소수점 값으로 이루어진 리스트 혹은 튜플.
     밝기 정도를 조절할 값의 범위입니다.
 - __shear_range__: 부동소수점. 층밀리기의 강도입니다.
@@ -82,6 +82,7 @@ __인수__
     따로 설정을 바꾸지 않았다면, "channels_last"가 초기값입니다.
 - __validation_split__: 부동소수점. (엄격히 0과 1사이의 값으로) 검증의 용도로 남겨둘
     남겨둘 이미지의 비율입니다.
+- __interpolation_order__: int, order to use for the spline interpolation. Higher is slower    
 - __dtype__: 생성된 배열에 사용할 자료형.
 
 __예시__
@@ -189,6 +190,42 @@ model.fit_generator(
     epochs=50)
 ```
 
+Example of using ```.flow_from_dataframe(dataframe, directory,
+                                         x_col, y_col)```:
+
+```python
+
+train_df = pandas.read_csv("./train.csv")
+valid_df = pandas.read_csv("./valid.csv")
+train_datagen = ImageDataGenerator(
+        rescale=1./255,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True)
+test_datagen = ImageDataGenerator(rescale=1./255)
+train_generator = train_datagen.flow_from_dataframe(
+        dataframe=train_df,
+        directory='data/train',
+        x_col="filename",
+        y_col="class",
+        target_size=(150, 150),
+        batch_size=32,
+        class_mode='binary')
+validation_generator = test_datagen.flow_from_dataframe(
+        dataframe=valid_df,
+        directory='data/validation',
+        x_col="filename",
+        y_col="class",
+        target_size=(150, 150),
+        batch_size=32,
+        class_mode='binary')
+model.fit_generator(
+        train_generator,
+        steps_per_epoch=2000,
+        epochs=50,
+        validation_data=validation_generator,
+        validation_steps=800)
+```
 
 ---
 ## ImageDataGenerator 메서드
@@ -314,41 +351,42 @@ __반환값__
 
 
 ```python
-flow_from_dataframe(dataframe, directory=None, x_col='filename', y_col='class', target_size=(256, 256), color_mode='rgb', classes=None, class_mode='categorical', batch_size=32, shuffle=True, seed=None, save_to_dir=None, save_prefix='', save_format='png', subset=None, interpolation='nearest', drop_duplicates=True)
+flow_from_dataframe(dataframe, directory=None, x_col='filename', y_col='class', weight_col = None, target_size=(256, 256), color_mode='rgb', classes=None, class_mode='categorical', batch_size=32, shuffle=True, seed=None, save_to_dir=None, save_prefix='', save_format='png', subset=None, interpolation='nearest', validate_filenames=True)
 ```
 
 
 dataframe과 디렉토리의 위치를 전달받아 증강/정규화된 데이터의 배치를 생성합니다.
 
-__다음 링크에서 간단한 튜토리얼을 확인하실 수 있습니다: http://bit.ly/keras_flow_from_dataframe__
+**간단한 튜토리얼은** [여기](http://bit.ly/keras_flow_from_dataframe)**에서 확인하실 수 있습니다.**
 
 
 __인수__
 
-- __dataframe__: Pandas dataframe containing the filepaths relative to 'directory' (or absolute paths  
-if `directory` is None) of the images in a string column. It should include other column/s  
-depending on the `class_mode`: - if `class_mode` is `"categorical"` (default value) it must include  
-the y_col column with the class/es of each image. Values in column can be string/list/tuple if  
-a single class or list/tuple if multiple classes. - if 'class_mode' is '"binary"' or '"sparse"' it must   include the given 'y_col' column with class values as strings. - if 'class_mode' is '"other"' it  
-should contain the columns specified in 'y_col'. - if 'class_mode' is '"input"' or 'None' no extra  
-column is needed.
-- __directory__: string, path to the directory to read images from. If 'None', data in 'x_col' column  
-should be absolute paths.
+- __dataframe__: Pandas dataframe containing the filepaths relative to 'directory' (or absolute paths if `directory` is None) of the images in a string column. It should include other column/s depending on the `class_mode`: 
+  - if `class_mode` is `"categorical"` (default value) it must include  the `y_col` column with the 
+  class/es of each image. Values in column can be string/list/tuple if a single class or list/tuple 
+  if multiple classes.
+  - if 'class_mode' is '"binary"' or '"sparse"' it must include the given 'y_col' column with class 
+  values as strings.
+  - if 'class_mode' is is `"raw"` or `"multi_output"` it should contain the columns specified in  
+  'y_col'.
+  - if 'class_mode' is '"input"' or 'None' no extra column is needed.
+- __directory__: string, path to the directory to read images from. If 'None', data in 'x_col' column should be absolute paths.
 - __x_col__: string, column in 'dataframe' that contains the filenames (or absolute paths if 'directory' is 'None').
 - __y_col__: string or list, column/s in dataframe that has the target data.
+- __weight_col__: string, column in `dataframe` that contains the sample weights. Default: `None`.
 - __target_size__: 정수의 튜플 `(높이, 넓이)`, 디폴트 값: `(256, 256)`. 모든 이미지의 크기를 재조정할 치수.
-- __color_mode__: "grayscale"과 "rbg" 중 하나. 디폴트 값: "rgb". 이미지가 1개 혹은 3개의 색깔 채널을 갖도록
-  변환할지 여부.
-- __classes__: 클래스로 이루어진 선택적 리스트 (예. `['dogs', 'cats']`). 디폴트 값: None. 특별히 값을 지정하지 않으면,   클래스로 이루어진 리스트가 `y_col`에서 자동으로 유추됩니다 (이는 영숫자순으로 라벨 색인에 대응됩니다).    `class_indices` 속성을 통해서 클래스 이름과 클래스 색인 간 매핑을 담은 딕셔너리를 얻을 수 있습니다.
-- __class_mode__: "categorical", "binary", "sparse", "input", "other" 혹은 None 중 하나. 디폴트 값: "categorical".
+- __color_mode__: "grayscale", "rbg", "rgba" 중 하나. 디폴트 값: "rgb". 이미지가 1개 혹은 3개의 색깔 채널을 갖도록 변환할지 여부.
+- __classes__: 클래스로 이루어진 선택적 리스트 (예. `['dogs', 'cats']`). 디폴트 값: None. 특별히 값을 지정하지 않으면, 클래스로 이루어진 리스트가 `y_col`에서 자동으로 유추됩니다. (이는 영숫자순으로 라벨 색인에 대응됩니다). `class_indices` 속성을 통해서 클래스 이름과 클래스 색인 간 매핑을 담은 딕셔너리를 얻을 수 있습니다.
+- __class_mode__: "binary", "categorical", "input", "multi_output", "raw", "sparse" 혹은 None 중 하나. 디폴트 값: "categorical".
   Mode for yielding the targets:
   - `"binary"`: 1D numpy array of binary labels,
   - `"categorical"`: 2D numpy array of one-hot encoded labels. Supports multi-label output.
-  - `"sparse"`: 1D numpy array of integer labels,
   - `"input"`: images identical to input images (mainly used to work with autoencoders),
-  - `"other"`: numpy array of y_col data,
-  - `None`, no targets are returned (the generator will only yield batches of image data, which is
-  useful to use in `model.predict_generator()`).
+  - `"multi_output"`: list with the values of the different columns,
+  - `"raw"`: numpy array of values in `y_col` column(s),
+  - `"sparse"`: 1D numpy array of integer labels,
+  - `None`, no targets are returned (the generator will only yield batches of image data, which is      useful to use in `model.predict_generator()`).  
 - __batch_size__: 데이터 배치의 크기 (디폴트 값: 32).
 - __shuffle__: 데이터를 뒤섞을지 여부 (디폴트 값: 참)
 - __seed__: 데이터 셔플링과 변형에 사용할 선택적 난수 시드.
@@ -359,9 +397,8 @@ should be absolute paths.
 - __follow_links__: 클래스 하위 디렉토리 내 심볼릭 링크를 따라갈지 여부 (디폴트 값: 거짓).
 - __subset__: `ImageDataGenerator`에 `validation_split`이 설정된 경우 데이터의 부분집합 (`"training"` or `"validation"`).
 - __interpolation__: Interpolation method used to resample the image if the target size is different from that of the loaded image. 지원되는 메서드로는 `"nearest"`, `"bilinear"`, 그리고 `"bicubic"`이 있습니다.
-PIL 버전 1.1.3 이상이 설치된 경우, `"lanczos"`도 지원됩니다. PIL 버전 3.4.0 이상이 설치된 경우, `"box"`와 
-`"hamming"` 또한 지원됩니다. 디폴트 값으로 `"nearest"`가 사용됩니다.
-- __drop_duplicates__: Boolean, whether to drop duplicate rows based on filename.
+PIL 버전 1.1.3 이상이 설치된 경우, `"lanczos"`도 지원됩니다. PIL 버전 3.4.0 이상이 설치된 경우, `"box"`와 `"hamming"` 또한 지원됩니다. 디폴트 값으로 `"nearest"`가 사용됩니다.
+- __validate_filenames__: Boolean, whether to validate image filenames in `x_col`. If `True`, invalid images will be ignored. Disabling this option can lead to speed-up in the execution of this function. Default: `True`.
 
 __반환값__
 
@@ -415,13 +452,13 @@ __인수__
         동일한 이미지입니다 (주로 자동 인코더와 함께 사용합니다).
     - None의 경우, 어떤 라벨되 반환되지 않습니다
       (생성자가 이미지 데이터의 배치만 만들기 때문에,
-      `model.predict_generator()`,
-      `model.evaluate_generator()` 등과 함께 사용하는 것이 유용합니다).
+      `model.predict_generator()`을 사용하는 것이 유용합니다).
       class_mode가 None일 경우,
       제대로 작동하려면 데이터가 `directory` 내 하위 디렉토리에
       위치해야 한다는 점을 유의하십시오.
 - __batch_size__: 데이터 배치의 크기 (디폴트 값: 32).
 - __shuffle__: 데이터를 뒤섞을지 여부 (디폴트 값: 참)
+               If set to False, sorts the data in alphanumeric order.
 - __seed__: 데이터 셔플링과 변형에 사용할 선택적 난수 시드.
 - __save_to_dir__: None 혹은 문자열 (디폴트 값: None).
     이는 디렉토리를 선택적으로 지정해서
