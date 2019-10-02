@@ -1,4 +1,4 @@
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L786)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L796)</span>
 ### Dense
 
 ```python
@@ -72,7 +72,7 @@ __아웃풋 형태__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L275)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L277)</span>
 ### Activation
 
 ```python
@@ -99,7 +99,7 @@ __아웃풋 형태__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L79)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L81)</span>
 ### Dropout
 
 ```python
@@ -130,7 +130,7 @@ __참조__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L460)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L462)</span>
 ### Flatten
 
 ```python
@@ -230,7 +230,7 @@ model = Model(x, y)
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L309)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L311)</span>
 ### Reshape
 
 ```python
@@ -317,7 +317,7 @@ __아웃풋 형태__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L522)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L524)</span>
 ### RepeatVector
 
 ```python
@@ -353,7 +353,7 @@ __아웃풋 형태__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L564)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L566)</span>
 ### Lambda
 
 ```python
@@ -426,6 +426,8 @@ __인수__
          `output_shape = (None, ) + output_shape`
     함수인 경우, 전체 형태를 인풋 형태의
     함수로 특정합니다: `output_shape = f(input_shape)`
+- __mask__: Either None (indicating no masking) or a Tensor indicating the
+      input mask for Embedding.    
 - __arguments__: 함수에 전달할 선택적 키워드 인수의
     딕셔너리.
 
@@ -442,7 +444,7 @@ __아웃풋 형태__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L930)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L940)</span>
 ### ActivityRegularization
 
 ```python
@@ -468,7 +470,7 @@ __아웃풋 형태__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L29)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L28)</span>
 ### Masking
 
 ```python
@@ -501,9 +503,13 @@ model.add(Masking(mask_value=0., input_shape=(timesteps, features)))
 model.add(LSTM(32))
 ```
 
+__Arguments__
+
+- __mask_value__: Either None or mask value to skip
+
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L139)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L141)</span>
 ### SpatialDropout1D
 
 ```python
@@ -540,7 +546,7 @@ __참조__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L176)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L178)</span>
 ### SpatialDropout2D
 
 ```python
@@ -586,7 +592,7 @@ __참조__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L226)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L228)</span>
 ### SpatialDropout3D
 
 ```python
