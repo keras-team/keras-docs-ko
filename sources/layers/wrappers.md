@@ -1,4 +1,4 @@
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/wrappers.py#L114)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/wrappers.py#L116)</span>
 ### TimeDistributed
 
 ```python
@@ -51,11 +51,11 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/wrappers.py#L333)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/wrappers.py#L335)</span>
 ### Bidirectional
 
 ```python
-keras.layers.Bidirectional(layer, merge_mode='concat', weights=None)
+keras.engine.base_layer.wrapped_fn()
 ```
 
 순환 신경망에 사용하는 양방향 래퍼.
@@ -68,6 +68,8 @@ __인수__
     {'sum', 'mul', 'concat', 'ave', None} 중 하나.
     None의 경우, 아웃풋이 합쳐지지 않고,
     리스트로 반환됩니다.
+    
+weights: Initial weights to load in the Bidirectional model
 
 __오류처리__
 
