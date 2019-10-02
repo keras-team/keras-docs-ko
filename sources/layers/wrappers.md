@@ -67,8 +67,8 @@ __인수__
     역방향 순환 신경망의 아웃풋이 병합되는 방식.
     {'sum', 'mul', 'concat', 'ave', None} 중 하나.
     None의 경우, 아웃풋이 합쳐지지 않고,
-    리스트로 반환됩니다.
--__weights__: Bidirectional 모델에 사용 될 초기 가중치
+    리스트로 반환됩니다.  
+-__weights__: 'Bidirectional' 모델에 사용 될 초기 가중치
 
 __오류처리__
 
