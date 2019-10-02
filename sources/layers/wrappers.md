@@ -68,7 +68,7 @@ __인수__
     {'sum', 'mul', 'concat', 'ave', None} 중 하나.
     None의 경우, 아웃풋이 합쳐지지 않고,
     리스트로 반환됩니다.  
-- __weights__: 'Bidirectional' 모델에 사용 될 초기 가중치
+- __weights__: `Bidirectional` 모델에 사용 될 초기 가중치
 
 __오류처리__
 
