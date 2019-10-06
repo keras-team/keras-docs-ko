@@ -70,7 +70,7 @@ __반환값__
 - __x__: `(len(sequences), maxlen)`형태의 NumPy 배열.
 
 __오류__
-- __ValueError__: `truncating` 혹은 `padding`에 유효하지 않은 값을 전달한 경우, 또는 `sequences`입력 형식이 유효하지 않은 경우 오류메시지를 출력합니다.
+- __ValueError__: `truncating` 혹은 `padding`에 잘못된 값을 전달한 경우, 또는 `sequences`입력 형식이 잘못된 경우 오류메시지를 출력합니다.
     
 ----
 ### skipgrams
