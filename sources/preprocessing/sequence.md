@@ -10,7 +10,7 @@ keras.preprocessing.sequence.TimeseriesGenerator(data, targets, length, sampling
 이 클래스는 일정한 간격으로 수집된 시계열 데이터와 전체 길이, 스트라이드<sub>Stride</sub>와 같이 시계열 특성을 나타내는 매개변수<sub>parameter</sub>를 입력받아 훈련/검증에 사용할 배치 데이터를 생성합니다.
 
 __인자__
-- __data__: 리스트 또는 Numpy 배열과 같이 인덱싱 가능한 2D 데이터로 0번째 축<sub>Axis</sub>을 나타냅니다.
+- __data__: 리스트 또는 NumPy 배열과 같이 인덱싱 가능한 2D 데이터로 0번째 축<sub>Axis</sub>을 나타냅니다.
 - __targets__: `data`의 시간 단계와 상응하는 목표값으로 0번째 축의 길이가 `data`와 서로 같아야 합니다.
 - __length__: 생성할 배치의 시계열 길이를 지정합니다. 해당 인자를 통해 지정되는 길이는 최대 길이로서, 각 표본<sub>Sample</sub>의 실제 길이는 `length`를 `sampling_rate`로 나눈 몫만큼이 됩니다.
 - __sampling_rate__: `length`를 통해 지정된 시계열 범위 가운데 몇 번째 시점마다 입력값을 추출해서 배치에 포함시킬 것인지를 정합니다. 예를 들어 표본이 `i`번째 데이터에서 시작할 때 `sampling_rate`를 `r`로 설정할 경우 생성되는 표본은 `data[i]`, `data[i+r]`, `data[i+2r]`... 의 형태가 되며, 표본의 최종 길이는 `length`를 `sampling_rate`로 나눈 몫만큼이 됩니다. `sampling_rate`가 `1`일 경우 배치의 길이는 `length`와 같아집니다. 기본값은 `1`입니다.
@@ -53,7 +53,7 @@ keras.preprocessing.sequence.pad_sequences(sequences, maxlen=None, dtype='int32'
 ```
 입력값의 길이를 패딩<sub>Padding</sub>하여 동일하게 만듭니다.
 
-이 함수<sub>Function</sub>는 서로 다른 길이를 가진 `num_samples`개의 리스트에 패딩을 더하여 전체 길이가 `num_timesteps`로 동일한 `(num_samples, num_timesteps)`형태의 2D Numpy 배열로 변형합니다. 패딩을 포함한 `num_timesteps`의 길이는 `maxlen`인자에 의해 결정되며, `maxlen`인자를 지정하지 않을 경우에는 전체 입력 리스트 가운데 가장 긴 리스트를 기준으로 맞춰집니다. 길이가 `num_timesteps`보다 긴 경우는 잘라냅니다. 패딩에 사용되는 값은 `value` 인자로 정할 수 있으며 기본값은 `0 (float)`입니다.  
+이 함수<sub>Function</sub>는 서로 다른 길이를 가진 `num_samples`개의 리스트에 패딩을 더하여 전체 길이가 `num_timesteps`로 동일한 `(num_samples, num_timesteps)`형태의 2D NumPy 배열로 변형합니다. 패딩을 포함한 `num_timesteps`의 길이는 `maxlen`인자에 의해 결정되며, `maxlen`인자를 지정하지 않을 경우에는 전체 입력 리스트 가운데 가장 긴 리스트를 기준으로 맞춰집니다. 길이가 `num_timesteps`보다 긴 경우는 잘라냅니다. 패딩에 사용되는 값은 `value` 인자로 정할 수 있으며 기본값은 `0 (float)`입니다.  
   
 `padding`과 `truncating`인자는 각각 개별 리스트의 앞/뒤 가운데 어느 부분을 패딩하고 절삭할지를 결정합니다. 기본값은 `pre`(앞)입니다.
 
@@ -66,7 +66,7 @@ __인자__
 - __value__: 패딩에 사용할 값으로 `float`또는 `string` 형식의 입력을 받습니다. 기본값은 `0 (float)`입니다.
 
 __반환값__
-- __x__: `(len(sequences), maxlen)`형태의 Numpy 배열.
+- __x__: `(len(sequences), maxlen)`형태의 NumPy 배열.
 
 __오류__
 - __ValueError__: `truncating` 혹은 `padding`에 유효하지 않은 값을 전달한 경우, 또는 `sequences`입력 형식이 유효하지 않은 경우 오류메시지를 출력합니다.
@@ -80,7 +80,7 @@ Skipgram 단어 쌍을 생성합니다.
 
 Skipgram은 어떤 문장을 구성하는 각각의 단어들을 '중심 단어'로 지정하고 특정 중심 단어가 등장했을 때 '주변 단어'가 등장할 확률을 말뭉치<sub>Corpus</sub>로부터 학습하는 모델입니다. Skipgram에 대한 보다 자세한 설명은 [Mikolov et al.의 탁월한 논문](http://arxiv.org/pdf/1301.3781v3.pdf)을 참고하십시오.  
   
-Keras의 `skipgrams`함수는 단어 인덱스로 이루어진 리스트를 입력받아 중심 단어와 주변 단어의 쌍으로 이루어진 학습용 데이터 튜플을 생성합니다. 튜플은 다음의 두 리스트로 이루어집니다.
+케라스의 `skipgrams`함수는 단어 인덱스로 이루어진 리스트를 입력받아 중심 단어와 주변 단어의 쌍으로 이루어진 학습용 데이터 튜플을 생성합니다. 튜플은 다음의 두 리스트로 이루어집니다.
 
 - 리스트`0`: 문장 내의 중심 단어와 주변 단어로 이루어진 리스트들의 리스트. 중심 단어의 인덱스를 `i`, `windows_size`인자에서 지정한 '창의 크기'를 `n`이라고 하면 `[i-n]`, `[i-n+1]`, ..., `[i-1]`, `[i+1]`, ..., `[i+n-1]`, `[i+n]`인덱스의 단어들이 각각 중심 단어 `[i]`와 단어 쌍을 만들게 됩니다. 따라서 각 중심 단어마다 `2n`개의 단어쌍을 만들며, 해당 중심 단어가 문장의 시작 또는 끝에 가까워서 어느 한쪽의 주변 단어 갯수가 `n`보다 작을 경우 그 방향에 존재하는 주변 단어의 갯수만큼 단어쌍이 생성됩니다. 또한 `negative_samples` 인자에서 지정한 비율에 따라 중심 단어와 '가짜 주변 단어'로 이루어진 '거짓 표본' 리스트들이 함께 생성됩니다.
 - 리스트`1`: 리스트`0`에 포함된 각 단어쌍이 실제 중심 단어와 주변 단어로 이루어진 '참 표본'인지, 무작위로 선택한 가짜 주변 단어로 이루어진 '거짓 표본'인지를 나타내는 레이블의 리스트입니다. 참인 경우 `1`, 거짓인 경우 `0`값을 갖습니다.
@@ -124,4 +124,4 @@ __인자__
 - __sampling_factor__: word2vec 공식에 사용할 표본 추출 인수. 기본값은 `1e-5`입니다.
 
 __반환값__
-`size`의 길이를 가진 1D 형태의 Numpy 배열로, `i`번째 값은 `i`번째로 빈번하게 나타나는 단어를 학습 표본으로 추출할 확률입니다.
+`size`의 길이를 가진 1D 형태의 NumPy 배열로, `i`번째 값은 `i`번째로 빈번하게 나타나는 단어를 학습 표본으로 추출할 확률입니다.
