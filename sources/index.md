@@ -21,6 +21,17 @@
 
 ------------------
 
+## Multi-backend Keras and tf.keras:
+
+**At this time, we recommend that Keras users who use multi-backend Keras with the TensorFlow backend switch to `tf.keras` in TensorFlow 2.0**. `tf.keras` is better maintained and has better integration with TensorFlow features (eager execution, distribution support and other).
+Keras 2.2.5 was the last release of Keras implementing the 2.2.* API. It was the last release to only support TensorFlow 1 (as well as Theano and CNTK).
+The current release is Keras 2.3.0, which makes significant API changes and add support for TensorFlow 2.0. The 2.3.0 release will be the last major release of multi-backend Keras. Multi-backend Keras is superseded by `tf.keras`.
+Bugs present in multi-backend Keras will only be fixed until April 2020 (as part of minor releases).
+For more information about the future of Keras, see [the Keras meeting notes](http://bit.ly/keras-meeting-notes).
+
+
+------------------
+
 
 ## 이념
 
@@ -126,6 +137,9 @@ classes = model.predict(x_test, batch_size=128)
 이제 케라스를 설치하시면 됩니다. 케라스 설치에는 두가지 방법이 있습니다:
 
 - **PyPI에서 케라스 설치하기 (추천):**
+
+Note: These installation steps assume that you are on a Linux or Mac environment.
+If you are on Windows, you will need to remove `sudo` to run the commands below.
 
 ```sh
 sudo pip install keras
