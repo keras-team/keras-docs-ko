@@ -1,6 +1,7 @@
 # 텍스트 전처리 모듈<sub>Text Preprocessing Modules</sub> 
-텍스트 전처리 도구 모듈입니다. <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/preprocessing/text.py#L138)</span>
+텍스트 전처리 도구 모듈입니다.  
 
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/preprocessing/text.py#L138)</span>
 ## Tokenizer 클래스
 ```python
 keras.preprocessing.text.Tokenizer(num_words=None, filters='!"#$%&()*+,-./:;<=>?@[\]^_`{|}~	
