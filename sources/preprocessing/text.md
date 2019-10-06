@@ -112,7 +112,7 @@ __반환값__:
 ```python
 texts_to_matrix(texts, mode)
 ```
-입력된 문장을 Numpy 행렬로 변환합니다. 각 행렬은 (문장의 갯수 × `num_words`)의 형태를 가지며 n번째 열은 n의 인덱스를 갖는 단어를 나타냅니다. 변환된 행렬의 값은 `mode`인자에 따라 다음과 같이 달라집니다.
+입력된 문장을 NumPy 행렬로 변환합니다. 각 행렬은 (문장의 갯수 × `num_words`)의 형태를 가지며 n번째 열은 n의 인덱스를 갖는 단어를 나타냅니다. 변환된 행렬의 값은 `mode`인자에 따라 다음과 같이 달라집니다.
 - "binary": 문장별로 존재하는 단어는 1, 아닌 단어는 0의 값을 갖는 행렬.
 - "count": 각 단어가 문장 내에서 등장하는 횟수만큼의 값을 갖는 행렬.
 - "tfidf": 단어별로 Term Frequency-Inverse Document Frequency 값을 갖는 행렬.
@@ -123,14 +123,14 @@ __인자__:
 - __mode__: "binary", "count", "tfidf", "freq".
 
 __반환값__:
-Numpy 행렬.
+NumPy 행렬.
 
 ---
 ### sequences_to_matrix
 ```python
 sequences_to_matrix(sequences, mode)
 ```
-단어 인덱스로 이루어진 리스트를 Numpy 행렬로 변환합니다. 각 행렬은 (문장의 갯수 × `num_words`)의 형태를 가지며 n번째 열은 n의 인덱스를 갖는 단어를 나타냅니다. 변환된 행렬의 값은 `mode`인자에 따라 다음과 같이 달라집니다.
+단어 인덱스로 이루어진 리스트를 NumPy 행렬로 변환합니다. 각 행렬은 (문장의 갯수 × `num_words`)의 형태를 가지며 n번째 열은 n의 인덱스를 갖는 단어를 나타냅니다. 변환된 행렬의 값은 `mode`인자에 따라 다음과 같이 달라집니다.
 - "binary": 문장별로 존재하는 단어는 1, 아닌 단어는 0의 값을 갖는 행렬.
 - "count": 각 단어가 문장 내에서 등장하는 횟수만큼의 값을 갖는 행렬.
 - "tfidf": 단어별로 Term Frequency-Inverse Document Frequency 값을 갖는 행렬.
@@ -141,7 +141,7 @@ __인자__:
 - __mode__: "binary", "count", "tfidf", "freq". 
 
 __반환값__:
-Numpy 행렬.
+NumPy 행렬.
 
 ---
 ### get_config
