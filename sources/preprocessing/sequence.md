@@ -1,6 +1,7 @@
 # 순서형 전처리<sub>Sequence Preprocessing</sub> 
-순서형 전처리 도구 모듈입니다. <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/preprocessing/sequence.py#L16)</span>
+순서형 전처리 도구 모듈입니다.  
 
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/preprocessing/sequence.py#L16)</span>
 ### TimeseriesGenerator
 ```python
 keras.preprocessing.sequence.TimeseriesGenerator(data, targets, length, sampling_rate=1, stride=1, start_index=0, end_index=None, shuffle=False, reverse=False, batch_size=128)
