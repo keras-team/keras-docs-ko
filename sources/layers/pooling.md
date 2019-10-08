@@ -19,7 +19,7 @@ __인수__
     입력 인수의 순서.
     `channels_last`는 `(batch, steps, features)`, `channels_first`는 `(batch, features, steps)` 형태를 의미합니다.
 
-__입력값 형태__
+__입력값<sub>Input</sub> 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, steps, features)`
@@ -28,7 +28,7 @@ __입력값 형태__
     `(batch_size, features, steps)`
     형태의 3D 텐서.
 
-__출력값 형태__
+__출력값<sub>Output</sub> 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, downsampled_steps, features)`
