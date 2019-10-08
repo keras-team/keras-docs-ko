@@ -93,7 +93,7 @@ keras.initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='norma
 ```
 가중치 텐서의 규모에 따라 초기값 생성에 사용할 분포를 조정합니다.  
 
-먼저 정규분포(`distribution="normal"`)를 선택할 경우, `0`을 평균으로 `sqrt(scale / n)`의 표준편차를 가진 정규분포의 `+-2`표준편차 범주 안에서 값을 선택합니다. 이때 `n`값은 `mode`인자 지정에 따라 다음과 같이 달라집니다.
+먼저 정규분포(`distribution="normal"`)를 선택할 경우, `0`을 평균으로 `sqrt(scale / n)`의 표준편차를 가진 정규분포의 `+-2`표준편차 범위 안에서 값을 선택합니다. 이때 `n`값은 `mode`인자 지정에 따라 다음과 같이 달라집니다.
 - `mode = "fan_in"`의 경우 `n`은 가중치 텐서의 입력 차원 크기입니다. 
 - `mode = "fan_out"`의 경우 `n`은 가중치 텐서의 출력 차원 크기입니다. 
 - `mode = "fan_avg"`의 경우 입력 차원, 출력 차원 크기의 평균값이 됩니다.
