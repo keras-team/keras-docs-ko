@@ -70,7 +70,7 @@ keras.initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
 __인자__
 - __minval__: `int` 혹은 `float`형식의 스칼라 값 또는 같은 형식의 스칼라 텐서. 무작위 생성에 사용할 수치 범위의 최솟값입니다. 기본값은 `-0.05`입니다.
 - __maxval__: `int` 혹은 `float`형식의 스칼라 값 또는 같은 형식의 스칼라 텐서. 무작위 생성에 사용할 수치 범위의 최댓값입니다. 기본값은 `0.05`입니다.
-- __seed__: 파이썬 정수. 난수 생성기에 시드를 전달하는데 사용됩니다. 기본값은 `None`입니다.
+- __seed__: `int`. 무작위 생성에 사용할 시드를 정합니다. 기본값은 `None`입니다.
     
 ----
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/initializers.py#L122)</span>
