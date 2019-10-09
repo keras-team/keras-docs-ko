@@ -7,7 +7,7 @@ keras.layers.LeakyReLU(alpha=0.3)
 
 ReLU(Rectified Linear Unit) 활성화 함수의 leaky version입니다.
 
-Unit이 활성화되지 않는 경우 작은 gradient를 허용합니다:  
+Unit이 활성화되지 않는 경우 작은 gradient를 허용합니다.
 `x < 0인 경우 f(x) = alpha * x`,  
 `x >= 0인 경우 f(x) = x`.
 
@@ -39,7 +39,7 @@ keras.layers.PReLU(alpha_initializer='zeros', alpha_regularizer=None, alpha_cons
 
 Parametric Rectified Linear Unit 활성화 함수입니다.
 
-PReLU는 다음과 같습니다:  
+PReLU는 다음과 같습니다.
 `x < 0인 경우 f(x) = alpha * x`,  
 `x >= 0인 경우 f(x) = x`,  
 `alpha`는 x와 동일한 shape를 가진 학습된 배열입니다.
@@ -75,7 +75,7 @@ keras.layers.ELU(alpha=1.0)
 
 Exponential Linear Unit 활성화 함수입니다.
 
-ELU는 다음과 같습니다:  
+ELU는 다음과 같습니다.
 `x < 0인 경우 f(x) =  alpha * (exp(x) - 1.)`,  
 `x >= 0인 경우 f(x) = x`.
 
@@ -107,7 +107,7 @@ keras.layers.ThresholdedReLU(theta=1.0)
 
 ThresholdedReLU 활성화 함수입니다.
 
-ThresholdedReLU는 다음과 같습니다:  
+ThresholdedReLU는 다음과 같습니다.
 `x > theta인 경우 f(x) = x`,  
 `그렇지 않은 경우 f(x) = 0`.
 
@@ -164,7 +164,7 @@ Rectified Linear Unit 활성화 함수입니다.
 
 디폴트 인수들을 사용하면 element-wise `max(x, 0)`를 반환합니다.
 
-다른 인수를 사용하면 다음과 같습니다:  
+다른 인수를 사용하면 다음과 같습니다.
 `x >= max_value`인 경우 `f(x) = max_value`,  
 `threshold <= x < max_value`인 경우 `f(x) = x`,  
 그렇지 않은 경우 `f(x) = negative_slope * (x - threshold)`.
