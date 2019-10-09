@@ -19,18 +19,6 @@ model.add(Dense(64, kernel_constraint=max_norm(2.)))
 
 ## 사용가능한 제약
 
-
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L61)</span>
-### NonNeg
-
-```python
-keras.constraints.NonNeg()
-```
-
-가중치가 비음수가 되도록 제약합니다.
-
-----
-
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L22)</span>
 ### MaxNorm
 
@@ -63,6 +51,17 @@ __참고__
 - [Dropout: A Simple Way to Prevent Neural Networks from Overfitting](
    http://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf)
     
+----
+
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L61)</span>
+### NonNeg
+
+```python
+keras.constraints.NonNeg()
+```
+
+가중치가 비음수가 되도록 제약합니다.
+
 ----
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L69)</span>
