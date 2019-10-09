@@ -1,6 +1,6 @@
 ## 활성화 함수의 사용법
 
-활성화 함수<sub>activations</sub>는 `Activation` layer이나 forward-pass에 사용되는 layers에서 지원하는 `activation` argument로 사용 가능합니다:
+활성화 함수<sub>activations</sub>는 `Activation` layer이나 forward-pass에 사용되는 layers에서 지원하는 `activation` argument로 사용 가능합니다.
 
 ```python
 from keras.layers import Activation, Dense
@@ -9,12 +9,12 @@ model.add(Dense(64))
 model.add(Activation('tanh'))
 ```
 
-이것은 다음과 같습니다:
+이것은 다음과 같습니다.
 
 ```python
 model.add(Dense(64, activation='tanh'))
 ```
-여러분은 Tensorflow/Theano/CNTK 의 element-wise 함수도 활성화 함수로 사용할 수 있습니다:
+여러분은 Tensorflow/Theano/CNTK 의 element-wise 함수도 활성화 함수로 사용할 수 있습니다.
 
 ```python
 from keras import backend as K
@@ -88,7 +88,7 @@ keras.activations.selu(x)
 
 Scaled Exponential Linear Unit (SELU).
 
-SELU는 다음과 같습니다: `scale * elu(x, alpha)`, 여기서 `alpha`와 `scale`은
+SELU는 `scale * elu(x, alpha)`와 같으며, `alpha`와 `scale`은
 미리 정해지는 상수입니다. weights가 올바르게 초기화되고(`lecun_normal`를 확인해주십시오)
 inputs 수가 "충분히 많다"면(참고 자료에서 더 많은 정보를 확인해주십시오) `alpha`와 `scale`의 값은
 입력의 평균값과 분산값이 두 개의 연속되는 layers 사이에서 보존되도록 결정됩니다.
@@ -99,7 +99,7 @@ __Arguments__
 
 __Returns__
 
-Scaled exponential linear unit의 활성값: `scale * elu(x, alpha)`.
+Scaled exponential linear unit의 활성값 `scale * elu(x, alpha)`.
 
 __Note__
 
@@ -128,7 +128,7 @@ __Arguments__
 
 __Returns__
 
-Softplus의 활성값: `log(exp(x) + 1)`.
+Softplus의 활성값 `log(exp(x) + 1)`.
 
 ----
 
@@ -148,7 +148,7 @@ __Arguments__
 
 __Returns__
 
-Softsign의 활성값: `x / (abs(x) + 1)`.
+Softsign의 활성값 `x / (abs(x) + 1)`.
 
 ----
 
@@ -164,7 +164,7 @@ Rectified Linear Unit.
 
 디폴트 인수들을 사용하면 element-wise `max(x, 0)`를 반환합니다.
 
-다른 인수를 사용하면 다음과 같습니다:  
+다른 인수를 사용하면 다음과 같습니다.  
 `x >= max_value` 일 때 `f(x) = max_value`,  
 `threshold <= x < max_value` 일 때 `f(x) = x`,  
 그 외는 `f(x) = alpha * (x - threshold)`.
