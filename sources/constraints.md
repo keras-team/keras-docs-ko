@@ -19,7 +19,6 @@ model.add(Dense(64, kernel_constraint=max_norm(2.)))
 
 ## 사용가능한 제약
 
-
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L22)</span>
 ### MaxNorm
 
@@ -34,7 +33,7 @@ MaxNorm 가중치 제약.
 
 __인수__
 
-- __m__: 입력 가중치의 최대 노름
+- __max_value__: 입력 가중치의 최대 노름
 - __axis__: 정수, 가중치 노름을 계산할 축.
     예를 들어, 어느 `Dense` 레이어의 가중치 행렬이
     `(input_dim, output_dim)`의 형태를 취할 때,
@@ -54,7 +53,7 @@ __참고__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L62)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L61)</span>
 ### NonNeg
 
 ```python
@@ -65,7 +64,7 @@ keras.constraints.NonNeg()
 
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L71)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L69)</span>
 ### UnitNorm
 
 ```python
@@ -90,7 +89,7 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L100)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/constraints.py#L98)</span>
 ### MinMaxNorm
 
 ```python
