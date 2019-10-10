@@ -314,87 +314,59 @@ __반환값__
 
 
 ```python
-flow_from_dataframe(dataframe, directory, x_col='filename', y_col='class', has_ext=True, target_size=(256, 256), color_mode='rgb', classes=None, class_mode='categorical', batch_size=32, shuffle=True, seed=None, save_to_dir=None, save_prefix='', save_format='png', subset=None, interpolation='nearest')
+flow_from_dataframe(dataframe, directory=None, x_col='filename', y_col='class', target_size=(256, 256), color_mode='rgb', classes=None, class_mode='categorical', batch_size=32, shuffle=True, seed=None, save_to_dir=None, save_prefix='', save_format='png', subset=None, interpolation='nearest', drop_duplicates=True)
 ```
 
 
-dataframe과 디렉토리의 위치를 전달받아
-증강/정규화된 데이터의 배치를 생성합니다.
+dataframe과 디렉토리의 위치를 전달받아 증강/정규화된 데이터의 배치를 생성합니다.
 
 __다음 링크에서 간단한 튜토리얼을 확인하실 수 있습니다: http://bit.ly/keras_flow_from_dataframe__
 
 
 __인수__
 
-    dataframe: 이미지의 파일 이름을 한 열, 그리고 클래스를 다른 열에 갖거나,
-               미가공된 표적 데이터로써 전달할 열을 소유한
-               pandas dataframe.
-    directory: 문자열, dataframe 내 매핑된 모든 이미지가 위치한
-               표적 디렉토리에의 경로.
-    x_col: 문자열, 표적 이미지의 파일 이름을 가진
-           dataframe 내 열.
-    y_col: 문자열 혹은 문자열의 리스트, 표적 데이터가 될
-           dataframe 내 열.
-    has_ext: 불리언, dataframe[x_col]의 파일 이름이 파일 확장자를
-            가지면 참, 아니면 거짓.
-    target_size: 정수의 튜플 `(높이, 넓이)`,
-                 디폴트 값: `(256, 256)`.
-                 모든 이미지의 크기를
-                 재조정할 치수.
-    color_mode: "grayscale"과 "rbg" 중 하나. 디폴트 값: "rgb".
-                이미지가 1개 혹은 3개의 색깔 채널을 갖도록
-                변환할지 여부.
-    classes: 클래스로 이루어진 선택적 리스트
-    (예. `['dogs', 'cats']`). 디폴트 값: None.
-     특별히 값을 지정하지 않으면, 클래스로 이루어진 리스트가
-     y_col에서 자동으로 유추됩니다
-     (이는 영숫자순으로 라벨 색인에 대응됩니다).
-     `class_indices` 속성을 통해서 클래스 이름과 클래스 색인 간 매핑을 담은
-     딕셔너리를 얻을 수 있습니다.
-    class_mode: "categorical", "binary", "sparse",
-      "input", "other" 혹은 None 중 하나. 디폴트 값: "categorical".
-     반환될 라벨 배열의 종류를 결정합니다:
-     - `"categorical"`은 2D 형태의 원-핫 인코딩된 라벨입니다,
-     - `"binary"`는 1D 형태의 이진 라벨입니다,
-     - `"sparse"`는 1D 형태의 정수 라벨입니다,
-     - `"input"`는 인풋 이미지와
-
-     동일한 이미지입니다 (주로 자동 인코더와 함께 사용합니다).
-
-    - `"other"`는 y_col 데이터의 numpy 배열입니다.
-     - None의 경우, 어떤 라벨도 반환되지 않습니다 (생성자가
-             이미지 데이터의 배치만 만들어내기 때문에
-
-     `model.predict_generator()`, `model.evaluate_generator()` 등을 사용하는 것이 유용합니다).
-
-    batch_size: 데이터 배치의 크기 (디폴트 값: 32).
-    shuffle: 데이터를 뒤섞을지 여부 (디폴트 값: 참)
-    seed: 데이터 셔플링과 변형에 사용할 선택적 난수 시드.
-    save_to_dir: None 혹은 문자열 (디폴트 값: None).
-                 이는 디렉토리를 선택적으로 지정해서 
-                 생성된 증강 사진을 저장할 수 있도록 해줍니다.
-                 (현재 작업을 시각화하는데 유용합니다).
-    save_prefix: 문자열. 저장된 사진의 파일 이름에 사용할 접두부호
-    (`save_to_dir`이 설정된 경우에만 유의미합니다).
-    save_format: "png"와 "jpeg" 중 하나
-    (`save_to_dir`이 설정된 경우에만 유의미합니다). 디폴트 값: "png".
-    follow_links: 클래스 하위 디렉토리 내 심볼릭 링크를 따라갈지 여부
-    (디폴트 값: 거짓).
-    subset: `ImageDataGenerator`에 `validation_split`이 설정된 경우
-     데이터의 부분집합 (`"training"` or `"validation"`).
-    interpolation: Interpolation method used to resample the image if the
-     target size is different from that of the loaded image.
-     지원되는 메서드로는 `"nearest"`, `"bilinear"`, 그리고 `"bicubic"`이 있습니다.
-     PIL 버전 1.1.3 이상이 설치된 경우, `"lanczos"`도 지원됩니다.
-     PIL 버전 3.4.0 이상이 설치된 경우, `"box"`와 
-     `"hamming"` 또한 지원됩니다. 디폴트 값으로 `"nearest"`가 사용됩니다.
+- __dataframe__: Pandas dataframe containing the filepaths relative to 'directory' (or absolute paths  
+if `directory` is None) of the images in a string column. It should include other column/s  
+depending on the `class_mode`: - if `class_mode` is `"categorical"` (default value) it must include  
+the y_col column with the class/es of each image. Values in column can be string/list/tuple if  
+a single class or list/tuple if multiple classes. - if 'class_mode' is '"binary"' or '"sparse"' it must   include the given 'y_col' column with class values as strings. - if 'class_mode' is '"other"' it  
+should contain the columns specified in 'y_col'. - if 'class_mode' is '"input"' or 'None' no extra  
+column is needed.
+- __directory__: string, path to the directory to read images from. If 'None', data in 'x_col' column  
+should be absolute paths.
+- __x_col__: string, column in 'dataframe' that contains the filenames (or absolute paths if 'directory' is 'None').
+- __y_col__: string or list, column/s in dataframe that has the target data.
+- __target_size__: 정수의 튜플 `(높이, 넓이)`, 디폴트 값: `(256, 256)`. 모든 이미지의 크기를 재조정할 치수.
+- __color_mode__: "grayscale"과 "rbg" 중 하나. 디폴트 값: "rgb". 이미지가 1개 혹은 3개의 색깔 채널을 갖도록
+  변환할지 여부.
+- __classes__: 클래스로 이루어진 선택적 리스트 (예. `['dogs', 'cats']`). 디폴트 값: None. 특별히 값을 지정하지 않으면,   클래스로 이루어진 리스트가 `y_col`에서 자동으로 유추됩니다 (이는 영숫자순으로 라벨 색인에 대응됩니다).    `class_indices` 속성을 통해서 클래스 이름과 클래스 색인 간 매핑을 담은 딕셔너리를 얻을 수 있습니다.
+- __class_mode__: "categorical", "binary", "sparse", "input", "other" 혹은 None 중 하나. 디폴트 값: "categorical".
+  Mode for yielding the targets:
+  - `"binary"`: 1D numpy array of binary labels,
+  - `"categorical"`: 2D numpy array of one-hot encoded labels. Supports multi-label output.
+  - `"sparse"`: 1D numpy array of integer labels,
+  - `"input"`: images identical to input images (mainly used to work with autoencoders),
+  - `"other"`: numpy array of y_col data,
+  - `None`, no targets are returned (the generator will only yield batches of image data, which is
+  useful to use in `model.predict_generator()`).
+- __batch_size__: 데이터 배치의 크기 (디폴트 값: 32).
+- __shuffle__: 데이터를 뒤섞을지 여부 (디폴트 값: 참)
+- __seed__: 데이터 셔플링과 변형에 사용할 선택적 난수 시드.
+- __save_to_dir__: None 혹은 문자열 (디폴트 값: None).이는 디렉토리를 선택적으로 지정해서 
+  생성된 증강 사진을 저장할 수 있도록 해줍니다. (현재 작업을 시각화하는데 유용합니다).
+- __save_prefix__: 문자열. 저장된 사진의 파일 이름에 사용할 접두부호 (`save_to_dir`이 설정된 경우에만 유의미합니다).
+- __save_format__: "png"와 "jpeg" 중 하나 (`save_to_dir`이 설정된 경우에만 유의미합니다). 디폴트 값: "png".
+- __follow_links__: 클래스 하위 디렉토리 내 심볼릭 링크를 따라갈지 여부 (디폴트 값: 거짓).
+- __subset__: `ImageDataGenerator`에 `validation_split`이 설정된 경우 데이터의 부분집합 (`"training"` or `"validation"`).
+- __interpolation__: Interpolation method used to resample the image if the target size is different from that of the loaded image. 지원되는 메서드로는 `"nearest"`, `"bilinear"`, 그리고 `"bicubic"`이 있습니다.
+PIL 버전 1.1.3 이상이 설치된 경우, `"lanczos"`도 지원됩니다. PIL 버전 3.4.0 이상이 설치된 경우, `"box"`와 
+`"hamming"` 또한 지원됩니다. 디폴트 값으로 `"nearest"`가 사용됩니다.
+- __drop_duplicates__: Boolean, whether to drop duplicate rows based on filename.
 
 __반환값__
 
-`(x, y)` 튜플을 만들어내는 A DataFrameIterator
-여기서 `x`는 `(배치 크기, *표적 크기, 채널)` 형태의
-이미지 배치로 구성된 numpy 배열이고
-`y`는 그에 상응하는 라벨로 이루어진 numpy 배열입니다.
+`(x, y)` 튜플을 만들어내는 A `DataFrameIterator` 여기서 `x`는 `(배치 크기, *표적 크기, 채널)` 형태의
+이미지 배치로 구성된 numpy 배열이고 `y`는 그에 상응하는 라벨로 이루어진 numpy 배열입니다.
     
 ---
 ### flow_from_directory
@@ -409,7 +381,7 @@ flow_from_directory(directory, target_size=(256, 256), color_mode='rgb', classes
 
 __인수__
 
-- __directory__: 표적 디렉토리에의 경로.
+- __directory__: string, 표적 디렉토리에의 경로.
     반드시 한 클래스 당 하나의 하위 디렉토리가 있어야 합니다.
     각 하위 디렉토리 내에 위치한 
     어떤 PNG, JPG, BMP, PPM 혹은 TIF 이미지도
@@ -533,6 +505,10 @@ standardize(x)
 
 
 인풋의 배치에 정규화 구성을 적용합니다.
+
+`x` is changed in-place since the function is mainly used internally to standarize images and feed them to your network. If a copy of `x` would be created instead it would have a significant performance cost. If you want to apply this method without changing the input in-place you can call the method creating a copy before:
+
+standarize(np.copy(x))
 
 __인수__
 
