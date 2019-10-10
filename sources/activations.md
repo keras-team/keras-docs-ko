@@ -198,7 +198,7 @@ __인자__
 
 __반환값__
 
-The hyperbolic activation:
+Hyperbolic tangent의 :
 `tanh(x) = (exp(x) - exp(-x)) / (exp(x) + exp(-x))`
 
 
@@ -220,7 +220,7 @@ __인자__
 
 __반환값__
 
-The sigmoid activation: `1 / (1 + exp(-x))`.
+Sigmoid의 활성값: `1 / (1 + exp(-x))`.
 
 ----
 
@@ -266,7 +266,7 @@ __인자__
 
 __반환값__
 
-Exponential activation: `exp(x)`.
+Exponential의 활성값: `exp(x)`.
 
 ----
 
