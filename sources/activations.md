@@ -198,7 +198,7 @@ __인자__
 
 __반환값__
 
-Hyperbolic tangent의 :
+Hyperbolic tangent의 활성값:
 `tanh(x) = (exp(x) - exp(-x)) / (exp(x) + exp(-x))`
 
 
