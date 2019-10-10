@@ -35,7 +35,6 @@ class MyLayer(Layer):
 ```
 
 케라스를 활용하여 다중 입력 텐서와 다중 출력 텐서를 가진 층을 정의하는 것도 가능합니다. 이를 위해선 `build(input_shape)` , `call(x)` 그리고 `compute_output_shape(input_shape)` 의 입력과 출력이 리스트라고 가정해야 합니다. 다음은 위와 비슷한 예시입니다.
->>>>>>> origin/patch-7
 
 ```python
 from keras import backend as K
