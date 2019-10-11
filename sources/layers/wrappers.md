@@ -42,7 +42,7 @@ model.add(TimeDistributed(Conv2D(64, (3, 3)),
                           input_shape=(10, 299, 299, 3)))
 ```
 
-__인수__
+__인자__
 
 - __layer__: 층 인스턴스.
     
@@ -57,7 +57,7 @@ keras.engine.base_layer.wrapped_fn()
 
 순환 신경망에 사용하는 양방향 래퍼.
 
-__인수__
+__인자__
 
 - __layer__: `Recurrent` 인스턴스.
 - __merge_mode__: 정방향 순환 신경망과
@@ -67,7 +67,7 @@ __인수__
 
 __오류처리__
 
-- __ValueError__: `merge_mode` 인수가 유효하지 않은 경우 오류 메시지를 전달합니다.
+- __ValueError__: `merge_mode` 인자가 유효하지 않은 경우 오류 메시지를 전달합니다.
 
 __예시__
 
