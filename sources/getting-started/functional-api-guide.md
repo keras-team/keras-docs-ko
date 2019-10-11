@@ -1,143 +1,143 @@
-# 케라스 함수형 API 첫걸음
+# Keras 함수형 API 첫걸음
 
-케라스 함수형 API는 다중-아웃풋 모델, 비순환 유향 그래프, 혹은 레이어 공유 모델과 같이 복잡한 모델을 정의하는데 최적의 방법입니다.
+Keras 함수형 API는 multi-output model, 유향 비순환 그래프, 혹은 layer들을 공유하는 모델과 같이 복잡한 model을 정의하는데 최적의 방법입니다.
 
-이 가이드는 독자가 이미 `Sequential` 모델에 대한 지식이 있다고 가정합니다.
+이 가이드는 독자가 이미 `Sequential` model에 대한 지식이 있다고 가정합니다.
 
 간단한 예시로 시작합시다.
 
 -----
 
-## 첫 예시: 밀집 연결 네트워크:
+## 첫 예시: densely-connected network:
 
-밀집 연결 네트워크를 구현하기에는 `Sequential` 모델이 더 적합한 선택이겠지만, 아주 간단한 예시를 위해서 케라스 함수형 API로 구현해 보겠습니다.
+Densely-connected network를 구현하기에는 `Sequential` model이 더 적합한 선택이겠지만, 아주 간단한 예시로 설명하기 위해서 Keras 함수형 API로 구현해 보겠습니다.
 
-- 레이어 인스턴스는 (텐서에 대해) 호출 가능하고, 텐서를 반환합니다
-- 인풋 텐서와 아웃풋 텐서는 `Model`을 정의하는데 사용됩니다.
-- 이러한 모델은 케라스 `Sequential` 모델과 완전히 동일한 방식으로 학습됩니다.
+- Layer instance는 (tensor에 대해) 호출 가능하고, tensor를 반환합니다
+- Input tensor와 output tensor는 `Model`을 정의하는데 사용됩니다.
+- 이러한 model은 Keras `Sequential` model과 동일한 방식으로 학습됩니다.
 
 ```python
 from keras.layers import Input, Dense
 from keras.models import Model
 
-# 이는 텐서를 반환합니다
+# Tensor를 반환합니다
 inputs = Input(shape=(784,))
 
-# 레이어 인스턴스는 텐서에 대해 호출 가능하고, 텐서를 반환합니다
+# Layer instance는 tensor에 대해 호출 가능하고, tensor를 반환합니다
 output_1 = Dense(64, activation='relu')(inputs)
 output_2 = Dense(64, activation='relu')(output_1)
 predictions = Dense(10, activation='softmax')(output_2)
 
-# 이는 Input 레이어와 3개의 Dense 레이어를
-# 포함하는 모델을 만들어 냅니다
+# Input layer와 3개의 Dense layer를
+# 포함하는 model을 만들어 냅니다
 model = Model(inputs=inputs, outputs=predictions)
 model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',
               metrics=['accuracy'])
-model.fit(data, labels)  # starts training
+model.fit(data, labels)  # 학습을 시작합니다
 ```
 
 -----
 
-## 레이어처럼, 모든 모델이 호출 가능합니다
+## 모든 model은 layer처럼 호출 가능합니다
 
-함수형 API를 사용하면 학습된 모델을 재사용하기 편리합니다: 어느 모델이건 텐서에 대해 호출하여 레이어처럼 사용할 수 있습니다. 모델을 호출하면 모델의 *구조*만 재사용하는 것이 아니라 가중치까지 재사용되는 것임을 참고하십시오.
+함수형 API를 사용하면 학습된 model을 재사용하기 편리합니다: 어느 model이건 tensor에 대해 호출하여 layer처럼 사용할 수 있습니다. model을 호출하면 model의 *구조*만 재사용하는 것이 아니라 weights까지 재사용되는 것임을 참고하십시오.
 
 ```python
 x = Input(shape=(784,))
-# 다음이 실행되어 위에서 정의한 10 방향 소프트맥스를 반환합니다.
+# 다음이 실행되어 위에서 정의한 10-way softmax를 반환합니다.
 y = model(x)
 ```
 
-이를 사용하면, 예를 들어 인풋의 *시퀀스*를 처리할 수 있는 모델을 빠르게 만들 수 있습니다. 코드 한 줄로 이미지 분류 모델을 비디오 분류 모델로 바꿀 수 있는 것입니다.
+예를 들어, 이를 이용하면 input의 *시퀀스*를 처리할 수 있는 model을 빠르게 만들 수 있습니다. 코드 한 줄로 이미지 분류 model을 비디오 분류 model로 바꿀 수 있는 것입니다.
 
 ```python
 from keras.layers import TimeDistributed
 
-# 20 시간 단계의 시퀀스에 대한 인풋 텐서로,
+# 20 시간 단계 시퀀스에 대한 input tensor로,
 # 각각 784 차원의 벡터를 담고 있습니다.
 input_sequences = Input(shape=(20, 784))
 
-# 인풋 시퀀스의 모든 시간 단계에 이전 모델을 적용합니다.
-# 이전 모델의 아웃풋이 10 방향 소프트맥스였으므로,
-# 아래 레이어의 아웃풋은 크기 10의 벡터 20개로 이루어진 시퀀스입니다.
+# Input 시퀀스의 모든 시간 단계에 이전 모델을 적용합니다.
+# 앞선 model의 output이 10-way softmax였으므로,
+# 아래에 주어진 layer의 output은 10 차원의 벡터 20개로 이루어진 시퀀스입니다.
 processed_sequences = TimeDistributed(model)(input_sequences)
 ```
 
 -----
 
-## 다중-인풋과 다중-아웃풋 모델
+## Multi-input과 multi-output models
 
-다중 인풋과 아웃풋을 다루는 모델은 함수형 API를 사용하기 특히 적합한 사례입니다. 함수형 API를 사용해서 복잡하게 얽힌 많은 수의 데이터 줄기를 간편하게 관리할 수 있습니다.
+Multiple inputs과 outputs을 가지는 model은 함수형 API를 적용하기 적합한 사례입니다. 함수형 API를 사용해서 복잡하게 얽힌 많은 수의 데이터 흐름을 간편하게 관리할 수 있습니다.
 
-다음의 모델을 고려해 봅시다. 얼마나 많은 트위터에서 특정 뉴스 헤드라인이 얼마나 낳은 리트윗과 좋아요를 받을지 예측하려고 합니다. 모델에 대한 주요 인풋은 단어 시퀀스로 표현된 헤드라인 자체이지만, 문제를 조금 더 흥미롭게 풀기 위해, 보조 인풋으로 헤드라인이 올려진 시간 등과 같은 추가 데이터를 받도록 합시다.
-두 개의 손실 함수를 통해 모델을 감독합니다. 주요 손실 함수를 모델의 초기 단계에 사용하는 것이 심화 모델에 있어 적절한 정규화 메커니즘입니다.
+다음의 model을 고려해 봅시다. 트위터에서 특정 뉴스 헤드라인이 얼마나 많은 리트윗과 좋아요를 받을지 예측하려고 합니다. Model에 대한 주요 input은 연속된 단어들로 표현된 헤드라인 자체이지만, 문제를 더욱 흥미롭게 만들기 위해서 보조 input으로 헤드라인이 게시된 시간 등과 같은 추가 데이터를 받도록 합니다.
+Model은 두 개의 loss function에 의해서 지도됩니다. 주요 loss function을 model의 초기 단계에 사용하는 것이 심층 model에 있어 적절한 regularization 메커니즘입니다.
 
-이 모델은 다음과 같이 구성됩니다:
+다음은 model이 어떻게 구성되어있는지 보여줍니다:
 
 <img src="https://s3.amazonaws.com/keras.io/img/multi-input-multi-output-graph.png" alt="multi-input-multi-output-graph" style="width: 400px;"/>
 
-함수형 API로 모델을 구현해 봅시다.
+함수형 API로 model을 구현해 봅시다.
 
-주요 인풋은 헤드라인을 (각 정수가 단어 하나를 인코딩하는) 정수 시퀀스의 형태로 전달받습니다.
-정수는 1에서 10,000사이의 값이며 (10,000 단어의 어휘목록), 시퀀스의 길이는 100 단어입니다.
+주요 input은 정수 sequence들의 형태로 헤드라인을 (각 정수가 단어 하나를 인코딩하는) 전달받습니다.
+1에서 10,000사이의 정숫값이며 (10,000 단어의 어휘목록), 하나의 정수 sequence은 100 단어로 이루어져 있습니다.
 
 ```python
 from keras.layers import Input, Embedding, LSTM, Dense
 from keras.models import Model
 import numpy as np
-np.random.seed(0)  # Set a random seed for reproducibility
+np.random.seed(0)  # 재현성을 위해 임의의 시드값을 설정하십시오
 
-# 헤드라인 인풋: 1에서 10000사이의 100개 정수로 이루어진 시퀀스를 전달받습니다
-# "name"인수를 전달하여 레이어를 명명할 수 있음을 참고하십시오.
+# 헤드라인 input: 1에서 10000사이의 100개 정수로 이루어진 sequence들을 전달받습니다
+# "name" argument를 전달하여 layer를 명명할 수 있음을 참고하십시오.
 main_input = Input(shape=(100,), dtype='int32', name='main_input')
 
-# 이 임베딩 레이어는 인풋 시퀀스를
-# 밀집 512 차원 벡터의 시퀀스로 인코딩합니다
+# Embedding layer는 input sequence를
+# 512 차원 밀집벡터들의 sequence로 인코딩합니다.
 x = Embedding(output_dim=512, input_dim=10000, input_length=100)(main_input)
 
-# 장단기 메모리는 벡터 시퀀스를 전체 시퀀스에 대한
-# 정보를 포함하는 단일 벡터로 변형합니다
+# LSTM은 벡터 sequence를 전체 sequence에 대한
+# 정보를 포함하는 단일 벡터로 변환합니다
 lstm_out = LSTM(32)(x)
 ```
 
-다음에서는 보조 손실을 추가하여, 메인 손실이 높아지더라도 장단기 메모리와 임베딩 레이어가 매끄럽게 학습될 수 있도록 합니다.
+보조 loss function를 삽입하여 모델에서 주요 loss function이 후기 단계에서 사용되더라도 LSTM 및 Embedding layer를 원활하게 학습 할 수 있습니다.
 
 ```python
 auxiliary_output = Dense(1, activation='sigmoid', name='aux_output')(lstm_out)
 ```
 
-이 시점에서 보조 인풋을 장단기 메모리 아웃풋에 연결하여 모델에 전달합니다:
+이 시점에서 보조 input 데이터를 LSTM 출력과 연결함으로써 보조 input 데이터를 model에 전달합니다:
 
 ```python
 auxiliary_input = Input(shape=(5,), name='aux_input')
 x = keras.layers.concatenate([lstm_out, auxiliary_input])
 
-# 심화 밀집 연결 네트워크를 상층에 쌓습니다
+# 깊은 densely-connected network를 맨 위에 쌓습니다
 x = Dense(64, activation='relu')(x)
 x = Dense(64, activation='relu')(x)
 x = Dense(64, activation='relu')(x)
 
-# 끝으로 주요 로지스틱 회귀 레이어를 추가합니다
+# 끝으로 주요 로지스틱 회귀 layer를 추가합니다
 main_output = Dense(1, activation='sigmoid', name='main_output')(x)
 ```
 
-이는 두 개의 인풋과 두 개의 아웃풋을 갖는 모델을 정의합니다:
+다음은 두 개의 input과 두 개의 output을 갖는 model을 정의합니다:
 
 ```python
 model = Model(inputs=[main_input, auxiliary_input], outputs=[main_output, auxiliary_output])
 ```
 
-이제 모델을 컴파일하고 0.2의 가중치를 보조 손실에 배당합니다.
-리스트나 딕셔너리를 사용해서 각기 다른 아웃풋에 별도의 `loss_weights` 혹은 `loss`를 특정할 수 있습니다.
-다음에서는 `loss`인수로 단일 손실을 전달하여 모든 아웃풋에 대해 동일한 손실이 사용되도록 합니다.
+보조 손실의 weight로 0.2를 할당하고 model을 compile합니다.
+리스트나 딕셔너리를 사용해서 각각의 output에 서로 다른 `loss_weights` 혹은 `loss`를 지정할 수 있습니다.
+여기서는 `loss` argument에 하나의 loss function을 전달하므로 모든 output에 동일한 loss function이 사용됩니다.
 
 ```python
 model.compile(optimizer='rmsprop', loss='binary_crossentropy',
               loss_weights=[1., 0.2])
 ```
 
-인풋 배열과 표적 배열의 리스트를 전달하여 모델을 학습시킬 수 있습니다:
+Input 배열과 타겟 배열의 리스트를 전달하여 model을 학습시킬 수 있습니다:
 
 ```python
 headline_data = np.round(np.abs(np.random.rand(12, 100) * 100))
@@ -148,25 +148,25 @@ model.fit([headline_data, additional_data], [headline_labels, additional_labels]
           epochs=50, batch_size=32)
 ```
 
-인풋과 아웃풋이 명명되었기에 (이름은 "name" 인수를 통해 전달합니다),
-다음과 같이 모델을 컴파일 할 수 있습니다:
+Input layer와 output layer에게 이름을 부여 했으므로 (각 layer에 "name" argument를 전달했으므로),
+다음과 같은 방식으로도 model을 compile 할 수 있습니다:
 
 ```python
 model.compile(optimizer='rmsprop',
               loss={'main_output': 'binary_crossentropy', 'aux_output': 'binary_crossentropy'},
               loss_weights={'main_output': 1., 'aux_output': 0.2})
 
-또한 모델을 다음과 같이도 학습시킬 수 있습니다:
+# model을 다음과 같은 방식으로도 학습시킬 수 있습니다:
 model.fit({'main_input': headline_data, 'aux_input': additional_data},
           {'main_output': headline_labels, 'aux_output': additional_labels},
           epochs=50, batch_size=32)
 ```
 
-To use the model for inferencing, use
+예측을 하기 위해서 model을 사용할 때, 다음과 같이 사용하거나
 ```python
 model.predict({'main_input': headline_data, 'aux_input': additional_data})
 ```
-or alternatively,
+다음과 같은 방법으로도 사용할 수 있습니다.
 ```python
 pred = model.predict([headline_data, additional_data])
 ```
