@@ -49,18 +49,18 @@ x = Input(shape=(784,))
 y = model(x)
 ```
 
-예를 들어, 이를 이용하면 input의 *시퀀스*를 처리할 수 있는 model을 빠르게 만들 수 있습니다. 코드 한 줄로 이미지 분류 model을 비디오 분류 model로 바꿀 수 있는 것입니다.
+예를 들어, 이를 이용하면 input의 *sequence*를 처리할 수 있는 model을 빠르게 만들 수 있습니다. 코드 한 줄로 이미지 분류 model을 비디오 분류 model로 바꿀 수 있는 것입니다.
 
 ```python
 from keras.layers import TimeDistributed
 
-# 20 시간 단계 시퀀스에 대한 input tensor로,
+# 20 프레임 sequence를 위한 input tensor이며,
 # 각각 784 차원의 벡터를 담고 있습니다.
 input_sequences = Input(shape=(20, 784))
 
-# Input 시퀀스의 모든 시간 단계에 이전 모델을 적용합니다.
+# Input sequence의 모든 시간 단계에 이전 model을 적용합니다.
 # 앞선 model의 output이 10-way softmax였으므로,
-# 아래에 주어진 layer의 output은 10 차원의 벡터 20개로 이루어진 시퀀스입니다.
+# 아래에 주어진 layer의 output은 10 차원의 벡터 20개로 이루어진 sequence입니다.
 processed_sequences = TimeDistributed(model)(input_sequences)
 ```
 
