@@ -34,7 +34,7 @@ __인자__
 최대 정수 색인 + 1을 전달합니다. 
 - __output_dim__: 0보다 크거나 같은 정수를 사용하며, 밀집 임베딩의 차원을 나타냅니다.
 - __embeddings_initializer__: `embeddings` 행렬의 초기화 함수
-    ([초기값 설정기](../initializers.md) 참조).
+    ([초기화](../initializers.md) 참조).
 - __embeddings_regularizer__: `embeddings` 행렬에 적용되는
     정규화 함수 
     ([정규화](../regularizers.md) 참조).
@@ -54,7 +54,7 @@ __인자__
 - __input_length__: 입력 시퀀스의 길이로, 그 길이가 불변해야 합니다.
     상위 `Dense` 층과 `Flatten` 층를 연결하려면
     이 인수가 필요합니다   
-    (그렇지 않고서는 밀집 출력값의 형태를 계산할 수 없습니다).
+    (이 인자가 주어지지 않은 경우, 밀집 출력의 형태를 계산할 수 없습니다).
 
 __입력 형태__
 
