@@ -4,8 +4,152 @@
 
 ---
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L274)</span>
-### 콜백
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L537)</span>
+### ProgbarLogger
+
+```python
+keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
+```
+
+측정항목을 stdout에 프린트하는 콜백
+
+__인수__
+
+- __count_mode__: "steps" 혹은 "samples" 중 하나.
+    진행 표시줄이 검사한 샘플의 수에 기반하는지
+    검사한 단계(배치)의 수에 기반하는지 여부.
+- __stateful_metrics__: 세대에 걸쳐 평균을 내면 *안 되는*
+    측정 항목의 문자열 이름의 Iterable.
+    이 리스트의 측정 항목을 원본 그대로 로그합니다.
+    그 외 측정 항목은 평균을 구해 로그합니다 (예. 손실 등).
+
+__오류 알림__
+
+- __ValueError__: 유효하지 않은 `count_mode`의 경우 오류를 알립니다.
+    
+----
+
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L633)</span>
+### ModelCheckpoint
+
+```python
+keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
+```
+
+각 세대 후 모델을 저장합니다.
+
+`filepath`는 (`on_epoch_end`에서 전달되는)
+`epoch`의 값과 `logs`의 키로 채워진
+이름 형식 옵션을 가질 수 있습니다.
+
+예를 들어 `filepath`가 `weights.{epoch:02d}-{val_loss:.2f}.hdf5`라면,
+파일 이름에 세대 번호와 검증 손실을 넣어
+모델의 체크포인트가 저장됩니다.
+
+__인수__
+
+- __filepath__: 문자열, 모델 파일을 저장할 경로.
+- __monitor__: 관찰할 수량.
+- __verbose__: 다변 모드, 0 혹은 1.
+- __save_best_only__: `save_best_only=True`인 경우
+    관찰하는 수량을 기준으로 가장 
+    최신의 최고 모델은 덧씌우지 않습니다.
+- __save_weights_only__: 참인 경우 모델의 가중치만 저장되고
+    (`model.save_weights(filepath)`), 아닌 경우
+    전체 모델이 저장됩니다 (`model.save(filepath)`).
+- __mode__: {auto, min, max} 중 하나.
+    `save_best_only=True`이면
+    현재 저장 파일을 덧씌울지는
+    관찰하는 수량의 최대화 혹은 최소화를
+    기준으로 결정합니다. `val_acc`의 경우
+    이는 `max`가 되어야 하며, `val_loss`라면
+    `min`이 되어야 합니다. `auto`의 경우
+    관찰하는 수량의 이름에서 방향성이 자동적으로 유추됩니다.
+- __period__: 체크포인트간 간격 (세대의 수).
+
+----
+
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L851)</span>
+### RemoteMonitor
+
+```python
+keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
+```
+
+이벤트를 서버에 스트림할 콜백
+
+`requests` 라이브러리를 필요로 합니다.
+디폴트 설정으로 이벤트는 `root + '/publish/epoch/end/'`으로 보내집니다.
+호출은 HTTP POST와 JSON-인코딩 이벤트 데이터 딕셔너리인
+`data` 인수로 합니다.
+send_as_json이 참으로 설정된 경우, 요청의 내용 종류는
+application/json입니다. 그 외는 형식 내 직렬화된 JSON이 보내집니다.
+
+__인수__
+
+- __root__: 문자열; 표적 서버의 최상위 url.
+- __path__: 문자열; 이벤트가 보내질 `root`를 기준으로 한 상대적 경로
+- __field__: 문자열; 데이터가 저장될 JSON 필드.
+    형식 내 payload가 보내지는 경우에만 필드가 사용됩니다
+    (다시 말해 send_as_json이 거짓으로 설정된 경우).
+- __headers__: 딕셔너리; 선택적 커스텀 HTTP 헤더
+- __send_as_json__: 불리언; 요청을 application/json으로
+    보내는지 여부.
+    
+----
+
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L946)</span>
+### ReduceLROnPlateau
+
+```python
+keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
+```
+
+측정 항목이 향상되지 않는 경우 학습 속도를 줄입니다.
+
+모델은 종종 학습이 부진할 때 학습 속도를 2-10의 인수로 줄여
+효과를 보기도 합니다. 이 콜백은 수량을 관찰하여
+'patience' 수의 세대 동안 향상되는 기미가 없으면
+'patience' 수의 세대 동안 향상되는 기미가 없으면
+
+__예시__
+
+
+```python
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+                              patience=5, min_lr=0.001)
+model.fit(X_train, Y_train, callbacks=[reduce_lr])
+```
+
+__인수__
+
+- __monitor__: 관찰할 수량.
+- __factor__: 학습 속도를 줄일 인수.
+    new_lr = lr * factor
+- __patience__: number of epochs that produced the monitored
+    quantity with no improvement after which training will
+    be stopped.
+    Validation quantities may not be produced for every
+    epoch, if the validation frequency
+    (`model.fit(validation_freq=5)`) is greater than one.
+- __verbose__: 정수. 0: 자동, 1: 최신화 메시지.
+- __mode__: {auto, min, max} 중 하나. `min` 모드에서는
+    관찰하는 수량이 더 이상 감소하지
+    않으면 학습이 멈춥니다. `max` 모드에서는
+    관찰하는 수량이 더 이상 증가하지
+    않으면 학습이 멈춥니다; `auto` 모드에서는
+    관찰하는 수량의 이름에서
+    방향성이 자동적으로 유추됩니다.
+- __min_delta__: 유의미한 변화에만 집중해 새로운
+    최적값을 계산할 한계점.
+- __cooldown__: 학습 속도가 감소 된 후 몇 세대를 기다려야 평소
+    가동이 재개되는지를 결정하는 세대의 수.
+- __min_lr__: 학습 속도에 대한 하한선.
+    
+---
+
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L275)</span>
+### Callback
 
 ```python
 keras.callbacks.Callback()
@@ -39,7 +183,7 @@ on_batch_end: 로그에는 `loss`가 포함되고, 선택적으로 `acc`가 포�
 
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L476)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L477)</span>
 ### BaseLogger
 
 ```python
@@ -59,7 +203,7 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L523)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L524)</span>
 ### TerminateOnNaN
 
 ```python
@@ -70,32 +214,7 @@ NaN 손실이 발생했을 때 학습을 종료시키는 콜백.
 
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L536)</span>
-### ProgbarLogger
-
-```python
-keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
-```
-
-측정항목을 stdout에 프린트하는 콜백
-
-__인수__
-
-- __count_mode__: "steps" 혹은 "samples" 중 하나.
-    진행 표시줄이 검사한 샘플의 수에 기반하는지
-    검사한 단계(배치)의 수에 기반하는지 여부.
-- __stateful_metrics__: 세대에 걸쳐 평균을 내면 *안 되는*
-    측정 항목의 문자열 이름의 Iterable.
-    이 리스트의 측정 항목을 원본 그대로 로그합니다.
-    그 외 측정 항목은 평균을 구해 로그합니다 (예. 손실 등).
-
-__오류 알림__
-
-- __ValueError__: 유효하지 않은 `count_mode`의 경우 오류를 알립니다.
-    
-----
-
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L613)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L614)</span>
 ### History
 
 ```python
@@ -108,49 +227,10 @@ keras.callbacks.History()
 자동적으로 적용됩니다. `History` 객체는
 모델의 `fit` 메서드를 통해 반환됩니다.
 
+
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L632)</span>
-### ModelCheckpoint
-
-```python
-keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
-```
-
-각 세대 후 모델을 저장합니다.
-
-`filepath`는 (`on_epoch_end`에서 전달되는)
-`epoch`의 값과 `logs`의 키로 채워진
-이름 형식 옵션을 가질 수 있습니다.
-
-예를 들어 `filepath`가 `weights.{epoch:02d}-{val_loss:.2f}.hdf5`라면,
-파일 이름에 세대 번호와 검증 손실을 넣어
-모델의 체크포인트가 저장됩니다.
-
-__인수__
-
-- __filepath__: 문자열, 모델 파일을 저장할 경로.
-- __monitor__: 관찰할 수량.
-- __verbose__: 다변 모드, 0 혹은 1.
-- __save_best_only__: `save_best_only=True`인 경우
-    관찰하는 수량을 기준으로 가장 
-    최신의 최고 모델은 덧씌우지 않습니다.
-- __mode__: {auto, min, max} 중 하나.
-    `save_best_only=True`이면
-    현재 저장 파일을 덧씌울지는
-    관찰하는 수량의 최대화 혹은 최소화를
-    기준으로 결정합니다. `val_acc`의 경우
-    이는 `max`가 되어야 하며, `val_loss`라면
-    `min`이 되어야 합니다. `auto`의 경우
-    관찰하는 수량의 이름에서 방향성이 자동적으로 유추됩니다.
-- __save_weights_only__: 참인 경우 모델의 가중치만 저장되고
-    (`model.save_weights(filepath)`), 아닌 경우
-    전체 모델이 저장됩니다 (`model.save(filepath)`).
-- __period__: 체크포인트간 간격 (세대의 수).
-    
-----
-
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L732)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L733)</span>
 ### EarlyStopping
 
 ```python
@@ -166,8 +246,13 @@ __인수__
     최소한의 변화, 다시 말해 min_delta
     미만의 절대적 변화는 향상되었다고 
     판단하지 않습니다.
-- __patience__: 몇 세대가 향상없이 지나야 학습이 멈추는지
-    결정하는 세대 수.
+- __patience__: number of epochs that produced the monitored
+    after which training will be stopped.
+    quantity with no improvement after which training will
+    be stopped.
+    Validation quantities may not be produced for every
+    epoch, if the validation frequency
+    (`model.fit(validation_freq=5)`) is greater than one.
 - __verbose__: 다변 모드.
 - __mode__: {auto, min, max} 중 하나. `min` 모드에서는
     관찰하는 수량이 더 이상 감소하지
@@ -184,38 +269,10 @@ __인수__
     거짓인 경우, 학습의 마지막 단계에서 얻어진
     모델 가중치가 사용됩니다.
     
+
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L846)</span>
-### RemoteMonitor
-
-```python
-keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
-```
-
-이벤트를 서버에 스트림할 콜백
-
-`requests` 라이브러리를 필요로 합니다.
-디폴트 설정으로 이벤트는 `root + '/publish/epoch/end/'`으로 보내집니다.
-호출은 HTTP POST와 JSON-인코딩 이벤트 데이터 딕셔너리인
-`data` 인수로 합니다.
-send_as_json이 참으로 설정된 경우, 요청의 내용 종류는
-application/json입니다. 그 외는 형식 내 직렬화된 JSON이 보내집니다.
-
-__인수__
-
-- __root__: 문자열; 표적 서버의 최상위 url.
-- __path__: 문자열; 이벤트가 보내질 `root`를 기준으로 한 상대적 경로
-- __field__: 문자열; 데이터가 저장될 JSON 필드.
-    형식 내 payload가 보내지는 경우에만 필드가 사용됩니다
-    (다시 말해 send_as_json이 거짓으로 설정된 경우).
-- __headers__: 딕셔너리; 선택적 커스텀 HTTP 헤더
-- __send_as_json__: 불리언; 요청을 application/json으로
-    보내는지 여부.
-    
-----
-
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L905)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L910)</span>
 ### LearningRateScheduler
 
 ```python
@@ -233,11 +290,11 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L941)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/tensorboard_v1.py#L20)</span>
 ### TensorBoard
 
 ```python
-keras.callbacks.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None, update_freq='epoch')
+keras.callbacks.tensorboard_v1.TensorBoard(log_dir='./logs', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None, embeddings_data=None, update_freq='epoch')
 ```
 
 TensorBoard 기초 시각화.
@@ -268,13 +325,13 @@ __인수__
     (세대 내) 빈도. 0으로 설정되어 있으면 히스토그램을 계산하지
     않습니다. 히스토그램 시각화를 하려면 검증 데이터(혹은 데이터 조각)이
     특정되어야 합니다.
+- __batch_size__: 히스토그램 계산 목적으로 네트워크에 전달할
+    인풋 배치의 크기.
 - __write_graph__: TensorBoard에서 그래프를 시각화할지 여부.
     write_graph이 참으로 설정되어 있으면
     로그 파일이 상당히 커질 수 있습니다.
 - __write_grads__: TensorBoard에서 경사 히스토그램를 시각화할지 여부.
     `histogram_freq`이 0보다 커야 합니다.
-- __batch_size__: 히스토그램 계산 목적으로 네트워크에 전달할
-    인풋 배치의 크기.
 - __write_images__: TensorBoard에서 이미지로 시각화할 모델 가중치를
     작성할지 여부.
 - __embeddings_freq__: 선택된 임베딩 레이어가 저장되는 (세대 내) 빈도.
@@ -302,53 +359,7 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L1286)</span>
-### ReduceLROnPlateau
-
-```python
-keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
-```
-
-측정 항목이 향상되지 않는 경우 학습 속도를 줄입니다.
-
-모델은 종종 학습이 부진할 때 학습 속도를 2-10의 인수로 줄여
-효과를 보기도 합니다. 이 콜백은 수량을 관찰하여
-'patience' 수의 세대 동안 향상되는 기미가 없으면
-'patience' 수의 세대 동안 향상되는 기미가 없으면
-
-__예시__
-
-
-```python
-reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
-                              patience=5, min_lr=0.001)
-model.fit(X_train, Y_train, callbacks=[reduce_lr])
-```
-
-__인수__
-
-- __monitor__: 관찰할 수량.
-- __factor__: 학습 속도를 줄일 인수.
-    new_lr = lr * factor
-- __patience__: 얼마나 많은 세대간 학습이 부진하면 학습 속도를
-    줄일지 결정하는 세대의 수.
-- __verbose__: 정수. 0: 자동, 1: 최신화 메시지.
-- __mode__: {auto, min, max} 중 하나. `min` 모드에서는
-    관찰하는 수량이 더 이상 감소하지
-    않으면 학습이 멈춥니다. `max` 모드에서는
-    관찰하는 수량이 더 이상 증가하지
-    않으면 학습이 멈춥니다; `auto` 모드에서는
-    관찰하는 수량의 이름에서
-    방향성이 자동적으로 유추됩니다.
-- __min_delta__: 유의미한 변화에만 집중해 새로운
-    최적값을 계산할 한계점.
-- __cooldown__: 학습 속도가 감소 된 후 몇 세대를 기다려야 평소
-    가동이 재개되는지를 결정하는 세대의 수.
-- __min_lr__: 학습 속도에 대한 하한선.
-    
-----
-
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L1407)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L1071)</span>
 ### CSVLogger
 
 ```python
@@ -377,7 +388,7 @@ __인수__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks.py#L1495)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L1159)</span>
 ### LambdaCallback
 
 ```python
