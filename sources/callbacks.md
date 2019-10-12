@@ -149,7 +149,7 @@ __인수__
 ---
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/callbacks/callbacks.py#L275)</span>
-### 콜백
+### Callback
 
 ```python
 keras.callbacks.callbacks.Callback()
