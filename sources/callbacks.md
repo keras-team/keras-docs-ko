@@ -8,7 +8,7 @@
 ### ProgbarLogger
 
 ```python
-keras.callbacks.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
+keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
 ```
 
 측정항목을 stdout에 프린트하는 콜백
@@ -73,7 +73,7 @@ __인수__
 ### RemoteMonitor
 
 ```python
-keras.callbacks.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
+keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
 ```
 
 이벤트를 서버에 스트림할 콜백
@@ -102,7 +102,7 @@ __인수__
 ### ReduceLROnPlateau
 
 ```python
-keras.callbacks.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
+keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
 ```
 
 측정 항목이 향상되지 않는 경우 학습 속도를 줄입니다.
@@ -152,7 +152,7 @@ __인수__
 ### Callback
 
 ```python
-keras.callbacks.callbacks.Callback()
+keras.callbacks.Callback()
 ```
 
 새로운 콜백을 만드는데 사용되는 추상 베이스 클래스.
@@ -187,7 +187,7 @@ on_batch_end: 로그에는 `loss`가 포함되고, 선택적으로 `acc`가 포�
 ### BaseLogger
 
 ```python
-keras.callbacks.callbacks.BaseLogger(stateful_metrics=None)
+keras.callbacks.BaseLogger(stateful_metrics=None)
 ```
 
 측정항목의 세대 평균을 축적하는 콜백..
@@ -207,7 +207,7 @@ __인수__
 ### TerminateOnNaN
 
 ```python
-keras.callbacks.callbacks.TerminateOnNaN()
+keras.callbacks.TerminateOnNaN()
 ```
 
 NaN 손실이 발생했을 때 학습을 종료시키는 콜백.
@@ -218,7 +218,7 @@ NaN 손실이 발생했을 때 학습을 종료시키는 콜백.
 ### History
 
 ```python
-keras.callbacks.callbacks.History()
+keras.callbacks.History()
 ```
 
 `History` 객체에 이벤트를 기록하는 콜백.
@@ -234,7 +234,7 @@ keras.callbacks.callbacks.History()
 ### EarlyStopping
 
 ```python
-keras.callbacks.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False)
+keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 ```
 
 관찰하는 수량이 개선되지 않으면 학습을 멈춥니다.
@@ -276,7 +276,7 @@ __인수__
 ### LearningRateScheduler
 
 ```python
-keras.callbacks.callbacks.LearningRateScheduler(schedule, verbose=0)
+keras.callbacks.LearningRateScheduler(schedule, verbose=0)
 ```
 
 학습 속도 스케쥴러.
@@ -363,7 +363,7 @@ __인수__
 ### CSVLogger
 
 ```python
-keras.callbacks.callbacks.CSVLogger(filename, separator=',', append=False)
+keras.callbacks.CSVLogger(filename, separator=',', append=False)
 ```
 
 세대 결과를 csv 파일에 스트림하는 콜백.
@@ -392,7 +392,7 @@ __인수__
 ### LambdaCallback
 
 ```python
-keras.callbacks.callbacks.LambdaCallback(on_epoch_begin=None, on_epoch_end=None, on_batch_begin=None, on_batch_end=None, on_train_begin=None, on_train_end=None)
+keras.callbacks.LambdaCallback(on_epoch_begin=None, on_epoch_end=None, on_batch_begin=None, on_batch_end=None, on_train_begin=None, on_train_end=None)
 ```
 
 간단한 커스텀 콜백을 즉석에서 만드는 콜백.
