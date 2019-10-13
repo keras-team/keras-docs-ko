@@ -11,7 +11,7 @@ keras.preprocessing.image.ImageDataGenerator(featurewise_center=False, samplewis
 실시간 데이터 증강<sub>Data augmentation</sub>을 이용하여 텐서 이미지 데이터의 배치들을 생성합니다.
 데이터가 배치 단위로 루프<sub>Loop</sub>를 순환합니다.
 
-__인수__
+__인자__
 
 - __featurewise_center__: `Bool`. 데이터셋의 특성 단위 <sub>Feature-wise</sub>로 입력 값의 평균이 0이 되도록 합니다.
 
@@ -85,7 +85,7 @@ __인수__
   
 - __preprocessing_function__: 각 입력에 적용되는 함수.
   이미지의 크기가 재조절되고 증강된 후에 함수가 작동합니다.
-  이 함수는 단일 이미지 (랭크가 3인 Numpy 텐서) 인수를 갖습니다.
+  이 함수는 단일 이미지 (랭크가 3인 Numpy 텐서) 인자를 갖습니다.
   그리고 단일 이미지와 동일한 형태의 Numpy 텐서를 출력해야 합니다.
   
 - __data_format__: 이미지 데이터 형식,
@@ -175,7 +175,7 @@ model.fit_generator(
 이미지와 마스크를 함께 변형하는 예시
 
 ```python
-# 동일한 인수로 두 인스턴스를 생성합니다
+# 동일한 인자로 두 인스턴스를 생성합니다
 data_gen_args = dict(featurewise_center=True,
                      featurewise_std_normalization=True,
                      rotation_range=90,
@@ -185,7 +185,7 @@ data_gen_args = dict(featurewise_center=True,
 image_datagen = ImageDataGenerator(**data_gen_args)
 mask_datagen = ImageDataGenerator(**data_gen_args)
 
-# fit과 flow 메소드에 동일한 시드와 키워드 인수를 제공합니다
+# fit과 flow 메소드에 동일한 시드와 키워드 인자를 제공합니다
 seed = 1
 image_datagen.fit(images, augment=True, seed=seed)
 mask_datagen.fit(masks, augment=True, seed=seed)
@@ -256,7 +256,7 @@ apply_transform(x, transform_parameters)
 
 주어진 매개변수<sub>Parameters</sub>에 따라 이미지에 변형을 가합니다.
 
-__인수__
+__인자__
 
 - __x__: 3D 텐서, 단일 이미지.
 - __transform_parameters__: 문자열 딕셔너리, 어떤 변형을 할 지를 나타내는 매개변수 쌍.
@@ -302,7 +302,7 @@ fit(x, augment=False, rounds=1, seed=None)
 `featurewise_center`, `featurewise_std_normalization`,
 혹은 `zca_whitening`이 True로 설정되어 있을 때만 필요합니다.
 
-__인수__
+__인자__
 
 - __x__: 표본 데이터. 랭크가 4이어야 합니다.
   흑백<sub>Grayscale</sub> 데이터의 경우 채널이 1개가 되어야 하며,
@@ -325,7 +325,7 @@ flow(x, y=None, batch_size=32, shuffle=True, sample_weight=None, seed=None, save
 
 데이터와 레이블<sub>Lable</sub> 배열을 받아 증강된 데이터의 배치를 생성합니다.
 
-__인수__
+__인자__
 
 - __x__: 입력 데이터. 랭크 4의 NumPy 배열 혹은 튜플.
   튜플인 경우 첫 번째 원소는 이미지를 담고
@@ -383,7 +383,7 @@ flow_from_dataframe(dataframe, directory=None, x_col='filename', y_col='class', 
 
 **간단한 튜토리얼은** [여기](http://bit.ly/keras_flow_from_dataframe)**에서 확인하실 수 있습니다.**
 
-__인수__
+__인자__
 
 - __dataframe__: 문자열 칼럼<sub>Column</sub> 이미지의 `directory` 상대 경로를 포함한 Pandas 데이터 프레임,  `directory`가 없는 경우 절대 경로를 포함하는 Pandas 데이터 프레임.  
   
@@ -470,7 +470,7 @@ flow_from_directory(directory, target_size=(256, 256), color_mode='rgb', classes
 
 디렉토리의 경로를 전달받아 증강된 데이터의 배치를 생성합니다.
 
-__인수__
+__인자__
 
 - __directory__: `string`, 목표 디렉토리의 경로.
   반드시 한 클래스 당 하나의 하위 디렉토리가 있어야 합니다.
@@ -537,7 +537,7 @@ get_random_transform(img_shape, seed=None)
 
 변형하기 위한 무작위 매개변수를 생성합니다.
 
-__인수__
+__인자__
 
 - __seed__: 난수 시드.
 
@@ -558,7 +558,7 @@ random_transform(x, seed=None)
 
 이미지에 무작위 변형을 적용합니다.
 
-__인수__
+__인자__
 
 - __x__: 3D 텐서, 단일 이미지.
 - __seed__: 난수 시드.
@@ -582,7 +582,7 @@ standardize(x)
 
 standarize(np.copy(x))
 
-__인수__
+__인자__
 
 ​    __x__: 표준화할 입력의 배치.
 
