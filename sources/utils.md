@@ -43,12 +43,12 @@ x_data = HDF5Matrix('input/file.hdf5', 'data')
 model.predict(x_data)
 ```
 
-`start`와 `end` 인수를 이용하여 데이터셋을 자를 수 있습니다.
+`start`와 `end` 인자를 이용하여 데이터셋을 자를 수 있습니다.
 
 추가적으로 정규화 함수(혹은 람다)를 사용할 수 있습니다.
 이는 회수된 모든 데이터 조각에 대해 호출됩니다.
 
-__인수__
+__인자__
 
 - __datapath__: 문자열, HDF5 파일의 경로입니다
 - __dataset__: 문자열, 'datapath'에 명시된 파일 내 HDF5 데이터셋의
@@ -126,7 +126,7 @@ keras.utils.to_categorical(y, num_classes=None, dtype='float32')
 
 예. categorical_crossentropy와 함께 사용할 수 있습니다.
 
-__인수__
+__인자__
 
 - __y__: 행렬로 변환할 클래스 벡터
     (0부터 num_classes까지의 정수).
@@ -169,7 +169,7 @@ keras.utils.normalize(x, axis=-1, order=2)
 
 Numpy 배열을 정규화합니다.
 
-__인수__
+__인자__
 
 - __x__: 정규화할 Numpy 배열.
 - __axis__: 정규화를 따라 진행할 축.
@@ -200,7 +200,7 @@ tar, tar.gz, tar.bz, 그리고 zip 형식의 파일도 추출가능합니다.
 다운로드 후에 해시를 전달하여 파일을 확인합니다.
 명령줄 프로그램인 `shasum`과 `sha256sum`으로 해시를 계산할 수 있습니다.
 
-__인수__
+__인자__
 
 - __fname__: 파일의 이름. 절대적 경로 `/path/to/file.txt`가 명시된 경우
     바로 그 위치로 파일이 저장됩니다.
@@ -242,7 +242,7 @@ keras.utils.print_summary(model, line_length=None, positions=None, print_fn=None
 
 모델을 요약하여 출력합니다.
 
-__인수__
+__인자__
 
 - __model__: 케라스 모델 인스턴스.
 - __line_length__: 출력 결과의 가로 길이
@@ -268,13 +268,13 @@ keras.utils.plot_model(model, to_file='model.png', show_shapes=False, show_layer
 
 케라스 모델을 도트 형식으로 변환하고 파일에 저장합니다.
 
-__인수__
+__인자__
 
 - __model__: 케라스 모델 인스턴스.
 - __to_file__: 플롯 이미지의 파일 이름.
 - __show_shapes__: 입출력 형태 정보를 보여줄지 여부.
 - __show_layer_names__: 층 이름을 보여줄지 여부.
-- __rankdir__: `rankdir` 인수가,
+- __rankdir__: `rankdir` 인자가,
     플롯의 형식을 결정하는 문자열인 PyDot으로 전달됩니다:
     'TB'는 세로 플롯;
     'LR'는 가로 플롯을 생성합니다.
@@ -313,10 +313,10 @@ keras.utils.multi_gpu_model(model, gpus=None, cpu_merge=True, cpu_relocation=Fal
 
 8개의 GPU까지는 거의 선형적으로 속도 향상이 예상됩니다.
 
-이 함수는 현재 탠서플로우 백엔드에서만
+이 함수는 현재 텐서플로우 백엔드에서만
 사용가능합니다.
 
-__인수__
+__인자__
 
 - __model__: 케라스 모델 인스턴스. 
     메모리 부족 오류를 피하기 위해서 이 모델을 CPU에 생성해두는 방법이 있습니다
@@ -332,7 +332,7 @@ __인수__
 
 __반환값__
 
-초기 `model` 인수와 완벽하게 동일하게 사용가능하되,
+초기 `model` 인자와 완벽하게 동일하게 사용가능하되,
 작업부하를 여러 GPU에 분산시키는 케라스 `Model` 인스턴스.
 
 __예시__
@@ -418,6 +418,6 @@ __모델 저장하기__
 
 
 다중-GPU 모델을 저장하려면, `multi_gpu_model`에 의해서 반환되는 모델보다는 
-템플릿 모델(`multi_gpu_model`에 전달되는 인수)과 함께
+템플릿 모델(`multi_gpu_model`에 전달되는 인자)과 함께
 `.save(fname)` 혹은 `.save_weights(fname)`를 사용하면 됩니다.
     
