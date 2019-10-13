@@ -54,9 +54,9 @@ keras.preprocessing.sequence.pad_sequences(sequences, maxlen=None, dtype='int32'
 ```
 입력값의 길이를 패딩<sub>Padding</sub>하여 동일하게 만듭니다.
 
-이 함수<sub>Function</sub>는 서로 다른 길이를 가진 `num_samples`개의 리스트에 패딩을 더하여 전체 길이가 `num_timesteps`로 동일한 `(num_samples, num_timesteps)`형태의 2D NumPy 배열로 변형합니다. 패딩을 포함한 `num_timesteps`의 길이는 `maxlen`인자에 의해 결정되며, `maxlen`인자를 지정하지 않을 경우에는 전체 입력 리스트 가운데 가장 긴 리스트를 기준으로 맞춰집니다. 길이가 `num_timesteps`보다 긴 경우는 잘라냅니다. 패딩에 사용되는 값은 `value` 인자로 정할 수 있으며 기본값은 `0 (float)`입니다.  
+이 함수<sub>Function</sub>는 서로 다른 길이를 가진 `num_samples`개의 리스트에 패딩을 더하여 전체 길이가 `num_timesteps`로 동일한 `(num_samples, num_timesteps)`형태의 2D NumPy 배열로 변형합니다. 패딩을 포함한 `num_timesteps`의 길이는 `maxlen`인자에 의해 결정되며, `maxlen`인자를 지정하지 않을 경우에는 전체 입력 리스트 가운데 가장 긴 리스트를 기준으로 맞춰집니다. 길이가 `num_timesteps`보다 긴 경우는 잘라냅니다. 패딩에 사용되는 값은 `value` 인자로 정할 수 있으며 기본값은 `0.0`입니다.  
   
-`padding`과 `truncating`인자는 각각 개별 리스트의 앞/뒤 가운데 어느 부분을 패딩하고 잘라낼지를 결정합니다. 기본값은 `pre`(앞)입니다.
+`padding`과 `truncating`인자는 각각 개별 리스트의 앞/뒤 가운데 어느 부분을 패딩하고 잘라낼지를 결정합니다. 기본값은 `'pre'`(앞)입니다.
 
 __인자__
 - __sequences__: 리스트들로 이루어진 리스트로, 각각의 하위 리스트가 순서형 데이터입니다.
@@ -64,7 +64,7 @@ __인자__
 - __dtype__: 출력값의 자료형을 결정합니다. 패딩에 문자열을 사용할 경우 `object`타입을 지정합니다. 기본값은 `int32`입니다.
 - __padding__: `string`. `'pre'` 또는 `'post'`를 입력받아 각 리스트의 앞 또는 뒤를 패딩할 위치로 지정합니다.
 - __truncating__: `string`. `'pre'` 또는 `'post'`를 입력받아 `maxlen`보다 길이가 긴 리스트를 해당 위치에서 잘라냅니다.    
-- __value__: 패딩에 사용할 값으로 `float`또는 `string` 형식의 입력을 받습니다. 기본값은 `0 (float)`입니다.
+- __value__: 패딩에 사용할 값으로 `float`또는 `string` 형식의 입력을 받습니다. 기본값은 `0.0`입니다.
 
 __반환값__
 - __x__: `(len(sequences), maxlen)`형태의 NumPy 배열.
