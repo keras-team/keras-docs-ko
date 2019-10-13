@@ -7,53 +7,50 @@ keras.layers.LocallyConnected1D(filters, kernel_size, strides=1, padding='valid'
 
 입력값<sub>Input</sub>이 1D인 부분 연결<sub>Locally Connectded</sub> 층<sub>Layer</sub>.
 
-`LocallyConnected1D` 층은 `Conv1D` 층과 비슷한 방식으로 작동하지만
-가중치<sub>Weight</sub>가 공유되지 않는다는 점에서 다른데,
-이는 입력값의 각 부분에 각기 다른 필터 세트가 적용된다는 
-의미입니다.
+`LocallyConnected1D` 층은 `Conv1D` 층과 비슷하지만
+노드끼리 가중치를<sub>Weight</sub> 공유하지 않는다는 차이점이 있습니다.
+각 노드에 다른 필터를 적용한다는 의미입니다.
 
 __예시__
 
 ```python
-# 공유되지 않은 길이 3의 1D 컨볼루션 가중치를 10개의 시간 단계와
-# 64개의 출력 필터로 이루어진 시퀀스에 적용합니다.
+# 10개의 시간단계와 64개의 출력값을 갖고
+# 노드별로 다른 가중치를 사용하는 창 길이가 3인 1D 합성곱 층을 
+# `Sequential`에 추가합니다.
 model = Sequential()
 model.add(LocallyConnected1D(64, 3, input_shape=(10, 32)))
 # 현재 model.output_shape == (None, 8, 64)
-# 그 위에 새로운 conv1d를 추가합니다
+# 새로운 conv1d를 추가합니다
 model.add(LocallyConnected1D(32, 3))
-# 현재 model.output_shape == (None, 6, 32)
+# LocallyConnected1D를 추가한 뒤의 model.output_shape == (None, 6, 32)
 ```
 
 __인자__
 
-- __filters__: 정수, 출력 공간의 차원
-    (다시 말해 컨볼루션의 출력값 필터의 개수).
-- __kernel_size__: 단일 정수 혹은 단일 정수의 튜플/리스트,
-    1D 컨볼루션 창<sub>Window</sub>의 길이를 특정합니다.
-- __strides__: 단일 정수 혹은 단일 정수의 튜플/리스트,
-    컨볼루션의 스트라이드 길이를 특정합니다.
-    스트라이드 값이 1이 아니도록 특정하는 경우는 `dilation_rate`의 값이
-    1이 아니도록 특정하는 경우와 양립할 수 없습니다.
+- __filters__: `int`, 출력값의 차원
+    (다시 말해, 합성곱 출력값 필터의 개수).
+- __kernel_size__: `int` 혹은 `int` 하나로 이루어진 튜플/리스트,
+    1D 합성곱의 창<sub>Window</sub> 길이를 결정합니다.
+- __strides__: `int` 혹은 `int` 하나로 이루어진 튜플/리스트,
+    합성곱의 스트라이드 길이를 결정합니다.
+    `__strides__`와 `dilation_rate`  중 하나는 반드시 1이어야 합니다.
 - __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
     차후 `"same"`을 지원할 계획입니다.
-- __data_format__: String, one of `channels_first`, `channels_last`.    
+- __data_format__: `string`, `channels_first`, `channels_last` 중 하나.    
 - __activation__: 사용할 활성화 함수<sub>Activation</sub>
     ([활성화](../activations.md) 참조).
-    따로 특정하지 않는 경우 활성화가 적용되지 않습니다
+    따로 설정하지 않는 경우 활성화가 적용되지 않습니다
     (다시 말해 "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 층에서 편향<sub>Bias</sub> 벡터를 사용하는지 여부.
+- __use_bias__: `bool`, 층에서 편향<sub>Bias</sub> 벡터를 사용하는지 여부.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수
     ([초기화 함수](../initializers.md) 참조).
 - __bias_initializer__: 편향 벡터의 초기화 함수
     ([초기 함수](../initializers.md) 참조).
-- __kernel_regularizer__: `kernel` 가중치 행렬에 적용되는
-    규제 함수<sub>Regularizer</sub>
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용되는 규제 함수<sub>Regularizer</sub>
     ([정규화](../regularizers.md) 참조).
 - __bias_regularizer__: 편향 벡터에 적용되는 규제 함수
     ([정규화](../regularizers.md) 참조).
-- __activity_regularizer__: 층의 출력값(층의 "활성화")에
-    적용되는 규제 함수.
+- __activity_regularizer__: 층의 출력값(층의 "활성화")에 적용되는 규제 함수.
     ([정규화](../regularizers.md) 참조).
 - __kernel_constraint__: 커널 행렬에 적용되는 제약<sub>Constraint</sub>
     ([제약](../constraints.md) 참조).
@@ -62,12 +59,12 @@ __인자__
 
 __입력값 형태__
 
-3D 텐서<sub>Tensor</sub>: `(batch_size, steps, input_dim)`의 형태
+3D 텐서<sub>Tensor</sub>: `(batch_size, steps, input_dim)`
 
 __출력값 형태__
 
-3D 텐서: `(batch_size, new_steps, filters)`의 형태
-패딩 혹은 스트라이드의 결과로 `steps` 값이 변했을 수도 있습니다.
+3D 텐서: `(batch_size, new_steps, filters)`
+패딩 혹은 스트라이드로 인해 `steps` 값이 변할 수 있습니다.
     
 ----
 
