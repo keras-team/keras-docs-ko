@@ -9,7 +9,7 @@ keras.layers.LocallyConnected1D(filters, kernel_size, strides=1, padding='valid'
 
 `LocallyConnected1D` 층은 `Conv1D` 층과 비슷한 방식으로 작동하지만
 가중치<sub>Weight</sub>가 공유되지 않는다는 점에서 다른데,
-이는 입력값<sub>Input</sub>의 각 부분에 각기 다른 필터 세트가 적용된다는 
+이는 입력값의 각 부분에 각기 다른 필터 세트가 적용된다는 
 의미입니다.
 
 __예시__
@@ -150,7 +150,7 @@ __입력값 형태__
 data_format='channels_first'의 경우 `(samples, channels, rows, cols)`, 
 data_format='channels_last'의 경우 `(samples, rows, cols, channels)`의 형태를 갖습니다.
 
-__출력갓 형태__
+__출력 형태__
 
 4D 텐서:
 data_format='channels_first'의 경우 `(samples, filters, new_rows, new_cols)`
