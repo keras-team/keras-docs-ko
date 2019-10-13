@@ -32,16 +32,11 @@ __인자__
 
 - __input_dim__: 0보다 큰 정수(최대 정수 색인 + 1)를 사용하며, 어휘 목록의 크기를 나타냅니다.  
 - __output_dim__: 0보다 크거나 같은 정수를 사용하며, 밀집 임베딩의 차원을 나타냅니다.
-- __embeddings_initializer__: `embeddings` 행렬의 초기화 함수
-    ([초기화 함수](../initializers.md) 참조).
-- __embeddings_regularizer__: `embeddings` 행렬에 적용되는
-    정규화 함수 
-    ([규제화 함수](../regularizers.md) 참조).
-- __activity_regularizer__: 층의 출력값(층의 "활성화<sub>activation</sub>")에 적용되는 규제 함수
-    ([규제화 함수](../regularizers.md)).
+- __embeddings_initializer__: `embeddings` 행렬의 초기화 함수([초기화 함수](../initializers.md) 참조).
+- __embeddings_regularizer__: `embeddings` 행렬에 적용되는 규제화 함수([규제화 함수](../regularizers.md) 참조).
+- __activity_regularizer__: 층의 출력값(층의 "활성화<sub>activation</sub>")에 적용되는 규제화 함수([규제화 함수](../regularizers.md) 참조).
 - __embeddings_constraint__: `embeddings` 행렬에 적용되는
-    제약 함수
-    ([제약 함수](../constraints.md) 참조).
+    제약 함수([제약 함수](../constraints.md) 참조).
 - __mask_zero__: 입력값 0을 마스크 처리해야 할 특수 "패딩<sub>padding</sub>"값으로
     다룰 것인지를 결정합니다.
     [순환 층](recurrent.md)를 사용해 가변
@@ -52,16 +47,15 @@ __인자__
     동일한 크기를 가져야 하기 때문입니다).
 - __input_length__: 입력 시퀀스의 길이로, 그 길이가 불변해야 합니다.
     상위 `Dense` 층과 `Flatten` 층를 연결하려면
-    이 인수가 필요합니다   
-    (이 인자가 주어지지 않은 경우, 밀집 출력의 형태를 계산할 수 없습니다).
+    이 인수가 필요합니다(이 인자가 주어지지 않은 경우, 밀집 출력의 형태를 계산할 수 없습니다).
 
 __입력 형태__
 
-2D 텐서: `(batch_size, sequence_length)`의 형태.
+`(batch_size, sequence_length)`의 형태의 2D 텐서
 
 __출력 형태__
 
-3D 텐서: `(batch_size, sequence_length, output_dim)`의 형태.
+`(batch_size, sequence_length, output_dim)`의 형태의 3D 텐서
 
 __참조__
 
