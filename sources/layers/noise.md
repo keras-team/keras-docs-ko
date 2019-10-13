@@ -10,7 +10,7 @@ keras.layers.GaussianDropout(rate)
 
 규제화 층이므로, 학습 과정 중에만 활성화됩니다.
 
-__인수__
+__인자__
 
 - __rate__: `float`, `Dropout`와 동일한 개념의 드롭 확률.
     이 곱셈적 노이즈는 `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
@@ -18,7 +18,7 @@ __인수__
 __입력 형태__
 
 임의의 형태입니다. 모델의 첫 번째 층으로 GaussianDropout층을
-사용할 때 키워드 인수 `input_shape`을 함께 사용하여 형태를 지정합니다. 
+사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
 `input_shape`는 정수 튜플<sub>Tuple of integers</sub>로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
@@ -46,7 +46,7 @@ keras.layers.GaussianNoise(stddev)
 가우시안 노이즈(GS)는 실수 입력값을 변형할 때 사용됩니다.
 규제화<sub>Regularization</sub> 층이므로, 학습 과정 중에만 활성화됩니다.
 
-__인수__
+__인자__
 
 - __stddev__: `float`, 노이즈 분포의 표준 편차<sub>Standard deviation</sub>.
 
@@ -54,7 +54,7 @@ __인수__
 __입력 형태__
 
 임의의 형태입니다. 모델의 첫 번째 층으로 GaussianNoise층을
-사용할 때 키워드 인수 `input_shape`을 함께 사용하여 형태를 지정합니다. 
+사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
 `input_shape`는 정수 튜플<sub>Tuple of integers</sub>로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
@@ -79,7 +79,7 @@ keras.layers.AlphaDropout(rate, noise_shape=None, seed=None)
 
 
 
-__인수__
+__인자__
 
 - __rate__: `float`, `Dropout`와 동일한 개념의 드롭 확률.
     곱셈적 잡음은 `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
@@ -90,7 +90,7 @@ __인수__
 
 __입력 형태__
 임의의 형태입니다. 모델의 첫 번째 층으로 AlphaDropout층을
-사용할 때 키워드 인수 `input_shape`을 함께 사용하여 형태를 지정합니다. 
+사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
 `input_shape`는 정수 튜플<sub>Tuple of integers</sub>로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
