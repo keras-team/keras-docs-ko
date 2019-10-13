@@ -11,7 +11,7 @@ keras.preprocessing.text.Tokenizer(num_words=None, filters='!"#$%&()*+,-./:;<=>?
 
 `Tokenizer` 클래스는 텍스트 말뭉치<sub>Corpus</sub>로부터 단어를 추출하고 정수<sub>Integer</sub> 인덱스를 부여하여 딕셔너리 형식의 목록을 생성합니다. 이 목록을 바탕으로 문장 입력을 각 단어의 인덱스 숫자로 이루어진 리스트로 변환하며, 반대로 인덱스 리스트를 입력할 경우 문장으로 변환합니다. 또한 문장별 단어의 등장 여부나 횟수, 비율, TF-IDF 등을 나타내는 행렬<sub>Matrix</sub>을 생성할 수 있습니다. 이와 같은 처리는 `Tokenizer`아래의 개별 메소드<sub>Method</sub>에 의해 이루어지며, `Tokenizer`클래스는 말뭉치의 토큰화에 필요한 각종 설정값을 지정합니다. 
 
-__인자<sub>Arguments</sub>__
+__인자__
 
 - __num_words__: `int`. 사용할 단어 개수의 최대값. 가장 빈번하게 사용되는 `num_words`개의 단어만 보존합니다. `0`은 어떤 단어에도 배정되지 않는 예비 인덱스 값이기 때문에, 입력된 말뭉치 가운데 실제로 보존되는 단어의 개수는 `num_words-1`개가 됩니다.
 - __filters__: `string`. 입력된 텍스트로부터 걸러낼 문자를 지정합니다. 기본값은 작은따옴표 `'`를 제외한 모든 문장부호<sub>Punctuation</sub> 및 탭과 줄바꿈 문자입니다.
