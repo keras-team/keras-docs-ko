@@ -6,14 +6,14 @@
 keras.layers.GaussianDropout(rate)
 ```
 
-평균 1의 승법적<sub>Multiplicative</sub> 가우시안 노이즈을 적용합니다.
+평균 1의 곱셈적<sub>Multiplicative</sub> 가우시안 노이즈를 적용합니다.
 
 규제화 층이므로, 학습 과정 중에만 활성화됩니다.
 
 __인수__
 
 - __rate__: `float`, `Dropout`와 동일한 개념의 드롭 확률.
-    이 승법적 노이즈는 `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
+    이 곱셈적 노이즈는 `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
 
 __입력 형태__
 
@@ -82,7 +82,7 @@ keras.layers.AlphaDropout(rate, noise_shape=None, seed=None)
 __인수__
 
 - __rate__: `float`, `Dropout`와 동일한 개념의 드롭 확률.
-    승법적 잡음은 `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
+    곱셈적 잡음은 `sqrt(rate / (1 - rate))`의 표준편차를 갖습니다.
     
 - __noise_shape__:  `int32`의 1-D 텐서, 무작위로 생성된 보관/삭제 플래그<sub>Flags</sub>의 형태를 나타낸다.
 
