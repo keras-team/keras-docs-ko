@@ -9,7 +9,7 @@ keras.layers.Dense(units, activation=None, use_bias=True, kernel_initializer='gl
 일반적인 밀집 연결 신경망 층<sub>Densely-connected NN layer</sub>.
 
 `Dense`는 `output = activation(dot(input, kernel) + bias)` 을 실행합니다.
-여기서 `activation`은 `activation` 인수로 전달되는 원소 단위<sub>Element-wise</sub> 활성화 함수이고,
+여기서 `activation`은 `activation` 인자로 전달되는 원소 단위<sub>Element-wise</sub> 활성화 함수이고,
 `kernel`은 층이 만들어낸 가중치 행렬<sub>Weight matrix</sub>이며,
 `bias`는 층이 만들어낸 편향<sub>Bias</sub> 벡터이며 `use_bias`가 `True`인 경우만 적용 가능합니다.
 
@@ -29,7 +29,7 @@ model.add(Dense(32, input_shape=(16,)))
 model.add(Dense(32))
 ```
 
-__인수__
+__인자__
 
 - __units__: 양의 정수, 출력 공간의 차원.
 - __activation__: 사용할 활성화 함수
@@ -76,7 +76,7 @@ keras.layers.Activation(activation)
 
 출력값에 활성화 함수를 적용합니다.
 
-__인수__
+__인자__
 
 - __activation__:  Theano나 Tensorflow 또는 다른 곳에서 사용하는 활성화 함수의 이름
   ([활성화 함수](../activations.md)를 참조하십시오)
@@ -84,7 +84,7 @@ __인수__
 __입력 형태__
 
 임의의 형태입니다. 모델의 첫 번째 층으로 Activation층을
-사용할 때 키워드 인수 `input_shape`을 함께 사용하여 형태를 지정합니다. 
+사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
 `input_shape`는 정수 튜플<sub>Tuple of integers</sub>로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
@@ -106,7 +106,7 @@ keras.layers.Dropout(rate, noise_shape=None, seed=None)
 
 드롭아웃은 학습 과정 중 업데이트를 할 때  `rate` 의 비율에 따라 입력 유닛을 무작위로 0으로 설정합니다. 이는 과적합을 방지하는데 도움이 됩니다.
 
-__인수__
+__인자__
 
 - __rate__: 0과 1사이 `float`. 드롭시킬 입력 유닛의 비율.
 - __noise_shape__: 입력과 곱하게 되는 이진 드롭아웃 마스크<sub>Mask</sub>의
@@ -134,11 +134,11 @@ keras.layers.Flatten(data_format=None)
 
 입력을 1차원으로 펼칩니다. 배치 크기에는 영향을 미치치 않습니다.
 
-__인수__
+__인자__
 
 - __data_format__: `string`,
   입력 차원의 순서를 지정할수 있으며 `channels_last` (기본값) 혹은 `channels_first` 중 하나를 지정합니다.              
-  이 인수는 모델을 하나의 데이터 형식에서 다른 형식으로
+  이 인자는 모델을 하나의 데이터 형식에서 다른 형식으로
   바꿀 때 가중치 순서를 보존할 때 이용됩니다.
   `channels_last`는 `(batch, ..., channels)` 형태의 입력에 대응되고, `channels_first`는 `(batch, channels, ...)` 형태의 입력에 대응합니다.
   기본 값은 `~/.keras/keras.json`에 위치한
@@ -181,7 +181,7 @@ keras.engine.input_layer.Input()
 `_keras_history`: 텐서에 적용된 마지막 층.
 해당 층에서 전체 층 그래프를 여러번 검색할 수 있습니다.
 
-__인수__
+__인자__
 
 - __shape__: 배치 크기를 제외한 정수 튜플 형태.
   예를 들어 `shape=(32,)`는 예상되는 입력이
@@ -229,7 +229,7 @@ keras.layers.Reshape(target_shape)
 
 
 
-__인수__
+__인자__
 
 - __target_shape__: 목푯값 형태. 정수 튜플.
   배치 축은 포함하지 않습니다. 
@@ -237,7 +237,7 @@ __인수__
 __입력 형태__
 
 임의의 형태입니다. 모델의 첫 번째 층으로 Reshape층을
-사용할 때 키워드 인수 `input_shape`을 함께 사용하여 형태를 지정합니다. 
+사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
 `input_shape`는 정수 튜플로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
@@ -288,7 +288,7 @@ model.add(Permute((2, 1), input_shape=(10, 64)))
 
 ```
 
-__인수__
+__인자__
 
 - __dims__: 정수 튜플. 치환 패턴, 샘플 차원을 포함하지 않습니다.
   인덱스은 1에서 시작합니다.
@@ -298,7 +298,7 @@ __인수__
 __입력 형태__
 
 임의의 형태입니다. 모델의 첫 번째 층으로 Permute층을
-사용할 때 키워드 인수 `input_shape`을 함께 사용하여 형태를 지정합니다. 
+사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
 `input_shape`는 정수 튜플로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
@@ -332,9 +332,9 @@ model.add(RepeatVector(3))
 
 ```
 
-__인수__
+__인자__
 
-- __n__: 정수, 반복 인수.
+- __n__: 정수, 반복 인자.
 
 __입력 형태__
 
@@ -411,10 +411,10 @@ x_hadamard, x_sum = layer([x1, x2])
 
 ```
 
-__인수__
+__인자__
 
 - __function__: 평가할 함수.
-  첫 번째 인수로 텐서 혹은 텐서 리스트를 입력을 받습니다.
+  첫 번째 인자로 텐서 혹은 텐서 리스트를 입력을 받습니다.
 - __output_shape__: 함수를 통해 예측되는 출력 형태.
   Theano를 사용하는 경우에만 유효합니다. 튜플 혹은 함수가 될 수 있습니다.
   튜플인 경우, 첫 번째 차원만 차원을 지정합니다.
@@ -422,17 +422,17 @@ __인수__
    혹은, 입력이 `None`이고 샘플 차원 또한 `None`이라고 가정합니다. ( `output_shape = (None, ) + output_shape`)
   함수인 경우, 전체 형태를 입력 함수의 형태로 지정 합니다. (`output_shape = f(input_shape)`
 - __mask__: 없음(마스크를 하지 않는다) 또는 임베딩용 입력 마스크 텐서. 
-- __arguments__: 함수에 전달하는 키워드 인수의 딕셔너리<sub>Dictionary</sub>
+- __arguments__: 함수에 전달하는 키워드 인자의 딕셔너리<sub>Dictionary</sub>
 
 __입력 형태__
 
 임의의 형태입니다. 모델의 첫 번째 층으로 Lambda층을
-사용할 때 키워드 인수 `input_shape`을 함께 사용하여 형태를 지정합니다. 
+사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
 `input_shape`는 정수 튜플로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
 
-`output_shape`  인수의 형태를 따릅니다.
+`output_shape`  인자의 형태를 따릅니다.
 혹은 TensorFlow나 CNTK를 사용하는 경우 자동으로 형태가 지정됩니다.
 
 
@@ -450,7 +450,7 @@ keras.layers.ActivityRegularization(l1=0.0, l2=0.0)
 
 입력 엑티비티에 대한 비용 함수<sub>Cost function</sub>를 업데이트를 시행할 때 사용하는 층입니다.
 
-__인수__
+__인자__
 
 - __l1__: L1 규제화 인수 (양의 부동소수점).
 - __l2__: L2 규제화 인수 (양의 부동소수점).
@@ -458,7 +458,7 @@ __인수__
 __입력 형태__
 
 임의의 형태입니다. 모델의 첫 번째 층으로 ActivityRegularization층을
-사용할 때 키워드 인수 `input_shape`을 함께 사용하여 형태를 지정합니다. 
+사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
 `input_shape`는 정수 튜플로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
@@ -500,7 +500,7 @@ model.add(LSTM(32))
 
 ```
 
-__인수__
+__인자__
 
 ​    __mask_value__: None 혹은 건너뛸 마스크 값
 
@@ -521,7 +521,7 @@ keras.layers.SpatialDropout1D(rate)
 1D 특성 맵 전체를 드롭시킵니다.  초기 컨볼루션<sub>Convolution</sub>층에서는                                  특성 맵 내 인접한 프레임<sub>Frame</sub>이 강한 상관관계를 보이는 경우가 많습니다.                  보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
 이러한 경우, SpatialDropout1D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
-__인수__
+__인자__
 
 ​    __rate__: 0과 1사이 부동소수점. 드롭시킬 입력 유닛의 비율.
 
@@ -596,7 +596,7 @@ keras.layers.SpatialDropout3D(rate, data_format=None)
 1D 특성 맵 전체를 드롭시킵니다.  초기 컨볼루션<sub>Convolution</sub>층에서는                                  특성 맵 내 인접한 복셀<sub>Voxels</sub>이 강한 상관관계를 보이는 경우가 많습니다.                       보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
 이러한 경우, SpatialDropout3D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
-__인수__
+__인자__
 
 - __rate__: 0과 1사이 부동소수점. 드롭시킬 입력 유닛의 비율.
 - __data_format__:입력 차원의 순서를 지정할수 있으며 `channels_last` (기본값)       혹은 `channels_first` 중 하나를 지정합니다. 
