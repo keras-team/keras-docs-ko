@@ -30,22 +30,21 @@ assert output_array.shape == (32, 10, 64)
 
 __인자__
 
-- __input_dim__: 0보다 큰 정수를 사용하며, 어휘 목록의 크기를 나타냅니다.  
-최대 정수 색인 + 1을 전달합니다. 
+- __input_dim__: 0보다 큰 정수(최대 정수 색인 + 1)를 사용하며, 어휘 목록의 크기를 나타냅니다.  
 - __output_dim__: 0보다 크거나 같은 정수를 사용하며, 밀집 임베딩의 차원을 나타냅니다.
 - __embeddings_initializer__: `embeddings` 행렬의 초기화 함수
-    ([초기화](../initializers.md) 참조).
+    ([초기화 함수](../initializers.md) 참조).
 - __embeddings_regularizer__: `embeddings` 행렬에 적용되는
     정규화 함수 
-    ([정규화](../regularizers.md) 참조).
+    ([규제화 함수](../regularizers.md) 참조).
 - __activity_regularizer__: 층의 출력값(층의 "활성화<sub>activation</sub>")에 적용되는 규제 함수
-    (see [regularizer](../regularizers.md)).
+    ([규제화 함수](../regularizers.md)).
 - __embeddings_constraint__: `embeddings` 행렬에 적용되는
     제약 함수
-    ([제약](../constraints.md) 참조).
-- __mask_zero__: 입력값 0을 마스크 처리해야 할 특수 "패딩"값으로
+    ([제약 함수](../constraints.md) 참조).
+- __mask_zero__: 입력값 0을 마스크 처리해야 할 특수 "패딩<sub>padding</sub>"값으로
     다룰 것인지를 결정합니다.
-    [순환 레이어](recurrent.md)를 사용해 가변
+    [순환 층](recurrent.md)를 사용해 가변
     길이의 입력을 전달받을 때 유용합니다.
     이 값이 `True`인 경우 모델 내에서 이후의 층은
     마스킹을 지원해야 하며, 그렇지 않은 경우 예외가 발생됩니다.
