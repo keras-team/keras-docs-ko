@@ -1,12 +1,12 @@
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/embeddings.py#L16)</span>
-### 임베딩<sub>Embedding</sub>
+### Embedding
 
 ```python
 keras.layers.Embedding(input_dim, output_dim, embeddings_initializer='uniform', embeddings_regularizer=None, activity_regularizer=None, embeddings_constraint=None, mask_zero=False, input_length=None)
 ```
 
-양의 정수(색인)를 고정된 크기의 밀집<sub>dense</sub> 벡터로 전환합니다.
-예. [[4], [20]] -> [[0.25, 0.1], [0.6, -0.2]]
+양의 정수(인덱스)를 고정된 크기의 밀집<sub>dense</sub> 벡터로 변환합니다.
+예: [[4], [20]] → [[0.25, 0.1], [0.6, -0.2]]
 
 이 층<sub>layer</sub>은 모델의 첫 번째 층으로만 사용할 수 있습니다.
 
@@ -16,10 +16,10 @@ __예시__
 ```python
 model = Sequential()
 model.add(Embedding(1000, 64, input_length=10))
-# 모델은 (batch, input_length)의 형태를 가진 정수 행렬만 입력으로 전달받습니다.
-# 입력 내 가장 큰 정수(다시 말해 단어 색인)는
+# Embedding은 (batch, input_length)의 형태를 가진 정수 행렬을 입력으로 받습니다.
+# 입력 내 가장 큰 정수(단어 인덱스)는
 # 999(어휘목록 사이즈)보다 커서는 안됩니다.
-# 현재 model.output_shape == (None, 10, 64), 여기서 None은 배치 차원입니다.
+# 이 때 model.output_shape == (None, 10, 64)이며, 여기서 None은 배치 차원입니다.
 
 input_array = np.random.randint(1000, size=(32, 10))
 
