@@ -18,7 +18,7 @@ model.add(Embedding(1000, 64, input_length=10))
 # Embedding은 (batch, input_length)의 형태를 가진 정수 행렬을 입력으로 받습니다.
 # 입력 내 가장 큰 정수(단어 인덱스)는
 # 999(어휘목록 사이즈)보다 커서는 안됩니다.
-# 이 때 model.output_shape == (None, 10, 64)이며, 여기서 None은 배치 차원입니다.
+# 이 때 model.output_shape == (None, 10, 64)이며, None은 배치 차원입니다.
 
 input_array = np.random.randint(1000, size=(32, 10))
 
