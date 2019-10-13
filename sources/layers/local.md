@@ -25,7 +25,7 @@ model.add(LocallyConnected1D(32, 3))
 # 현재 model.output_shape == (None, 6, 32)
 ```
 
-__인수__
+__인자__
 
 - __filters__: 정수, 출력 공간의 차원
     (다시 말해 컨볼루션의 출력값 필터의 개수).
@@ -101,7 +101,7 @@ model.add(LocallyConnected2D(32, (3, 3)))
 # 현재 model.output_shape == (None, 28, 28, 32)
 ```
 
-__인수__
+__인자__
 
 - __filters__: 정수, 출력 공간의 차원
     (다시 말해 컨볼루션의 출력 필터의 개수).
