@@ -12,7 +12,6 @@ keras.layers.Embedding(input_dim, output_dim, embeddings_initializer='uniform', 
 
 __예시__
 
-
 ```python
 model = Sequential()
 model.add(Embedding(1000, 64, input_length=10))
@@ -36,17 +35,12 @@ __인자__
 - __embeddings_regularizer__: 임베딩 행렬에 적용되는 규제화 함수([규제화 함수](../regularizers.md) 참조).
 - __activity_regularizer__: 층의 출력값에 적용되는 규제화 함수. 자세한 내용은 아래의 [논문](https://arxiv.org/abs/1708.01009)을 참조하십시오.
 - __embeddings_constraint__: 임베딩 벡터에 적용되는 제약 함수([제약 함수](../constraints.md) 참조).
-- __mask_zero__: 입력값 0을 마스크 처리해야 할 특수 "패딩<sub>padding</sub>"값으로
-    다룰 것인지를 결정합니다.
-    [순환 층](recurrent.md)를 사용해 가변
-    길이의 입력을 전달받을 때 유용합니다.
-    이 값이 `True`인 경우 모델 내에서 이후의 층은
-    마스킹을 지원해야 하며, 그렇지 않은 경우 예외가 발생됩니다.
-    또한, 색인 0은 어휘목록에서 사용할 수 없습니다(`input_dim`이 '어휘 목록 크기 + 1'과
-    동일한 크기를 가져야 하기 때문입니다).
-- __input_length__: 입력 시퀀스의 길이로, 그 길이가 불변해야 합니다.
-    상위 `Dense` 층과 `Flatten` 층를 연결하려면
-    이 인자가 필요합니다(이 인자가 주어지지 않은 경우, 밀집 출력의 형태를 계산할 수 없습니다).
+- __mask_zero__: 0을 패딩<sub>paddng</sub>값으로 사용하였는지 여부를 알려줍니다.
+입력값의 길이가 다양한 경우의 순환 신경망<sub>RNN</sub>에서 유용하게 사용됩니다.
+이 값이 `True`인 경우 이후 사용하는 모든 층들은 마스킹을 지원해야 하며, 0은 패딩값으로 사용되기 때문에
+단어 인덱스로는 사용할 수 없습니다. 
+- __input_length__: 상수로 지정할 경우 입력돤 순서형 데이터의 길이를 나타냅니다.
+    이후 `Flatten`에 이어 `Dense`층을 연결하려면 이 인자가 필요합니다(이 인자가 주어지지 않은 경우, `Dense`층의 출력을 계산할 수 없습니다).
 
 __입력 형태__
 
