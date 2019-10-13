@@ -26,14 +26,14 @@ SVG(model_to_dot(model).create(prog='dot', format='svg'))
 
 ## 학습 히스토리 시각화
 
-케라스 `Model`의 `fit()` 메소드는 `History` 오브젝트를 반환합니다. `History.history` 속성은 연속된 에폭에 걸쳐 학습 손실값과 학습 측정항목값을 기록하는 딕셔너리로, 또한 (적용 가능한 경우에는) 검증 손실 값과 검증 측정항목 값도 기록합니다. 아래 간단한 예시에서는 `matplotlib`을 사용하여 학습과 검증에 대한 손실과 정확성 플롯을 만듭니다:
+케라스 `Model`의 `fit()` 메소드는 `History` 오브젝트를 반환합니다. `History.history` 속성<sub>Attribute</sub>은 각 에폭마다 계산된 학습 손실 및 평가 지표가 순서대로 기록된 딕셔너리입니다. 검증 데이터를 적용한 경우 해당 손실 및 지표도 함께 기록됩니다. 아래는 `matplotlib`을 사용하여 학습 및 검증의 손실과 정확도 그래프를 그리는 예시입니다.
 
 ```python
 import matplotlib.pyplot as plt
 
 history = model.fit(x, y, validation_split=0.25, epochs=50, batch_size=16, verbose=1)
 
-# 학습 정확성 값과 검증 정확성 값을 그래프로 나타냅니다. 
+# 학습 정확도 값과 검증 정확도 값을 그래프로 나타냅니다. 
 plt.plot(history.history['acc'])
 plt.plot(history.history['val_acc'])
 plt.title('Model accuracy')
