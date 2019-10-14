@@ -59,11 +59,11 @@ keras.engine.base_layer.wrapped_fn()
 
 __인자__
 
-- __layer__: `Recurrent` 인스턴스.
+- __layer__: `RNN` 인스턴스.
 - __merge_mode__: 정방향 순환 신경망과
     역방향 순환 신경망의 출력값이 병합되는 방식을 `{'sum', 'mul', 'concat', 'ave', None}`중에 선택합니다.
     `None`의 경우, 출력 값이 합쳐지지 않고, 리스트로 반환됩니다.
-- __weights__: `Bidirectional` 모델에 사용 될 초기 가중치
+- __weights__: `Bidirectional` 층에 사용할 초기 가중치
 
 __오류처리__
 
