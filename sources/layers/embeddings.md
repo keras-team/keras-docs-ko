@@ -39,16 +39,15 @@ __인자__
 입력값의 길이가 다양한 경우의 순환 신경망<sub>RNN</sub>에서 유용하게 사용됩니다.
 이 값이 `True`인 경우 이후 사용하는 모든 층들은 마스킹을 지원해야 하며, 0은 패딩값으로 사용되기 때문에
 단어 인덱스로는 사용할 수 없습니다. 
-- __input_length__: 상수로 지정할 경우 입력돤 순서형 데이터의 길이를 나타냅니다.
-    이후 `Flatten`에 이어 `Dense`층을 연결하려면 이 인자가 필요합니다(이 인자가 주어지지 않은 경우, `Dense`층의 출력을 계산할 수 없습니다).
+- __input_length__: 입력값의 시계열(순서형) 길이. 모든 배치가 단일한 길이를 가지는 경우 하나의 상수값을 배정합니다. 이후 `Flatten`에 이어 `Dense`층을 연결하려면 이 인자가 필요합니다(이 인자가 주어지지 않은 경우, `Dense`층의 출력을 계산할 수 없습니다).
 
 __입력 형태__
 
-`(batch_size, sequence_length)`의 형태의 2D 텐서
+`(batch_size, sequence_length)`의 형태의 2D 텐서.
 
 __출력 형태__
 
-`(batch_size, sequence_length, output_dim)`의 형태의 3D 텐서
+`(batch_size, sequence_length, output_dim)`의 형태의 3D 텐서.
 
 __참조__
 
