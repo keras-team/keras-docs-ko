@@ -39,7 +39,7 @@
 3. `keras.models.Sequential`, `fit`, `predict`, `predict_proba`, `score` 메소드의
  기본값
 
-scikit-learn의 `grid_search` API를 사용하는 경우, 'sk_params'에 전달되는 모델 생성 및 학습에 사용되는 매개변수는 
+scikit-learn의 `grid_search` API를 사용하는 경우, `sk_params`에 전달되는 모델 생성 및 학습에 사용되는 매개변수는 
 조정 가능한 매개변수 입니다.
 다시 말해, `grid_search`를 사용하여
 최적의 `batch_size`나 `epochs`, 그리고 모델 매개변수를 찾아낼 수 있습니다.
