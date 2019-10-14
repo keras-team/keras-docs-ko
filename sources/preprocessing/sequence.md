@@ -11,9 +11,9 @@ keras.preprocessing.sequence.TimeseriesGenerator(data, targets, length, sampling
 이 클래스는 일정한 간격으로 수집된 시계열 데이터와 전체 길이, 스트라이드<sub>Stride</sub>와 같이 시계열 특성을 나타내는 매개변수<sub>parameter</sub>를 입력받아 훈련/검증에 사용할 배치 데이터를 생성합니다.
 
 __인자__
-- __data__: 리스트 또는 NumPy 배열과 같이 인덱싱 가능한 2D 데이터로 0번째 축<sub>Axis</sub>은 시간차원을 나타냅니다.
+- __data__: 리스트 또는 NumPy 배열과 같이 인덱싱 가능한 2D 데이터로 0번째 축<sub>Axis</sub>은 연속된 시점에 모인 표본<sub>Sample</sub>들로 이루어진 시간 차원을 나타냅니다.
 - __targets__: `data`의 시간 단계와 상응하는 목표값으로 0번째 축의 길이가 `data`와 서로 같아야 합니다.
-- __length__: 생성할 배치의 시계열 길이를 지정합니다. 해당 인자를 통해 지정되는 길이는 최대 길이로서, 각 표본<sub>Sample</sub>의 실제 길이는 `length`를 `sampling_rate`로 나눈 몫만큼이 됩니다.
+- __length__: 생성할 배치의 시계열 길이를 지정합니다. 해당 인자를 통해 지정되는 길이는 최대 길이로서, 각 표본의 실제 길이는 `length`를 `sampling_rate`로 나눈 몫만큼이 됩니다.
 - __sampling_rate__: `length`를 통해 지정된 시계열 범위 가운데 `sampling_rate` 시점마다 입력값을 추출해서 배치에 포함시킬 것인지를 정합니다. 예를 들어 표본이 `i`번째 데이터에서 시작할 때 `sampling_rate`를 `r`로 설정할 경우 생성되는 표본은 `data[i]`, `data[i+r]`, `data[i+2r]`... 의 형태가 되며, 표본의 최종 길이는 `length`를 `sampling_rate`로 나눈 몫이 됩니다. 기본값은 `1`이며, 이 경우 배치의 길이는 `length`와 같아집니다. 
 - __stride__: 입력값 가운데 `stride`로 지정한 순서마다 표본을 생성합니다. 예를 들어 첫번째 시계열 표본이 `i`번째 입력값에서 시작할 때 `stride`가 `s`면 다음 표본은 `data[i+s]`부터, 그 다음 표본은 `data[i+2s]`부터 생성됩니다. 표본 사이에 데이터가 중복되지 않게 하려면 `stride`값을 `length`보다 같거나 크게 지정하면 됩니다. 기본값은 `1`입니다.
 - __start_index__: 입력값 가운데 배치 생성에 사용할 최초 시점을 지정합니다. `start_index`이전의 데이터는 사용되지 않기 때문에 별도의 시험/검증 세트를 만드는 데 활용할 수 있습니다. 기본값은 `0`입니다.
