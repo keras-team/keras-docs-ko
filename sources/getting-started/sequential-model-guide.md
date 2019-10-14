@@ -1,8 +1,8 @@
 # 케라스 Sequential 모델 시작하기
 
-`Sequential` 모델은 층<sub>Layer</sub>을 순서대로 쌓은 것입니다. 
+`Sequential` 모델은 층<sub>layer</sub>을 순서대로 쌓은 것입니다. 
 
-아래와 같이 각 층 인스턴스를 리스트<sub>List</sub> 형식으로 나열하여 생성자<sub>Constructor</sub>인 `Sequential`로 넘겨주면 모델이 만들어집니다:
+아래와 같이 각 층 인스턴스를 리스트 형식으로 나열하여 생성자<sub>constructor</sub>인 `Sequential`로 넘겨주면 모델이 만들어집니다:
 
 ```python
 from keras.models import Sequential             # Sequential 생성자를 불러옵니다.
@@ -17,7 +17,7 @@ model = Sequential([
 ])
 ```
 
-각 층을 리스트 형식으로 입력하는 방법 외에도, `Sequential` 생성자로 만든 모델에 `.add()` 메소드<sub>Method</sub>를 사용하면 손쉽게 새 층을 덧붙일 수 있습니다:
+각 층을 리스트 형식으로 입력하는 방법 외에도, `Sequential` 생성자로 만든 모델에 `.add()` 메소드를 사용하면 손쉽게 새 층을 덧붙일 수 있습니다:
 
 ```python
 model = Sequential()                    # 먼저 Sequential 생성자를 이용하여 빈 모델을 만들고,
@@ -29,9 +29,9 @@ model.add(Activation('relu'))           # Activation 층을 추가합니다.
 
 ## 입력 형태 지정하기
 
-각 모델은 어떤 형태<sub>Shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 형태 정보를 받습니다 (이후의 층들은 자동으로 이전 층의 출력 정보를 입력 정보로서 채택하여 형태를 추정합니다). 형태 정보는 다음과 같은 방법으로 입력할 수 있습니다:
+각 모델은 어떤 형태<sub>shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 형태 정보를 받습니다 (이후의 층들은 자동으로 이전 층의 출력 정보를 입력 정보로서 채택하여 형태를 추정합니다). 형태 정보는 다음과 같은 방법으로 입력할 수 있습니다:
 
-- 첫 번째 층의 `input_shape` 인자<sub>Argument</sub>에 형태를 입력하는 방법입니다. `input_shape` 인자는 입력 데이터의 각 차원별 크기를 나타내는 정수값들이 나열된 튜플<sub>Tuple</sub>이며, 정수 대신 `None`을 쓸 경우 아직 정해지지 않은 양의 정수를 나타냅니다. 배치<sub>Batch</sub> 크기는 `input_shape` 인자에 포함되지 않습니다.
+- 첫 번째 층의 `input_shape` 인자<sub>argument</sub>에 형태를 입력하는 방법입니다. `input_shape` 인자는 입력 데이터의 각 차원별 크기를 나타내는 정수값들이 나열된 튜플<sub>tuple</sub>이며, 정수 대신 `None`을 쓸 경우 아직 정해지지 않은 양의 정수를 나타냅니다. 배치<sub>batch</sub> 크기는 `input_shape` 인자에 포함되지 않습니다.
 - `input_shape` 인자는 입력 값의 크기와 시계열 입력의 길이를 포괄합니다. 따라서 `Dense`와 같이 2D 처리를 하는 층의 경우 `input_shape` 대신에 `input_dim` 인자를 통해서도 입력 크기를 지정할 수 있으며, 시계열과 같이 3D 처리를 하는 층은 `input_dim`과 `input_length`의 두 인자를 사용해서 입력 차원의 크기와 시계열 길이를 각각 지정할 수 있습니다.
 - 배치 크기를 고정해야 하는 경우 `batch_size` 인자를 사용합니다. (순환 신경망<sub>Recurrent Neural Network</sub>과 같이 현 시점의 결과를 저장하여 다음 시점으로 넘기는 처리를 하는 경우 배치 크기 고정이 필요합니다.) 예를 들어, `batch_size=32`와 `input_shape=(6, 8)`을 층에 입력하면 이후의 모든 입력을 `(32, 6, 8)`의 형태로 처리합니다.
 
@@ -51,9 +51,9 @@ model.add(Dense(32, input_dim=784))         # input_dim을 이용하여 입력 �
 
 모델을 학습시키기 전에 `compile` 메소드를 통해서 학습과정의 세부 사항을 설정합니다. `compile` 메소드는 다음 세 개의 인자를 입력받습니다.
 
-- 최적화 함수<sub>Optimizer</sub>: 기존의 최적화 함수를(예: `rmsprop`, `adagrad` 등) 문자열<sub>String</sub>로 된 식별자<sub>Identifier</sub>를 통해 불러오거나 `Optimizer` 클래스의 인스턴스를 만들어서 사용할 수 있습니다. 참고: [최적화 함수](/optimizers) 
-- 손실 함수<sub>Loss Function</sub>: 모델이 학습을 통해 최소화하고자 하는 목적 함수<sub>Objective Function</sub>입니다. 이 또한 기존 손실 함수의 문자열 식별자나 (예: `categorical_crossentropy`, `mse` 등) 특정 목적 함수를 사용할 수 있습니다. 참고: [손실 함수](/losses)
-- 평가 지표<sub>Metric</sub> 리스트: 모델의 성능을 평가할 지표를 리스트 형식으로 입력합니다. 예컨대 분류문제라면 `metrics=['accuracy']`를 통해 정확도<sub>Accuracy</sub>를 산출할 수 있습니다. 평가 지표는 기존 지표 함수를 문자열 식별자로 불러오거나 사용자가 함수를 정의하여 지정할 수 있습니다. 참고: [평가 지표](/metrics) 
+- 최적화 함수<sub>optimizer</sub>: 기존의 최적화 함수를(예: `rmsprop`, `adagrad` 등) 문자열<sub>string</sub>로 된 식별자<sub>identifier</sub>를 통해 불러오거나 `Optimizer` 클래스의 인스턴스를 만들어서 사용할 수 있습니다. 참고: [최적화 함수](/optimizers) 
+- 손실 함수<sub>loss function</sub>: 모델이 학습을 통해 최소화하고자 하는 목적 함수<sub>objective function</sub>입니다. 이 또한 기존 손실 함수의 문자열 식별자나 (예: `categorical_crossentropy`, `mse` 등) 특정 목적 함수를 사용할 수 있습니다. 참고: [손실 함수](/losses)
+- 평가 지표<sub>metric</sub> 리스트: 모델의 성능을 평가할 지표를 리스트 형식으로 입력합니다. 예컨대 분류문제라면 `metrics=['accuracy']`를 통해 정확도<sub>accuracy</sub>를 산출할 수 있습니다. 평가 지표는 기존 지표 함수를 문자열 식별자로 불러오거나 사용자가 함수를 정의하여 지정할 수 있습니다. 참고: [평가 지표](/metrics) 
 
 ```python
 # 다중 분류 문제 예시 
@@ -256,7 +256,7 @@ score = model.evaluate(x_test, y_test, batch_size=32)
 ```
 
 
-### LSTM을 사용한 순서형<sub>Sequence</sub> 데이터의 분류:
+### LSTM을 사용한 순서형<sub>sequence</sub> 데이터의 분류:
 
 ```python
 from keras.models import Sequential
@@ -351,9 +351,9 @@ model.fit(x_train, y_train,
 ```
 
 
-### 층을 쌓으면서, 저장한 상태를 다음 순서로 넘기는<sub>Stateful</sub> LSTM 모델
+### 층을 쌓으면서, 저장한 상태를 다음 순서로 넘기는<sub>stateful</sub> LSTM 모델
 
-상태 저장 순환 신경망<sub>Stateful Recurrent Model</sub>은 입력된 배치를 처리하여 얻은 내부 상태(메모리)를 다음 배치의 초기 상태로 재사용합니다. 이를 통해서 계산 복잡도가 지나치게 높지 않게끔 유지하면서 보다 긴 시퀀스를 처리할 수 있도록 합니다. (예를 들어, 하나의 매우 긴 시계열을 보다 짧은 시계열 길이로 쪼갠 뒤 연속된 배치로 바꾸어 처리하는 경우를 생각해볼 수 있습니다. 이 경우 상태 저장 옵션은 이전 배치의 결과를 다음 배치로 연결해주기 때문에 서로 다른 배치가 마치 하나의 시계열로 이어진 것과 같은 효과를 냅니다.) 
+상태 저장 순환 신경망<sub>stateful Recurrent Model</sub>은 입력된 배치를 처리하여 얻은 내부 상태(메모리)를 다음 배치의 초기 상태로 재사용합니다. 이를 통해서 계산 복잡도가 지나치게 높지 않게끔 유지하면서 보다 긴 시퀀스를 처리할 수 있도록 합니다. (예를 들어, 하나의 매우 긴 시계열을 보다 짧은 시계열 길이로 쪼갠 뒤 연속된 배치로 바꾸어 처리하는 경우를 생각해볼 수 있습니다. 이 경우 상태 저장 옵션은 이전 배치의 결과를 다음 배치로 연결해주기 때문에 서로 다른 배치가 마치 하나의 시계열로 이어진 것과 같은 효과를 냅니다.) 
 
 [FAQ에서 상태 저장 순환 신경망에 대한 정보를 더 보실 수 있습니다.](/getting-started/faq/#how-can-i-use-stateful-rnns)
 
