@@ -6,7 +6,7 @@
 keras.layers.GaussianDropout(rate)
 ```
 
-평균 1의 곱셈적<sub>Multiplicative</sub> 가우시안 노이즈를 적용합니다.
+평균 1인 가우시안 분포를 가지는 노이즈를 곱합니다.
 
 규제화 층이므로, 학습 과정 중에만 활성화됩니다.
 
@@ -40,7 +40,7 @@ __참조__
 keras.layers.GaussianNoise(stddev)
 ```
 
-평균 0의 가산적<sub>Additive</sub> 가우시안 노이즈을 적용합니다.
+평균 0인 가우시안 분포를 가지는 노이즈를 더합니다.
 
 이는 무작위 데이터 증강<sub>Data augmentation</sub>의 하나로 과적합<sub>Overfitting</sub>을 완화하는데 유용합니다.
 가우시안 노이즈(GS)는 실수 입력값을 변형할 때 사용됩니다.
