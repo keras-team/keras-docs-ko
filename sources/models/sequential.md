@@ -33,12 +33,12 @@ fit(x=None, y=None, batch_size=None, epochs=1, verbose=1, callbacks=None, valida
 전체 데이터셋을 정해진 횟수만큼 반복하여 모델을 학습시킵니다.
 
 __인자__
-- __x__: 입력 데이터로 다음과 같은 형태가 가능합니다.
+- __x__: 입력 데이터로 다음과 같은 종류가 가능합니다.
     - NumPy 배열<sub>array</sub> 또는 배열과 같은 형식의 데이터. 다중 입력의 경우 배열의 리스트.
     - 모델이 이름이 지정된 입력값을 받는 경우 이름과 배열/텐서가 `key`와 `value`로 연결된 딕셔너리.
     - 파이썬 제너레이터 또는 `keras.utils.Sequence` 인스턴스로 `(inputs, targets)` 혹은 `(inputs, targets, sample weights)`를 반환하는 것.
     - 프레임워크(예: TensorFlow)를 통해 이미 정의된 텐서를 입력받는 경우 `None`(기본값).
-- __y__: 목표 데이터로 다음과 같은 형태가 가능합니다.
+- __y__: 목표 데이터로 다음과 같은 종류가 가능합니다.
     - NumPy 배열 또는 배열과 같은 형식의 데이터. 다중의 결과를 출력하는 경우 배열의 리스트.
     - 프레임워크(예: TensorFlow)를 통해 이미 정의된 텐서를 입력받는 경우 `None`(기본값).
     - 결과값의 이름이 지정되어 있는 경우 이름과 배열/텐서가 `key`와 `value`로 연결된 딕셔너리.
@@ -48,7 +48,7 @@ __인자__
 - __verbose__: `int`. `0`, `1`, 혹은 `2`. 학습 중 진행 정보의 화면 출력 여부를 설정하는 인자입니다. `0`은 표시 없음, `1`은 진행 표시줄<sub>Progress bar</sub> 출력, `2`는 에폭당 한 줄씩 출력을 뜻합니다. 기본값은 `1`입니다. 
 - __callbacks__: `keras.callbacks.Callback` 인스턴스의 리스트. 학습과 검증 과정에서 적용할 콜백의 리스트입니다. 자세한 사항은 [콜백](/callbacks)을 참조하십시오.
 - __validation_split__: 0과 1사이의 `float`. 입력한 `x`와 `y` 훈련 데이터의 마지막부터 지정된 비율만큼의 표본을 분리하여 검증<sub>Validation</sub> 데이터를 만듭니다. 이 과정은 데이터를 뒤섞기 전에 실행됩니다. 검증 데이터는 학습에 사용되지 않으며 각 에폭이 끝날 때마다 검증 손실과 평가 지표를 구하는데 사용됩니다. `x`가 제너레이터 혹은 `Sequence`인 경우에는 지원되지 않습니다. 
-- __validation_data__: 매 에폭이 끝날 때마다 손실 및 평가지표를 측정할 검증 데이터를 지정합니다. 검증 데이터는 오직 측정에만 활용되며 학습에는 사용되지 않습니다. `validation_split`인자와 같이 지정될 경우 `validation_split`인자를 무시하고 적용됩니다. `validation_data`로는 다음과 같은 형태가 가능합니다.
+- __validation_data__: 매 에폭이 끝날 때마다 손실 및 평가지표를 측정할 검증 데이터를 지정합니다. 검증 데이터는 오직 측정에만 활용되며 학습에는 사용되지 않습니다. `validation_split`인자와 같이 지정될 경우 `validation_split`인자를 무시하고 적용됩니다. `validation_data`로는 다음과 같은 종류가 가능합니다.
     - NumPy 배열 또는 텐서로 이루어진 `(x_val, y_val)` 튜플.
     - NumPy 배열로 이루어진 `(x_val, y_val, val_sample_weights)` 튜플.
     - 위와 같이 튜플을 입력하는 경우에는 `batch_size`도 같이 명시해야 합니다.
@@ -84,12 +84,12 @@ evaluate(x=None, y=None, batch_size=None, verbose=1, sample_weight=None, steps=N
 시험 모드에서 모델의 손실 및 평가 지표 값을 구합니다. 계산은 배치 단위로 실행됩니다.
 
 __인자__
-- __x__: 입력 데이터로 다음과 같은 형태가 가능합니다.
+- __x__: 입력 데이터로 다음과 같은 종류가 가능합니다.
     - NumPy 배열 또는 배열과 같은 형식의 데이터. 다중 입력의 경우 배열의 리스트.
     - 모델이 이름이 지정된 입력값을 받는 경우 이름과 배열/텐서가 `key`와 `value`로 연결된 딕셔너리.
     - 파이썬 제너레이터 또는 `keras.utils.Sequence` 인스턴스로 `(inputs, targets)` 혹은 `(inputs, targets, sample weights)`를 반환하는 것.
     - 프레임워크(예: TensorFlow)를 통해 이미 정의된 텐서를 입력받는 경우 `None`(기본값).
-- __y__: 목표 데이터로 다음과 같은 형태가 가능합니다.
+- __y__: 목표 데이터로 다음과 같은 종류가 가능합니다.
     - NumPy 배열 또는 배열과 같은 형식의 데이터. 다중의 결과를 출력하는 경우 배열의 리스트.
     - 프레임워크(예: TensorFlow)를 통해 이미 정의된 텐서를 입력받는 경우 `None`(기본값).
     - 결과값의 이름이 지정되어 있는 경우 이름과 배열/텐서가 `key`와 `value`로 연결된 딕셔너리.
@@ -119,7 +119,7 @@ predict(x, batch_size=None, verbose=0, steps=None, callbacks=None, max_queue_siz
 모델에 표본을 입력하여 예측값을 생성합니다. 계산은 배치 단위로 실행됩니다.
 
 __인자__
-- __x__: 입력 데이터로 다음과 같은 형태가 가능합니다.
+- __x__: 입력 데이터로 다음과 같은 종류가 가능합니다.
     - NumPy 배열 또는 배열과 같은 형식의 데이터. 다중 입력의 경우 배열의 리스트.
     - 모델이 이름이 지정된 입력값을 받는 경우 이름과 배열/텐서가 `key`와 `value`로 연결된 딕셔너리.
     - 파이썬 제너레이터 또는 `keras.utils.Sequence` 인스턴스로 `(inputs, targets)` 혹은 `(inputs, targets, sample weights)`를 반환하는 것.
