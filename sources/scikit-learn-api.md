@@ -29,11 +29,11 @@
 기본값을 넣도록 하여, `sk_params`에 따로 값을 전달하지 않고 에스티메이터를 만들 수 있도록 한다는 점을
 참고하십시오.
 
-`sk_params`는 또한 `fit`, `predict`, `predict_proba`, 그리고 `score` 메소드를
+`sk_params`는 또한 `fit`, `predict`, `predict_proba`, `score` 메소드를
 호출하는데 필요한 매개변수를 전달받습니다(예시: `epochs`, `batch_size`).
 조정(예측) 매개변수는 다음과 같은 순서로 선택됩니다.
 
-1. `fit`, `predict`, `predict_proba`, and `score` 메소드에 
+1. `fit`, `predict`, `predict_proba`, `score` 메소드에 
 등록된 값들
 2. `sk_params`에 전달되는 값
 3. `keras.models.Sequential`, `fit`, `predict`, `predict_proba`, `score` 메소드의
