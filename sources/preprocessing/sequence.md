@@ -6,12 +6,12 @@
 ```python
 keras.preprocessing.sequence.TimeseriesGenerator(data, targets, length, sampling_rate=1, stride=1, start_index=0, end_index=None, shuffle=False, reverse=False, batch_size=128)
 ```
-시간 순서가 있는 데이터의 배치<sub>Batch</sub>를 생성하는 도구 클래스<sub>Class</sub>입니다.  
+시간 순서가 있는 데이터의 배치<sub>batch</sub>를 생성하는 도구 클래스입니다.  
 
-이 클래스는 일정한 간격으로 수집된 시계열 데이터와 전체 길이, 스트라이드<sub>Stride</sub>와 같이 시계열 특성을 나타내는 매개변수<sub>parameter</sub>를 입력받아 훈련/검증에 사용할 배치 데이터를 생성합니다.
+이 클래스는 일정한 간격으로 수집된 시계열 데이터와 전체 길이, 스트라이드<sub>stride</sub>와 같이 시계열 특성을 나타내는 매개변수<sub>parameter</sub>를 입력받아 훈련/검증에 사용할 배치 데이터를 생성합니다.
 
 __인자__
-- __data__: 리스트 또는 NumPy 배열과 같이 인덱싱 가능한 2D 데이터로 0번째 축<sub>Axis</sub>은 연속된 시점에 모인 표본<sub>Sample</sub>들로 이루어진 시간 차원을 나타냅니다.
+- __data__: 리스트 또는 NumPy 배열과 같이 인덱싱 가능한 2D 데이터로 0번째 축<sub>axis</sub>은 연속된 시점에 모인 표본<sub>sample</sub>들로 이루어진 시간 차원을 나타냅니다.
 - __targets__: `data`의 시간 단계와 상응하는 목표값으로 0번째 축의 길이가 `data`와 서로 같아야 합니다.
 - __length__: 생성할 배치의 시계열 길이를 지정합니다. 해당 인자를 통해 지정되는 길이는 최대 길이로서, 각 표본의 실제 길이는 `length`를 `sampling_rate`로 나눈 몫만큼이 됩니다.
 - __sampling_rate__: `length`를 통해 지정된 시계열 범위 가운데 `sampling_rate` 시점마다 입력값을 추출해서 배치에 포함시킬 것인지를 정합니다. 예를 들어 표본이 `i`번째 데이터에서 시작할 때 `sampling_rate`를 `r`로 설정할 경우 생성되는 표본은 `data[i]`, `data[i+r]`, `data[i+2r]`... 의 형태가 되며, 표본의 최종 길이는 `length`를 `sampling_rate`로 나눈 몫이 됩니다. 기본값은 `1`이며, 이 경우 배치의 길이는 `length`와 같아집니다. 
@@ -53,9 +53,9 @@ assert np.array_equal(y,
 ```python
 keras.preprocessing.sequence.pad_sequences(sequences, maxlen=None, dtype='int32', padding='pre', truncating='pre', value=0.0)
 ```
-입력값의 길이를 패딩<sub>Padding</sub>하여 동일하게 만듭니다.
+입력값의 길이를 패딩<sub>padding</sub>하여 동일하게 만듭니다.
 
-이 함수<sub>Function</sub>는 서로 다른 길이를 가진 `num_samples`개의 리스트에 패딩을 더하여 전체 길이가 `num_timesteps`로 동일한 `(num_samples, num_timesteps)`형태의 2D NumPy 배열로 변형합니다. 패딩을 포함한 `num_timesteps`의 길이는 `maxlen`인자에 의해 결정되며, `maxlen`인자를 지정하지 않을 경우에는 전체 입력 리스트 가운데 가장 긴 리스트를 기준으로 맞춰집니다. 길이가 `num_timesteps`보다 긴 경우는 잘라냅니다. 패딩에 사용되는 값은 `value` 인자로 정할 수 있으며 기본값은 `0.0`입니다.  
+이 함수<sub>function</sub>는 서로 다른 길이를 가진 `num_samples`개의 리스트에 패딩을 더하여 전체 길이가 `num_timesteps`로 동일한 `(num_samples, num_timesteps)`형태의 2D NumPy 배열로 변형합니다. 패딩을 포함한 `num_timesteps`의 길이는 `maxlen`인자에 의해 결정되며, `maxlen`인자를 지정하지 않을 경우에는 전체 입력 리스트 가운데 가장 긴 리스트를 기준으로 맞춰집니다. 길이가 `num_timesteps`보다 긴 경우는 잘라냅니다. 패딩에 사용되는 값은 `value` 인자로 정할 수 있으며 기본값은 `0.0`입니다.  
   
 `padding`과 `truncating`인자는 각각 개별 리스트의 앞/뒤 가운데 어느 부분을 패딩하고 잘라낼지를 결정합니다. 기본값은 `'pre'`(앞)입니다.
 
@@ -81,7 +81,7 @@ keras.preprocessing.sequence.skipgrams(sequence, vocabulary_size, window_size=4,
 ```
 Skipgram 단어 쌍을 생성합니다.
 
-Skipgram은 어떤 문장을 구성하는 각각의 단어들을 '중심 단어'로 지정하고 특정 중심 단어가 등장했을 때 '주변 단어'가 등장할 확률을 말뭉치<sub>Corpus</sub>로부터 학습하는 모델입니다. Skipgram에 대한 보다 자세한 설명은 [Mikolov et al.의 탁월한 논문](http://arxiv.org/pdf/1301.3781v3.pdf)을 참고하십시오.  
+Skipgram은 어떤 문장을 구성하는 각각의 단어들을 '중심 단어'로 지정하고 특정 중심 단어가 등장했을 때 '주변 단어'가 등장할 확률을 말뭉치<sub>corpus</sub>로부터 학습하는 모델입니다. Skipgram에 대한 보다 자세한 설명은 [Mikolov et al.의 탁월한 논문](http://arxiv.org/pdf/1301.3781v3.pdf)을 참고하십시오.  
   
 케라스의 `skipgrams`함수는 단어 인덱스로 이루어진 리스트를 입력받아 중심 단어와 주변 단어의 쌍으로 이루어진 학습용 데이터 튜플을 생성합니다. 튜플은 다음의 두 리스트로 이루어집니다.
 
