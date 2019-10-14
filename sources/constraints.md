@@ -1,10 +1,10 @@
 ## 제약의 사용법<sub>Usage of constraints</sub>
 
-`constraints` 모듈의 함수는 최적화 과정에서 네트워크 매개변수에 제약(예시: 비음수)을 설정할 수 있도록 합니다.
+`constraints` 모듈의 함수는 최적화 과정에서 네트워크 매개변수에 제약(예시: 음이 아닌<sub>non-negativity</sub>)을 설정할 수 있습니다.
 
 페널티는 각 층별로 적용됩니다. API의 구체사항은 층마다 다를 수 있지만, `Dense`, `Conv1D`, `Conv2D` 그리고 `Conv3D` 층은 통일된 API를 가집니다.
 
-이러한 층들은 2가지 키워드 인자를 노출합니다.
+이러한 층들은 2가지 키워드 인자를 가집니다.
 
 - 주요 가중치 행렬에 대한 `kernel_constraint`
 - 편향에 대한 `bias_constraint`
