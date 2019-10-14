@@ -1,6 +1,6 @@
 ## 초기값 생성 함수 사용법<sub>Usage of initializers</sub>
 
-초기값 생성 함수<sub>Initializer</sub>는 케라스 층<sub>Layer</sub>의 파라미터<sub>Parameter</sub> 초기값을 어떤 방식으로 생성할 것인지를 결정합니다. 모든 층에서 다 똑같은 것은 아니지만, 대부분의 경우 `kernel_initializer`와 `bias_initializer` 인자<sub>Argument</sub>를 사용해서 가중치<sub>Weight</sub>와 편향<sub>bias</sub>의 초기값 생성 함수를 지정합니다.
+초기값 생성 함수<sub>initializer</sub>는 케라스 층<sub>layer</sub>의 파라미터 초기값을 어떤 방식으로 생성할 것인지를 결정합니다. 모든 층에서 다 똑같은 것은 아니지만, 대부분의 경우 `kernel_initializer`와 `bias_initializer` 인자<sub>argument</sub>를 사용해서 가중치<sub>weight</sub>와 편향<sub>bias</sub>의 초기값 생성 함수를 지정합니다.
 
 ```python
 model.add(Dense(64,
@@ -51,7 +51,7 @@ __인자__
 ```python
 keras.initializers.RandomNormal(mean=0.0, stddev=0.05, seed=None)
 ```
-지정한 평균 및 표준편차를 따르는 정규분포<sub>Normal Distribution</sub>로부터 대상 파라미터 값을 무작위로 생성합니다.
+지정한 평균 및 표준편차를 따르는 정규분포<sub>normal distribution</sub>로부터 대상 파라미터 값을 무작위로 생성합니다.
 
 __인자__
 - __mean__: `int` 혹은 `float`형식의 스칼라 값 또는 같은 형식의 스칼라 텐서. 파라미터 생성에 사용할 정규분포의 평균을 정합니다. 기본값은 `0`입니다.
@@ -65,7 +65,7 @@ __인자__
 ```python
 keras.initializers.RandomUniform(minval=-0.05, maxval=0.05, seed=None)
 ```
-지정한 범위의 균등분포<sub>Uniform Distribution</sub>로부터 대상 파라미터 값을 무작위로 생성합니다.
+지정한 범위의 균등분포<sub>uniform distribution</sub>로부터 대상 파라미터 값을 무작위로 생성합니다.
 
 __인자__
 - __minval__: `int` 혹은 `float`형식의 스칼라 값 또는 같은 형식의 스칼라 텐서. 무작위 생성에 사용할 수치 범위의 최솟값입니다. 기본값은 `-0.05`입니다.
@@ -115,7 +115,7 @@ __오류__
 ```python
 keras.initializers.Orthogonal(gain=1.0, seed=None)
 ```
-무작위 직교행렬<sub>Orthogonal Matrix</sub>을 파라미터의 초기값으로 생성합니다. 먼저 평균`0` 표준편차`1`의 정규분포로부터 무작위 텐서를 생성한 뒤, 해당 텐서를 특이값분해<sub>Singular Value Decomposition</sub>하여 얻은 직교행렬을 원하는 파라미터의 형태에 맞게 변형하여 사용합니다. 직교행렬의 가중치 초기값 활용에 대해서는 다음의 [논문](http://arxiv.org/abs/1312.6120)을 참고하십시오.
+무작위 직교행렬<sub>orthogonal matrix</sub>을 파라미터의 초기값으로 생성합니다. 먼저 평균`0` 표준편차`1`의 정규분포로부터 무작위 텐서를 생성한 뒤, 해당 텐서를 특이값분해<sub>singular value decomposition</sub>하여 얻은 직교행렬을 원하는 파라미터의 형태에 맞게 변형하여 사용합니다. 직교행렬의 가중치 초기값 활용에 대해서는 다음의 [논문](http://arxiv.org/abs/1312.6120)을 참고하십시오.
 
 __인자__
 - __gain__: 생성될 직교행렬에 곱할 배수입니다. 기본값은 `1.`입니다.
@@ -253,7 +253,7 @@ __참조__
 
     
 ----
-신경망의 각 층에서 초기값 생성 함수는 해당 초기값 생성 함수의 이름과 동일한 문자열<sub>String</sub> 또는 호출 가능한 함수<sub>Callable</sub>의 형태로 지정할 수 있습니다. 
+신경망의 각 층에서 초기값 생성 함수는 해당 초기값 생성 함수의 이름과 동일한 문자열<sub>string</sub> 또는 호출 가능한 함수<sub>callable</sub>의 형태로 지정할 수 있습니다. 
 
 ```python
 from keras import initializers
