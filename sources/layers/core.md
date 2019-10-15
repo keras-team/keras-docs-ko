@@ -6,14 +6,14 @@
 keras.layers.Dense(units, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-일반적인 밀집 연결 신경망 층<sub>Densely-connected NN layer</sub>.
+일반적인 밀집 연결 신경망 층<sub>densely-connected NN layer</sub>.
 
 `Dense`는 `output = activation(dot(input, kernel) + bias)` 을 실행합니다.
-여기서 `activation`은 `activation` 인자로 전달되는 원소 단위<sub>Element-wise</sub> 활성화 함수이고,
-`kernel`은 층이 만들어낸 가중치 행렬<sub>Weight matrix</sub>이며,
-`bias`는 층이 만들어낸 편향<sub>Bias</sub> 벡터이며 `use_bias`가 `True`인 경우만 적용 가능합니다.
+여기서 `activation`은 `activation` 인자로 전달되는 원소 단위<sub>element-wise</sub> 활성화 함수이고,
+`kernel`은 층이 만들어낸 가중치 행렬<sub>weight matrix</sub>이며,
+`bias`는 층이 만들어낸 편향<sub>bias</sub> 벡터이며 `use_bias`가 `True`인 경우만 적용 가능합니다.
 
-참고: 층의 입력 랭크가 2보다 클 경우, `kernel`과의 내적<sub>Dot product</sub>을 하기 전에 층의 차원을 1차원으로 만들어주어야 합니다.
+참고: 층의 입력 랭크가 2보다 클 경우, `kernel`과의 내적<sub>dot product</sub>을 하기 전에 층의 차원을 1차원으로 만들어주어야 합니다.
 
 __예시__
 
@@ -37,17 +37,17 @@ __인자__
   따로 설정하지 않으면, 활성화 함수가 적용되지 않습니다.
   (즉, "linear" 활성화 함수: `a(x) = x`).
 - __use_bias__: `Bool`. 층이 편향 벡터를 사용하는지 여부.
-- __kernel_initializer__: `kernel` 가중치 행렬의 초기화<sub>Initalizer</sub> 함수
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기화<sub>initalizer</sub> 함수
   ([초기값 함수](../initializers.md)를 참조하십시오).
 - __bias_initializer__: 편향 벡터의 초기값 함수
   ([초기값 함수](../initializers.md)를 참조하십시오).
-- __kernel_regularizer__: `kernel` 가중치 행렬에 적용되는 규제<sub>Regularizer</sub> 함수
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용되는 규제<sub>regularizer</sub> 함수
   ([규제 함수](../regularizers.md)를 참조하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 규제 함수
   ([규제 함수](../regularizers.md)를 참조하십시오).
 - __activity_regularizer__: 층의 출력값(층의 “활성화” 값)에 적용되는 규제 함수
   ([규제 함수](../regularizers.md)를 참조하십시오).
-- __kernel_constraint__: `kernel` 가중치 행렬에 적용되는 제약<sub>Constraints</sub> 함수
+- __kernel_constraint__: `kernel` 가중치 행렬에 적용되는 제약<sub>constraints</sub> 함수
   ([제약 함수](../constraints.md)을 참조하십시오).
 - __bias_constraint__: 편향 벡터에 적용하는 제약 함수
   ([제약 함수](../constraints.md)을 참조하십시오).
@@ -85,7 +85,7 @@ __입력 형태__
 
 임의의 형태입니다. 모델의 첫 번째 층으로 Activation층을
 사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
-`input_shape`는 정수 튜플<sub>Tuple of integers</sub>로 샘플 축을 포함하지 않습니다.
+`input_shape`는 정수 튜플<sub>tuple of integers</sub>로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
 
@@ -109,13 +109,13 @@ keras.layers.Dropout(rate, noise_shape=None, seed=None)
 __인자__
 
 - __rate__: 0과 1사이 `float`. 드롭시킬 입력 유닛의 비율.
-- __noise_shape__: 입력과 곱하게 되는 이진 드롭아웃 마스크<sub>Mask</sub>의
+- __noise_shape__: 입력과 곱하게 되는 이진 드롭아웃 마스크<sub>mask</sub>의
   형태를 나타내는 1D 정수 텐서.
   예를 들어, 입력이 `(batch_size, timesteps, features)`의
   형태를 가지는 경우, 드롭아웃 마스크를
   모든 시간 단계에 대해서 동일하게 적용하고 싶다면
   `noise_shape=(batch_size, 1, features)`를 사용하면 됩니다.
-- __seed__: 난수<sub>Random</sub> 시드로 사용할 파이썬 정수형.
+- __seed__: 난수<sub>random</sub> 시드로 사용할 파이썬 정수형.
 
 __참조__
 
@@ -356,7 +356,7 @@ keras.layers.Lambda(function, output_shape=None, mask=None, arguments=None)
 
 ```
 
-사용자가 생성한 임의의 표현을 `Layer` 객체로 래핑<sub>Wrap</sub>합니다.
+사용자가 생성한 임의의 표현을 `Layer` 객체로 래핑<sub>wrap</sub>합니다.
 
 __예시__
 
@@ -448,7 +448,7 @@ keras.layers.ActivityRegularization(l1=0.0, l2=0.0)
 
 ```
 
-입력 엑티비티에 대한 비용 함수<sub>Cost function</sub>를 업데이트를 시행할 때 사용하는 층입니다.
+입력 엑티비티에 대한 비용 함수<sub>cost function</sub>를 업데이트를 시행할 때 사용하는 층입니다.
 
 __인자__
 
@@ -518,7 +518,7 @@ keras.layers.SpatialDropout1D(rate)
 드롭아웃의 공간적 1D 버전.
 
 이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 원소 대신
-1D 특성 맵 전체를 드롭시킵니다.  초기 컨볼루션<sub>Convolution</sub>층에서는                                  특성 맵 내 인접한 프레임<sub>Frame</sub>이 강한 상관관계를 보이는 경우가 많습니다.                  보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
+1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱<sub>convolution</sub>층에서는                                  특성 맵 내 인접한 프레임<sub>frame</sub>이 강한 상관관계를 보이는 경우가 많습니다.                  보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
 이러한 경우, SpatialDropout1D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
 __인자__
@@ -552,7 +552,7 @@ keras.layers.SpatialDropout2D(rate, data_format=None)
 드롭아웃의 공간적 2D 버전.
 
 이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 원소 대신
-1D 특성 맵 전체를 드롭시킵니다.  초기 컨볼루션<sub>Convolution</sub>층에서는                                  특성 맵 내 인접한 픽셀<sub>Pixels</sub>이 강한 상관관계를 보이는 경우가 많습니다.                       보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
+1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱층에서는                                  특성 맵 내 인접한 픽셀<sub>Pixels</sub>이 강한 상관관계를 보이는 경우가 많습니다.                       보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
 이러한 경우, SpatialDropout2D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
 __인수__
@@ -593,7 +593,7 @@ keras.layers.SpatialDropout3D(rate, data_format=None)
 드롭아웃의 공간적 3D 버전.
 
 이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 원소 대신
-1D 특성 맵 전체를 드롭시킵니다.  초기 컨볼루션<sub>Convolution</sub>층에서는                                  특성 맵 내 인접한 복셀<sub>Voxels</sub>이 강한 상관관계를 보이는 경우가 많습니다.                       보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
+1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱층에서는                                  특성 맵 내 인접한 복셀<sub>Voxels</sub>이 강한 상관관계를 보이는 경우가 많습니다.                       보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
 이러한 경우, SpatialDropout3D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
 __인자__
