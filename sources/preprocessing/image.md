@@ -8,14 +8,14 @@
 keras.preprocessing.image.ImageDataGenerator(featurewise_center=False, samplewise_center=False, featurewise_std_normalization=False, samplewise_std_normalization=False, zca_whitening=False, zca_epsilon=1e-06, rotation_range=0, width_shift_range=0.0, height_shift_range=0.0, brightness_range=None, shear_range=0.0, zoom_range=0.0, channel_shift_range=0.0, fill_mode='nearest', cval=0.0, horizontal_flip=False, vertical_flip=False, rescale=None, preprocessing_function=None, data_format='channels_last', validation_split=0.0, interpolation_order=1, dtype='float32')
 ```
 
-실시간 데이터 증강<sub>Data augmentation</sub>을 이용하여 텐서 이미지 데이터의 배치들을 생성합니다.
-데이터가 배치 단위로 루프<sub>Loop</sub>를 순환합니다.
+실시간 데이터 증강<sub>data augmentation</sub>을 이용하여 텐서 이미지 데이터의 배치들을 생성합니다.
+데이터가 배치 단위로 루프<sub>loop</sub>를 순환합니다.
 
 __인자__
 
-- __featurewise_center__: `Bool`. 데이터셋의 특성 단위 <sub>Feature-wise</sub>로 입력 값의 평균이 0이 되도록 합니다.
+- __featurewise_center__: `Bool`. 데이터셋의 특성 단위 <sub>feature-wise</sub>로 입력 값의 평균이 0이 되도록 합니다.
 
-- __samplewise_center__:  `Bool`. 각 표본<sub>Sample</sub>의 평균이 0이 되도록 합니다.
+- __samplewise_center__:  `Bool`. 각 표본<sub>sample</sub>의 평균이 0이 되도록 합니다.
 
 - __featurewise_std_normalization__:  `Bool`.
       입력 값을 데이터셋의 특성 단위로 구한 표준편차로 나눕니다.
@@ -24,14 +24,14 @@ __인자__
 
 - __zca_whitening__:  `Bool`. ZCA 화이트닝<sub>ZCA whitening</sub>를 적용할지 여부입니다.
 
-- __zca_epsilon__: ZCA 화이트닝의 엡실론<SUB>Epsilon</SUB> 값. 기본값<sub>Defalut</sub>은 1e-6입니다.
+- __zca_epsilon__: ZCA 화이트닝의 엡실론<SUB>Epsilon</SUB> 값. 기본값<sub>defalut</sub>은 1e-6입니다.
 
-- __rotation_range__: `Int`. 임의 회전의 각도<sub>Degree</sub> 범위입니다.
+- __rotation_range__: `Int`. 임의 회전의 각도<sub>degree</sub> 범위입니다.
 
 - __width_shift_range__: `Float`, `1-D array-like` 혹은 `Int`
 
   - `Float`: < 1인 경우 전체 가로넓이의 비율, >= 1인 경우 픽셀의 개수입니다.
-  - `1-D array-like`: 배열<sub>Array</sub>에서 가져온 임의 요소<sub>Element</sub>입니다.
+  - `1-D array-like`: 배열<sub>array</sub>에서 가져온 임의 요소<sub>element</sub>입니다.
   - `Int`: `(-width_shift_range, +width_shift_range)`
     사이 구간의 픽셀 개수입니다.
   - `width_shift_range=2`인 경우 유효값은
@@ -55,7 +55,7 @@ __인자__
 - __brightness_range__:  두 개의 부동소수점 값으로 이루어진 리스트 혹은 튜플.
   밝기 정도를 조절할 값의 범위입니다.
 
-- __shear_range__: `Float`. 층밀리기<sub>Shear</sub>의 강도입니다.
+- __shear_range__: `Float`. 층밀리기<sub>shear</sub>의 강도입니다.
       (도 단위의 반시계 방향 층밀리기 각도)
 
 - __zoom_range__: `Float` 혹은 [하한, 상한]. 임의 확대/축소의 범위입니다.
@@ -98,7 +98,7 @@ __인자__
   
 - __validation_split__: `Float` ( 0과 1사이의 값으로) .검증의 용도로 남겨둘 이미지의 비율입니다.
   
-- __interpolation_order__: `int`, 스플라인 보간법<sub>Spline interpolation</sub>을 사용하기 위한 순서입니다. 높을수록 느립니다.   
+- __interpolation_order__: `int`, 스플라인 보간법<sub>spline interpolation</sub>을 사용하기 위한 순서입니다. 높을수록 느립니다.   
 
 - __dtype__: 생성된 배열에 사용할 자료형.
 
@@ -254,16 +254,16 @@ model.fit_generator(
 apply_transform(x, transform_parameters)
 ```
 
-주어진 매개변수<sub>Parameters</sub>에 따라 이미지에 변형을 가합니다.
+주어진 매개변수<sub>parameters</sub>에 따라 이미지에 변형을 가합니다.
 
 __인자__
 
 - __x__: 3D 텐서, 단일 이미지.
 - __transform_parameters__: 문자열 딕셔너리, 어떤 변형을 할 지를 나타내는 매개변수 쌍.
   현재, 딕셔너리에서 다음과 같은 매개변수가 사용됩니다:
-  - `'theta'`: `Float`. 도<sub>Degrees</sub> 단위의 회전 각도.
+  - `'theta'`: `Float`. 도<sub>degrees</sub> 단위의 회전 각도.
   
-  - `'tx'`: `Float`. x 방향으로의 이동<sub>Shift</sub>.
+  - `'tx'`: `Float`. x 방향으로의 이동<sub>shift</sub>.
   
   - `'ty'`: `Float`. y 방향으로의 이동.
   
@@ -294,9 +294,9 @@ __반환값__
 fit(x, augment=False, rounds=1, seed=None)
 ```
 
-표본 데이터를 데이터 제너레이터<sub>Data Generator</sub>에 학습시킵니다.
+표본 데이터를 데이터 제너레이터<sub>data Generator</sub>에 학습시킵니다.
 
-이 함수는 표본 데이터 배열의 데이터-의존적<sub>Data-dependent</sub> 변형에 관련된 
+이 함수는 표본 데이터 배열의 데이터-의존적<sub>data-dependent</sub> 변형에 관련된 
 내적 데이터 통계치를 계산합니다.
 
 `featurewise_center`, `featurewise_std_normalization`,
@@ -305,7 +305,7 @@ fit(x, augment=False, rounds=1, seed=None)
 __인자__
 
 - __x__: 표본 데이터. 랭크가 4이어야 합니다.
-  흑백<sub>Grayscale</sub> 데이터의 경우 채널이 1개가 되어야 하며,
+  흑백<sub>grayscale</sub> 데이터의 경우 채널이 1개가 되어야 하며,
   RGB 데이터의 경우 채널 3개,
   RGBA 데이터의 경우 채널 4개가 되어야 합니다.
 - __augment__: `Bool` (기본값: False).
@@ -323,7 +323,7 @@ __인자__
 flow(x, y=None, batch_size=32, shuffle=True, sample_weight=None, seed=None, save_to_dir=None, save_prefix='', save_format='png', subset=None)
 ```
 
-데이터와 레이블<sub>Lable</sub> 배열을 받아 증강된 데이터의 배치를 생성합니다.
+데이터와 레이블<sub>lable</sub> 배열을 받아 증강된 데이터의 배치를 생성합니다.
 
 __인자__
 
@@ -385,7 +385,7 @@ flow_from_dataframe(dataframe, directory=None, x_col='filename', y_col='class', 
 
 __인자__
 
-- __dataframe__: 문자열 칼럼<sub>Column</sub> 이미지의 `directory` 상대 경로를 포함한 Pandas 데이터 프레임,  `directory`가 없는 경우 절대 경로를 포함하는 Pandas 데이터 프레임.  
+- __dataframe__: 문자열 칼럼<sub>column</sub> 이미지의 `directory` 상대 경로를 포함한 Pandas 데이터 프레임,  `directory`가 없는 경우 절대 경로를 포함하는 Pandas 데이터 프레임.  
   
 
 `class_mode`에 따라 다양한 형태의 칼럼을 가집니다.
@@ -422,7 +422,7 @@ __인자__
   생성할 수 있는 목푯값(들)의 형태는 다음과 같다.
 
   - `"binary"`: 이진 레이블의 1D NumPy 배열,
-  - `"categorical"`: 원-핫 인코딩<sub>One-hot encode</sub>의 2D NumPy 배열. 다중 레이블 출력값을 지원한다,
+  - `"categorical"`: 원-핫 인코딩<sub>one-hot encode</sub>의 2D NumPy 배열. 다중 레이블 출력값을 지원한다,
   - `"input"`: 입력 이미지와 동일한 이미지(주로 오토인코더<sub>Autoencoder</sub>에서 사용된다.),
   - `"multi_output"`: 여러 칼럼의 값들을 가지고 있는 리스트,
   - `"raw"`: `y_col`칼럼(들) 값들의 NumPy 배열,
@@ -433,16 +433,16 @@ __인자__
 
 - __shuffle__: 데이터를 뒤섞을지 여부 (기본값: True)
 
-- __seed__: 데이터 셔플링<sub>Shuffling</sub>과 변형시에 사용되는 직접 지정 할 수 있는 난수 시드.
+- __seed__: 데이터 셔플링<sub>shuffling</sub>과 변형시에 사용되는 직접 지정 할 수 있는 난수 시드.
 
 - __save_to_dir__: `None` 혹은 `str` (기본값: None). 
   생성된 증강 사진을 특정한 디렉토리에서 저장할 수 있게 해줍니다. 이는 현재 작업을 시각화하는데 유용합니다.
 
-- __save_prefix__: `str`. 저장된 사진의 파일 이름에 사용할 접두부호<sub>Prefix</sub> (`save_to_dir`가 설정된 경우에만 해당됩니다).
+- __save_prefix__: `str`. 저장된 사진의 파일 이름에 사용할 접두부호<sub>prefix</sub> (`save_to_dir`가 설정된 경우에만 해당됩니다).
 
 - __save_format__: "png"와 "jpeg" 중 하나 (`save_to_dir`가 설정된 경우에만 해당됩니다). 기본값: "png".
 
-- __follow_links__: 클래스 하위 디렉토리 내 심볼릭 링크<sub> Symlink</sub>를 따라갈지 여부 (기본값: False).
+- __follow_links__: 클래스 하위 디렉토리 내 심볼릭 링크<sub>symlink</sub>를 따라갈지 여부 (기본값: False).
 
 - __subset__: `ImageDataGenerator`에서 `validation_split`이 설정된 경우
   subset의 입력으로 `"training"` 혹은 `"validation"` 을 사용할 수 있습니다.
@@ -577,7 +577,7 @@ standardize(x)
 
 입력의 배치에 표준화를 적용합니다.
 
-`X` 는 주로 내부에서 이미지를 표준화<sub>Standardize</sub>하고 네트워크에 공급하기 위해 사용되기 때문에 인플레이스<sub>In-place</sub> 방식으로 변경됩니다.  `x`를 복사해 만든다면 성능 비용이 클 것입니다. 
+`X` 는 주로 내부에서 이미지를 표준화<sub>standardize</sub>하고 네트워크에 공급하기 위해 사용되기 때문에 인플레이스<sub>in-place</sub> 방식으로 변경됩니다.  `x`를 복사해 만든다면 성능 비용이 클 것입니다. 
 입력 내용을 인플레이스 방식으로 변경하지 않고 이 방법을 그대로 사용하기 위해선 먼저 복사본을 생성하세요 
 
 standarize(np.copy(x))
