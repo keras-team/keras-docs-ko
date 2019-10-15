@@ -6,9 +6,9 @@
 ```python
 keras.preprocessing.sequence.TimeseriesGenerator(data, targets, length, sampling_rate=1, stride=1, start_index=0, end_index=None, shuffle=False, reverse=False, batch_size=128)
 ```
-시간 순서가 있는 데이터의 배치<sub>batch</sub>를 생성하는 도구 클래스입니다.  
+시간 순서가 있는 데이터의 배치를 생성하는 도구 클래스입니다.  
 
-이 클래스는 일정한 간격으로 수집된 시계열 데이터와 전체 길이, 스트라이드<sub>stride</sub>와 같이 시계열 특성을 나타내는 매개변수<sub>parameter</sub>를 입력받아 훈련/검증에 사용할 배치 데이터를 생성합니다.
+이 클래스는 일정한 간격으로 수집된 시계열 데이터와 전체 길이, 스트라이드와 같이 시계열 특성을 나타내는 매개변수<sub>parameter</sub>를 입력받아 훈련/검증에 사용할 배치 데이터를 생성합니다.
 
 __인자__
 - __data__: 리스트 또는 NumPy 배열과 같이 인덱싱 가능한 2D 데이터로 0번째 축<sub>axis</sub>은 연속된 시점에 모인 표본<sub>sample</sub>들로 이루어진 시간 차원을 나타냅니다.
@@ -53,9 +53,9 @@ assert np.array_equal(y,
 ```python
 keras.preprocessing.sequence.pad_sequences(sequences, maxlen=None, dtype='int32', padding='pre', truncating='pre', value=0.0)
 ```
-입력값의 길이를 패딩<sub>padding</sub>하여 동일하게 만듭니다.
+입력값의 길이를 패딩하여 동일하게 만듭니다.
 
-이 함수<sub>function</sub>는 서로 다른 길이를 가진 `num_samples`개의 리스트에 패딩을 더하여 전체 길이가 `num_timesteps`로 동일한 `(num_samples, num_timesteps)`형태의 2D NumPy 배열로 변형합니다. 패딩을 포함한 `num_timesteps`의 길이는 `maxlen`인자에 의해 결정되며, `maxlen`인자를 지정하지 않을 경우에는 전체 입력 리스트 가운데 가장 긴 리스트를 기준으로 맞춰집니다. 길이가 `num_timesteps`보다 긴 경우는 잘라냅니다. 패딩에 사용되는 값은 `value` 인자로 정할 수 있으며 기본값은 `0.0`입니다.  
+이 함수는 서로 다른 길이를 가진 `num_samples`개의 리스트에 패딩을 더하여 전체 길이가 `num_timesteps`로 동일한 `(num_samples, num_timesteps)`형태의 2D NumPy 배열로 변형합니다. 패딩을 포함한 `num_timesteps`의 길이는 `maxlen`인자에 의해 결정되며, `maxlen`인자를 지정하지 않을 경우에는 전체 입력 리스트 가운데 가장 긴 리스트를 기준으로 맞춰집니다. 길이가 `num_timesteps`보다 긴 경우는 잘라냅니다. 패딩에 사용되는 값은 `value` 인자로 정할 수 있으며 기본값은 `0.0`입니다.  
   
 `padding`과 `truncating`인자는 각각 개별 리스트의 앞/뒤 가운데 어느 부분을 패딩하고 잘라낼지를 결정합니다. 기본값은 `'pre'`(앞)입니다.
 
