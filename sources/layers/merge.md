@@ -6,7 +6,7 @@
 keras.layers.Add()
 ```
 
-입력 리스트를 더하는 층<sub>Layer</sub>입니다.
+입력 리스트를 더하는 층<sub>layer</sub>입니다.
 
 모든 형태의 텐서 리스트를 입력받아 동일한 형태의 하나의 텐서로 반환합니다.
 
@@ -71,7 +71,7 @@ model = keras.models.Model(inputs=[input1, input2], outputs=out)
 keras.layers.Multiply()
 ```
 
-입력 리스트를 요소 단위<sub>Element-wise</sub>로 곱하는 층입니다.
+입력 리스트를 요소 단위<sub>element-wise</sub>로 곱하는 층입니다.
 
 모든 형태의 텐서 리스트를 입력으로 받아 같은 형태의 하나의 텐서를 반환합니다. 
 
@@ -127,7 +127,7 @@ keras.layers.Minimum()
 keras.layers.Concatenate(axis=-1)
 ```
 
-입력 리스트를 이어붙이기<sub>Concatenate</sub>를 하는 층입니다.
+입력 리스트를 이어붙이기<sub>concatenate</sub>를 하는 층입니다.
 
 이어붙이기 축을 제외하고 동일한 형태의 모든 텐서 리스트를 입력으로 받아
 모든 입력이 이어붙여진 단일 텐서를 반환합니다.
@@ -149,14 +149,14 @@ __인자__
 keras.layers.Dot(axes, normalize=False)
 ```
 
-두 개의 텐서에 대해 내적 연산<sub>Dot product</sub>를 하는 층입니다.
+두 개의 텐서에 대해 내적 연산<sub>dot product</sub>를 하는 층입니다.
 
 예) 만약 형태가 `(batch_size, n)`인 두 텐서 `a`와 `b`를 갖는 리스트에서 수행될 경우, 출력 텐서의 형태는 `(batch_size, 1)`가 됩니다. 출력 텐서의 각 요소 `i`는 `a[i]`와 `b[i]` 간의 내적 연산입니다. 
 
 __인자__
 
 - __axes__:  단일 정수이거나  정수 튜플이어야 하며, 내적 연산을 수행할 축을 의미합니다.
-- __normalize__: 내적 연산을 수행하기 전에 샘플들에 L2 정규화<sub>L2-normalize</sub>를 수행 여부입니다. True로 설정하면, 내적 연산의 결과는 두 샘플 간의 코싸인 유사도와 같습니다.
+- __normalize__: 내적 연산을 수행하기 전에 샘플들에 L2 정규화<sub>l2-normalize</sub>를 수행 여부입니다. True로 설정하면, 내적 연산의 결과는 두 샘플 간의 코싸인 유사도와 같습니다.
 - __**kwargs__: 표준 층 키워드 인자입니다.
 
 ------
@@ -341,7 +341,7 @@ __인자__
 
 - __inputs__: 입력 텐서의 리스트입니다. 최소 2개 이상의 텐서를 포함해야 합니다.
 - __axes__: 단일 정수거나 튜플 형태의 정수여야 하며, 내적 연산을 수행할 축 또는 축들을 의미합니다.
-- __normalize__: 내적 연산을 수행하기 전에 샘플들에 대해 L2 정규화(L2-normalize)를 수행할지에 대한 여부입니다. True로 설정하면, 내적 연산의 결과는 두 샘플 간의 코싸인 유사도와 같습니다.
+- __normalize__: 내적 연산을 수행하기 전에 샘플들에 대해 L2 정규화를 수행할지에 대한 여부입니다. True로 설정하면, 내적 연산의 결과는 두 샘플 간의 코싸인 유사도<sub>cosine proximity</sub>와 같습니다.
 - __**kwargs__: 표준 층 키워드 인자입니다.
 
 __반환값__
