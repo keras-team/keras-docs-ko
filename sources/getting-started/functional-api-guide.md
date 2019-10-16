@@ -70,7 +70,7 @@ processed_sequences = TimeDistributed(model)(input_sequences)
 
 Multiple inputs과 outputs을 가지는 model은 함수형 API를 적용하기 적합한 사례입니다. 함수형 API를 사용해서 복잡하게 얽힌 많은 수의 데이터 흐름을 간편하게 관리할 수 있습니다.
 
-다음의 model을 고려해 봅시다. 트위터에서 특정 뉴스 헤드라인이 얼마나 많은 리트윗과 좋아요를 받을지 예측하려고 합니다. Model에 대한 주요 input은 연속된 단어들로 표현된 헤드라인 자체이지만, 문제를 더욱 흥미롭게 만들기 위해서 보조 input으로 헤드라인이 게시된 시간 등과 같은 추가 데이터를 받도록 합니다.
+다음 model을 고려해 봅시다. 트위터에서 특정 뉴스 헤드라인이 얼마나 많은 리트윗과 좋아요를 받을지 예측하려고 합니다. Model에 대한 주요 input은 연속된 단어들로 표현된 헤드라인 자체이지만, 약간의 변화를 주기 위해서 보조 input으로 헤드라인이 게시된 시간 등과 같은 추가 데이터를 받도록 합니다.
 Model은 두 개의 loss function에 의해서 지도됩니다. 주요 loss function을 model의 초기 단계에 사용하는 것이 심층 model에 있어 적절한 regularization 메커니즘입니다.
 
 다음은 model이 어떻게 구성되어있는지 보여줍니다:
@@ -173,17 +173,17 @@ pred = model.predict([headline_data, additional_data])
 
 -----
 
-## 공유 레이어
+## 공유 layers
 
-함수형 API의 또 다른 유용한 사용처는 공유 레이어를 사용하는 모델입니다. 공유 레이어에 대해서 알아봅시다.
+함수형 API의 다른 유용한 사례는 공유 layer를 사용하는 model입니다. 공유 layer에 대해서 알아봅시다.
 
-트윗 데이터셋을 고려해 봅시다. 두 개의 다른 트윗을 두고 동일한 사람이 작성했는지 여부를 가려내는 모델을 만들고자 합니다 (이는, 예를 들어 트윗의 유사성을 기준으로 사용자를 비교할 수 있도록 합니다).
+트윗 데이터셋을 고려해 봅시다. 서로 다른 두 개의 트윗을 두고 동일한 사람이 작성했는지 여부를 가려내는 model을 만들고자 합니다 (예를 들어, 트윗의 유사성을 기준으로 사용자를 비교할 수 있습니다).
 
-이를 구현하는 방법의 하나는 두 개의 트윗을 두 벡터로 인코딩하고 그 두 벡터를 연결한 후 로지스틱 회귀를 더하는 모델을 만드는 것입니다; 이는 두 트윗이 동일한 저자를 공유할 확률을 출력합니다. 그에 따라 모델은 양성 트윗 쌍과 음성 트윗 쌍에 대해서 학습됩니다.
+이를 구현하는 한 가지 방법은 두 개의 트윗을 두 벡터로 인코딩하고 그 두 벡터를 연결한 후 로지스틱 회귀를 수행하는 모델을 만드는 것입니다; 이 model은 서로 다른 두 트윗의 작성자가 동일할 확률을 출력합니다. 그런 다음 model은 긍정적인 트윗 쌍과 부정적인 트윗 쌍에 대해서 학습됩니다.
 
-문제가 대칭적이므로, 첫 번째 트윗을 인코딩하는 메커니즘을 (가중치 등을 포함해) 전부 재사용하여 두 번째 트윗을 인코딩해야 합니다. 이 예시에서는 공유된 장단기 메모리 레이어를 사용해 트윗을 인코딩 합니다.
+문제가 대칭적이므로 긍정적인 트윗 쌍을 인코딩하는 메커니즘을 (weights 등을 포함해) 전부 재사용하여 부정적인 트윗 쌍을 인코딩해야 합니다. 이 예시에서는 공유된 LSTM layer를 사용해 트윗을 인코딩 합니다.
 
-함수형 API로 이 모델을 만들어 봅시다. `(280, 256)` 형태의 이진 행렬, 다시 말해 256 크기의 벡터 280개로 이루어진 시퀀스를 트윗에 대한 인풋으로 받습니다 (여기서 256 차원 벡터의 각 차원은 가장 빈번한 256 부호의 자모 중 해당 부호의 유/무를 인코딩합니다).
+함수형 API로 model을 만들어 봅시다. `(280, 256)` 형태의 이진 행렬, 다시 말해 256 크기의 벡터 280개로 이루어진 sequence를 트윗에 대한 input으로 받습니다 (여기서 256 차원 벡터의 각 차원은 자모에서 가장 빈번하게 사용되는 256 문자의 유무를 인코딩합니다).
 
 ```python
 import keras
@@ -194,17 +194,17 @@ tweet_a = Input(shape=(280, 256))
 tweet_b = Input(shape=(280, 256))
 ```
 
-제 각기 다른 인풋에 걸쳐 레이어를 공유하려면, 간단히 레이어를 한 번만 인스턴스화하고 인풋마다 그 레이어를 호출하면 됩니다:
+Layer를 재사용하려면, 간단히 layer를 한 번만 인스턴스화하고 서로 다른 input마다 layer를 호출하면 됩니다:
 
 ```python
-# 이 레이어는 행렬을 인풋으로 전달받고
-# 64 크기의 벡터를 반환합니다
+# 이 layer는 행렬을 input으로 전달받고
+# 크기가 64인 벡터를 반환합니다
 shared_lstm = LSTM(64)
 
-# 동일한 레이어 인스턴스를
-# 여러 번 재사용하는 경우, 레이어의
-# 가중치 또한 재사용됩니다
-# (그렇기에 이는 실질적으로 *동일한* 레이어입니다)
+# 동일한 layer 인스턴스를
+# 여러 번 재사용하는 경우, layer의
+# weights 또한 재사용됩니다
+# (그렇기에 이는 *동일한* 레이어입니다)
 encoded_a = shared_lstm(tweet_a)
 encoded_b = shared_lstm(tweet_b)
 
@@ -214,7 +214,7 @@ merged_vector = keras.layers.concatenate([encoded_a, encoded_b], axis=-1)
 # 그리고 로지스틱 회귀를 상층에 추가합니다
 predictions = Dense(1, activation='sigmoid')(merged_vector)
 
-# 트윗 인풋을 예측에 연결하는
+# 트윗 input을 예측에 연결하는
 # 학습 가능한 모델을 정의합니다
 model = Model(inputs=[tweet_a, tweet_b], outputs=predictions)
 
@@ -224,17 +224,17 @@ model.compile(optimizer='rmsprop',
 model.fit([data_a, data_b], labels, epochs=10)
 ```
 
-잠시 멈추고 공유 레이어의 아웃풋 혹은 아웃풋 형태를 어떻게 해석해야 할지 알아봅시다.
+잠시 멈춰서 공유 layer의 output 또는 output shape가 어떠한지 살펴봅시다.
 
 -----
 
-## 레이어 "node"의 개념
+## Layer "node"의 개념
 
-어느 인풋에 대해서 레이어를 호출하면, 새로운 텐서(레이어의 아웃풋)가 생성됩니다. 또한 "node"가 레이어에 추가되어 인풋 텐서를 아웃풋 텐서에 연결합니다. 동일한 레이어를 여러 번 호출하면, 레이어는 0, 1, 2…로 색인이 달린 여러 개의 노드를 소유하게 됩니다.
+input에 대해서 layer를 호출하면, 새로운 tensor(layer의 output)가 생성됩니다. 또한 "node"가 layer에 추가되어 input tensor와 output tensor를 연결합니다. 동일한 layer를 여러 번 호출하면, layer는 0, 1, 2…와 같은 인덱스가 달린 여러 개의 node를 소유하게 됩니다.
 
-케라스의 이전 버전에서는, `layer.get_output()`를 통해 레이어 인스턴스의 아웃풋 텐서를 얻거나, 혹은 `layer.output_shape`를 통해 아웃풋 형태를 얻을 수 있었습니다. 이러한 방식이 여전히 가능하기는 하지만 (`output`으로 대체된 `get_output()`은 제외), 레이어가 여러 인풋에 연결된 경우는 어떻게 하시겠습니까?
+Keras 이전 버전에서는 `layer.get_output()`를 통해 layer instance의 output tensor를 얻을 수 있고, `layer.output_shape`를 통해 output shape를 얻을 수 있었습니다. 이러한 방식이 여전히 가능하기는 하지만 (단, `get_output()`은 `output`이라는 속성으로 대체되었습니다), layer가 여러 input에 연결된 경우는 어떻게 하시겠습니까?
 
-하나의 레이어가 하나의 인풋에만 연결되는 한, `.output`은 혼동없이 레이어의 단일 아웃풋을 반환할 것입니다:
+Layer가 하나의 input에만 연결되어 있으면 `.output`은 layer의 단일 output을 반환할 것입니다:
 
 ```python
 a = Input(shape=(280, 256))
@@ -245,7 +245,7 @@ encoded_a = lstm(a)
 assert lstm.output == encoded_a
 ```
 
-레이어가 여러 인풋을 가지면 상황이 달라집니다:
+Layer가 여러 input에 대해서 호출이 된다면 상황이 달라집니다:
 ```python
 a = Input(shape=(280, 256))
 b = Input(shape=(280, 256))
@@ -262,7 +262,7 @@ hence the notion of "layer output" is ill-defined.
 Use `get_output_at(node_index)` instead.
 ```
 
-좋습니다. 다음은 제대로 작동합니다:
+다음은 제대로 작동합니다:
 
 ```python
 assert lstm.get_output_at(0) == encoded_a
@@ -271,7 +271,7 @@ assert lstm.get_output_at(1) == encoded_b
 
 간단하지 않습니까?
 
-`input_shape`와 `output_shape`의 경우도 마찬가지 입니다: 레이어가 하나의 노드만 보유하는 한, 혹은 모든 노드가 동일한 인풋/아웃풋 형태를 갖는 한, "layer output/input shape"의 개념이 명확히 정의되며 `layer.output_shape`/`layer.input_shape`은 동일한 형태를 반환합니다. 하지만 만약 동일한 `Conv2D` 레이어를 `(32, 32, 3)` 형태의 인풋에 적용한 후 `(64, 64, 3)` 형태의 인풋에도 적용했다면, 레이어는 여러 종류의 인풋/아웃풋 형태를 보유하게 됩니다. 이러한 경우 각 인풋/아웃풋 형태가 속한 노드의 색인을 특정해서 불러와야 합니다:
+`input_shape`와 `output_shape`의 경우도 마찬가지 입니다: layer가 하나의 node만 보유하거나 모든 node가 동일한 input/output shape를 갖는 한, "layer output/input shape"에 대한 개념이 정의되며 `layer.output_shape`/`layer.input_shape`는 동일한 shape를 반환합니다. 하지만 만약 동일한 `Conv2D` layer를 `(32, 32, 3)` 형태의 input에 대해서 호출한 다음 `(64, 64, 3)` 형태의 input에 대해서도 호출한다면, layer는 여러 input/output shape를 가지게 됩니다. 이러한 경우 각 input/output shape가 속한 node의 인덱스를 지정해야만 shape를 얻을 수 있습니다:
 
 ```python
 a = Input(shape=(32, 32, 3))
@@ -280,7 +280,7 @@ b = Input(shape=(64, 64, 3))
 conv = Conv2D(16, (3, 3), padding='same')
 conved_a = conv(a)
 
-# 지금까진 하나의 인풋만 존재하므로 다음은 제대로 동작합니다:
+# 지금까지 하나의 input만 존재하므로 다음은 제대로 동작합니다:
 assert conv.input_shape == (None, 32, 32, 3)
 
 conved_b = conv(b)
@@ -293,7 +293,7 @@ assert conv.get_input_shape_at(1) == (None, 64, 64, 3)
 
 ## 추가 예시
 
-시작하기에 코드 예시보다 좋은 방법은 없기에, 몇 가지 예시를 더 확인하겠습니다.
+시작하기에 코드 예시보다 좋은 방법은 없으므로, 몇 가지 예시를 더 살펴봅시다.
 
 ### Inception 모듈
 
@@ -323,17 +323,17 @@ output = keras.layers.concatenate([tower_1, tower_2, tower_3], axis=1)
 ```python
 from keras.layers import Conv2D, Input
 
-# 3-채널 256x256 이미지에 대한 인풋 텐서
+# 3-채널 256x256 이미지에 대한 input tensor
 x = Input(shape=(256, 256, 3))
-# 3개의 아웃풋 채널(인풋 채널과 동일)을 가진 3x3 컨볼루션
+# 3개의 output 채널(인풋 채널과 동일)을 가진 3x3 컨볼루션
 y = Conv2D(3, (3, 3), padding='same')(x)
 # 이는 x + y를 반환합니다
 z = keras.layers.add([x, y])
 ```
 
-### 시각 공유 모델
+### 공유 시각 model
 
-이 모델은 동일한 이미지 처리 모듈을 두 인풋에 대해서 재사용하여, 두 MNIST 숫자가 같은 숫자인지 다른 숫자인지 여부를 분류합니다.
+이 model은 동일한 이미지 처리 모듈을 두 input에 대해서 재사용하여, 두 MNIST 숫자가 같은 숫자인지 다른 숫자인지 여부를 분류합니다.
 
 ```python
 from keras.layers import Conv2D, MaxPooling2D, Input, Dense, Flatten
@@ -348,11 +348,11 @@ out = Flatten()(x)
 
 vision_model = Model(digit_input, out)
 
-# 그리고 숫자 분류 모델을 정의합니다
+# 그리고 숫자 분류 model을 정의합니다
 digit_a = Input(shape=(27, 27, 1))
 digit_b = Input(shape=(27, 27, 1))
 
-# 가중치 등을 포함한 시각 모델은 공유됩니다
+# weights 등을 포함한 시각 model은 공유됩니다
 out_a = vision_model(digit_a)
 out_b = vision_model(digit_b)
 
