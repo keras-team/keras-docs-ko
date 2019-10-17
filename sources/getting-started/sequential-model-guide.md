@@ -135,7 +135,7 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 
 바로 실험해볼 수 있는 예시들입니다!
 
-[examples 폴더](https://github.com/keras-team/keras/tree/master/examples) 안에서 실제 데이터셋을 다루는 예제들을 볼 수 있습니다.
+[여기서](https://github.com/keras-team/keras/tree/master/examples) 실제 데이터셋을 다루는 예제들을 볼 수 있습니다.
 
 - CIFAR10 소형 이미지 분류: 실시간 데이터 증강을 포함하는 합성곱 신경망<sub>Convolutional Neural Network</sub>
 - IMDB 영화 후기 감정 분류: 순서를 가진 문자열을 다루는 LSTM<sub>Long Short-Term Memory</sub> 모형
@@ -146,7 +146,7 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 ...등등.
 
 
-### 다중 소프트맥스 분류<sub>Multi-class Softmax Classification</sub>를 위한 다층 신경망 (MLP):
+### 다중 소프트맥스 분류<sub>Multi-class Softmax Classification</sub>를 위한 다층 신경망(MLP):
 
 ```python
 import keras
@@ -183,7 +183,7 @@ score = model.evaluate(x_test, y_test, batch_size=128)
 ```
 
 
-### 이진 분류<sub>Binary Classification</sub>를 위한 다층 신경망 (MLP):
+### 이진 분류<sub>Binary Classification</sub>를 위한 다층 신경망(MLP):
 
 ```python
 import numpy as np
@@ -308,11 +308,11 @@ model.fit(x_train, y_train, batch_size=16, epochs=10)
 score = model.evaluate(x_test, y_test, batch_size=16)
 ```
 
-### 순서형 데이터 분류를 위한 LSTM 층 쌓기
+### 순서형 데이터 분류를 위한 LSTM층 쌓기
 
-고차원의 시계열 요인들을 학습할 수 있도록 3개의 LSTM 층을 연결한 모델을 만듭니다. 
+고차원의 시계열 요인들을 학습할 수 있도록 3개의 LSTM층을 연결한 모델을 만듭니다. 
 
-처음의 두 LSTM 층은 순서의 모든 지점에서 결과값을 출력합니다 `return_sequences=True`. 즉, 입력값의 순서 개수와 출력값의 순서 개수가 같습니다. 하지만 마지막 LSTM 층은 출력 시퀀스의 최종 시점에서 결과를 출력합니다. 따라서 앞서 구성한 LSTM층의 최종 출력은 시계열 차원이 없어진 크기를 가집니다. (이 과정은 길이를 가진 여러 벡터의 입력 시퀀스를 하나의 벡터로 변환하는 것과도 같습니다.)
+처음의 두 LSTM 층은 순서의 모든 지점에서 결과값을 출력합니다 `return_sequences=True`. 즉, 입력값의 순서 개수와 출력값의 순서 개수가 같습니다. 하지만 마지막 LSTM 층은 출력 시퀀스의 최종 시점에서 결과를 출력합니다. 따라서 앞서 구성한 LSTM층의 최종 출력은 시계열 차원이 없어진 크기를 가집니다(이 과정은 길이를 가진 여러 벡터의 입력 시퀀스를 하나의 벡터로 변환하는 것과도 같습니다).
 
 <img src="https://keras.io/img/regular_stacked_lstm.png" alt="stacked LSTM" style="width: 300px;"/>
 
