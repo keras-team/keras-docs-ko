@@ -44,9 +44,9 @@ __반환값__
 
 Softmax 변환으로 생성된 텐서.
 
-__예외__
+__오류__
 
-- __ValueError__: `dim(x) == 1`일 때.
+- __ValueError__: `dim(x) == 1`인 경우 발생합니다.
 
 ----
 
@@ -67,7 +67,7 @@ __인자__
 
 __반환값__
 
-Exponential linear unit의 활성값:  
+Exponential linear unit의 활성값.  
 `x > 0` 이면 `x`,  
 `x < 0` 이면 `alpha * (exp(x)-1)`.
 
@@ -103,8 +103,8 @@ Scaled exponential linear unit의 활성값 `scale * elu(x, alpha)`.
 
 __유의 사항__
 
-- "lecun_normal"과 함께 사용되어야 합니다.
-- "AlphaDropout"과 함께 이용되어야 합니다.
+- `lecun_normal`과 함께 사용되어야 합니다.
+- `AlphaDropout`과 함께 이용되어야 합니다.
 
 __참고 자료__
 
@@ -291,4 +291,4 @@ __반환값__
 
 ## "고급 활성화 함수"에 대하여
 
-간단한 TensorFlow/Theano/CNTK 활성화 함수보다 더 복잡한 함수들(eg. 학습 가능한 파라미터를 가진 활성화 함수)은 [Advanced Activation layers](layers/advanced-activations.md) 에서 확인할 수 있으며, `keras.layers.advanced_activations` 모듈에서 찾을 수 있습니다. 이는 `PReLU`와 `LeakyReLU`를 포함합니다.
+간단한 TensorFlow, Theano, CNTK의 활성화 함수보다 더 복잡한 함수들(eg. 학습 가능한 파라미터를 가진 활성화 함수)은 [Advanced Activation layers](layers/advanced-activations.md) 에서 확인할 수 있으며, `keras.layers.advanced_activations` 모듈에서 찾을 수 있습니다. 이는 `PReLU`와 `LeakyReLU`를 포함합니다.
