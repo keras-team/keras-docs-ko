@@ -8,7 +8,7 @@ from keras.utils import plot_model
 plot_model(model, to_file='model.png')
 ```
 
-`plot_model`는 네가지 인자를 전달받습니다:
+`plot_model`은 네가지 인자를 전달받습니다:
 
 - `show_shapes`(기본값은 False)는 결과의 형태을 그래프에 나타낼 것인지 조정합니다.
 - `show_layer_names`(기본값은 True)는 층의 이름을 그래프에 나타낼 것인지 조정합니다.
@@ -33,7 +33,7 @@ import matplotlib.pyplot as plt
 
 history = model.fit(x, y, validation_split=0.25, epochs=50, batch_size=16, verbose=1)
 
-# 학습 정확도 값과 검증 정확도 값을 그래프로 나타냅니다. 
+# 학습 정확도와 검증 정확도를 그래프로 나타냅니다. 
 plt.plot(history.history['acc'])
 plt.plot(history.history['val_acc'])
 plt.title('Model accuracy')
@@ -42,7 +42,7 @@ plt.xlabel('Epoch')
 plt.legend(['Train', 'Test'], loc='upper left')
 plt.show()
 
-# 학습 손실 값과 검증 손실 값을 그래프로 나타냅니다.
+# 학습 손실값과 검증 손실값을 그래프로 나타냅니다.
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
 plt.title('Model loss')
