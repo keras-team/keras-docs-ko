@@ -5,77 +5,29 @@
 keras.layers.Conv1D(filters, kernel_size, strides=1, padding='valid', data_format='channels_last', dilation_rate=1, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-1D 합성곱 층<sub>Convolution layer</sub> 레이어(예. 시계열 합성곱).
+1D 합성곱 층<sub>convolution layer</sub> (예: 시계열<sub>temporal</sub> 합성곱).
 
-이 층은 단일 공간적 (혹은 시간적) 차원에서
-입력 텐서와 합성곱되는 합성곱 커널을 생성하여
-출력 텐서를 만들어냅니다.
-`use_bias`가 참인 경우, 편향 벡터를 생성해 출력 텐서에 더합니다.
-끝으로, `activation`이 `None`이 아닌 경우
-이는 출력 텐서에도 적용됩니다.
+이 층은 하나의 공간적 (혹은 시간적) 차원에서 입력 텐서와 합성곱되어 출력 텐서를 만드는 합성곱 커널을 생성합니다. `use_bias`가 참인 경우, 편향 <sub>bias</sub>벡터를 생성해 출력 텐서에 더합니다. `activation`이 `None`이 아닌 경우 이 또한 출력 텐서에 적용됩니다.  
+  
+모델의 가장 처음에 올 경우 `input_shape`인자를 통해 입력값의 형태를 함께 지정해야 합니다. `input_shape`는 `None`또는 정수로 된 튜플로 배치 축<sub>axis</sub>은 포함시키지 않습니다. 예를 들어, 128개의 요인<sub>feature</sub>과 10개의 시간 단계로 이루어진 시계열 데이터에 `Conv1D`를 적용하고자 하는 경우 `input_shape=(10, 128)`, `data_format="channels_last"`로 지정합니다. `data_format` 인자를 `"channels_last"`로 정하는 까닭은 일반적으로 합성곱 신경망에서 다루는 채널의 위치를 가장 마지막에 두도록 함으로써 층이 입력값의 마지막에 있는 요인 차원을 일종의 채널처럼 취급하게끔 하고 합성곱의 필터가 시계열 차원을 따라서 적용되게끔 하기 위함입니다. 만약 시계열의 길이가 표본 또는 배치별로 다를 경우 `input_shape=(None, 128)`로 지정합니다.
 
-이 층을 모델의 첫번째 층으로 사용하는 경우
-`input_shape` 매개변수를 제공해야 합니다 (정수 튜플 혹은 `None`,
-배치 축은 포함하지 않습니다). 예. `data_format="channels_last"`이고 
-특성 128가지인 시간 단계 10개로 이루어진 시퀀스는 
-`input_shape=(10, 128)`로 표현되고, 혹은 특성 128가지인 시간 단계로 이루어진 가변 길이의 
-시퀀스는 `(None, 128)`로 표현됩니다.
+__인자__
 
-__인수__
-
-- __filters__: 정수, 출력 공간의 차원
-    (다시 말해, 합성곱의 출력 필터의 수).
-- __kernel_size__: 정수 혹은 단일 정수의 튜플/리스트.
-    1D 합성곱 윈도우의 길이를 결정합니다.
-- __strides__: 정수 혹은 단일 정수의 튜플/리스트.
-    합성곱의 보폭 길이를 특정합니다.
-    `stride` 값 != 1이면, `dilation_rate` 값 != 1의 어떤 경우와도
-    호환이 불가능합니다.
-- __padding__: `"valid"`, `"causal"` 혹은 `"same"` (대소문자 무시).
-    `"valid"`는 "패딩 없음"을 의미합니다.
-    `"same"`은 출력이 입력과 동일한
-    길이를 갖도록 입력에 패딩을 추가해줍니다.
-    `"causal"`은 인과적 (팽창된) 컨볼루션을 실행합니다.
-    예. `output[t]`가 `input[t + 1:]`에 종속되지 않습니다.
-    제로 패딩을 사용해 출력이
-    원래의 입력과 같은 길이를 갖도록 합니다.
-    모델이 시간적 순서를 위반하면 안되는
-    시계열 데이터를 모델링 할 때 유용합니다.
-    [WaveNet: A Generative Model for Raw Audio, section 2.1](
-    https://arxiv.org/abs/1609.03499).
-- __data_format__: 문자열,
-    `"channels_last"` (디폴트 값) 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, steps, channels)` 형태의
-    입력에 호응하고
-    (시계열 데이터의 케라스 디폴트 형식)
-    `"channels_first"`는 `(batch, channels, steps)` 형태의
-    입력에 호응합니다.
-- __dilation_rate__: 정수 혹은 단일 정수의 튜플/리스트.
-    팽창 합성곱의 팽창 비율을 지정합니다.
-    현재는 `dilation_rate` 값 != 1이면
-    `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
-- __activation__: 사용할 활성화 함수
-    ([활성화](../activations.md)를 참조하십시오).
-    따로 정하지 않으면, 활성화가 적용되지 않습니다
-    (다시 말해, "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 층에 편향 벡터를 사용하는지 여부.
-- __kernel_initializer__: `kernel` 가중치 행렬의 초기화 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __bias_initializer__: 편향 벡터의 초기화 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __kernel_regularizer__: `kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 층의 출력(층의 “활성화”)에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __kernel_constraint__: 커널 행렬에 적용되는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
-- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
+- __filters__: `int`. 출력할 결과값의 차원으로 합성곱 필터의 갯수를 나타냅니다. 
+- __kernel_size__: `int` 또는 `int`로 이루어진 튜플/리스트. 1D 합성곱 필터의 크기를 지정합니다.
+- __strides__: `int` 또는 `int`로 이루어진 튜플/리스트. 합성곱 필터의 스트라이드를 지정합니다. 기본값은 `(1, 1)`입니다. 만약 팽창 합성곱<sub>dilated convolution</sub>을 사용하고자 할 때 스트라이드의 크기를 `1`보다 크게 지정했다면 `dilation_rate`인자는 반드시 `1`로 맞춰야 합니다.
+- __padding__: `str`. 입력값의 패딩처리 여부를 `"valid"`, `"causal"` 또는 `"same"` 가운데 하나로 지정합니다(대소문자 무관). `"valid"`는 패딩이 없는 경우, `"same"`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다. `"causal"`은 인과적<sub>causal</sub> 혹은 팽창 인과적<sub>dilated causal</sub> 합성곱을 수행하게끔 합니다. 인과적 합성곱은 `t`시점의 결과값이 오직 `t`보다 이전 시점의 입력값에만 영향을 받도록 하는 합성곱 방식입니다. 이 경우 입출력의 길이를 맞추기 위해 `0`값으로 패딩을 처리하게 되며, 시간 순서를 지켜야 하는 데이터를 모델링해야 하는 경우에 유용합니다. 참고: [WaveNet: A Generative Model for Raw Audio, section 2.1](https://arxiv.org/abs/1609.03499)
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, steps, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, steps)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 
+- __dilation_rate__: `int` 또는 `int`로 이루어진 튜플/리스트. 팽창 합성곱 필터의 팽창비율을 결정합니다. 팽창 합성곱은 원래 조밀한 형태 그대로 입력에 적용되는 합성곱 필터를 각 방향으로 원소 사이의 간격을 띄우는 방식으로 팽창시켜 성긴 대신 보다 넓은 영역에 적용될 수 있도록 변형한 합성곱입니다. 자세한 내용은 [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122v3)을 참고하십시오. 기본값은 `(1, 1)`이며, 현재 버전에서는 `dilation_rate`가 `1`보다 큰 경우 `1`보다 큰 `strides`를 지정할 수 없습니다. 
+- __activation__: 사용할 활성화 함수입니다. 기본값은 `None`으로, 별도로 지정하지 않으면 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __activity_regularizer__: 층의 출력값에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __kernel_constraint__: `kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
 
 __입력 형태__
 
@@ -83,9 +35,9 @@ __입력 형태__
 
 __출력 형태__
 
-`(batch, new_steps, filters)` 형태의 3D 텐서.
-패딩이나 보폭으로 인해 `steps` 값이 변했을 수 있습니다.
-    
+`(batch, new_steps, filters)` 형태의 3D 텐서. 패딩이나 스트라이드로 인해 `steps`값이 바뀔 수 있습니다.
+
+
 ----
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/convolutional.py#L368)</span>
@@ -95,95 +47,40 @@ __출력 형태__
 keras.layers.Conv2D(filters, kernel_size, strides=(1, 1), padding='valid', data_format=None, dilation_rate=(1, 1), activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-2D 컨볼루션 레이어 (예. 이미지에 대한 공간적 컨볼루션).
+2D 합성곱 층 (예: 이미지 데이터에서 이루어지는 공간 차원의 합성곱).
 
-이 레이어는 레이어의 인풋과 컨볼루션되어
-아웃풋 텐서를 만들어내는 컨볼루션 커널을
-생성합니다. `use_bias`가 참일 경우,
-편향 벡터를 만들어 아웃풋에 더합니다. 끝으로,
-`activation`이 `None`이 아닐 경우, 이는 아웃풋에도 적용됩니다.
+이 층은 입력 텐서와 합성곱되어 출력 텐서를 만드는 합성곱 커널을 생성합니다. `use_bias`가 참인 경우, 편향 <sub>bias</sub>벡터를 생성해 출력 텐서에 더합니다. `activation`이 `None`이 아닌 경우 이 또한 출력 텐서에 적용됩니다.  
 
-이 레이어를 모델의 첫 레이어로 사용하는 경우
-`input_shape` 키워드 인수를 제공하십시오
-(정수 튜플, 배치 축은 포함하지 않습니다).
-예. `data_format="channels_last"`인 128x128 RGB
-사진의 경우 `input_shape=(128, 128, 3)`이 됩니다.
+모델의 가장 처음에 올 경우 `input_shape`인자를 통해 입력값의 형태를 함께 지정해야 합니다. `input_shape`는 `None`또는 정수로 된 튜플로 배치 축<sub>axis</sub>은 포함시키지 않습니다. 예를 들어 `data_format="channels_last"`인 128x128 RGB 이미지의 경우 `input_shape=(128, 128, 3)`이 됩니다.
 
-__인수__
+__인자__
 
-- __filters__: 정수, 아웃풋 공간의 차원
-    (다시 말해, 컨볼루션의 아웃풋 필터의 수).
-- __kernel_size__: 정수 혹은 2개 정수의 튜플/리스트. 2D 컨볼루션
-    윈도우의 높이와 넓이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-- __strides__: 정수 혹은 2개 정수의 튜플/리스트.
-    높이와 넓이에 따라 컨볼루션의
-    보폭 길이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    `stride` 값 != 1이면, `dilation_rate` 값 != 1의 어떤 경우와도
-    호환이 불가능합니다.
-- __padding__: `"valid"` 혹은 `"same"` (대소문자 무시).
-    `"same"`은 다음의 설명과 같이 백엔드에 따라 약간의 기복이
-    있다는 것을 참고하십시오:
-    (https://github.com/keras-team/keras/pull/9473#issuecomment-372166860)
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
-- __dilation_rate__: 정수 혹은 2개 정수의 튜플/리스트.
-    팽창 컨볼루션의 팽창 속도를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    현재는 `dilation_rate` 값 != 1이면
-    `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
-- __activation__: 사용할 활성화 함수
-    ([활성화](../activations.md)를 참조하십시오).
-    따로 정하지 않으면, 활성화가 적용되지 않습니다
-    (다시 말해, "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
-- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __bias_initializer__: 편향 벡터의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __kernel_regularizer__: `kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __kernel_constraint__: 커널 행렬에 적용되는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
-- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
+- __filters__: `int`. 출력할 결과값의 차원으로 합성곱 필터의 갯수를 나타냅니다. 
+- __kernel_size__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 2D 합성곱 필터의 행방향과 열방향 크기를 지정합니다. `int`하나를 입력할 경우 모든 방향의 크기를 동일하게 지정합니다.
+- __strides__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 합성곱 필터의 스트라이드를 지정합니다. `int`하나를 입력할 경우 열방향, 행방향의 스트라이드를 동일하게 지정합니다. 기본값은 `(1, 1)`입니다. 만약 팽창 합성곱을 사용하고자 할 때 스트라이드의 크기를 `1`보다 크게 지정했다면 `dilation_rate`인자는 반드시 `1`로 맞춰야 합니다.
+- __padding__: `str`. 입력값의 패딩처리 여부를 `"valid"`, `"causal"` 또는 `"same"` 가운데 하나로 지정합니다(대소문자 무관). `"valid"`는 패딩이 없는 경우, `"same"`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다. `"same"`의 경우 `strides`가 `1`이 아닐 때, 사용하는 백엔드에 따라 값이 조금씩 달라질 수 있습니다 [참고](https://github.com/keras-team/keras/pull/9473#issuecomment-372166860).
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, height, width, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, height, width)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
+- __dilation_rate__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 팽창 합성곱 필터의 팽창비율을 결정합니다. 팽창 합성곱은 원래 조밀한 형태 그대로 입력에 적용되는 합성곱 필터를 각 방향으로 원소 사이의 간격을 띄우는 방식으로 팽창시켜 성긴 대신 보다 넓은 영역에 적용될 수 있도록 변형한 합성곱입니다. 자세한 내용은 [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122v3)을 참고하십시오. 기본값은 `(1, 1)`이며, 현재 버전에서는 `dilation_rate`가 `1`보다 큰 경우 `1`보다 큰 `strides`를 지정할 수 없습니다. 
+- __activation__: 사용할 활성화 함수입니다. 기본값은 `None`으로, 별도로 지정하지 않으면 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __activity_regularizer__: 층의 출력값에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __kernel_constraint__: `kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
 
-__인풋 형태__
+__입력 형태__
 
-`data_format`이 `"channels_first"`이면
-`(batch, channels, rows, cols)`
-형태의 4D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, rows, cols, channels)`
-형태의 4D 텐서.
+`data_format`이 `"channels_first"`이면 `(batch, channels, rows, cols)` 형태의 4D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, rows, cols, channels)` 형태의 4D 텐서.  
 
-__아웃풋 형태__
+__출력 형태__
 
-`data_format`이 `"channels_first"`이면
-`(batch, filters, new_rows, new_cols)`
-형태의 4D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, new_rows, new_cols, filters)`
-형태의 4D 텐서.
-패딩으로 인해 `rows`와 `cols` 값이 변했을 수 있습니다.
+`data_format`이 `"channels_first"`이면 `(batch, filters, new_rows, new_cols)` 형태의 4D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, new_rows, new_cols, filters)` 형태의 4D 텐서.  
+패딩으로 인해 `rows`와 `cols` 값이 바뀔  수 있습니다.
     
 ----
 
@@ -193,95 +90,43 @@ __아웃풋 형태__
 ```python
 keras.layers.SeparableConv1D(filters, kernel_size, strides=1, padding='valid', data_format='channels_last', dilation_rate=1, depth_multiplier=1, activation=None, use_bias=True, depthwise_initializer='glorot_uniform', pointwise_initializer='glorot_uniform', bias_initializer='zeros', depthwise_regularizer=None, pointwise_regularizer=None, bias_regularizer=None, activity_regularizer=None, depthwise_constraint=None, pointwise_constraint=None, bias_constraint=None)
 ```
+깊이별 분리 1D 합성곱<sub>Depthwise Separable 1D Convolution</sub>.
 
-깊이별 분리형 1D 컨볼루션.
+먼저 입력값의 각 채널(깊이)별로 따로 합성곱<sub>depthwise convolution</sub>을 한 뒤에, 다시 합쳐진 출력값의 각 위치<sub>point</sub>에서 채널 차원에 대한 합성곱<sub>pointwise convolution</sub>을 하여 앞의 결과를 하나로 묶습니다. 이때 `depth_multiplier`인자는 채널별 합성곱 단계에서 각 입력 채널당 몇 개의 출력 채널을 생성할 것인지 결정합니다. 직관적으로 볼 때 분리 합성곱은 합성곱 필터를 두 개의 작은 필터로 분해하혀 수행하는 합성곱 또는 극단적 형태의 인셉션 블록으로 이해할 수 있습니다.
 
-분리형 컨볼루션은 우선
-깊이별 공간 컨볼루션을 수행하고
-(이는 각 인풋 채널에 따로 적용됩니다),
-이어서 그 결과로 발생한 아웃풋 채널을 포인트별 컨볼루션을
-사용해 섞어줍니다. `depth_multiplier` 인수는 깊이별 단계에서
-인풋 채널 당 몇 개의 아웃풋 채널을 생성할지 조정합니다.
+__인자__
 
-직관적으로, 분리형 컨볼루션은
-컨볼루션 커널을 두 개의 작은 커널로 분해하는 기법으로 보거나,
-Inception 블록의 극단적 버전으로 이해할 수 있습니다.
+- __filters__: `int`. 출력할 결과값의 차원으로 합성곱 필터의 갯수를 나타냅니다. 
+- __kernel_size__: `int` 또는 `int`로 이루어진 튜플/리스트. 1D 합성곱 필터의 크기를 지정합니다.
+- __strides__: `int` 또는 `int`로 이루어진 튜플/리스트. 합성곱 필터의 스트라이드를 지정합니다. 기본값은 `(1, 1)`입니다. 만약 팽창 합성곱을 사용하고자 할 때 스트라이드의 크기를 `1`보다 크게 지정했다면 `dilation_rate`인자는 반드시 `1`로 맞춰야 합니다.
+- __padding__: `str`. 입력값의 패딩처리 여부를 `"valid"` 또는 `"same"` 가운데 하나로 지정합니다(대소문자 무관). `"valid"`는 패딩이 없는 경우, `"same"`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다. 
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, steps, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, steps)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 
+- __dilation_rate__: `int` 또는 `int`로 이루어진 튜플/리스트. 팽창 합성곱 필터의 팽창비율을 결정합니다. 팽창 합성곱은 원래 조밀한 형태 그대로 입력에 적용되는 합성곱 필터를 각 방향으로 원소 사이의 간격을 띄우는 방식으로 팽창시켜 성긴 대신 보다 넓은 영역에 적용될 수 있도록 변형한 합성곱입니다. 자세한 내용은 [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122v3)을 참고하십시오. 기본값은 `(1, 1)`이며, 현재 버전에서는 `dilation_rate`가 `1`보다 큰 경우 `1`보다 큰 `strides`를 지정할 수 없습니다. 
+- __depth_multiplier__: 각 입력 채널당 몇 개의 출력 채널을 생성할 것인지 결정합니다. 출력 채널의 총 개수는 `filters_in * depth_multiplier`가 됩니다.
+- __activation__: 사용할 활성화 함수입니다. 기본값은 `None`으로, 별도로 지정하지 않으면 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __depthwise_initializer__: 깊이별 필터 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __pointwise_initializer__: 위치별 필터 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __depthwise_regularizer__: 깊이별 필터 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __pointwise_regularizer__: 위치별 필터 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __activity_regularizer__: 층의 출력값에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __depthwise_constraint__: 깊이별 필터 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __pointwise_constraint__: 위치별 필터 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
 
-__인수__
+__입력 형태__
 
-- __filters__: 정수, 아웃풋 공간의 차원
-    (다시 말해, 컨볼루션의 아웃풋 필터의 수).
-- __kernel_size__: 정수 혹은 단일 정수의 튜플/리스트.
-    1D 컨볼루션 윈도우의 길이를 특정합니다.
-- __strides__: 정수 혹은 단일 정수의 튜플/리스트.
-    컨볼루션의 보폭 길이를 특정합니다.
-    `stride` 값 != 1이면, `dilation_rate` 값 != 1의 어떤 경우와도
-    호환이 불가능합니다.
-- __padding__: `"valid"` 혹은 `"same"` (대소문자 무시).
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, steps, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, steps)`
-    형태의 인풋에 호응합니다.
-- __dilation_rate__: 정수 혹은 단일 정수의 튜플/리스트.
-    팽창 컨볼루션의 팽창 속도를 특정합니다.
-    현재는 `dilation_rate` 값 != 1이면
-    `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
-- __depth_multiplier__: 각 인풋 채널에 대한 깊이별 컨볼루션
-    아웃풋 채널의 개수.
-    깊이별 컨볼루션 아웃풋 채널의 총 개수는
-    `filters_in * depth_multiplier`가 됩니다.
-- __activation__: 사용할 활성화 함수
-    ([활성화](../activations.md)를 참조하십시오).
-    따로 정하지 않으면, 활성화가 적용되지 않습니다
-    (다시 말해, "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
-- __depthwise_initializer__: 깊이별 커널 행렬의 초기값 설정기.
-    ([초기값 설정기](../initializers.md)를 참고하십시오).
-- __pointwise_initializer__: 포인트별 커널 행렬의 초기값 설정기.
-    ([초기값 설정기](../initializers.md)를 참고하십시오).
-- __bias_initializer__: 편향 벡터의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __depthwise_regularizer__: 깊이별 커널 행렬에 적용되는
-    정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __pointwise_regularizer__: 포인트별 커널 행렬에 적용되는
-    정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __depthwise_constraint__: 깊이별 커널 행렬에 적용되는
-    제약 함수
-    ([제약](../constraints.md)를 참조하십시오).
-- __pointwise_constraint__: 포인트별 커널 행렬에 적용되는
-    제약 함수
-    ([제약](../constraints.md)를 참조하십시오).
-- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
+`data_format`이 `"channels_first"`이면 `(batch, channels, steps)` 형태의 3D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, steps, channels)` 형태의 3D 텐서.  
 
-__인풋 형태__
+__출력 형태__
 
-`data_format`이 `"channels_first"`이면
-`(batch, channels, steps)`
-형태의 3D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, steps, channels)`
-형태의 3D 텐서.
+`data_format`이 `"channels_first"`이면 `(batch, filters, new_steps)` 형태의 3D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, new_steps, filters)` 형태의 3D 텐서.  
 
-__아웃풋 형태__
-
-`data_format`이 `"channels_first"`이면
-`(batch, filters, new_steps)`
-형태의 3D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, new_steps, filters)`
-형태의 3D 텐서.
-패딩이나 보폭으로 인해 `new_steps` 값이 변했을 수 있습니다.
+패딩이나 스트라이드로 인해 `new_steps` 값이 바뀔 수 있습니다.
     
 ----
 
@@ -292,102 +137,42 @@ __아웃풋 형태__
 keras.layers.SeparableConv2D(filters, kernel_size, strides=(1, 1), padding='valid', data_format=None, dilation_rate=(1, 1), depth_multiplier=1, activation=None, use_bias=True, depthwise_initializer='glorot_uniform', pointwise_initializer='glorot_uniform', bias_initializer='zeros', depthwise_regularizer=None, pointwise_regularizer=None, bias_regularizer=None, activity_regularizer=None, depthwise_constraint=None, pointwise_constraint=None, bias_constraint=None)
 ```
 
-깊이별 분리형 2D 컨볼루션.
+깊이별 분리 2D 합성곱<sub>Depthwise Separable 2D Convolution</sub>.
 
-분리형 컨볼루션은 우선
-깊이별 공간 컨볼루션을 수행하고
-(이는 각 인풋 채널에 따로 적용됩니다),
-이어서 그 결과로 발생한 아웃풋 채널을 포인트별 컨볼루션을
-사용해 섞어줍니다. `depth_multiplier` 인수는 깊이별 단계에서
-인풋 채널 당 몇 개의 아웃풋 채널을 생성할지 조정합니다.
+먼저 입력값의 각 채널(깊이)별로 따로 공간 차원의 합성곱을 한 뒤에, 다시 합쳐진 출력값의 각 위치에서 채널 차원에 대한 합성곱을 하여 앞의 결과를 하나로 묶습니다. 이때 `depth_multiplier`인자는 채널별 합성곱 단계에서 각 입력 채널당 몇 개의 출력 채널을 생성할 것인지 결정합니다. 직관적으로 볼 때 분리 합성곱은 합성곱 필터를 두 개의 작은 필터로 분해하혀 수행하는 합성곱 또는 극단적 형태의 인셉션 블록으로 이해할 수 있습니다.
 
-직관적으로, 분리형 컨볼루션은
-컨볼루션 커널을 두 개의 작은 커널로 분해하는 기법으로 보거나,
-Inception 블록의 극단적 버전으로 이해할 수 있습니다.
+__인자__
 
-__인수__
+- __filters__: `int`. 출력할 결과값의 차원으로 합성곱 필터의 갯수를 나타냅니다. 
+- __kernel_size__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 2D 합성곱 필터의 행방향과 열방향 크기를 지정합니다. `int`하나를 입력할 경우 모든 방향의 크기를 동일하게 지정합니다.
+- __strides__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 합성곱 필터의 스트라이드를 지정합니다. `int`하나를 입력할 경우 열방향, 행방향의 스트라이드를 동일하게 지정합니다. 기본값은 `(1, 1)`입니다. 만약 팽창 합성곱을 사용하고자 할 때 스트라이드의 크기를 `1`보다 크게 지정했다면 `dilation_rate`인자는 반드시 `1`로 맞춰야 합니다.
+- __padding__: `str`. 입력값의 패딩처리 여부를 `"valid"`, `"causal"` 또는 `"same"` 가운데 하나로 지정합니다(대소문자 무관). `"valid"`는 패딩이 없는 경우, `"same"`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다. `"same"`의 경우 `strides`가 `1`이 아닐 때, 사용하는 백엔드에 따라 값이 조금씩 달라질 수 있습니다 [참고](https://github.com/keras-team/keras/pull/9473#issuecomment-372166860).
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, height, width, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, height, width)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
+- __dilation_rate__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 팽창 합성곱 필터의 팽창비율을 결정합니다. 팽창 합성곱은 원래 조밀한 형태 그대로 입력에 적용되는 합성곱 필터를 각 방향으로 원소 사이의 간격을 띄우는 방식으로 팽창시켜 성긴 대신 보다 넓은 영역에 적용될 수 있도록 변형한 합성곱입니다. 자세한 내용은 [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122v3)을 참고하십시오. 기본값은 `(1, 1)`이며, 현재 버전에서는 `dilation_rate`가 `1`보다 큰 경우 `1`보다 큰 `strides`를 지정할 수 없습니다. 
+- __depth_multiplier__: 각 입력 채널당 몇 개의 출력 채널을 생성할 것인지 결정합니다. 출력 채널의 총 개수는 `filters_in * depth_multiplier`가 됩니다.
+- __activation__: 사용할 활성화 함수입니다. 기본값은 `None`으로, 별도로 지정하지 않으면 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __depthwise_initializer__: 깊이별 필터 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __pointwise_initializer__: 위치별 필터 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __depthwise_regularizer__: 깊이별 필터 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __pointwise_regularizer__: 위치별 필터 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __activity_regularizer__: 층의 출력값에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __depthwise_constraint__: 깊이별 필터 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __pointwise_constraint__: 위치별 필터 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
 
-- __filters__: 정수, 아웃풋 공간의 차원
-    (다시 말해, 컨볼루션의 아웃풋 필터의 수).
-- __kernel_size__: 정수 혹은 2개 정수의 튜플/리스트. 2D 컨볼루션
-    윈도우의 높이와 넓이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-- __strides__: 정수 혹은 2개 정수의 튜플/리스트.
-    높이와 넓이에 따라 컨볼루션의
-    보폭 길이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    `stride` 값 != 1이면, `dilation_rate` 값 != 1의 어떤 경우와도
-    호환이 불가능합니다.
-- __padding__: `"valid"` 혹은 `"same"` (대소문자 무시).
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
-- __dilation_rate__: 정수 혹은 2개 정수의 튜플/리스트.
-    팽창 컨볼루션의 팽창 속도를 특정합니다.
-    현재는 `dilation_rate` 값 != 1이면
-    `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
-- __depth_multiplier__: 각 인풋 채널에 대한 깊이별 컨볼루션
-    아웃풋 채널의 개수.
-    깊이별 컨볼루션 아웃풋 채널의 총 개수는
-    `filters_in * depth_multiplier`가 됩니다.
-- __activation__: 사용할 활성화 함수
-    ([활성화](../activations.md)를 참조하십시오).
-    따로 정하지 않으면, 활성화가 적용되지 않습니다
-    (다시 말해, "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
-- __depthwise_initializer__: 깊이별 커널 행렬의 초기값 설정기.
-    ([초기값 설정기](../initializers.md)를 참고하십시오).
-- __pointwise_initializer__: 포인트별 커널 행렬의 초기값 설정기.
-    ([초기값 설정기](../initializers.md)를 참고하십시오).
-- __bias_initializer__: 편향 벡터의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __depthwise_regularizer__: 깊이별 커널 행렬에 적용되는
-    정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __pointwise_regularizer__: 포인트별 커널 행렬에 적용되는
-    정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __depthwise_constraint__: 깊이별 커널 행렬에 적용되는
-    제약 함수
-    ([제약](../constraints.md)를 참조하십시오).
-- __pointwise_constraint__: Constraint function applied to
-    the pointwise kernel matrix
-    (see [constraints](../constraints.md)).
-- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
+__입력 형태__
 
-__인풋 형태__
+`data_format`이 `"channels_first"`이면 `(batch, channels, rows, cols)` 형태의 4D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, rows, cols, channels)` 형태의 4D 텐서.  
 
-`data_format`이 `"channels_first"`이면
-`(batch, channels, rows, cols)`
-형태의 4D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, rows, cols, channels)`
-형태의 4D 텐서.
+__출력 형태__
 
-__아웃풋 형태__
-
-`data_format`이 `"channels_first"`이면
-`(batch, filters, new_rows, new_cols)`
-형태의 4D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, new_rows, new_cols, filters)`
-형태의 4D 텐서.
-패딩으로 인해 `rows`와 `cols` 값이 변했을 수 있습니다.
+`data_format`이 `"channels_first"`이면 `(batch, filters, new_rows, new_cols)` 형태의 4D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, new_rows, new_cols, filters)` 형태의 4D 텐서.  
+패딩으로 인해 `rows`와 `cols` 값이 바뀔 수 있습니다.
     
 ----
 
@@ -398,83 +183,37 @@ __아웃풋 형태__
 keras.layers.DepthwiseConv2D(kernel_size, strides=(1, 1), padding='valid', depth_multiplier=1, data_format=None, activation=None, use_bias=True, depthwise_initializer='glorot_uniform', bias_initializer='zeros', depthwise_regularizer=None, bias_regularizer=None, activity_regularizer=None, depthwise_constraint=None, bias_constraint=None)
 ```
 
-깊이별 분리형 2D 컨볼루션.
+깊이별 2D 합성곱.
 
-깊이별 분리형 컨볼루션은 깊이별 공간 컨볼루션을 수행하는
-첫 단계만으로 구성됩니다 (이는 각 인풋 채널에 따로 적용됩니다).
-이어서 그 결과로 발생한 아웃풋 채널을 포인트별 컨볼루션을
-사용해 섞어줍니다. `depth_multiplier` 인수는 깊이별 단계에서
-인풋 채널 당 몇 개의 아웃풋 채널을 생성할지 조정합니다.
+깊이별 분리 합성곱의 첫 단계만을 수행하는 층입니다. 입력값의 각 채널(깊이)별로 따로 공간 차원의 합성곱을 수행합니다. 이때 `depth_multiplier`인자는 채널별 합성곱 단계에서 각 입력 채널당 몇 개의 출력 채널을 생성할 것인지 결정합니다.
 
-__인수__
+__인자__
 
-- __kernel_size__: 정수 혹은 2개 정수의 튜플/리스트. 2D 컨볼루션
-    윈도우의 높이와 넓이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-- __strides__: 정수 혹은 2개 정수의 튜플/리스트.
-    높이와 넓이에 따라 컨볼루션의
-    보폭 길이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    `stride` 값 != 1이면, `dilation_rate` 값 != 1의 어떤 경우와도
-    호환이 불가능합니다.
-- __padding__: `"valid"` 혹은 `"same"` (대소문자 무시).
-- __depth_multiplier__: 각 인풋 채널에 대한 깊이별 컨볼루션
-    아웃풋 채널의 개수.
-    깊이별 컨볼루션 아웃풋 채널의 총 개수는
-    `filters_in * depth_multiplier`가 됩니다.
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
-- __activation__: 사용할 활성화 함수
-    ([활성화](../activations.md)를 참조하십시오).
-    따로 정하지 않으면, 활성화가 적용되지 않습니다
-    (다시 말해, "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
-- __depthwise_initializer__: 깊이별 커널 행렬의 초기값 설정기.
-    ([초기값 설정기](../initializers.md)를 참고하십시오).
-- __bias_initializer__: 편향 벡터의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __depthwise_regularizer__: 깊이별 커널 행렬에 적용되는
-    정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __depthwise_constraint__: 깊이별 커널 행렬에 적용되는
-    제약 함수
-    ([제약](../constraints.md)를 참조하십시오).
-- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
+- __kernel_size__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 2D 합성곱 필터의 행방향과 열방향 크기를 지정합니다. `int`하나를 입력할 경우 모든 방향의 크기를 동일하게 지정합니다.
+- __strides__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 합성곱 필터의 스트라이드를 지정합니다. `int`하나를 입력할 경우 열방향, 행방향의 스트라이드를 동일하게 지정합니다. 기본값은 `(1, 1)`입니다. 만약 팽창 합성곱을 사용하고자 할 때 스트라이드의 크기를 `1`보다 크게 지정했다면 `dilation_rate`인자는 반드시 `1`로 맞춰야 합니다.
+- __padding__: `str`. 입력값의 패딩처리 여부를 `"valid"`, `"causal"` 또는 `"same"` 가운데 하나로 지정합니다(대소문자 무관). `"valid"`는 패딩이 없는 경우, `"same"`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다. `"same"`의 경우 `strides`가 `1`이 아닐 때, 사용하는 백엔드에 따라 값이 조금씩 달라질 수 있습니다 [참고](https://github.com/keras-team/keras/pull/9473#issuecomment-372166860).
+- __depth_multiplier__: 각 입력 채널당 몇 개의 출력 채널을 생성할 것인지 결정합니다. 출력 채널의 총 개수는 `filters_in * depth_multiplier`가 됩니다.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, height, width, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, height, width)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
+- __activation__: 사용할 활성화 함수입니다. 기본값은 `None`으로, 별도로 지정하지 않으면 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __depthwise_initializer__: 깊이별 필터 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __depthwise_regularizer__: 깊이별 필터 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __activity_regularizer__: 층의 출력값에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __depthwise_constraint__: 깊이별 필터 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
 
-__인풋 형태__
+__입력 형태__
 
-`data_format`이 `"channels_first"`이면
-`(batch, channels, rows, cols)`
-형태의 4D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, rows, cols, channels)`
-형태의 4D 텐서.
+`data_format`이 `"channels_first"`이면 `(batch, channels, rows, cols)` 형태의 4D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, rows, cols, channels)` 형태의 4D 텐서.  
+  
+__출력 형태__
 
-__아웃풋 형태__
-
-`data_format`이 `"channels_first"`이면
-`(batch, filters, new_rows, new_cols)`
-형태의 4D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, new_rows, new_cols, filters)`
-형태의 4D 텐서.
-패딩으로 인해 `rows`와 `cols` 값이 변했을 수 있습니다.
+`data_format`이 `"channels_first"`이면 `(batch, filters, new_rows, new_cols)` 형태의 4D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, new_rows, new_cols, filters)` 형태의 4D 텐서.  
+패딩으로 인해 `rows`와 `cols` 값이 바뀔  수 있습니다.
     
 ----
 
@@ -485,103 +224,43 @@ __아웃풋 형태__
 keras.layers.Conv2DTranspose(filters, kernel_size, strides=(1, 1), padding='valid', output_padding=None, data_format=None, dilation_rate=(1, 1), activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-전치 컨볼루션 레이어 (디컨볼루션으로 불리기도 합니다).
+전치된<sub>transposed</sub> 합성곱 층(디컨볼루션<sub>deconvolution</sub>으로 불리기도 합니다).
 
-전치 컨볼루션은 일반적으로 다음의 상황에서 필요합니다:
-보통의 컨볼루션과 반대방향으로 가는 변형을 사용하고
-싶은 경우, 다시 말해 해당 컨볼루션과 호환되는 연결 패턴을
-유지하면서 아웃풋의 형태를 가진 어떤 것을
-인풋의 형태로 바꾸고 싶은 경우
-유용합니다.
+일반적인 컨볼루션의 역방향으로 변환을 하고자 할 때 전치 합성곱을 사용합니다. 다시 말해, 어떤 특정한 합성곱 연산이 있을 때 그 출력 형태로부터 입력 형태를 향해 합성곱의 연결구조를 유지하면서 거슬러 올라가고자 할 때 쓸 수 있습니다.  
+  
+모델의 가장 처음에 올 경우 `input_shape`인자를 통해 입력값의 형태를 함께 지정해야 합니다. `input_shape`는 정수로 된 튜플로 배치 축<sub>axis</sub>은 포함시키지 않습니다. 예를 들어 `data_format="channels_last"`인 128x128 RGB 이미지의 경우 `input_shape=(128, 128, 3)`이 됩니다.
 
-이 레이어를 모델의 첫 레이어로 사용하는 경우
-`input_shape` 키워드 인수를 제공하십시오
-(정수 튜플, 배치 축은 포함하지 않습니다).
-예. `data_format="channels_last"`인 128x128 RGB
-사진의 경우 `input_shape=(128, 128, 3)`이 됩니다.
+__인자__
 
-__인수__
+- __filters__: `int`. 출력할 결과값의 차원으로 합성곱 필터의 갯수를 나타냅니다. 
+- __kernel_size__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 2D 합성곱 필터의 행방향과 열방향 크기를 지정합니다. `int`하나를 입력할 경우 모든 방향의 크기를 동일하게 지정합니다.
+- __strides__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 합성곱 필터의 스트라이드를 지정합니다. `int`하나를 입력할 경우 행방향과 열방향의 스트라이드를 동일하게 지정합니다. 기본값은 `(1, 1)`입니다. 만약 팽창 합성곱을 사용하고자 할 때 스트라이드의 크기를 `1`보다 크게 지정했다면 `dilation_rate`인자는 반드시 `1`로 맞춰야 합니다.
+- __padding__: `str`. 입력값의 패딩처리 여부를 `"valid"` 또는 `"same"` 가운데 하나로 지정합니다(대소문자 무관). `"valid"`는 패딩이 없는 경우, `"same"`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다. `"same"`의 경우 `strides`가 `1`이 아닐 때, 사용하는 백엔드에 따라 값이 조금씩 달라질 수 있습니다 [참고](https://github.com/keras-team/keras/pull/9473#issuecomment-372166860).
+- __output_padding__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 출력 텐서의 행방향과 열방향 패딩을 지정합니다. `int`하나를 입력할 경우 모든 방향의 크기를 동일하게 지정합니다. 각 차원에 주어진 출력 패딩 값의 크기는 같은 차원에서의 스트라이드 값보다 작아야 합니다. 기본값인 `None`으로 설정할 경우 출력 크기는 자동으로 유추됩니다. 
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, height, width, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, height, width)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
+- __dilation_rate__: `int` 또는 2개의 `int`로 이루어진 튜플/리스트. 팽창 합성곱 필터의 팽창비율을 결정합니다. 팽창 합성곱은 원래 조밀한 형태 그대로 입력에 적용되는 합성곱 필터를 각 방향으로 원소 사이의 간격을 띄우는 방식으로 팽창시켜 성긴 대신 보다 넓은 영역에 적용될 수 있도록 변형한 합성곱입니다. 자세한 내용은 [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122v3)을 참고하십시오. 기본값은 `(1, 1)`이며, 현재 버전에서는 `dilation_rate`가 `1`보다 큰 경우 `1`보다 큰 `strides`를 지정할 수 없습니다. 
+- __activation__: 사용할 활성화 함수입니다. 기본값은 `None`으로, 별도로 지정하지 않으면 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __activity_regularizer__: 층의 출력값에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __kernel_constraint__: `kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
 
-- __filters__: 정수, 아웃풋 공간의 차원
-    (다시 말해, 컨볼루션의 아웃풋 필터의 수).
-- __kernel_size__: 정수 혹은 2개 정수의 튜플/리스트. 2D 컨볼루션
-    윈도우의 높이와 넓이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-- __strides__: 정수 혹은 2개 정수의 튜플/리스트.
-    높이와 넓이에 따라 컨볼루션의
-    보폭 길이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    `stride` 값 != 1이면, `dilation_rate` 값 != 1의 어떤 경우와도
-    호환이 불가능합니다.
-- __padding__: `"valid"` 혹은 `"same"` (대소문자 무시).
-- __output_padding__: 정수 혹은 2개 정수의 튜플/리스트.
-    아웃풋 텐서의 높이와 넓이에 따라 패딩의
-    양을 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    주어진 차원에 대한 아웃풋 패딩의 양은 같은 차원에
-    대한 보폭 값보다 낮아야 합니다.
-    `None` (디폴트값)으로 설정된 경우, 아웃풋 형태가 유추됩니다.
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
-- __dilation_rate__: 정수 혹은 2개 정수의 튜플/리스트.
-    팽창 컨볼루션의 팽창 속도를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    현재는 `dilation_rate` 값 != 1이면
-    `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
-- __activation__: 사용할 활성화 함수
-    ([활성화](../activations.md)를 참조하십시오).
-    따로 정하지 않으면, 활성화가 적용되지 않습니다
-    (다시 말해, "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
-- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __bias_initializer__: 편향 벡터의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __kernel_regularizer__: `kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __kernel_constraint__: 커널 행렬에 적용되는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
-- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
+__입력 형태__
 
-__인풋 형태__
+`data_format`이 `"channels_first"`이면 `(batch, channels, rows, cols)` 형태의 4D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, rows, cols, channels)` 형태의 4D 텐서.  
 
-`data_format`이 `"channels_first"`이면
-`(batch, channels, rows, cols)`
-형태의 4D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, rows, cols, channels)`
-형태의 4D 텐서.
+__출력 형태__
 
-__아웃풋 형태__
+`data_format`이 `"channels_first"`이면 `(batch, filters, new_rows, new_cols)` 형태의 4D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, new_rows, new_cols, filters)` 형태의 4D 텐서.  
+패딩으로 인해 `rows`와 `cols` 값이 바뀔  수 있습니다.
 
-`data_format`이 `"channels_first"`이면
-`(batch, filters, new_rows, new_cols)`
-형태의 4D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, new_rows, new_cols, filters)`
-형태의 4D 텐서.
-패딩에 의해 `rows`와 `cols` 값이 변했을 수도 있습니다.
-`output_padding`이 특정된 경우:
-
+`output_padding`을 지정한 경우는 다음 식을 따릅니다.
 ```
 new_rows = ((rows - 1) * strides[0] + kernel_size[0]
             - 2 * padding[0] + output_padding[0])
@@ -589,7 +268,7 @@ new_cols = ((cols - 1) * strides[1] + kernel_size[1]
             - 2 * padding[1] + output_padding[1])
 ```
 
-__참조__
+__참고__
 
 - [A guide to convolution arithmetic for deep learning](
    https://arxiv.org/abs/1603.07285v1)
@@ -604,94 +283,41 @@ __참조__
 ```python
 keras.layers.Conv3D(filters, kernel_size, strides=(1, 1, 1), padding='valid', data_format=None, dilation_rate=(1, 1, 1), activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
+3D 합성곱 층 (예: 부피에 대한 공간적 합성곱)
 
-3D 컨볼루션 레이어 (예. 부피에 대한 공간적 컨볼루션).
+이 층은 입력 텐서와 합성곱되어 출력 텐서를 만드는 합성곱 커널을 생성합니다. `use_bias`가 참인 경우, 편향 <sub>bias</sub>벡터를 생성해 출력 텐서에 더합니다. `activation`이 `None`이 아닌 경우 이 또한 출력 텐서에 적용됩니다.  
 
-이 레이어는 레이어의 인풋과 컨볼루션되어
-아웃풋 텐서를 만들어내는 컨볼루션 커널을
-생성합니다. `use_bias`가 참일 경우,
-편향 벡터를 만들어 아웃풋에 더합니다. 끝으로,
-`activation`이 `None`이 아닐 경우, 이는 아웃풋에도 적용됩니다.
+모델의 가장 처음에 올 경우 `input_shape`인자를 통해 입력값의 형태를 함께 지정해야 합니다. `input_shape`는 정수로 된 튜플로 배치 축<sub>axis</sub>은 포함시키지 않습니다. 예를 들어 `data_format="channels_last"`이며 채널이 한 개인 128x128x128 입체의 경우 `input_shape=(128, 128, 128, 1)`이 됩니다.
 
-이 레이어를 모델의 첫 레이어로 사용하는 경우
-`input_shape` 키워드 인수를 제공하십시오
-(정수 튜플, 배치 축은 포함하지 않습니다).
-예. `data_format="channels_last"`인,
-단일 채널의 128x128x128 부피의 경우
-`input_shape=(128, 128, 128, 1)`이 됩니다.
+__인자__
 
-__인수__
+- __filters__: `int`. 출력할 결과값의 차원으로 합성곱 필터의 갯수를 나타냅니다. 
+- __kernel_size__: `int` 또는 3개의 `int`로 이루어진 튜플/리스트. 3D 합성곱 필터의 깊이 및 행방향과 열방향 크기를 지정합니다. `int`하나를 입력할 경우 모든 방향의 크기를 동일하게 지정합니다.
+- __strides__: `int` 또는 3개의 `int`로 이루어진 튜플/리스트. 합성곱 필터의 스트라이드를 지정합니다. `int`하나를 입력할 경우 모든 방향의 스트라이드를 동일하게 지정합니다. 기본값은 `(1, 1)`입니다. 만약 팽창 합성곱을 사용하고자 할 때 스트라이드의 크기를 `1`보다 크게 지정했다면 `dilation_rate`인자는 반드시 `1`로 맞춰야 합니다.
+- __padding__: `str`. 입력값의 패딩처리 여부를 `"valid"` 또는 `"same"` 가운데 하나로 지정합니다(대소문자 무관). `"valid"`는 패딩이 없는 경우, `"same"`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다. `"same"`의 경우 `strides`가 `1`이 아닐 때, 사용하는 백엔드에 따라 값이 조금씩 달라질 수 있습니다 [참고](https://github.com/keras-team/keras/pull/9473#issuecomment-372166860).
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, spatial_dim1, spatial_dim2, spatial_dim3)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
+- __dilation_rate__: `int` 또는 3개의 `int`로 이루어진 튜플/리스트. 팽창 합성곱 필터의 팽창비율을 결정합니다. 팽창 합성곱은 원래 조밀한 형태 그대로 입력에 적용되는 합성곱 필터를 각 원소 사이를 각 방향으로 원소 사이의 간격을 띄우는 방식으로 팽창시켜 성긴 대신 보다 넓은 영역에 적용될 수 있도록 변형한 합성곱입니다. 자세한 내용은 [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122v3)을 참고하십시오. 기본값은 `(1, 1)`이며, 현재 버전에서는 `dilation_rate`가 `1`보다 큰 경우 `1`보다 큰 `strides`를 지정할 수 없습니다. 
+- __activation__: 사용할 활성화 함수입니다. 기본값은 `None`으로, 별도로 지정하지 않으면 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __activity_regularizer__: 층의 출력값에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __kernel_constraint__: `kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
 
-- __filters__: 정수, 아웃풋 공간의 차원
-    (다시 말해, 컨볼루션의 아웃풋 필터의 수).
-- __kernel_size__: 정수 혹은 3개 정수의 튜플/리스트. 3D 컨볼루션
-    윈도우의 깊이, 높이와 넓이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-- __strides__: 정수 혹은 3개 정수의 튜플/리스트.
-    각 공간적 차원에 따라 컨볼루션의 보폭 길이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    `stride` 값 != 1이면, `dilation_rate` 값 != 1의 어떤 경우와도
-    호환이 불가능합니다.
-- __padding__: `"valid"` 혹은 `"same"` (대소문자 무시).
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
-- __dilation_rate__: 정수 혹은 3개의 정수의 튜플/리스트.
-    팽창 컨볼루션의 팽창 속도를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    현재는 `dilation_rate` 값 != 1이면
-    `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
-- __activation__: 사용할 활성화 함수
-    ([활성화](../activations.md)를 참조하십시오).
-    따로 정하지 않으면, 활성화가 적용되지 않습니다
-    (다시 말해, "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
-- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __bias_initializer__: 편향 벡터의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __kernel_regularizer__: `kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __kernel_constraint__: 커널 행렬에 적용되는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
-- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
 
-__인풋 형태__
+__입력 형태__
 
-`data_format`이 `"channels_first"`이면
-`(batch, channels, conv_dim1, conv_dim2, conv_dim3)`
-형태의 5D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, conv_dim1, conv_dim2, conv_dim3, channels)`
-형태의 5D 텐서..
+`data_format`이 `"channels_first"`이면 `(batch, channels, conv_dim1, conv_dim2, conv_dim3)` 형태의 5D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, conv_dim1, conv_dim2, conv_dim3, channels)` 형태의 5D 텐서.  
 
 __아웃풋 형태__
 
-`data_format`이 `"channels_first"`이면
-`(batch, filters, new_conv_dim1, new_conv_dim2, new_conv_dim3)`
-형태의 5D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, new_conv_dim1, new_conv_dim2, new_conv_dim3, filters)`
-형태의 5D 텐서.
-패딩으로 인해 `new_conv_dim1`, `new_conv_dim2`와 `new_conv_dim3`
-값이 변했을 수도 있습니다.
+`data_format`이 `"channels_first"`이면 `(batch, filters, new_conv_dim1, new_conv_dim2, new_conv_dim3)` 형태의 5D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, new_conv_dim1, new_conv_dim2, new_conv_dim3, filters)` 형태의 5D 텐서.  
+패딩으로 인해 `new_conv_dim1`, `new_conv_dim2`와 `new_conv_dim3`값이 바뀔 수 있습니다.
     
 ----
 
@@ -701,103 +327,43 @@ __아웃풋 형태__
 ```python
 keras.layers.Conv3DTranspose(filters, kernel_size, strides=(1, 1, 1), padding='valid', output_padding=None, data_format=None, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
+전치된 합성곱 층(디컨볼루션으로 불리기도 합니다).
 
-전치 컨볼루션 레이어 (디컨볼루션으로 불리기도 합니다).
+일반적인 컨볼루션의 역방향으로 변환을 하고자 할 때 전치 합성곱을 사용합니다. 다시 말해, 어떤 특정한 합성곱 연산이 있을 때 그 출력 형태로부터 입력 형태를 향해 합성곱의 연결구조를 유지하면서 거슬러 올라가고자 할 때 쓸 수 있습니다.  
+  
+모델의 가장 처음에 올 경우 `input_shape`인자를 통해 입력값의 형태를 함께 지정해야 합니다. `input_shape`는 정수로 된 튜플로 배치 축<sub>axis</sub>은 포함시키지 않습니다. 예를 들어 `data_format="channels_last"`이며 채널이 3개인 128x128x128 입체의 경우 `input_shape=(128, 128, 128, 3)`이 됩니다.
 
-전치 컨볼루션은 일반적으로 다음의 상황에서 필요합니다:
-보통의 컨볼루션과 반대방향으로 가는 변형을 사용하고
-싶은 경우, 다시 말해 해당 컨볼루션과 호환되는 연결 패턴을
-유지하면서 아웃풋의 형태를 가진 어떤 것을
-인풋의 형태로 바꾸고 싶은 경우
-유용합니다.
+__인자__
 
-이 레이어를 모델의 첫 레이어로 사용하는 경우
-`input_shape` 키워드 인수를 제공하십시오
-(정수 튜플, 배치 축은 포함하지 않습니다).
-예. `data_format="channels_last"`인 3개 채널의 128x128x128 부피의 경우
-`input_shape=(128, 128, 128, 1)`이 됩니다.
+- __filters__: `int`. 출력할 결과값의 차원으로 합성곱 필터의 갯수를 나타냅니다. 
+- __kernel_size__: `int` 또는 3개의 `int`로 이루어진 튜플/리스트. 3D 합성곱 필터의 깊이 및 행방향과 열방향 크기를 지정합니다. `int`하나를 입력할 경우 모든 방향의 크기를 동일하게 지정합니다.
+- __strides__: `int` 또는 3개의 `int`로 이루어진 튜플/리스트. 합성곱 필터의 스트라이드를 지정합니다. `int`하나를 입력할 경우 모든 방향의 스트라이드를 동일하게 지정합니다. 기본값은 `(1, 1)`입니다. 만약 팽창 합성곱을 사용하고자 할 때 스트라이드의 크기를 `1`보다 크게 지정했다면 `dilation_rate`인자는 반드시 `1`로 맞춰야 합니다.
+- __padding__: `str`. 입력값의 패딩처리 여부를 `"valid"` 또는 `"same"` 가운데 하나로 지정합니다(대소문자 무관). `"valid"`는 패딩이 없는 경우, `"same"`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다. `"same"`의 경우 `strides`가 `1`이 아닐 때, 사용하는 백엔드에 따라 값이 조금씩 달라질 수 있습니다 [참고](https://github.com/keras-team/keras/pull/9473#issuecomment-372166860).
+- __output_padding__: `int` 또는 3개의 `int`로 이루어진 튜플/리스트. 출력 텐서의 깊이 및 행방향과 열방향 패딩을 지정합니다. `int`하나를 입력할 경우 모든 방향의 크기를 동일하게 지정합니다. 각 차원에 주어진 출력 패딩 값의 크기는 같은 차원에서의 스트라이드 값보다 작아야 합니다. 기본값인 `None`으로 설정할 경우 출력 크기는 자동으로 유추됩니다. 
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가  `(batch, depth, height, width, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, depth, height, width)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
+- __dilation_rate__: `int` 또는 3개의 `int`로 이루어진 튜플/리스트. 팽창 합성곱 필터의 팽창비율을 결정합니다. 팽창 합성곱은 원래 조밀한 형태 그대로 입력에 적용되는 합성곱 필터를 각 원소 사이를 각 방향으로 원소 사이의 간격을 띄우는 방식으로 팽창시켜 성긴 대신 보다 넓은 영역에 적용될 수 있도록 변형한 합성곱입니다. 자세한 내용은 [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122v3)을 참고하십시오. 기본값은 `(1, 1)`이며, 현재 버전에서는 `dilation_rate`가 `1`보다 큰 경우 `1`보다 큰 `strides`를 지정할 수 없습니다. 
+- __activation__: 사용할 활성화 함수입니다. 기본값은 `None`으로, 별도로 지정하지 않으면 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __activity_regularizer__: 층의 출력값에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __kernel_constraint__: `kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
+- __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md)
 
-__인수__
+__입력 형태__
 
-- __filters__: 정수, 아웃풋 공간의 차원
-    (다시 말해, 컨볼루션의 아웃풋 필터의 수).
-- __kernel_size__: 정수 혹은 3개 정수의 튜플/리스트. 3D 컨볼루션
-    윈도우의 깊이, 높이와 넓이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-- __strides__: 정수 혹은 3개 정수의 튜플/리스트.
-    각 공간적 차원에 따라 컨볼루션의 보폭 길이를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    `stride` 값 != 1이면, `dilation_rate` 값 != 1의 어떤 경우와도
-    호환이 불가능합니다.
-- __padding__: `"valid"` 혹은 `"same"` (대소문자 무시).
-- __output_padding__: 정수 혹은 3개 정수의 튜플/리스트.
-    아웃풋 텐서의 깊이, 높이, 넓이에 따라 패딩의 양을
-    특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    주어진 차원에 대한 아웃풋 패딩의 양은 같은 차원에
-    대한 보폭 값보다 낮아야 합니다.
-    `None` (디폴트값)으로 설정된 경우, 아웃풋 형태가 유추됩니다.
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
-- __dilation_rate__: 정수 혹은 3개의 정수의 튜플/리스트.
-    팽창 컨볼루션의 팽창 속도를 특정합니다.
-    정수 하나로 모든 공간적 차원에 대해서 동일한
-    값을 특정할 수도 있습니다.
-    현재는 `dilation_rate` 값 != 1이면
-    `strides` 값 != 1의 어떤 경우와도 호환이 불가합니다.
-- __activation__: 사용할 활성화 함수
-    ([활성화](../activations.md)를 참조하십시오).
-    따로 정하지 않으면, 활성화가 적용되지 않습니다
-    (다시 말해, "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 레이어가 편향 벡터를 사용하는지 여부.
-- __kernel_initializer__: `kernel` 가중치 행렬의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __bias_initializer__: 편향 벡터의 초기값 설정기
-    ([초기값 설정기](../initializers.md)를 참조하십시오).
-- __kernel_regularizer__: `kernel` 가중치 행렬에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __bias_regularizer__: 편향 벡터에 적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __activity_regularizer__: 레이어의 아웃풋(레이어의 “활성화”)에
-    적용되는 정규화 함수
-    ([정규화](../regularizers.md)를 참조하십시오).
-- __kernel_constraint__: 커널 행렬에 적용되는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
-- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-    ([제약](../constraints.md)을 참조하십시오).
+`data_format`이 `"channels_first"`이면 `(batch, channels, depth, rows, cols)` 형태의 5D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, depth, rows, cols, channels)` 형태의 5D 텐서.  
 
-__인풋 형태__
+__출력 형태__
 
-`data_format`이 `"channels_first"`이면
-`(batch, channels, depth, rows, cols)`
-형태의 5D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, depth, rows, cols, channels)`
-형태의 5D 텐서.
+`data_format`이 `"channels_first"`이면 `(batch, filters, new_depth, new_rows, new_cols)` 형태의 5D 텐서.  
+`data_format`이 `"channels_last"`이면 `(batch, new_depth, new_rows, new_cols, filters)` 형태의 5D 텐서.  
+패딩으로 인해, `depth`, `rows`와 `cols` 값이 달라졌을 수도 있습니다.  
 
-__아웃풋 형태__
-
-`data_format`이 `"channels_first"`이면
-`(batch, filters, new_depth, new_rows, new_cols)`
-형태의 5D 텐서.
-`data_format`이 `"channels_last"`이면
-`(batch, new_depth, new_rows, new_cols, filters)`
-형태의 5D 텐서.
-패딩으로 인해, `depth`, `rows`와 `cols` 값이 달라졌을 수도 있습니다.
-`output_padding`이 특정된 경우:
-
+`output_padding`을 지정한 경우는 다음 식을 따릅니다.
 ```
 new_depth = ((depth - 1) * strides[0] + kernel_size[0]
              - 2 * padding[0] + output_padding[0])
@@ -807,7 +373,7 @@ new_cols = ((cols - 1) * strides[2] + kernel_size[2]
             - 2 * padding[2] + output_padding[2])
 ```
 
-__참조__
+__참고__
 
 - [A guide to convolution arithmetic for deep learning](
    https://arxiv.org/abs/1603.07285v1)
@@ -823,23 +389,19 @@ __참조__
 keras.layers.Cropping1D(cropping=(1, 1))
 ```
 
-1D 인풋(예. 시간적 시퀀스)용 크롭핑 레이어.
+1D 입력(예: 시계열 데이터)용 크롭핑 층.
 
 시간 차원(축 1)을 따라서 잘라냅니다.
 
-__인수__
+__인자__
 
-- __cropping__: 정수, 혹은 (길이 2의) 정수 튜플.
-    크롭핑 차원(축1)의 시작과 끝에서
-    잘라낼 유닛의 개수.
-    단일 정수가 제공된 경우
-    시작과 끝 모두 같은 값이 적용됩니다.
+- __cropping__: `int` 혹은 2개의 `int`로 이루어진 튜플. 각각 크롭핑할 차원(첫번째 축)의 시작과 끝에서 얼마만큼을 잘라낼 것인지 정합니다. `int` 하나만 입력할 경우 시작과 끝 모두 같은 크기가 적용됩니다. 기본값은 `(1, 1)`입니다.
 
-__인풋 형태__
+__입력 형태__
 
 `(batch, axis_to_crop, features)` 형태의 3D 텐서.
 
-__아웃풋 형태__
+__출력 형태__
 
 `(batch, cropped_axis, features)` 형태의 3D 텐서.
     
@@ -852,51 +414,31 @@ __아웃풋 형태__
 keras.layers.Cropping2D(cropping=((0, 0), (0, 0)), data_format=None)
 ```
 
-2D 인풋(예. 사진)용 크롭핑 레이어 .
+2D 입력(예: 이미지)용 크롭핑 층.
 
-공간 차원에 따라, 다시 말해 높이와 넓이에 따라 절단합니다.
+공간 차원(높이와 넓이)을 따라서 잘라냅니다.
 
-__인수__
+__인자__
 
-- __cropping__: 정수, 2개 정수의 튜플, 혹은 2개 정수의 튜플 2개로 이루어진 튜플.
-    - 정수인 경우: 높이와 넓이에
-        동일한 대칭 크롭핑이 적용됩니다.
-    - 2개 정수의 튜플인 경우:
-        높이와 넓이에 대한
-        두 가지 대칭 크롭핑 값을 나타냅니다
-        `(symmetric_height_crop, symmetric_width_crop)`.
-    - 2개 정수의 튜플 2개로 이루어진 튜플인 경우:
-        `((top_crop, bottom_crop), (left_crop, right_crop))`으로
-        보면 됩니다.
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
+- __cropping__: `int`, 2개의 `int`로 이루어진 튜플, 혹은 2개의 `int`로 이루어진 튜플 2개로 이루어진 튜플.
+    - 하나의 `int`인 경우 행방향과 열방향에 동일한 크기의 대칭 크롭핑이 적용됩니다.
+    - 2개 `int`의 튜플인 경우 각각 상하, 좌우에 똑같이 잘라낼 행과 열 값을 나타냅니다 `(symmetric_height_crop, symmetric_width_crop)`.
+    - 2개 `int`의 튜플 2개로 이루어진 튜플인 경우 `((top_crop, bottom_crop), (left_crop, right_crop))`을 나타냅니다.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, height, width, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, height, width)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
 
-__인풋 형태__
+__입력 형태__
 
-다음 형태의 4D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, rows, cols, channels)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, channels, rows, cols)`
+다음과 같은 형태의 4D 텐서를 입력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, rows, cols, channels)`.
+- `data_format`이 `"channels_first"`이면 `(batch, channels, rows, cols)`.
 
-__아웃풋 형태__
+__출력 형태__
 
-다음 형태의 4D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, cropped_rows, cropped_cols, channels)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, channels, cropped_rows, cropped_cols)`
+다음 형태의 4D 텐서를 출력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, cropped_rows, cropped_cols, channels)`.
+- `data_format`이 `"channels_first"`이면 `(batch, channels, cropped_rows, cropped_cols)`.
 
 __예시__
-
 
 ```python
 # 2D 인풋 이미지 혹은 특성 맵을 잘라냅니다
@@ -918,52 +460,27 @@ model.add(Cropping2D(cropping=((2, 2), (2, 2))))
 keras.layers.Cropping3D(cropping=((1, 1), (1, 1), (1, 1)), data_format=None)
 ```
 
-3D 데이터(예. 공간적 혹은 시공간적)용 크롭핑 레이어.
+3D 입력(예: 공간적 혹은 시공간적)용 크롭핑 층.
 
-__인수__
+__인자__
 
-- __cropping__: 정수, 3개 정수의 튜플, 혹은 2개 정수의 튜플 3개로 이루어진 튜플.
-    - 정수인 경우: 깊이, 높이, 넓이에
-        동일한 대칭 크롭핑이 적용됩니다.
-    - 3개 정수의 튜플인 경우:
-        깊이, 높이, 넓이에 대한
-        두 가지 대칭 크롭핑 값을 나타냅니다:
-        `(symmetric_dim1_crop, symmetric_dim2_crop, symmetric_dim3_crop)`.
-    - 2개 정수의 튜플 3개로 이루어진 튜플인 경우:
-        `((left_dim1_crop, right_dim1_crop),
-          (left_dim2_crop, right_dim2_crop),
-          (left_dim3_crop, right_dim3_crop))`으로
-        보면 됩니다.        
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
+- __cropping__: `int`, 3개의 `int`로  튜플, 혹은 2개 정수의 튜플 3개로 이루어진 튜플.
+    - 하나의 `int`인 경우 깊이, 행방향, 열방향에 동일한 크기의 크롭핑이 적용됩니다.
+    - 3개 `int`의 튜플인 경우 각각 깊이, 행방향, 에 적용될 값을 나타냅니다. `(symmetric_dim1_crop, symmetric_dim2_crop, symmetric_dim3_crop)`.
+    - 2개 `int`의 튜플 3개로 이루어진 튜플인 경우 `((left_dim1_crop, right_dim1_crop), (left_dim2_crop, right_dim2_crop), (left_dim3_crop, right_dim3_crop))`을 나타냅니다.        
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, spatial_dim1, spatial_dim2, spatial_dim3)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
 
-__인풋 형태__
+__입력 형태__
 
-다음 형태의 5D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, first_axis_to_crop, second_axis_to_crop, third_axis_to_crop,
-      depth)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, depth,
-      first_axis_to_crop, second_axis_to_crop, third_axis_to_crop)`
+다음 형태의 5D 텐서를 입력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, first_axis_to_crop, second_axis_to_crop, third_axis_to_crop, depth)`.
+- `data_format`이 `"channels_first"`이면 `(batch, depth, first_axis_to_crop, second_axis_to_crop, third_axis_to_crop)`.
 
-__아웃풋 형태__
+__출력 형태__
 
-다음 형태의 5D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, first_cropped_axis, second_cropped_axis, third_cropped_axis,
-      depth)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, depth,
-      first_cropped_axis, second_cropped_axis, third_cropped_axis)`
+다음 형태의 5D 텐서를 출력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, first_cropped_axis, second_cropped_axis, third_cropped_axis, depth)`.
+- `data_format`이 `"channels_first"`이면 `(batch, depth, first_cropped_axis, second_cropped_axis, third_cropped_axis)`.
     
 ----
 
@@ -974,21 +491,21 @@ __아웃풋 형태__
 keras.layers.UpSampling1D(size=2)
 ```
 
-1D 인풋용 업샘플링 레이어.
+1D 입력용 업샘플링 층.
 
-시간 축에 따라 각 시간 단계를 `size` 회 반복합니다.
+시간 축을 따라 각 시간 단계를 `size`로 지정한 만큼 반복합니다.
 
-__인수__
+__인자__
 
-- __size__: 정수. 업샘플링 인수.
+- __size__: `int`. 반복할 횟수입니다.
 
-__인풋 형태__
+__입력 형태__
 
-`(batch, steps, features)` 형태의 3D 텐서.
+`(batch, steps, features)` 형태의 3D 텐서를 입력합니다.
 
-__아웃풋 형태__
+__출력 형태__
 
-3D tensor with shape: `(batch, upsampled_steps, features)`.
+`(batch, upsampled_steps, features)` 형태의 3D 텐서를 출력합니다.
     
 ----
 
@@ -999,45 +516,29 @@ __아웃풋 형태__
 keras.layers.UpSampling2D(size=(2, 2), data_format=None, interpolation='nearest')
 ```
 
-2D 인풋용 업샘플링 레이어.
+2D 입력용 업샘플링 층.
 
-데이터의 행과 열을
-각각 size[0]과 size[1]회씩 반복합니다.
+데이터의 행과 열을 각각 `size[0]`과 `size[1]`회씩 반복합니다.
 
-__인수__
+__인자__
 
-- __size__: 정수, 혹은 2개 정수의 튜플.
-    행과 열에 대한 업샘플링 인수.
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
-- __interpolation__: A string, one of `nearest` or `bilinear`.
-    Note that CNTK does not support yet the `bilinear` upscaling
-    and that with Theano, only `size=(2, 2)` is possible.
+- __size__: `int`, 혹은 2개의 `int`로 이루어진 튜플. 행과 열에서 반복할 횟수입니다.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, height, width, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, height, width)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
+- __interpolation__: `str`. `nearest` 또는 `bilinear`를 지정합니다. `bilinear` 업스케일링의 경우 CNTK는 아직 지원하지 않으며, `Theano`의 경우 `size=(2, 2)`에 한해서 지원합니다.
 
-__인풋 형태__
+__입력 형태__
 
-다음 형태의 4D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, rows, cols, channels)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, channels, rows, cols)`
+다음 형태의 4D 텐서를 입력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, rows, cols, channels)`.
+- `data_format`이 `"channels_first"`이면 `(batch, channels, rows, cols)`.
 
-__아웃풋 형태__
+__출력 형태__
 
-다음 형태의 4D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, upsampled_rows, upsampled_cols, channels)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, channels, upsampled_rows, upsampled_cols)`
-    
+다음 형태의 4D 텐서를 출력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, upsampled_rows, upsampled_cols, channels)`.
+- `data_format`이 `"channels_first"`이면 `(batch, channels, upsampled_rows, upsampled_cols)`.
+
+
 ----
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/convolutional.py#L2032)</span>
@@ -1047,41 +548,26 @@ __아웃풋 형태__
 keras.layers.UpSampling3D(size=(2, 2, 2), data_format=None)
 ```
 
-3D 인풋용 업샘플링 레이어.
+3D 입력용 업샘플링 층.
 
-데이터의 첫 번째, 두 번째, 세 번째 차원을
-각각 size[0], size[1], size[2]회씩 반복합니다.
+데이터의 첫 번째, 두 번째, 세 번째 차원을 각각 `size[0]`, `size[1]`, `size[2]`회씩 반복합니다.
 
-__인수__
+__인자__
+- __size__: `int`, 혹은 3개의 `int`로 이루어진 튜플. 각각 첫 번째, 두 번째, 세 번째 차원에서 반복할 횟수입니다.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, spatial_dim1, spatial_dim2, spatial_dim3)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
 
-- __size__: int, or tuple of 3 integers.
-    The upsampling factors for dim1, dim2 and dim3.
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
+__입력 형태__
 
-__인풋 형태__
+다음 형태의 5D 텐서를 입력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, dim1, dim2, dim3, channels)`.
+- `data_format`이 `"channels_first"`이면 `(batch, channels, dim1, dim2, dim3)`.
 
-다음 형태의 5D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, dim1, dim2, dim3, channels)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, channels, dim1, dim2, dim3)`
+__출력 형태__
 
-__아웃풋 형태__
-
-다음 형태의 5D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, upsampled_dim1, upsampled_dim2, upsampled_dim3, channels)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, channels, upsampled_dim1, upsampled_dim2, upsampled_dim3)`
+다음 형태의 5D 텐서를 출력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, upsampled_dim1, upsampled_dim2, upsampled_dim3, channels)`.
+- `data_format`이 `"channels_first"`이면 `(batch, channels, upsampled_dim1, upsampled_dim2, upsampled_dim3)`.
+    
     
 ----
 
@@ -1092,26 +578,19 @@ __아웃풋 형태__
 keras.layers.ZeroPadding1D(padding=1)
 ```
 
-1D 인풋(예. 시간적 시퀀스)용 제로-패딩 레이어.
+1D 입력(예: 시계열 데이터)용 제로 패딩 층.
 
-__인수__
+__인자__
 
-- __padding__: 정수, (길이 2의) 정수 튜플, 혹은 딕셔너리.
-    - 정수의 경우:
+- __padding__: `int`, 혹은 2개의 `int`로 이루어진 튜플/딕셔너리.
+    - 하나의 `int`인 경우 적용할 차원(축 1)의 시작과 끝에 채울 `0` 값의 개수.
+    - 2개의 `int` 튜플인 경우  각각 시작과 끝에(`(left_pad, right_pad)`) 채울 `0` 값의 개수.
 
-    패딩 차원(축 1)의 시작과 끝에 
-    채울 0 값의 개수.
-
-    - (길이 2의) 정수 튜플의 경우:
-
-    패딩 차원(`(left_pad, right_pad)`)의
-    시작과 끝에 채울 0 값의 개수.
-
-__인풋 형태__
+__입력 형태__
 
 `(batch, axis_to_pad, features)` 형태의 3D 텐서.
 
-__아웃풋 형태__
+__출력 형태__
 
 `(batch, padded_axis, features)` 형태의 3D 텐서.
     
@@ -1124,49 +603,29 @@ __아웃풋 형태__
 keras.layers.ZeroPadding2D(padding=(1, 1), data_format=None)
 ```
 
-2D 인풋(예. 사진)의 제로 패딩 레이어.
+2D 입력(예: 이미지 데이터)용 제로-패딩 층.
 
-이 레이어는 이미지 텐서의 위, 아래, 좌, 우에
-0으로 이루어진 행과 열을 더할 수 있습니다.
+이 레이어는 이미지 텐서의 상하좌우에 `0`으로 이루어진 행과 열을 더할 수 있습니다.
 
-__인수__
+__인자__
 
-- __padding__: 정수, 2개 정수의 튜플, 혹은 2개 정수의 튜플 2개로 이루어진 튜플.
-    - 정수인 경우: 높이와 넓이에
-        동일한 대칭 패딩이 적용됩니다.
-    - 2개 정수의 튜플인 경우:
-        높이와 넓이에 대한
-        두 가지 대칭 패팅 값을 나타냅니다:
-        `(symmetric_height_pad, symmetric_width_pad)`.
-    - 2개 정수의 튜플 2개로 이루어진 튜플인 경우:
-        `((top_pad, bottom_pad), (left_pad, right_pad))`로
-        보면 됩니다.
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
+- __padding__: `int`, 2개의 `int`로 이루어진 튜플, 혹은 2개의 `int`로 이루어진 튜플 2개로 이루어진 튜플.
+    - 하나의 `int`인 경우 행방향과 열방향에 같은 크기의 패딩이 적용됩니다.
+    - 2개의 `int` 튜플인 경우 각각 행방향, 열방향에 적용될 값을 나타냅니다. `(symmetric_height_pad, symmetric_width_pad)`.
+    - 2개 정수의 튜플 2개로 이루어진 튜플인 경우 `((top_pad, bottom_pad), (left_pad, right_pad))`에 적용될 값을 나타냅니다.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, height, width, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, height, width)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
 
-__인풋 형태__
+__입력 형태__
 
-다음 형태의 4D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, rows, cols, channels)`
-- `data_format`이 `"channels_last"`이면
-    `(batch, channels, rows, cols)`
+다음 형태의 4D 텐서를 입력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, rows, cols, channels)`.
+- `data_format`이 `"channels_last"`이면 `(batch, channels, rows, cols)`.
 
-__아웃풋 형태__
+__출력 형태__
 
-다음 형태의 4D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, padded_rows, padded_cols, channels)`
-- `data_format`이 `"channels_last"`이면
-    `(batch, channels, padded_rows, padded_cols)`
+다음 형태의 4D 텐서를 입력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, padded_rows, padded_cols, channels)`.
+- `data_format`이 `"channels_last"`이면 `(batch, channels, padded_rows, padded_cols)`.
     
 ----
 
@@ -1177,50 +636,24 @@ __아웃풋 형태__
 keras.layers.ZeroPadding3D(padding=(1, 1, 1), data_format=None)
 ```
 
-3D 데이터(예. 공간적, 혹은 시공간적)용 제로-패딩 레이어.
+3D 입력(예: 공간적, 시공간적 데이터)용 제로 패딩 층.
 
-__인수__
+__인자__
 
-- __padding__: 정수, 3개 정수의 튜플, 혹은 2개 정수의 튜플 3개로 이루어진 튜플.
-    - 정수인 경우: 깊이, 높이, 넓이에
-        동일한 대칭 패딩이 적용됩니다.
-    - 3개 정수의 튜플인 경우:
-        깊이, 높이, 넓이에 대한
-        두 가지 대칭 패딩 값을 나타냅니다:
-        `(symmetric_dim1_pad, symmetric_dim2_pad, symmetric_dim3_pad)`.
-    - 2개 정수의 튜플 3개로 이루어진 튜플인 경우:
-        `((left_dim1_pad, right_dim1_pad),
-          (left_dim2_pad, right_dim2_pad),
-          (left_dim3_pad, right_dim3_pad))`로
-        보면 됩니다.
-- __data_format__: 문자열,
-    `"channels_last"` 혹은 "channels_first"` 중 하나.
-    인풋 내 차원의 순서를 나타냅니다.
-    `"channels_last"`는 `(batch, height, width, channels)`
-    형태의 인풋에 호응하고
-    `"channels_first"`는 `(batch, channels, height, width)` 형태의
-    인풋에 호응합니다.
-    디폴트 값은 `~/.keras/keras.json`에 위치한
-    케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-    따로 설정하지 않으면, 이는 `"channels_last"`가 됩니다.
+- __padding__: `int`, 3개의 `int`로  튜플, 혹은 2개 정수의 튜플 3개로 이루어진 튜플.
+    - 하나의 `int`인 경우 깊이, 행방향, 열방향에 동일한 크기의 패딩이 적용됩니다.
+    - 3개 `int`의 튜플인 경우 각각 깊이, 행방향, 열방향에 적용될 값을 나타냅니다. `(symmetric_dim1_pad, symmetric_dim2_pad, symmetric_dim3_pad)`.    
+    - 2개 `int`의 튜플 3개로 이루어진 튜플인 경우 `((left_dim1_pad, right_dim1_pad), (left_dim2_pad, right_dim2_pad), (left_dim3_pad, right_dim3_pad))`를 나타냅니다.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, height, width, channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, channels, height, width)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
 
-__인풋 형태__
+__입력 형태__
 
-다음 형태의 5D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, first_axis_to_pad, second_axis_to_pad, third_axis_to_pad,
-      depth)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, depth,
-      first_axis_to_pad, second_axis_to_pad, third_axis_to_pad)`
+다음 형태의 5D 텐서를 입력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, first_axis_to_pad, second_axis_to_pad, third_axis_to_pad, depth)`.
+- `data_format`이 `"channels_first"`이면 `(batch, depth, first_axis_to_pad, second_axis_to_pad, third_axis_to_pad)`.
 
-__아웃풋 형태__
+__출력 형태__
 
-다음 형태의 5D 텐서:
-- `data_format`이 `"channels_last"`이면
-    `(batch, first_padded_axis, second_padded_axis, third_axis_to_pad,
-      depth)`
-- `data_format`이 `"channels_first"`이면
-    `(batch, depth,
-      first_padded_axis, second_padded_axis, third_axis_to_pad)`
-    
+다음 형태의 5D 텐서를 출력합니다.
+- `data_format`이 `"channels_last"`이면 `(batch, first_padded_axis, second_padded_axis, third_axis_to_pad, depth)`.
+- `data_format`이 `"channels_first"`이면 `(batch, depth, first_padded_axis, second_padded_axis, third_axis_to_pad)`.  
