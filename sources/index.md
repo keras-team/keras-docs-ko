@@ -33,7 +33,7 @@ Keras 2.2.5는 2.2.* API를 구현 한 Keras의 마지막 릴리스입니다. Te
 
 ## 이념
 
-- __사용자 친화성.__ 케라스는 기계가 아닌 사람을 위해 디자인된 API입니다. 무엇보다 사용자 경험을 우선으로 두는 것입니다. 케라스는 사용자가 쉽게 접근할 수 있도록 다음의 원칙을 지킵니다: 일관성있고 간단한 API를 제공하고, 자주 쓰는 기능에 대해서 사용자의 액션을 최소화 하며, 사용자 에러가 발생하는 경우 명료하고 실행가능한 피드백을 줍니다.
+- __사용자 친화성.__ 케라스는 기계가 아닌 사람을 위해 디자인된 API입니다. 무엇보다 사용자 경험을 우선으로 두는 것입니다. 케라스는 사용자가 쉽게 접근할 수 있도록 다음의 원칙을 지킵니다: 일관성있고 간단한 API를 제공하고, 자주 쓰는 기능에 대해서 사용자의 액션을 최소화하며, 사용자 에러가 발생하는 경우 명료하고 실행가능한 피드백을 줍니다.
 
 - __모듈성.__ 모델은, 최소한의 제한으로 다양한 조합이 가능한 독립적이며 완전히 변경가능한 모듈의 시퀀스 혹은 그래프로 이해할 수 있습니다. 특히 신경망 층<sub>neural layers</sub>, 손실 함수<sub>cost functions</sub>, 최적화 함수<sub>optimizer</sub>, 최초값 설정 규칙<sub>initialization schemes</sub>, 활성화 함수<sub>activation functions</sub>, 정규화 규칙<sub>regularization schemes</sub>은 모두 독립적인 모듈로, 다양하게 조합하여 새로운 모델을 만들어 낼 수 있습니다.
 
@@ -66,7 +66,7 @@ model.add(Dense(units=64, activation='relu', input_dim=100))
 model.add(Dense(units=10, activation='softmax'))
 ```
 
-모델이 마음에 드신다면, `.compile()`로 학습 과정을 조정하십시오.
+모델이 마음에 드신다면, `.compile()`로 학습 과정에 대한 설정을 하십시오.
 
 ```python
 model.compile(loss='categorical_crossentropy',
@@ -74,7 +74,7 @@ model.compile(loss='categorical_crossentropy',
               metrics=['accuracy'])
 ```
 
-필요한 경우 한 걸음 나아가 최적화 함수를 조정할 수 있습니다. 케라스의 주요 철학중 하나는 사용자가 필요한 작업에 대해서는 완전한 제어권을 가질 수 있도록 하되 간결성을 유지하는 것입니다 (제어권의 궁극적인 형태로는 소스코드의 간편한 확장성이 있습니다).
+필요한 경우에 최적화 함수에 대한 설정도 할 수 있습니다. 케라스의 주요 철학중 하나는 사용자가 필요한 작업에 대해서는 완전한 제어권을 가질 수 있도록 하되 간결성을 유지하는 것입니다 (제어권의 궁극적인 형태로는 소스코드의 간편한 확장성이 있습니다).
 ```python
 model.compile(loss=keras.losses.categorical_crossentropy,
               optimizer=keras.optimizers.SGD(lr=0.01, momentum=0.9, nesterov=True))
@@ -107,12 +107,12 @@ classes = model.predict(x_test, batch_size=128)
 
 질문에 대답하는 시스템, 이미지 분류 모델, 신경망 튜링 기계나 그 외의 다른 모델도 이처럼 빠르게 만들 수 있습니다. 딥러닝의 기본이 되는 아이디어가 간단한데 그 실행이 복잡할 이유가 어디 있겠습니까?
 
-조금 더 심화된 케라스 튜토리얼을 원하신다면 다음을 참고하십시오.
+좀더 심화된 케라스 튜토리얼을 원하신다면 다음을 참고하십시오.
 
 - [Getting started with the Sequential model](https://keras.io/getting-started/sequential-model-guide)
 - [Getting started with the functional API](https://keras.io/getting-started/functional-api-guide)
 
-저장소<sub>repository</sub>의 [examples folder](https://github.com/keras-team/keras/tree/master/examples)에서는, 보다 고급 모델을 확인할 수 있습니다: 질문에 대답하는 메모리 신경망<sub>memory networks</sub>, 복수의 LSTM을 이용한 문서 생성 등.
+저장소<sub>repository</sub>의 [examples 폴더](https://github.com/keras-team/keras/tree/master/examples)에서는, 보다 고급 모델을 확인할 수 있습니다. 질문에 대답하는 메모리 신경망<sub>memory networks</sub>, 복수의 LSTM을 이용한 문서 생성 등이 있습니다.
 
 
 ------------------
