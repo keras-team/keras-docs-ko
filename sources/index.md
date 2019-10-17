@@ -1,4 +1,4 @@
-#듈케라스: 파이썬 딥러닝 라이브러리
+#케라스: 파이썬 딥러닝 라이브러리
 
 <img src='https://s3.amazonaws.com/keras.io/img/keras-logo-2018-large-1200.png' style='max-width: 600px; width: 90%;' />
 
