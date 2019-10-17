@@ -11,12 +11,12 @@
 keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
 ```
 
-표준입출력으로 측정항목을 출력하는 콜백
+표준입출력<sub>stdout</sub>으로 측정 항목을 출력하는 콜백
 
 __인자__
 
 - __count_mode__: "steps" 혹은 "samples" 중 하나.
-    검사한 샘플의 수와 검사한 단계(배치) 수 중 진행표시바에 표시할 항목.
+    검사한 샘플의 수와 검사한 단계(배치) 수 중 진행표시바<sub>progressbar</sub>에 표시할 항목.
 - __stateful_metrics__: 평균으로 표시하지 *않을* 측정 항목의 `string` 이름을 담은 iterable 객체.
     이 리스트의 측정 항목은 원래값 그대로 로그합니다.
     그 외 측정 항목은 에폭의 평균값으로 로그합니다 (예. 손실 등).
@@ -40,7 +40,7 @@ keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_be
 `epoch` 값과 `logs` 키를 이용하여 설정할 수 있습니다.
 
 예를 들어 `filepath`가 `weights.{epoch:02d}-{val_loss:.2f}.hdf5`라면,
-파일 이름에 에폭 번호와 검증 손실값을 넣어
+파일 이름에 에폭 번호와 검증 손실값<sub>validation loss</sub>을 넣어
 모델의 체크포인트를 저장합니다.
 
 __인자__
@@ -49,7 +49,7 @@ __인자__
 - __monitor__: 기록할 값.
 - __verbose__: 상세 정보 표시 정도, 0 혹은 1.
 - __save_best_only__: `True`인 경우
-    `__monitor__`값을 기준으로 가장 최신의 최고 모델은 덮어쓰기되지 않습니다.
+    `__monitor__`값을 기준으로 가장 최신의 최고 모델은 덮어쓰지 않습니다.
 - __save_weights_only__: `True`인 경우 모델의 가중치만 저장되고
     (`model.save_weights(filepath)`), 아닌 경우
     전체 모델이 저장됩니다 (`model.save(filepath)`).
@@ -59,7 +59,7 @@ __인자__
     현재 저장 파일을 덮어쓸지 결정합니다. `__monitor__=val_acc`의 경우
     `__mode__=max`가 되어야 하며, `__monitor__=val_loss`라면
     `__mode__=min`이 되어야 합니다. `auto`의 경우
-    `__monitor__`값을 통해 저절로 설정됩니다.
+    `__monitor__`값을 통해 자동으로 설정됩니다.
 - __period__: 체크포인트를 저장할 간격(에폭의 수).
 
 ----
@@ -71,24 +71,23 @@ __인자__
 keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
 ```
 
-이벤트를 서버에 스트림할 콜백
+이벤트를 서버에 스트리밍할 콜백
 
-`requests` 라이브러리를 필요로 합니다.
-디폴트 설정으로 이벤트는 `root + '/publish/epoch/end/'`으로 보내집니다.
-호출은 HTTP POST와 JSON-인코딩 이벤트 데이터 딕셔너리인
-`data` 인수로 합니다.
-send_as_json이 참으로 설정된 경우, 요청의 내용 종류는
-application/json입니다. 그 외는 형식 내 직렬화된 JSON이 보내집니다.
+`requests` 라이브러리가 필요합니다.
+기본값으로 이벤트는 `root + '/publish/epoch/end/'`으로 보내집니다.
+요청은 HTTP POST를 이용합니다. `data`인자에 JSON 형식의 딕셔너리로 이벤트 데이터를 전달합니다. 
+`send_as_json=True`인 경우, `content-type`은
+`application/json`입니다. 이외의 경우에는 직렬화<sub>serialized</sub>된 JSON을 전달합니다.
 
 __인자__
 
-- __root__: 문자열; 표적 서버의 최상위 url.
-- __path__: 문자열; 이벤트가 보내질 `root`를 기준으로 한 상대적 경로
-- __field__: 문자열; 데이터가 저장될 JSON 필드.
+- __root__: `string`, 표적 서버의 최상위 url.
+- __path__: `string`, 이벤트가 보내질 `root`를 기준으로 한 상대적 경로
+- __field__: `string`, 데이터가 저장될 JSON 필드.
     형식 내 payload가 보내지는 경우에만 필드가 사용됩니다
-    (다시 말해 send_as_json이 거짓으로 설정된 경우).
-- __headers__: 딕셔너리; 선택적 커스텀 HTTP 헤더
-- __send_as_json__: 불리언; 요청을 application/json으로
+    (`send_as_json=False`인 경우).
+- __headers__: `dictaionary`, 선택적 커스텀 HTTP 헤더
+- __send_as_json__: `bool`, 요청을 `application/json`으로
     보내는지 여부.
     
 ----
