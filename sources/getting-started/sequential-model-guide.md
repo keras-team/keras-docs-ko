@@ -29,11 +29,11 @@ model.add(Activation('relu'))           # Activation 층을 추가합니다.
 
 ## 입력 형태 지정하기
 
-각 모델은 어떤 형태<sub>shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 형태 정보를 받습니다 (이후의 층들은 자동으로 이전 층의 출력 정보를 입력 정보로서 채택하여 형태를 추정합니다). 형태 정보는 다음과 같은 방법으로 입력할 수 있습니다.
+각 모델은 어떤 형태<sub>shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 형태 정보를 받습니다(이후의 층들은 자동으로 이전 층의 출력 정보를 입력 정보로 채택하여 형태를 추정합니다). 형태 정보는 다음과 같은 방법으로 입력할 수 있습니다.
 
-- 첫 번째 층의 `input_shape` 인자<sub>argument</sub>에 형태를 입력하는 방법입니다. `input_shape` 인자는 입력 데이터의 각 차원별 크기를 나타내는 정수값들이 나열된 튜플<sub>tuple</sub>이며, 정수 대신 `None`을 쓸 경우 아직 정해지지 않은 양의 정수를 나타냅니다. 배치<sub>batch</sub> 크기는 `input_shape` 인자에 포함되지 않습니다.
+- 첫 번째 층의 `input_shape` 인자<sub>argument</sub>에 형태를 입력하는 방법입니다. `input_shape` 인자는 입력 데이터의 각 차원별 크기를 나타내는 정수값들이 나열된 튜플이며, 정수 대신 `None`을 쓸 경우 아직 정해지지 않은 양의 정수를 나타냅니다. 배치 크기는 `input_shape` 인자에 포함되지 않습니다.
 - `input_shape` 인자는 입력 값의 크기와 시계열 입력의 길이를 포괄합니다. 따라서 `Dense`와 같이 2D 처리를 하는 층의 경우 `input_shape` 대신에 `input_dim` 인자를 통해서도 입력 크기를 지정할 수 있으며, 시계열과 같이 3D 처리를 하는 층은 `input_dim`과 `input_length`의 두 인자를 사용해서 입력 차원의 크기와 시계열 길이를 각각 지정할 수 있습니다.
-- 배치 크기를 고정해야 하는 경우 `batch_size` 인자를 사용합니다. (순환 신경망<sub>Recurrent Neural Network</sub>과 같이 현 시점의 결과를 저장하여 다음 시점으로 넘기는 처리를 하는 경우 배치 크기 고정이 필요합니다.) 예를 들어, `batch_size=32`와 `input_shape=(6, 8)`을 층에 입력하면 이후의 모든 입력을 `(32, 6, 8)`의 형태로 처리합니다.
+- 배치 크기를 고정해야 하는 경우 `batch_size` 인자를 사용합니다(순환 신경망<sub>Recurrent Neural Network</sub>과 같이 현 시점의 결과를 저장하여 다음 시점으로 넘기는 처리를 하는 경우 배치 크기 고정이 필요합니다). 예를 들어, `batch_size=32`와 `input_shape=(6, 8)`을 층에 입력하면 이후의 모든 입력을 `(32, 6, 8)`의 형태로 처리합니다.
 
 이에 따라, 아래의 두 코드는 완전히 동일하게 작동합니다.
 ```python
@@ -51,9 +51,9 @@ model.add(Dense(32, input_dim=784))         # input_dim을 이용하여 입력 �
 
 모델을 학습시키기 전에 `compile` 메소드를 통해서 학습과정의 세부 사항을 설정합니다. `compile` 메소드는 다음 세 개의 인자를 입력받습니다.
 
-- 최적화 함수<sub>optimizer</sub>: 기존의 최적화 함수를(예: `rmsprop`, `adagrad` 등) 문자열<sub>string</sub>로 된 식별자<sub>identifier</sub>를 통해 불러오거나 `Optimizer` 클래스의 인스턴스를 만들어서 사용할 수 있습니다. 참고: [최적화 함수](/optimizers) 
-- 손실 함수<sub>loss function</sub>: 모델이 학습을 통해 최소화하고자 하는 목적 함수<sub>objective function</sub>입니다. 이 또한 기존 손실 함수의 문자열 식별자나 (예: `categorical_crossentropy`, `mse` 등) 특정 목적 함수를 사용할 수 있습니다. 참고: [손실 함수](/losses)
-- 평가 지표<sub>metric</sub> 리스트: 모델의 성능을 평가할 지표를 리스트 형식으로 입력합니다. 예컨대 분류문제라면 `metrics=['accuracy']`를 통해 정확도<sub>accuracy</sub>를 산출할 수 있습니다. 평가 지표는 기존 지표 함수를 문자열 식별자로 불러오거나 사용자가 함수를 정의하여 지정할 수 있습니다. 참고: [평가 지표](/metrics) 
+- 최적화 함수<sub>optimizer</sub>: 기존의 최적화 함수를(예: `rmsprop`, `adagrad` 등) 문자열로 된 식별자<sub>identifier</sub>를 통해 불러오거나 `Optimizer` 클래스의 인스턴스를 만들어서 사용할 수 있습니다([최적화 함수](/optimizers) 참고) 
+- 손실 함수<sub>loss function</sub>: 모델이 학습을 통해 최소화하고자 하는 목적 함수<sub>objective function</sub>입니다. 이 또한 기존 손실 함수의 문자열 식별자나(예: `categorical_crossentropy`, `mse` 등) 특정 목적 함수를 사용할 수 있습니다([손실 함수](/losses) 참고).
+- 평가 지표<sub>metric</sub> 리스트: 모델의 성능을 평가할 지표를 리스트 형식으로 입력합니다. 예컨대 분류문제라면 `metrics=['accuracy']`를 통해 정확도<sub>accuracy</sub>를 산출할 수 있습니다. 평가 지표는 기존 지표 함수를 문자열 식별자로 불러오거나 사용자가 함수를 정의하여 지정할 수 있습니다([평가 지표](/metrics) 참고) 
 
 ```python
 # 다중 분류 문제 예시 
