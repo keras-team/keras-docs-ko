@@ -23,13 +23,13 @@ Theano를 쉽게 업데이트 하려면: `pip install git+git://github.com/Thean
 
 ## 새 기능을 신청하려면
 
-깃헙 이슈를 사용해서 케라스에 추가됐으면 하는 기능이나 케라스 API에 대한 변경사항을 요구할 수 있습니다.
+깃헙 [Tensorflow Github issues](https://github.com/tensorflow/tensorflow/issues)를 사용해서 케라스에 추가됐으면 하는 기능이나 케라스 API에 대한 변경사항을 요구할 수 있습니다.
 
 1. 원하시는 기능과 왜 그 기능이 중요한지에 대해서 분명하고 자세하게 설명해주십시오. 저희는 소수가 아닌 다수의 사용자에게 유용한 기능을 고려한다는 점을 명심해 주십시오. 만약 특정 사용자만을 고려한다면, 애드온 라이브러리를 작성하시는 것을 추천드립니다. 케라스는 API와 코드베이스가 지나치게 방대해지는 것을 피하려고 합니다.
 
 2. 염두하시는 API를 보여주고 새 기능의 사용처를 입증하는 코드를 제공해주십시오. 물론 이 시점에서 진짜 코드를 작성하실 필요까지는 없습니다!
 
-3. 기능에 대해서 논의 후 풀 리퀘스트를 넣을 수도 있습니다. 가능하면 코드를 작성해 주십시오. 시간은 적고 일은 많기에, 코드를 작성해 주시면 프로세스를 좀 더 빠르게 진행할 수 있습니다.
+3. 기능에 대해서 논의 후 tf.keras에 풀 리퀘스트를 넣을 수도 있습니다. 가능하면 코드를 작성해 주십시오. 시간은 적고 일은 많기에, 코드를 작성해 주시면 프로세스를 좀 더 빠르게 진행할 수 있습니다.
 
 
 ---
@@ -44,6 +44,10 @@ Theano를 쉽게 업데이트 하려면: `pip install git+git://github.com/Thean
 ## 풀 리퀘스트
 
 **풀 리퀘스트는 어디에 제출합니까?**
+
+#### Note:
+
+We are no longer adding new features to multi-backend Keras (we only fix bugs), as we are refocusing development efforts on tf.keras. If you are still interested in submitting a feature pull request, please direct it to tf.keras in the TensorFlow repository instead.
 
 1. **케라스 개선과 버그해결** [케라스 `master` 브랜치](https://github.com/keras-team/keras/tree/master)로 가시면 됩니다.
 2. **새로운 기능** [Requests for Contributions](https://github.com/keras-team/keras/projects/1)에 게시된 케라스의 코어에 관련한 새로운 기능이 아니라면, 레이어나 데이터셋에 관한 새로운 기능에 관련해서는 [keras-contrib](https://github.com/farizrahman4u/keras-contrib)로 가시면 됩니다.
