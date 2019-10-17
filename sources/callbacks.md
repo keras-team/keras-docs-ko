@@ -19,7 +19,7 @@ __인자__
     검사한 샘플의 수와 검사한 단계(배치) 수 중 진행표시바에 표시할 항목.
 - __stateful_metrics__: 평균으로 표시하지 *않을* 측정 항목의 `string` 이름을 담은 iterable 객체.
     이 리스트의 측정 항목은 원래값 그대로 로그합니다.
-    그 외 측정 항목은 에폭에서의 평균값으로 로그합니다 (예. 손실 등).
+    그 외 측정 항목은 에폭의 평균값으로 로그합니다 (예. 손실 등).
 
 __오류__
 
@@ -34,36 +34,33 @@ __오류__
 keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 ```
 
-각 세대 후 모델을 저장합니다.
+에폭이 끝날 때마다 모델을 저장합니다.
 
-`filepath`는 (`on_epoch_end`에서 전달되는)
-`epoch`의 값과 `logs`의 키로 채워진
-이름 형식 옵션을 가질 수 있습니다.
+`filepath`는 (`on_epoch_end`에서 전달된)
+`epoch` 값과 `logs` 키를 이용하여 설정할 수 있습니다.
 
 예를 들어 `filepath`가 `weights.{epoch:02d}-{val_loss:.2f}.hdf5`라면,
-파일 이름에 세대 번호와 검증 손실을 넣어
-모델의 체크포인트가 저장됩니다.
+파일 이름에 에폭 번호와 검증 손실값을 넣어
+모델의 체크포인트를 저장합니다.
 
 __인자__
 
-- __filepath__: 문자열, 모델 파일을 저장할 경로.
-- __monitor__: 관찰할 수량.
-- __verbose__: 다변 모드, 0 혹은 1.
-- __save_best_only__: `save_best_only=True`인 경우
-    관찰하는 수량을 기준으로 가장 
-    최신의 최고 모델은 덧씌우지 않습니다.
-- __save_weights_only__: 참인 경우 모델의 가중치만 저장되고
+- __filepath__: `string`, 모델 파일을 저장할 경로.
+- __monitor__: 기록할 값.
+- __verbose__: 상세 정보 표시 정도, 0 혹은 1.
+- __save_best_only__: `True`인 경우
+    `__monitor__`값을 기준으로 가장 최신의 최고 모델은 덮어쓰기되지 않습니다.
+- __save_weights_only__: `True`인 경우 모델의 가중치만 저장되고
     (`model.save_weights(filepath)`), 아닌 경우
     전체 모델이 저장됩니다 (`model.save(filepath)`).
 - __mode__: {auto, min, max} 중 하나.
     `save_best_only=True`이면
-    현재 저장 파일을 덧씌울지는
-    관찰하는 수량의 최대화 혹은 최소화를
-    기준으로 결정합니다. `val_acc`의 경우
-    이는 `max`가 되어야 하며, `val_loss`라면
-    `min`이 되어야 합니다. `auto`의 경우
-    관찰하는 수량의 이름에서 방향성이 자동적으로 유추됩니다.
-- __period__: 체크포인트간 간격 (세대의 수).
+    `__monitor__`값을 최대화할지 최소화할지에 따라
+    현재 저장 파일을 덮어쓸지 결정합니다. `__monitor__=val_acc`의 경우
+    `__mode__=max`가 되어야 하며, `__monitor__=val_loss`라면
+    `__mode__=min`이 되어야 합니다. `auto`의 경우
+    `__monitor__`값을 통해 저절로 설정됩니다.
+- __period__: 체크포인트를 저장할 간격(에폭의 수).
 
 ----
 
