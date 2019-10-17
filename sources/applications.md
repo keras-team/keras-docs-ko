@@ -117,7 +117,7 @@ predictions = Dense(200, activation='softmax')(x)
 model = Model(inputs=base_model.input, outputs=predictions)
 
 # 첫째로: (난수로 초기값이 설정된) 가장 상위 층들만 학습시킵니다
-# 다시 말해서 모든 InceptionV3 컨볼루션 층을 고정합니다
+# 다시 말해서 모든 InceptionV3 합성곱 층을 고정합니다
 for layer in base_model.layers:
     layer.trainable = False
 
@@ -128,7 +128,7 @@ model.compile(optimizer='rmsprop', loss='categorical_crossentropy')
 model.fit_generator(...)
 
 # 이 시점에서 상위 층들은 충분히 학습이 되었기에,
-# inception V3의 컨볼루션 층에 대한 파인튜닝을 시작합니다 
+# inception V3의 합성곱 층에 대한 파인튜닝을 시작합니다 
 # 가장 밑 N개의 층을 고정하고 나머지 상위 층을 학습시킵니다
 
 # 층의 이름과 층의 인덱스를 시각화하여
@@ -230,10 +230,10 @@ ImageNet에 대해 가중치가 선행학습된 Xception V1 모델.
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력에 적용되어
         모델의 출력값은 2D 텐서임을 의미합니다.
     - `'max'`는 전역 최대값 풀링이
@@ -285,10 +285,10 @@ ImageNet에 대해 가중치가 선행학습된 VGG16 모델
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력값에 적용되어
         모델의 출력값이 2D 텐서가 됨을 의미합니다.
     - `'max'`는 전역 최대값 풀링이
@@ -329,7 +329,7 @@ ImageNet에 대해 가중치가 선행학습된 VGG19 모델.
 
 - include_top: 네트워크의 최상단에 3개의 완전연결층을 넣을지 여부.
 - weights: `None` (임의의 초기값 설정) 혹은 `'imagenet'` (ImageNet에 대한 선행 학습) 중 하나.
-- input_tensor: 모델의 이미지 인풋으로 사용할 수 있는 선택적 케라스 텐서 (다시말해, `layers.Input()`의 출력값).
+- input_tensor: 모델의 이미지 입력으로 사용할 수 있는 선택적 케라스 텐서 (다시말해, `layers.Input()`의 출력값).
 - input_shape: 선택적 형태 튜플로,
     `include_top`이 `False`일 경우만 특정하십시오.
     (그렇지 않다면 입력 형태가 `(224, 224, 3)`이고 `'channels_last'` 데이터 포맷을 취하거나
@@ -340,10 +340,10 @@ ImageNet에 대해 가중치가 선행학습된 VGG19 모델.
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력값에 적용되어
         모델의 출력값이 2D 텐서가 됨을 의미합니다.
     - `'max'`는 전역 최대값 풀링이
@@ -393,7 +393,7 @@ ImageNet에 대해 가중치가 선행학습된 ResNet 모델, ResNetV2 모델, 
 
 - include_top: 네트워크의 최상단에 완전연결층을 넣을지 여부.
 - weights: `None` (임의의 초기값 설정) 혹은 `'imagenet'` (ImageNet에 대한 선행 학습) 중 하나.
-- input_tensor: 모델의 이미지 인풋으로 사용할 수 있는 선택적 케라스 텐서 (다시말해, `layers.Input()`의 출력값).
+- input_tensor: 모델의 이미지 입력으로 사용할 수 있는 선택적 케라스 텐서 (다시말해, `layers.Input()`의 출력값).
 - input_shape: 선택적 형태 튜플로,
     `include_top`이 `False`일 경우만 특정하십시오.
     (그렇지 않다면 입력 형태가 `(224, 224, 3)`이고 `'channels_last'` 데이터 포맷을 취하거나
@@ -404,10 +404,10 @@ ImageNet에 대해 가중치가 선행학습된 ResNet 모델, ResNetV2 모델, 
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력값에 적용되어
         모델의 출력값이 2D 텐서가 됨을 의미합니다.
     - `'max'`는 전역 최대값 풀링이
@@ -454,7 +454,7 @@ ImageNet에 대해 가중치가 선행학습된 Inception V3.
 
 - include_top: 네트워크의 최상단에 완전연결층을 넣을지 여부.
 - weights: `None` (임의의 초기값 설정) 혹은 `'imagenet'` (ImageNet에 대한 선행 학습) 중 하나.
-- input_tensor: 모델의 이미지 인풋으로 사용할 수 있는 선택적 케라스 텐서 (다시말해, `layers.Input()`의 출력값).
+- input_tensor: 모델의 이미지 입력으로 사용할 수 있는 선택적 케라스 텐서 (다시말해, `layers.Input()`의 출력값).
 - input_shape: 선택적 형태 튜플로,
     `include_top`이 `False`일 경우만 특정하십시오.
     (그렇지 않다면 입력 형태가 `(299, 299, 3)`이고 `'channels_last'` 데이터 포맷을 취하거나
@@ -465,10 +465,10 @@ ImageNet에 대해 가중치가 선행학습된 Inception V3.
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력값에 적용되어
         모델의 출력값이 2D 텐서가 됨을 의미합니다.
     - `'max'`는 전역 최대값 풀링이
@@ -509,7 +509,7 @@ ImageNet에 대해 가중치가 선행학습된 Inception-ResNet V2 모델.
 
 - include_top: 네트워크의 최상단에 완전연결층을 넣을지 여부.
 - weights: `None` (임의의 초기값 설정) 혹은 `'imagenet'` (ImageNet에 대한 선행 학습) 중 하나.
-- input_tensor: 모델의 이미지 인풋으로 사용할 수 있는 선택적 케라스 텐서 (다시말해, `layers.Input()`의 출력값).
+- input_tensor: 모델의 이미지 입력으로 사용할 수 있는 선택적 케라스 텐서 (다시말해, `layers.Input()`의 출력값).
 - input_shape: 선택적 형태 튜플로,
     `include_top`이 `False`일 경우만 특정하십시오.
     (그렇지 않다면 입력 형태가 `(299, 299, 3)`이고 `'channels_last'` 데이터 포맷을 취하거나
@@ -520,10 +520,10 @@ ImageNet에 대해 가중치가 선행학습된 Inception-ResNet V2 모델.
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력값에 적용되어
         모델의 출력값이 2D 텐서가 됨을 의미합니다.
     - `'max'`는 전역 최대값 풀링이
@@ -575,23 +575,23 @@ ImageNet에 대해 가중치가 선행학습된 MobileNet 모델.
         필터 숫자를 증가시킵니다.
     - `alpha` = 1 인 경우, 각 층의 필터의 수가
         참고 논문에 따른 기본값으로 정해집니다.
-- depth_multiplier: 깊이별 컨볼루션의 깊이 승수
+- depth_multiplier: 깊이별 합성곱의 깊이 승수
     (해상도 승수라고도 합니다)
 - dropout: 드롭아웃 속도
 - include_top: 네트워크의 최상단에
     완전연결층을 넣을지 여부.
 - weights: `None` (임의의 초기값 설정) 혹은
     `'imagenet'` (ImageNet에 대한 선행 학습)
-- input_tensor: 모델의 이미지 인풋으로 사용할 수 있는
+- input_tensor: 모델의 이미지 입력으로 사용할 수 있는
     선택적 케라스 텐서
     (다시말해, `layers.Input()`의 출력값).
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력값에 적용되어
         모델의 출력값이 
         2D 텐서가 됨을 의미합니다.
@@ -638,7 +638,7 @@ ImageNet에 대해 가중치가 선행학습된 DenseNet.
 - weights: `None` (임의의 초기값 설정),
     `'imagenet'` (ImageNet에 대한 선행 학습), 혹은
     가중치 파일을 불러올 경로 중 하나.
-- input_tensor: 모델의 이미지 인풋으로 사용할 수 있는 선택적 케라스 텐서
+- input_tensor: 모델의 이미지 입력으로 사용할 수 있는 선택적 케라스 텐서
     (다시말해, `layers.Input()`의 출력값).
 - input_shape: 선택적 형태 튜플로,
     `include_top`이 `False`일 경우만 특정하십시오.
@@ -650,10 +650,10 @@ ImageNet에 대해 가중치가 선행학습된 DenseNet.
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력값에 적용되어
         모델의 출력값이 2D 텐서가 됨을 의미합니다.
     - `'max'`는 전역 최대값 풀링이
@@ -696,8 +696,8 @@ NASNetMobile 모델은 224x224 입니다.
     (그렇지 않다면 NASNetMobile의 경우 입력 형태가 `(224, 224, 3)`이고 
     `'channels_last'` 데이터 포맷을 취하거나 혹은 태가 `(3, 224, 224)`이고 
     `'channels_first'` 데이터 포맷을 취해야 하며, NASNetLarge의 경우  
-    인풋이 `(331, 331, 3)`에 `'channels_last'` 데이터 포맷, 
-    혹은 인풋이 `(3, 331, 331)`에 `'channels_first'` 데이터 포맷이어야 합니다).
+    입력이 `(331, 331, 3)`에 `'channels_last'` 데이터 포맷, 
+    혹은 입력이 `(3, 331, 331)`에 `'channels_first'` 데이터 포맷이어야 합니다).
     입력 채널이 정확히 3개여야 하며
     넓이와 높이가 32 미만이어서는 안됩니다.
     예시. `(200, 200, 3)`은 유효한 값입니다.
@@ -705,16 +705,16 @@ NASNetMobile 모델은 224x224 입니다.
     완전연결층을 넣을지 여부.
 - weights: `None` (임의의 초기값 설정) 혹은
     `'imagenet'` (ImageNet에 대한 선행 학습)
-- input_tensor: 모델의 이미지 인풋으로 사용할 수 있는
+- input_tensor: 모델의 이미지 입력으로 사용할 수 있는
     선택적 케라스 텐서
     (다시말해, `layers.Input()`의 출력값).
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력값에 적용되어
         모델의 출력값이 
         2D 텐서가 됨을 의미합니다.
@@ -754,7 +754,7 @@ ImageNet에 대해 가중치가 선행학습된 MobileNetV2 model.
 ### 인자
 
 - input_shape: 선택적 형태 튜플로,
-    (224, 224, 3)이 아닌 인풋 이미지 해상도를 사용할 경우에만
+    (224, 224, 3)이 아닌 입력 이미지 해상도를 사용할 경우에만
     특정하십시오.
     입력 채널이 정확히 3개(224, 224, 3)이어야 합니다.
     input_tensor에서 input_shape을 추론하고 싶다면
@@ -771,23 +771,23 @@ ImageNet에 대해 가중치가 선행학습된 MobileNetV2 model.
         필터 숫자를 증가시킵니다.
     - `alpha` = 1 인 경우, 각 층의 필터의 수가
         참고 논문에 따른 기본값으로 정해집니다.
-- depth_multiplier: 깊이별 컨볼루션의 깊이 승수
+- depth_multiplier: 깊이별 합성곱의 깊이 승수
     (해상도 승수라고도 합니다)
 - include_top: 네트워크의 최상단에
     완전연결층을 넣을지 여부.
 - weights: `None` (임의의 초기값 설정),
     `'imagenet'` (ImageNet에 대한 선행 학습), 혹은
     가중치 파일을 불러올 경로 중 하나.
-- input_tensor: 모델의 이미지 인풋으로 사용할 수 있는
+- input_tensor: 모델의 이미지 입력으로 사용할 수 있는
     선택적 케라스 텐서
     (다시말해, `layers.Input()`의 출력값).
 - pooling: 특성추출을 위한 선택적 풀링 모드로,
     `include_top`이 `False`일 경우 유효합니다.
     - `None`은 모델의 출력값이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         4D 텐서 출력임을 의미합니다.
     - `'avg'`는 전역 평균값 풀링이
-        마지막 컨볼루션 층의
+        마지막 합성곱 층의
         출력값에 적용되어
         모델의 출력값이 
         2D 텐서가 됨을 의미합니다.
@@ -804,7 +804,7 @@ ImageNet에 대해 가중치가 선행학습된 MobileNetV2 model.
 ### 오류처리
 
 ValueError: `weights`에 유효하지 않은 인자를 넣은 경우,
-    혹은 weights='imagenet'일 때 유효하지 않은 형태의 인풋이나 유효하지 않은 depth_multiplier, alpha, rows를 넣은 경우
+    혹은 weights='imagenet'일 때 유효하지 않은 형태의 입력이나 유효하지 않은 depth_multiplier, alpha, rows를 넣은 경우
 
 ### 참고
 
