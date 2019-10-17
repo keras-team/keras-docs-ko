@@ -20,7 +20,7 @@
 - [DenseNet](#densenet)
 - [NASNet](#nasnet)
 
-위의 아키텍쳐 전부는 모든 백엔드(TensorFlow, Theano, and CNTK)와 호환가능하고, 인스턴스화 시 `~/.keras/keras.json`의 케라스 구성에 세팅된 이미지 데이터 포멧에 따라 모델이 만들어집니다. 예를 들어, 만약 `image_data_format=channels_last`로 세팅이 되어있다면, 이 리포지토리에서 불러온 모든 모델은 "Height-Width-Depth"의 Tensorflow 데이터 포맷 형식에 따라서 만들어집니다.
+위의 아키텍쳐 전부는 모든 백엔드(TensorFlow, Theano, and CNTK)와 호환가능하고, 인스턴스화 시 `~/.keras/keras.json`의 케라스 구성에 세팅된 이미지 데이터 포멧에 따라 모델이 만들어집니다. 예를 들어, 만약 `image_data_format=channels_last`로 세팅이 되어있다면, 이 저장소에서 불러온 모든 모델은 "Height-Width-Depth"의 Tensorflow 데이터 포맷 형식에 따라서 만들어집니다.
 
 참고로:
 - `Keras < 2.2.0`의 경우, Xception 모델은 `SeparableConvolution` 층을 이용하기 때문에 TensorFlow로만 사용가능합니다.
