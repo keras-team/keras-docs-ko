@@ -11,21 +11,19 @@
 keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
 ```
 
-측정항목을 stdout에 프린트하는 콜백
+표준입출력으로 측정항목을 출력하는 콜백
 
-__인수__
+__인자__
 
 - __count_mode__: "steps" 혹은 "samples" 중 하나.
-    진행 표시줄이 검사한 샘플의 수에 기반하는지
-    검사한 단계(배치)의 수에 기반하는지 여부.
-- __stateful_metrics__: 세대에 걸쳐 평균을 내면 *안 되는*
-    측정 항목의 문자열 이름의 Iterable.
-    이 리스트의 측정 항목을 원본 그대로 로그합니다.
-    그 외 측정 항목은 평균을 구해 로그합니다 (예. 손실 등).
+    검사한 샘플의 수와 검사한 단계(배치) 수 중 진행표시바에 표시할 항목.
+- __stateful_metrics__: 평균으로 표시하지 *않을* 측정 항목의 `string` 이름을 담은 iterable 객체.
+    이 리스트의 측정 항목은 원래값 그대로 로그합니다.
+    그 외 측정 항목은 평균으로 로그합니다 (예. 손실 등).
 
-__오류 알림__
+__오류__
 
-- __ValueError__: 유효하지 않은 `count_mode`의 경우 오류를 알립니다.
+- __ValueError__: 유효하지 않은 `count_mode`의 경우 오류가 발생합니다.
     
 ----
 
@@ -46,7 +44,7 @@ keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_be
 파일 이름에 세대 번호와 검증 손실을 넣어
 모델의 체크포인트가 저장됩니다.
 
-__인수__
+__인자__
 
 - __filepath__: 문자열, 모델 파일을 저장할 경로.
 - __monitor__: 관찰할 수량.
@@ -85,7 +83,7 @@ keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch
 send_as_json이 참으로 설정된 경우, 요청의 내용 종류는
 application/json입니다. 그 외는 형식 내 직렬화된 JSON이 보내집니다.
 
-__인수__
+__인자__
 
 - __root__: 문자열; 표적 서버의 최상위 url.
 - __path__: 문자열; 이벤트가 보내질 `root`를 기준으로 한 상대적 경로
@@ -121,7 +119,7 @@ reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
 model.fit(X_train, Y_train, callbacks=[reduce_lr])
 ```
 
-__인수__
+__인자__
 
 - __monitor__: 관찰할 수량.
 - __factor__: 학습 속도를 줄일 인수.
@@ -194,7 +192,7 @@ keras.callbacks.BaseLogger(stateful_metrics=None)
 
 이 콜백은 모든 케라스 모델에 자동적으로 적용됩니다.
 
-__인수__
+__인자__
 
 - __stateful_metrics__: 세대에 걸쳐 평균을 내면 *안 되는*
     측정 항목의 문자열 이름의 Iterable.
@@ -239,7 +237,7 @@ keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbo
 
 관찰하는 수량이 개선되지 않으면 학습을 멈춥니다.
 
-__인수__
+__인자__
 
 - __monitor__: 관찰할 수량.
 - __min_delta__: 관찰하는 수량이 향상되었다고 판단할
@@ -281,7 +279,7 @@ keras.callbacks.LearningRateScheduler(schedule, verbose=0)
 
 학습 속도 스케쥴러.
 
-__인수__
+__인자__
 
 - __schedule__: 세대 색인(정수, 0에서 색인 시작)과 현재
     학습 속도를 인풋으로 받고, 새로운 학습 속도를
@@ -317,7 +315,7 @@ tensorboard --logdir=/full_path_to_your_logs
 (텐서플로우가 설치만 되어있다면), TensorBoard가 동작하기는 하지만,
 손실과 측정 항목 플롯을 보여주는 기능만 사용이 가능합니다.
 
-__인수__
+__인자__
 
 - __log_dir__: TensorBoard가 구문 분석할 로그 파일을
     저장할 위치 경로.
@@ -379,7 +377,7 @@ csv_logger = CSVLogger('training.log')
 model.fit(X_train, Y_train, callbacks=[csv_logger])
 ```
 
-__인수__
+__인자__
 
 - __filename__: csv 파일의 파일 이름, 예. 'run/log.csv'.
 - __separator__: csv 파일의 성분을 분리하는데 사용할 문자열.
@@ -408,7 +406,7 @@ keras.callbacks.LambdaCallback(on_epoch_begin=None, on_epoch_end=None, on_batch_
 - `on_train_begin`과 `on_train_end`는 다음 위치적 인수를 전달 받습니다:
 `logs`
 
-__인수__
+__인자__
 
 - __on_epoch_begin__: 각 세대의 시작에 호출됩니다.
 - __on_epoch_end__: 각 세대의 끝에 호출됩니다.
