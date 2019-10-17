@@ -37,7 +37,7 @@ Softmax 활성화 함수.
 __인자__
 
 - __x__: 입력 텐서.
-- __axis__: 정수, softmax 정규화<sub>normalization</sub>이 적용되는 축<sub>axis</sub>.
+- __axis__: `int`. softmax 정규화<sub>normalization</sub>이 적용되는 축<sub>axis</sub>.
 
 
 __반환값__
@@ -58,7 +58,7 @@ keras.activations.elu(x, alpha=1.0)
 ```
 
 
-Exponential linear unit.
+Exponential linear unit(ELU).
 
 __인자__
 
@@ -67,7 +67,7 @@ __인자__
 
 __반환값__
 
-Exponential linear unit의 활성값.  
+ELU의 활성값.  
 `x > 0` 이면 `x`,  
 `x < 0` 이면 `alpha * (exp(x)-1)`.
 
@@ -86,7 +86,7 @@ keras.activations.selu(x)
 ```
 
 
-Scaled Exponential Linear Unit (SELU).
+Scaled Exponential Linear Unit(SELU).
 
 SELU는 `scale * elu(x, alpha)`와 같으며, `alpha`와 `scale`은
 미리 정해지는 상수입니다. 가중치<sub>weights</sub>가 올바르게 초기화되고(`lecun_normal`를 확인해주십시오)
@@ -99,7 +99,7 @@ __인자__
 
 __반환값__
 
-Scaled exponential linear unit의 활성값 `scale * elu(x, alpha)`.
+SELU의 활성값 `scale * elu(x, alpha)`.
 
 __유의 사항__
 
@@ -172,9 +172,9 @@ Rectified Linear Unit.
 __인자__
 
 - __x__: 입력 텐서.
-- __alpha__: 부동소수. 음수 부분의 기울기. 디폴트 값은 0.
-- __max_value__: 부동소수. 포화 임계값.
-- __threshold__: 부동소수. 활성화를 위한 임계치.
+- __alpha__: `float`. 음수 부분의 기울기. 디폴트 값은 0.
+- __max_value__: `float`. 포화 임계값.
+- __threshold__: `float`. 활성화를 위한 임계치.
 
 __반환값__
 
@@ -291,4 +291,4 @@ __반환값__
 
 ## "고급 활성화 함수"에 대하여
 
-간단한 TensorFlow, Theano, CNTK의 활성화 함수보다 더 복잡한 함수들(eg. 학습 가능한 파라미터를 가진 활성화 함수)은 [Advanced Activation layers](layers/advanced-activations.md) 에서 확인할 수 있으며, `keras.layers.advanced_activations` 모듈에서 찾을 수 있습니다. 이는 `PReLU`와 `LeakyReLU`를 포함합니다.
+간단한 TensorFlow, Theano, CNTK의 활성화 함수보다 더 복잡한 함수들(예: 학습 가능한 파라미터를 가진 활성화 함수)은 [Advanced Activation layers](layers/advanced-activations.md) 에서 확인할 수 있으며, `keras.layers.advanced_activations` 모듈에서 찾을 수 있습니다. 이는 `PReLU`와 `LeakyReLU`를 포함합니다.
