@@ -52,7 +52,7 @@ model.add(Dense(32, input_dim=784))         # input_dim을 이용하여 입력 �
 모델을 학습시키기 전에 `compile` 메소드를 통해서 학습과정의 세부 사항을 설정합니다. `compile` 메소드는 다음 세 개의 인자를 입력받습니다.
 
 - 최적화 함수<sub>optimizer</sub>: 기존의 최적화 함수를(예: `rmsprop`, `adagrad` 등) 문자열로 된 식별자<sub>identifier</sub>를 통해 불러오거나 `Optimizer` 클래스의 인스턴스를 만들어서 사용할 수 있습니다([최적화 함수](/optimizers) 참고) 
-- 손실 함수<sub>loss function</sub>: 모델이 학습을 통해 최소화하고자 하는 목적 함수<sub>objective function</sub>입니다. 이 또한 기존 손실 함수의 문자열 식별자나(예: `categorical_crossentropy`, `mse` 등) 특정 목적 함수를 사용할 수 있습니다([손실 함수](/losses) 참고).
+- 손실 함수<sub>loss function</sub>: 모델이 학습을 통해 최소화하고자 하는 목적 함수<sub>objective function</sub>입니다. 이 또한 기존 손실 함수의 문자열 식별자(예: `categorical_crossentropy`, `mse` 등)를 입력하거나 별도의 목적 함수를 지정하여 사용할 수 있습니다([손실 함수](/losses) 참고).
 - 평가 지표<sub>metric</sub> 리스트: 모델의 성능을 평가할 지표를 리스트 형식으로 입력합니다. 예컨대 분류문제라면 `metrics=['accuracy']`를 통해 정확도<sub>accuracy</sub>를 산출할 수 있습니다. 평가 지표는 기존 지표 함수를 문자열 식별자로 불러오거나 사용자가 함수를 정의하여 지정할 수 있습니다([평가 지표](/metrics) 참고) 
 
 ```python
@@ -141,7 +141,7 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 - IMDB 영화 후기 감정 분류: 순서를 가진 문자열을 다루는 LSTM<sub>Long Short-Term Memory</sub> 모형
 - 로이터 뉴스<sub>Reuters Newswires</sub> 주제 분류: 다층 퍼셉트론<sub>Multilayer Perceptron</sub> 모형
 - MNIST 손으로 쓴 숫자 이미지 분류: 다층 신경망과 합성곱 신경망
-- LSTM을 이용한 문자열 수준의 텍스트 생성기
+- LSTM을 이용한 문자 단위 텍스트 생성기
 
 ...등등.
 
