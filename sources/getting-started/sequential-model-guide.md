@@ -2,7 +2,7 @@
 
 `Sequential` 모델은 층<sub>layer</sub>을 순서대로 쌓은 것입니다. 
 
-아래와 같이 각 층 인스턴스를 리스트 형식으로 나열하여 생성자<sub>constructor</sub>인 `Sequential`로 넘겨주면 모델이 만들어집니다:
+아래와 같이 각 층 인스턴스를 리스트 형식으로 나열하여 생성자<sub>constructor</sub>인 `Sequential`로 넘겨주면 모델이 만들어집니다.
 
 ```python
 from keras.models import Sequential             # Sequential 생성자를 불러옵니다.
@@ -17,7 +17,7 @@ model = Sequential([
 ])
 ```
 
-각 층을 리스트 형식으로 입력하는 방법 외에도, `Sequential` 생성자로 만든 모델에 `.add()` 메소드를 사용하면 손쉽게 새 층을 덧붙일 수 있습니다:
+각 층을 리스트 형식으로 입력하는 방법 외에도, `Sequential` 생성자로 만든 모델에 `.add()` 메소드를 사용하면 손쉽게 새 층을 덧붙일 수 있습니다.
 
 ```python
 model = Sequential()                    # 먼저 Sequential 생성자를 이용하여 빈 모델을 만들고,
@@ -29,7 +29,7 @@ model.add(Activation('relu'))           # Activation 층을 추가합니다.
 
 ## 입력 형태 지정하기
 
-각 모델은 어떤 형태<sub>shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 형태 정보를 받습니다 (이후의 층들은 자동으로 이전 층의 출력 정보를 입력 정보로서 채택하여 형태를 추정합니다). 형태 정보는 다음과 같은 방법으로 입력할 수 있습니다:
+각 모델은 어떤 형태<sub>shape</sub>의 값이 입력될지 미리 알아야 합니다. 때문에 `Sequential` 모델의 첫 번째 층은 입력할 데이터의 형태 정보를 받습니다 (이후의 층들은 자동으로 이전 층의 출력 정보를 입력 정보로서 채택하여 형태를 추정합니다). 형태 정보는 다음과 같은 방법으로 입력할 수 있습니다.
 
 - 첫 번째 층의 `input_shape` 인자<sub>argument</sub>에 형태를 입력하는 방법입니다. `input_shape` 인자는 입력 데이터의 각 차원별 크기를 나타내는 정수값들이 나열된 튜플<sub>tuple</sub>이며, 정수 대신 `None`을 쓸 경우 아직 정해지지 않은 양의 정수를 나타냅니다. 배치<sub>batch</sub> 크기는 `input_shape` 인자에 포함되지 않습니다.
 - `input_shape` 인자는 입력 값의 크기와 시계열 입력의 길이를 포괄합니다. 따라서 `Dense`와 같이 2D 처리를 하는 층의 경우 `input_shape` 대신에 `input_dim` 인자를 통해서도 입력 크기를 지정할 수 있으며, 시계열과 같이 3D 처리를 하는 층은 `input_dim`과 `input_length`의 두 인자를 사용해서 입력 차원의 크기와 시계열 길이를 각각 지정할 수 있습니다.
