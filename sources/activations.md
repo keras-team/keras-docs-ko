@@ -14,7 +14,8 @@ model.add(Activation('tanh'))
 ```python
 model.add(Dense(64, activation='tanh'))
 ```
-여러분은 TensorFlow, Theano, CNTK 의 원소별 연산하는<sub>element-wise</sub> 함수도 활성화 함수로 사용할 수 있습니다.
+
+여러분은 TensorFlow, Theano, CNTK에서 제공하는 원소별<sub>element-wise</sub> 연산도 활성화 함수로 사용할 수 있습니다.
 
 ```python
 from keras import backend as K
@@ -37,7 +38,7 @@ Softmax 활성화 함수.
 __인자__
 
 - __x__: 입력 텐서.
-- __axis__: `int`. softmax 정규화<sub>normalization</sub>이 적용되는 축<sub>axis</sub>.
+- __axis__: `int`. Softmax 정규화<sub>normalization</sub>가 적용되는 축<sub>axis</sub>.
 
 
 __반환값__
@@ -63,7 +64,7 @@ Exponential linear unit(ELU).
 __인자__
 
 - __x__: 입력 텐서.
-- __alpha__: 스칼라, 음수 부분의 기울기.
+- __alpha__: 스칼라. 음수 부분의 기울기.
 
 __반환값__
 
@@ -95,7 +96,7 @@ SELU는 `scale * elu(x, alpha)`와 같으며, `alpha`와 `scale`은
 
 __인자__
 
-- __x__: 활성 함수를 적용하려는 텐서 또는 변수.
+- __x__: 입력 텐서.
 
 __반환값__
 
@@ -160,7 +161,7 @@ keras.activations.relu(x, alpha=0.0, max_value=None, threshold=0.0)
 ```
 
 
-Rectified Linear Unit.
+Rectified Linear Unit(ReLU).
 
 디폴트 인자들을 사용하면 원소별로 연산된 `max(x, 0)`를 반환합니다.
 
@@ -178,7 +179,7 @@ __인자__
 
 __반환값__
 
-텐서.
+ReLU 변환으로 생성된 텐서.
 
 ----
 
@@ -198,8 +199,7 @@ __인자__
 
 __반환값__
 
-Hyperbolic tangent의 활성값:
-`tanh(x) = (exp(x) - exp(-x)) / (exp(x) + exp(-x))`
+Hyperbolic tangent의 활성값 `tanh(x) = (exp(x) - exp(-x)) / (exp(x) + exp(-x))`
 
 
 ----
@@ -220,7 +220,7 @@ __인자__
 
 __반환값__
 
-Sigmoid의 활성값: `1 / (1 + exp(-x))`.
+Sigmoid의 활성값 `1 / (1 + exp(-x))`.
 
 ----
 
@@ -232,7 +232,7 @@ keras.activations.hard_sigmoid(x)
 ```
 
 
-Hard sigmoid activation function.
+Hard sigmoid 활성화 함수.
 
 sigmoid 활성화 함수보다 연산 속도가 빠릅니다.
 
@@ -242,7 +242,7 @@ __인자__
 
 __반환값__
 
-Hard sigmoid의 활성값:
+Hard sigmoid의 활성값.
 
 - `x < -2.5` 이면 `0`
 - `x > 2.5` 이면 `1`
@@ -266,7 +266,7 @@ __인자__
 
 __반환값__
 
-Exponential의 활성값: `exp(x)`.
+Exponential의 활성값 `exp(x)`.
 
 ----
 
