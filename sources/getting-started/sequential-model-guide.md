@@ -51,9 +51,9 @@ model.add(Dense(32, input_dim=784))         # input_dim을 이용하여 입력 �
 
 모델을 학습시키기 전에 `compile` 메소드를 통해서 학습과정의 세부 사항을 설정합니다. `compile` 메소드는 다음 세 개의 인자를 입력받습니다.
 
-- 최적화 함수<sub>optimizer</sub>: 기존의 최적화 함수를(예: `rmsprop`, `adagrad` 등) 문자열로 된 식별자<sub>identifier</sub>를 통해 불러오거나 `Optimizer` 클래스의 인스턴스를 만들어서 사용할 수 있습니다([최적화 함수](/optimizers) 참고) 
+- 최적화 함수<sub>optimizer</sub>: 기존의 최적화 함수를(예: `rmsprop`, `adagrad` 등) 문자열로 된 식별자<sub>identifier</sub>를 통해 불러오거나 `Optimizer` 클래스의 인스턴스를 만들어서 사용할 수 있습니다([최적화 함수](/optimizers) 참고). 
 - 손실 함수<sub>loss function</sub>: 모델이 학습을 통해 최소화하고자 하는 목적 함수<sub>objective function</sub>입니다. 이 또한 기존 손실 함수의 문자열 식별자(예: `categorical_crossentropy`, `mse` 등)를 입력하거나 별도의 목적 함수를 지정하여 사용할 수 있습니다([손실 함수](/losses) 참고).
-- 평가 지표<sub>metric</sub> 리스트: 모델의 성능을 평가할 지표를 리스트 형식으로 입력합니다. 예컨대 분류문제라면 `metrics=['accuracy']`를 통해 정확도<sub>accuracy</sub>를 산출할 수 있습니다. 평가 지표는 기존 지표 함수를 문자열 식별자로 불러오거나 사용자가 함수를 정의하여 지정할 수 있습니다([평가 지표](/metrics) 참고) 
+- 평가 지표<sub>metric</sub> 리스트: 모델의 성능을 평가할 지표를 리스트 형식으로 입력합니다. 예컨대 분류문제라면 `metrics=['accuracy']`를 통해 정확도<sub>accuracy</sub>를 산출할 수 있습니다. 평가 지표는 기존 지표 함수를 문자열 식별자로 불러오거나 사용자가 함수를 정의하여 지정할 수 있습니다([평가 지표](/metrics) 참고). 
 
 ```python
 # 다중 분류 문제 예시 
@@ -146,7 +146,7 @@ model.fit(data, one_hot_labels, epochs=10, batch_size=32)
 ...등등.
 
 
-### 다중 소프트맥스 분류<sub>Multi-class Softmax Classification</sub>를 위한 다층 신경망(MLP):
+### 다중 소프트맥스 분류<sub>Multi-class Softmax Classification</sub>를 위한 다층 신경망(MLP)
 
 ```python
 import keras
@@ -183,7 +183,7 @@ score = model.evaluate(x_test, y_test, batch_size=128)
 ```
 
 
-### 이진 분류<sub>Binary Classification</sub>를 위한 다층 신경망(MLP):
+### 이진 분류<sub>Binary Classification</sub>를 위한 다층 신경망(MLP)
 
 ```python
 import numpy as np
@@ -214,7 +214,7 @@ score = model.evaluate(x_test, y_test, batch_size=128)
 ```
 
 
-### VGG 유형의 합성곱 신경망:
+### VGG 유형의 합성곱 신경망
 
 ```python
 import numpy as np
@@ -256,7 +256,7 @@ score = model.evaluate(x_test, y_test, batch_size=32)
 ```
 
 
-### LSTM을 사용한 순서형<sub>sequence</sub> 데이터의 분류:
+### LSTM을 사용한 순서형<sub>sequence</sub> 데이터의 분류
 
 ```python
 from keras.models import Sequential
@@ -280,7 +280,7 @@ model.fit(x_train, y_train, batch_size=16, epochs=10)
 score = model.evaluate(x_test, y_test, batch_size=16)
 ```
 
-### 1차원 합성곱<sub>1D Convolution</sub>을 활용한 순서형 데이터 분류:
+### 1차원 합성곱<sub>1D Convolution</sub>을 활용한 순서형 데이터 분류
 
 ```python
 from keras.models import Sequential
