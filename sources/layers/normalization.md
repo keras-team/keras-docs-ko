@@ -14,8 +14,8 @@ __인자 설명__
 - __axis__: Integer, 정규화되어야 하는 축을 의미합니다.(일반적으로 feature axis입니다.) 예를 들어, `data_format="channels_first"`가 있는 `Conv2D`층의 다음에 `axis=1`인 `BatchNormalization`을 설정할 수 있습니다.
 - __momentum__: 이동 평균(moving mean) 및 이동 분산(moving variance)에 대한 모멘텀을 의미합니다. 
 - __epsilon__: 0으로 나누기를 방지하기 위해 분산에 추가되는 작은 float값 입니다.
-- __center__: True일 경우, 정규화된 텐서에 `beta`만큼의 거리(offset)를 추가합니다. False인 경우 `beta`는 무시됩니다. 
-- __scale__: True일 경우, `gamma`를 곱합니다. False인 경우 `gamma`는 사용되지 않습니다. 다음 층이 선형(예를 들어, `nn.relu`)일때, Scaling이 다음 층에서 수행될 것이기 때문에 사용되지 않을 수 있습니다. 
+- __center__: `True`일 경우, 정규화된 텐서에 `beta`만큼의 거리(offset)를 추가합니다. `False`인 경우 `beta`는 무시됩니다. 
+- __scale__: `True`일 경우, `gamma`를 곱합니다. `False`인 경우 `gamma`는 사용되지 않습니다. 다음 층이 선형일 때(예: `nn.relu`), Scaling이 다음 층에서 수행될 것이기 때문에 사용되지 않을 수 있습니다. 
 - __beta_initializer__: beta weight를 위한 초기화 함수<sub>initializer</sub>입니다. 
 - __gamma_initializer__: gamma weight를 위한 초기화 함수입니다.
 - __moving_mean_initializer__: 이동 평균(moving mean)을 위한 초기화 함수입니다.
