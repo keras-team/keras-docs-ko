@@ -107,7 +107,7 @@ classes = model.predict(x_test, batch_size=128)
 
 질문에 대답하는 시스템, 이미지 분류 모델, 신경망 튜링 기계나 그 외의 다른 모델도 이처럼 빠르게 만들 수 있습니다. 딥러닝의 기본이 되는 아이디어가 간단한데 그 실행이 복잡할 이유가 어디 있겠습니까?
 
-좀더 심화된 케라스 튜토리얼을 원하신다면 다음을 참고하십시오.
+조금  심화된 케라스 튜토리얼을 원하신다면 다음을 참고하십시오.
 
 - [Getting started with the Sequential model](https://keras.io/getting-started/sequential-model-guide)
 - [Getting started with the functional API](https://keras.io/getting-started/functional-api-guide)
