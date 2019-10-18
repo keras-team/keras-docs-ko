@@ -78,7 +78,7 @@ __인자__
 ```python
 keras.initializers.TruncatedNormal(mean=0.0, stddev=0.05, seed=None)
 ```
-정규분포 안의 일부 제한된 영역에서 파라미터 값을 무작위로 생성합니다. 정규분포로부터 무작위 값을 선택한다는 점에서 `RandomNormal`과 비슷하지만, 선택 범위를 평균으로부터 `2`표준편차 안쪽으로 제한합니다. 신경망의 가중치 또는 필터 초기값 생성에 쓸 방식으로 권장합니다.
+절단 정규분포<sub>truncated normal distribution</sub>로부터 파라미터 값을 무작위로 생성합니다. 정규분포로부터 무작위 값을 선택한다는 점에서 `RandomNormal`과 비슷하지만, 선택 범위를 평균으로부터 `2`표준편차 안쪽으로 제한하기 때문에 전체 분포는 `+-2` 표준편차 바깥이 잘려나간 형태가 됩니다. 신경망의 가중치 또는 필터 초기값 생성에 쓸 방식으로 권장합니다.
 
 __인자__
 - __mean__: `int` 혹은 `float`형식의 스칼라 값 또는 같은 형식의 스칼라 텐서. 파라미터 생성에 사용할 정규분포의 평균을 정합니다. 기본값은 `0`입니다.
@@ -93,7 +93,7 @@ keras.initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='norma
 ```
 가중치 텐서의 규모에 따라 초기값 생성에 사용할 분포를 조정합니다.  
 
-먼저 정규분포(`distribution="normal"`)를 선택할 경우, `0`을 평균으로 `sqrt(scale / n)`의 표준편차를 가진 정규분포의 `+-2`표준편차 범위 안에서 값을 선택합니다. 이때 `n`값은 `mode`인자 지정에 따라 다음과 같이 달라집니다.
+먼저 정규분포(`distribution="normal"`)를 선택할 경우, `0`을 평균으로 `sqrt(scale / n)`의 표준편차를 가진 절단 정규분포의 범위 안에서 값을 선택합니다. 이때 `n`값은 `mode`인자 지정에 따라 다음과 같이 달라집니다.
 - `mode = "fan_in"`의 경우 `n`은 가중치 텐서의 입력 차원 크기입니다. 
 - `mode = "fan_out"`의 경우 `n`은 가중치 텐서의 출력 차원 크기입니다. 
 - `mode = "fan_avg"`의 경우 입력 차원, 출력 차원 크기의 평균값이 됩니다.
@@ -101,9 +101,9 @@ keras.initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='norma
 또는 균등분포(`distribution="uniform"`)를 선택할 경우 `[-limit, limit]`의 범위를 가진 균등분포로부터 값이 선택됩니다. 여기서 `limit`은 `sqrt(3 * scale / n)`으로 정의됩니다. 위와 마찬가지로 `n`값은 `mode`인자에 따라 정해집니다.
 
 __인자__
-- __scale__: 스케일링 팩터(양의 `float`)입니다. 기본값은 `1.0`입니다.
-- __mode__: `"fan_in"`, `"fan_out"`, `"fan_avg"` 중 하나입니다. 기본값은 `"fan_in"`입니다.
-- __distribution__: `"normal"`과 `"uniform"` 가운데에서 분포의 종류를 정합니다. 기본값은 `"normal"`입니다.
+- __scale__: 스케일링 값입니다. 양의 `float`를 입력해야 하며 기본값은 `1.0`입니다.
+- __mode__: `"fan_in"`, `"fan_out"`, `"fan_avg"` 가운데에서 하나를 지정합니다. 기본값은 `"fan_in"`입니다.
+- __distribution__: `"normal"`과 `"uniform"` 가운데에서 분포의 종류를 지정합니다. 기본값은 `"normal"`입니다.
 - __seed__: `int`. 무작위 생성에 사용할 시드를 정합니다. 기본값은 `None`입니다.
 
 __오류__
@@ -253,7 +253,7 @@ __참조__
 
     
 ----
-신경망의 각 층에서 초기값 생성 함수는 해당 초기값 생성 함수의 이름과 동일한 문자열<sub>string</sub> 또는 호출 가능한 함수<sub>callable</sub>의 형태로 지정할 수 있습니다. 
+케라스 모델의 각 층에 초기값 생성 함수를 적용하는 방법은 크게 두 가지입니다. 먼저 케라스가 제공하는 함수인 경우 `(kernel, bias 등)_initializer` 인자에 초기값 생성 함수의 이름과 동일한 문자열<sub>string</sub>을 지정하는 방법이 있습니다. 그리고 문자열 대신 호출 가능한 함수<sub>callable</sub>의 형태로 직접 지정하는 방법이 있습니다.  
 
 ```python
 from keras import initializers
