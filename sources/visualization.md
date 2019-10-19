@@ -16,7 +16,7 @@ plot_model(model, to_file='model.png')
 - `dpi`(기본값은 96)는 이미지 dpi를 설정합니다.
 
 또한 직접 `pydot.Graph`오브젝트를 만들어 사용할 수도 있습니다. 
-아래는 ipython notebook에 나타낸 예시입니다.
+아래는 IPython Notebook에 나타낸 예시입니다.
 ```python
 from IPython.display import SVG
 from keras.utils import model_to_dot
