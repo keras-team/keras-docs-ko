@@ -8,7 +8,7 @@ keras.layers.LocallyConnected1D(filters, kernel_size, strides=1, padding='valid'
 입력값<sub>input</sub>이 1D인 부분 연결<sub>locally connectded</sub> 층<sub>Layer</sub>.
 
 `LocallyConnected1D` 층은 `Conv1D` 층과 비슷하지만
-노드끼리 가중치를<sub>Weight</sub> 공유하지 않는다는 차이점이 있습니다.
+노드끼리 가중치를<sub>weight</sub> 공유하지 않는다는 차이점이 있습니다.
 다시 말해, 각 노드에 다른 필터를 적용한다는 의미입니다.
 
 __예시__
