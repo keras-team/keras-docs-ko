@@ -10,7 +10,7 @@ plot_model(model, to_file='model.png')
 
 `plot_model`은 네 가지 인자를 전달받습니다:
 
-- `show_shapes`(기본값은 `False`)는 결과의 형태을 그래프에 나타낼지 여부를 설정합니다.
+- `show_shapes`(기본값은 `False`)는 결과의 형태을 그래프에 나타낼 것인지 여부를 설정합니다.
 - `show_layer_names`(기본값은 `True`)는 층의 이름을 그래프에 나타낼 것인지 여부를 설정합니다.
 - `expand_nested`(기본값은 `False`)는 중첩된 모델을 그래프상에서 클러스터로 확장할 것인지 여부를 설정합니다.
 - `dpi`(기본값은 96)는 이미지 dpi를 설정합니다.
