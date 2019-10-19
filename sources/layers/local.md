@@ -9,7 +9,7 @@ keras.layers.LocallyConnected1D(filters, kernel_size, strides=1, padding='valid'
 
 `LocallyConnected1D` 층은 `Conv1D` 층과 비슷하지만
 노드끼리 가중치<sub>weight</sub>를 공유하지 않는다는 차이점이 있습니다.
-다시 말해, 각 노드에 다른 필터를 적용한다는 의미입니다.
+다시 말해, 각 노드에 다른 필터를 적용합니다.
 
 __예시__
 
@@ -78,14 +78,14 @@ keras.layers.LocallyConnected2D(filters, kernel_size, strides=(1, 1), padding='v
 입력값이 2D인 부분 연결 층.
 
 
-`LocallyConnected2D` 층은 `Conv1D` 층과 비슷하지만
+`LocallyConnected2D` 층은 `Conv2D` 층과 비슷하지만
 노드끼리 가중치를 공유하지 않는다는 차이점이 있습니다.
-다시 말해, 각 노드에 다른 필터를 적용한다는 의미입니다.
+다시 말해, 각 노드에 다른 필터를 적용합니다.
 
 __예시__
 
 ```python
-# 64개의 출력값을 갖고 가중치를 공유하지 않는 3x3 컨볼루션을
+# 64개의 출력값을 갖고 가중치를 공유하지 않는 3x3 합성곱을
 # `data_format="channels_last"`으로 설정된 32x32 이미지에 적용합니다:
 model = Sequential()
 model.add(LocallyConnected2D(64, (3, 3), input_shape=(32, 32, 3)))
@@ -93,7 +93,7 @@ model.add(LocallyConnected2D(64, (3, 3), input_shape=(32, 32, 3)))
 # 이 층이 (30*30)*(3*3*3*64) + (30*30)*64개의
 # 매개변수를 사용한다는 점을 유의하십시오
 
-# 32개의 출력값을 갖고 가중치를 공유하지 않는 3x3 컨볼루션을 추가합니다.
+# 32개의 출력값을 갖고 가중치를 공유하지 않는 3x3 합성곱 층을 추가합니다.
 model.add(LocallyConnected2D(32, (3, 3)))
 # 추가한 뒤의 model.output_shape == (None, 28, 28, 32)
 ```
@@ -101,12 +101,12 @@ model.add(LocallyConnected2D(32, (3, 3)))
 __인자__
 
 - __filters__: `int`, 출력 공간의 차원
-    (다시 말해 컨볼루션의 출력 필터의 개수).
+    (다시 말해 합성곱 층의 출력 필터의 개수).
 - __kernel_size__: `int` 1개, 또는 2D 컨볼루션 창의
     넓이와 높이인 `int` 2개로 이루어진 튜플/리스트.
     `int` 1개인 경우 모든 차원에 같은 값으로 설정합니다.
 - __strides__: `int` 1개, 혹은 넓이와 높이의
-    컨볼루션 스트라이드를 설정하는 `int` 2개로 이루어진 튜플/리스트.
+    스트라이드인 `int` 2개로 이루어진 튜플/리스트.
     `int` 1개인 경우 모든 차원에 같은 값으로 설정합니다.
 - __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
     차후 `"same"`을 지원할 계획입니다.
