@@ -20,7 +20,7 @@ __예시__
 model = Sequential()
 model.add(LocallyConnected1D(64, 3, input_shape=(10, 32)))
 # 현재 model.output_shape == (None, 8, 64)
-# 새로운 conv1d를 추가합니다
+# 새로운 conv1D를 추가합니다
 model.add(LocallyConnected1D(32, 3))
 # LocallyConnected1D를 추가한 뒤의 model.output_shape == (None, 6, 32)
 ```
