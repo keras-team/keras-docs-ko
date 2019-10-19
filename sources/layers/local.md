@@ -26,21 +26,21 @@ model.add(LocallyConnected1D(32, 3))
 
 __인자__
 
-- __filters__: `int`, 출력값의 차원
+- __filters__: `int`. 출력값의 차원
     (다시 말해, 합성곱 출력값 필터의 개수).
-- __kernel_size__: `int` 혹은 `int` 하나로 이루어진 튜플/리스트,
+- __kernel_size__: `int` 또는 1개의 `int`로 이루어진 튜플/리스트.
     1D 합성곱의 창<sub>window</sub> 길이를 결정합니다.
-- __strides__: `int` 혹은 `int` 하나로 이루어진 튜플/리스트,
+- __strides__: `int` 또는 1개의 `int`로 이루어진 튜플/리스트.
     합성곱의 스트라이드를 결정합니다.
-    `__strides__`와 `dilation_rate`  중 하나는 반드시 1이어야 합니다.
+    `strides`와 `dilation_rate`  중 하나는 반드시 1이어야 합니다.
 - __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
     차후 `"same"`을 지원할 계획입니다.
-- __data_format__: `string`, `"channels_first"`, `"channels_last"` 중 하나.    
+- __data_format__: `string`. `"channels_first"`, `"channels_last"` 중 하나.    
 - __activation__: 사용할 활성화 함수<sub>activation</sub>
     ([활성화](../activations.md) 참조).
     따로 설정하지 않는 경우 활성화가 적용되지 않습니다
     (다시 말해 "선형적" 활성화: `a(x) = x`).
-- __use_bias__: `bool`, 층에서 편향<sub>bias</sub> 벡터를 사용하는지 여부.
+- __use_bias__: `bool`. 층에서 편향<sub>bias</sub> 벡터를 사용하는지 여부.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수
     ([초기화 함수](../initializers.md) 참조).
 - __bias_initializer__: 편향 벡터의 초기화 함수
@@ -63,7 +63,7 @@ __입력값 형태__
 __출력값 형태__
 
 3D 텐서: `(batch_size, new_steps, filters)`
-패딩 혹은 스트라이드로 인해 `steps` 값이 변할 수 있습니다.
+패딩 또는 스트라이드로 인해 `steps` 값이 변할 수 있습니다.
     
 ----
 
@@ -99,18 +99,18 @@ model.add(LocallyConnected2D(32, (3, 3)))
 
 __인자__
 
-- __filters__: `int`, 출력 공간의 차원
+- __filters__: `int`. 출력 공간의 차원
     (다시 말해 합성곱 층의 출력 필터의 개수).
-- __kernel_size__: `int` 1개, 또는 2D 합성곱 창의
+- __kernel_size__: `int`, 또는 2D 합성곱 창의
     넓이와 높이를 나타내는 `int` 2개로 이루어진 튜플/리스트.
     `int` 1개인 경우 모든 차원에 같은 값으로 설정합니다.
-- __strides__: `int` 1개, 혹은 넓이와 높이의
+- __strides__: `int`, 또는 넓이와 높이의
     스트라이드를 나타내는 `int` 2개로 이루어진 튜플/리스트.
     `int` 1개인 경우 모든 차원을 같은 값으로 설정합니다.
 - __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
     차후 `"same"`을 지원할 계획입니다.
 - __data_format__: `string`,
-    `"channels_last"` (기본값) 혹은 `"channels_first"`.
+    `"channels_last"` (기본값) 또는 `"channels_first"`.
     입력값의 형태.
     `"channels_last"`는 `(batch, height, width, channels)`, `"channels_first"`는
     `(batch, channels, height, width)`의 형태를 의미합니다.
