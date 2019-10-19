@@ -1,6 +1,6 @@
-## 초기값 생성 함수 사용법<sub>Usage of initializers</sub>
+## 초기화 함수 사용법<sub>Usage of initializers</sub>
 
-초기값 생성 함수<sub>initializer</sub>는 케라스 층<sub>layer</sub>의 파라미터 초기값을 어떤 방식으로 생성할 것인지를 결정합니다. 모든 층에서 다 똑같은 것은 아니지만, 대부분의 경우 `kernel_initializer`와 `bias_initializer` 인자<sub>argument</sub>를 사용해서 가중치<sub>weight</sub>와 편향<sub>bias</sub>의 초기값 생성 함수를 지정합니다.
+초기화 함수<sub>initializer</sub>는 케라스 층<sub>layer</sub>의 파라미터 초기값을 어떤 방식으로 생성할 것인지를 결정합니다. 모든 층에서 다 똑같은 것은 아니지만, 대부분의 경우 `kernel_initializer`와 `bias_initializer` 인자<sub>argument</sub>를 사용해서 가중치<sub>weight</sub>와 편향<sub>bias</sub>의 초기화 함수를 지정합니다.
 
 ```python
 model.add(Dense(64,
@@ -8,7 +8,7 @@ model.add(Dense(64,
                 bias_initializer='zeros'))
 ```
 
-## 케라스가 제공하는 초기값 생성 함수<sub>Available initializers</sub>
+## 케라스가 제공하는 초기화 함수<sub>Available initializers</sub>
 아래의 함수들은 `keras.initializers` 모듈에 내장되어 있습니다.
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/initializers.py#L14)</span>
@@ -16,7 +16,7 @@ model.add(Dense(64,
 ```python
 keras.initializers.Initializer()
 ```
-초기값 생성 함수의 기본 클래스로 모든 초기값 생성 함수는 이 클래스를 상속받습니다.
+초기화 함수의 기본 클래스로 모든 초기화 함수는 이 클래스를 상속받습니다.
 
 ----
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/initializers.py#L33)</span>
@@ -150,7 +150,7 @@ __인자__
 
 __반환값__  
 
-Glorot 정규분포 방식을 따르는 초기값 생성 함수.
+Glorot 정규분포 방식을 따르는 초기화 함수.
 
 __참조__
 - [Understanding the difficulty of training deep feedforward neural networks](http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf)
@@ -169,7 +169,7 @@ __인자__
 
 __반환값__  
 
-Glorot 균등분포 방식을 따르는 초기값 생성 함수.
+Glorot 균등분포 방식을 따르는 초기화 함수.
 
 __참조__
 - [Understanding the difficulty of training deep feedforward neural networks](http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf)
@@ -188,7 +188,7 @@ __인자__
 
 __반환값__  
 
-He 정규분포 방식을 따르는 초기값 생성 함수.
+He 정규분포 방식을 따르는 초기화 함수.
 
 __참조__
 - [Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification](http://arxiv.org/abs/1502.01852)
@@ -207,7 +207,7 @@ __인자__
 
 __반환값__  
 
-He 균등분포 방식을 따르는 초기값 생성 함수.
+He 균등분포 방식을 따르는 초기화 함수.
 
 __참조__
 - [Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification](http://arxiv.org/abs/1502.01852)
@@ -226,7 +226,7 @@ __인자__
 
 __반환값__  
 
-LeCun 정규분포 방식을 따르는 초기값 생성 함수.
+LeCun 정규분포 방식을 따르는 초기화 함수.
 
 __참조__
 - [Self-Normalizing Neural Networks](https://arxiv.org/abs/1706.02515)
@@ -246,14 +246,14 @@ __인자__
 
 __반환값__  
 
-LeCun 균등분포 방식을 따르는 초기값 생성 함수.
+LeCun 균등분포 방식을 따르는 초기화 함수.
 
 __참조__
 - [Efficient BackProp](http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf)
 
     
 ----
-케라스 모델의 각 층에 초기값 생성 함수를 적용하는 방법은 크게 두 가지입니다. 먼저 케라스가 제공하는 함수인 경우 `(kernel|bias)_initializer` 인자에 초기값 생성 함수의 이름과 동일한 문자열<sub>string</sub>을 지정하는 방법이 있습니다. 그리고 문자열 대신 호출 가능한 함수<sub>callable</sub>의 형태로 직접 지정하는 방법이 있습니다.  
+케라스 모델의 각 층에 초기화 함수를 적용하는 방법은 크게 두 가지입니다. 먼저 케라스가 제공하는 함수인 경우 `(kernel|bias)_initializer` 인자에 초기화 함수의 이름과 동일한 문자열<sub>string</sub>을 지정하는 방법이 있습니다. 그리고 문자열 대신 호출 가능한 함수<sub>callable</sub>의 형태로 직접 지정하는 방법이 있습니다.  
 
 ```python
 from keras import initializers
@@ -265,7 +265,7 @@ model.add(Dense(64, kernel_initializer='random_normal'))                        
 ```
 
 ----
-## 사용자 정의 초기값 생성 함수<sub>Using custom initializers</sub>
+## 사용자 정의 초기화 함수<sub>Using custom initializers</sub>
 사용자 정의 함수를 만들어 사용하는 경우, 인자로 `shape`(초기값을 생성할 파라미터의 형태)와 `dtype`(생성할 값의 자료형)을 전달받아야 합니다.
 
 ```python
