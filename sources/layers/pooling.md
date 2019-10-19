@@ -227,7 +227,7 @@ __출력값 형태__
 keras.layers.AveragePooling3D(pool_size=(2, 2, 2), strides=None, padding='valid', data_format=None)
 ```
 
-(공간 혹은 시공간) 3D 자료형에 대한 평균 풀링.
+(공간 혹은 시공간) 3D 데이터에 대한 평균 풀링.
 
 __인자__
 
@@ -274,14 +274,14 @@ __출력값 형태__
 keras.layers.GlobalMaxPooling1D(data_format='channels_last')
 ```
 
-시계열 자료형에 대한 전역 최대값 풀링.
+시계열 데이터에 대한 전역 최대값 풀링.
 
 __인자__
 
-- __data_format__: `string`,
-    `channels_last` (기본값) 혹은 `channels_first`.
+- __data_format__: `str`.
+    `'channels_last'`(기본값) 또는 `'channels_first'`.
     입력값의 형태.
-    `channels_last`는 `(batch, steps, features)`, `channels_first`는
+    `'channels_last'`는 `(batch, steps, features)`, `'channels_first'`는
     `(batch, features, steps)` 형태를 의미합니다.
 
 __입력값 형태__
@@ -307,14 +307,14 @@ __출력값 형태__
 keras.layers.GlobalAveragePooling1D(data_format='channels_last')
 ```
 
-Global average pooling operation for temporal data.
+시계열 데이터에 대한 전역 평균 풀링.
 
 __인자__
 
-- __data_format__: `string`,
-    `channels_last` (기본값) 혹은 `channels_first`.
+- __data_format__: `str`.
+    `'channels_last'`(기본값) 또는 `'channels_first'`.
     입력값의 형태.
-    `channels_last`는 `(batch, steps, features)`, `channels_first`는
+    `'channels_last'`는 `(batch, steps, features)`, `'channels_first'`는
     `(batch, features, steps)` 형태를 의미합니다.
 
 __입력값 형태__
@@ -340,17 +340,18 @@ __출력값 형태__
 keras.layers.GlobalMaxPooling2D(data_format=None)
 ```
 
-공간 자료형에 대한 전역 최대값 풀링.
+공간 데이터에 대한 전역 최대값 풀링.
 
 __인자__
 
-- __data_format__: `string`,
-    `channels_last` (기본값) 혹은 `channels_first`.
-    입력값의 형태.
-    `channels_last`는 `(batch, height, width, channels)`, `channels_first`는
-    `(batch, channels, height, width)` 형태를 의미합니다.
-    기본 설정은 `~/.keras/keras.json`의 `image_data_format`에서 설정할 수 있습니다.
-    따로 변경하지 않으면, `"channels_last"`입니다.
+- __data_format__: `str`.
+    `'channels_last'` 또는 `'channels_first'`.
+    입력 인자의 순서.
+    `'channels_last'`는 `(batch, rows, cols, channels)`, `'channels_first'`는
+    `(batch, channels, rows, cols)` 형태를 의미합니다.
+    기본 설정은 `~/.keras/keras.json`의
+    `image_data_format`에서 설정할 수 있습니다.
+    따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
 __입력값 형태__
 
@@ -375,17 +376,18 @@ __출력값 형태__
 keras.layers.GlobalAveragePooling2D(data_format=None)
 ```
 
-공간 자료형에 대한 전역 평균 풀링.
+공간 데이터에 대한 전역 평균 풀링.
 
 __인자__
 
-- __data_format__: `string`,
-    `channels_last` (기본값) 혹은 `channels_first`.
-    입력값의 형태.
-    `channels_last`는 `(batch, height, width, channels)`, `channels_first`는
-    `(batch, channels, height, width)` 형태를 의미합니다.
-    기본 설정은 `~/.keras/keras.json`의 `image_data_format`에서 설정할 수 있습니다.
-    따로 변경하지 않으면, `"channels_last"`입니다.
+- __data_format__: `str`.
+    `'channels_last'` 또는 `'channels_first'`.
+    입력 인자의 순서.
+    `'channels_last'`는 `(batch, rows, cols, channels)`, `'channels_first'`는
+    `(batch, channels, rows, cols)` 형태를 의미합니다.
+    기본 설정은 `~/.keras/keras.json`의
+    `image_data_format`에서 설정할 수 있습니다.
+    따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
 __입력값 형태__
 
@@ -410,17 +412,20 @@ __출력값 형태__
 keras.layers.GlobalMaxPooling3D(data_format=None)
 ```
 
-3D 데이터에 대한 전역 최대값 풀링
+(공간 혹은 시공간) 3D 데이터에 대한 전역 최대값 풀링
 
 __인자__
 
-- __data_format__: `string`,
-    `channels_last` (기본값) 혹은 `channels_first`.
-    입력값의 형태. `channels_last`는
-    `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)`, `channels_first`는
-    `(batch, channels, spatial_dim1, spatial_dim2, spatial_dim3)` 형태를 의미합니다.
-    기본 설정은 `~/.keras/keras.json`의 `image_data_format`에서 설정할 수 있습니다.
-    따로 변경하지 않으면, `"channels_last"`입니다.
+- __data_format__: `str`.
+    `'channels_last'` 또는 `'channels_first'`.
+    입력 인자의 순서. `'channels_last'`는
+    `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)`
+    , `'channels_first'`는
+    `(batch, channels, spatial_dim1, spatial_dim2, spatial_dim3)`
+    형태를 의미합니다.
+    기본 설정은 `~/.keras/keras.json`의
+    `image_data_format`에서 설정할 수 있습니다.
+    따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
 __입력값 형태__
 
@@ -445,18 +450,20 @@ __출력값 형태__
 keras.layers.GlobalAveragePooling3D(data_format=None)
 ```
 
-3D 자료형에 대한 전역 평균 풀링
+(공간 혹은 시공간) 3D 데이터에 대한 전역 평균 풀링
 
 __인자__
 
-- __data_format__: `string`,
-    `channels_last` (기본값) 혹은 `channels_first`.
-    입력값의 형태. `channels_last`는
-    `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)`,
-    `channels_first`는 `(batch, channels, spatial_dim1, spatial_dim2, spatial_dim3)`
+- __data_format__: `str`.
+    `'channels_last'` 또는 `'channels_first'`.
+    입력 인자의 순서. `'channels_last'`는
+    `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)`
+    , `'channels_first'`는
+    `(batch, channels, spatial_dim1, spatial_dim2, spatial_dim3)`
     형태를 의미합니다.
-    기본 설정은 `~/.keras/keras.json`의 `image_data_format`에서 설정할 수 있습니다.
-    따로 변경하지 않으면, `"channels_last"`입니다.
+    기본 설정은 `~/.keras/keras.json`의
+    `image_data_format`에서 설정할 수 있습니다.
+    따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
 __입력값 형태__
 
