@@ -8,7 +8,7 @@ keras.layers.LocallyConnected1D(filters, kernel_size, strides=1, padding='valid'
 입력값<sub>input</sub>이 1D인 부분 연결<sub>locally connectded</sub> 층<sub>Layer</sub>.
 
 `LocallyConnected1D` 층은 `Conv1D` 층과 비슷하지만
-노드끼리 가중치를<sub>weight</sub> 공유하지 않는다는 차이점이 있습니다.
+노드끼리 가중치<sub>weight</sub>를 공유하지 않는다는 차이점이 있습니다.
 다시 말해, 각 노드에 다른 필터를 적용한다는 의미입니다.
 
 __예시__
@@ -77,15 +77,15 @@ keras.layers.LocallyConnected2D(filters, kernel_size, strides=(1, 1), padding='v
 
 입력값이 2D인 부분 연결 층.
 
-`LocallyConnected2D` 층은 `Conv2D` 층과 비슷한 방식으로 작동하지만
-가중치가 공유되지 않는다는 점에서 다른데,
-이는 입력값의 각 부분에 각기 다른 필터 세트가 적용된다는 
-의미입니다.
+
+`LocallyConnected2D` 층은 `Conv1D` 층과 비슷하지만
+노드끼리 가중치를 공유하지 않는다는 차이점이 있습니다.
+다시 말해, 각 노드에 다른 필터를 적용한다는 의미입니다.
 
 __예시__
 
 ```python
-# 64개의 출력 필터와 더불어 3x3 비공유 가중치 컨볼루션을
+# 64개의 출력값을 갖고 가중치를 공유하지 않는 3x3 컨볼루션을
 # `data_format="channels_last"`으로 설정된 32x32 이미지에 적용합니다:
 model = Sequential()
 model.add(LocallyConnected2D(64, (3, 3), input_shape=(32, 32, 3)))
@@ -93,26 +93,24 @@ model.add(LocallyConnected2D(64, (3, 3), input_shape=(32, 32, 3)))
 # 이 층이 (30*30)*(3*3*3*64) + (30*30)*64개의
 # 매개변수를 사용한다는 점을 유의하십시오
 
-# 32개의 출력 필터와 더불어 3x3 비공유 가중치 컨볼루션을 상부에 추가하십시오:
+# 32개의 출력값을 갖고 가중치를 공유하지 않는 3x3 컨볼루션을 추가합니다.
 model.add(LocallyConnected2D(32, (3, 3)))
-# 현재 model.output_shape == (None, 28, 28, 32)
+# 추가한 뒤의 model.output_shape == (None, 28, 28, 32)
 ```
 
 __인자__
 
-- __filters__: 정수, 출력 공간의 차원
+- __filters__: `int`, 출력 공간의 차원
     (다시 말해 컨볼루션의 출력 필터의 개수).
-- __kernel_size__: 단일 정수, 혹은 2D 컨볼루션 창의
-    넓이와 높이를 특정하는 2개 정수의 튜플/리스트.
-    단일 정수로는 모든 공간 차원에 대해서
-    같은 값을 특정할 수 있습니다.
-- __strides__: 단일 정수, 혹은 넓이와 높이에 따라
-    컨볼루션 스트라이드를 특정하는 2개 정수의 튜플/리스트.
-    단일 정수로는 모든 공간 차원에 대해서
-    같은 값을 특정할 수 있습니다.
+- __kernel_size__: `int` 1개, 또는 2D 컨볼루션 창의
+    넓이와 높이인 `int` 2개로 이루어진 튜플/리스트.
+    `int` 1개인 경우 모든 차원에 같은 값으로 설정합니다.
+- __strides__: `int` 1개, 혹은 넓이와 높이의
+    컨볼루션 스트라이드를 설정하는 `int` 2개로 이루어진 튜플/리스트.
+    `int` 1개인 경우 모든 차원에 같은 값으로 설정합니다.
 - __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
     차후 `"same"`을 지원할 계획입니다.
-- __data_format__: 문자열,
+- __data_format__: `string`,
     `channels_last` (기본값) 혹은 `channels_first`.
     입력값의 형태.
     `channels_last`는 `(batch, height, width, channels)`, `channels_first`는
@@ -121,9 +119,9 @@ __인자__
     따로 변경하지 않았다면, "channels_last"입니다.
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md) 참조).
-    따로 특정하지 않는 경우 활성화가 적용되지 않습니다
-    (다시 말해 "선형적" 활성화: `a(x) = x`).
-- __use_bias__: 불리언, 층이 편향 벡터를 사용하는지 여부.
+    따로 지정하지 않으면 활성화가 적용되지 않습니다
+    (예: "선형적" 활성화: `a(x) = x`).
+- __use_bias__: `bool`, 층이 편향 벡터를 사용하는지 여부.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수
     ([초기화 함수](../initializers.md) 참조).
 - __bias_initializer__: 편향 벡터의 초기화 함수
@@ -144,12 +142,12 @@ __인자__
 __입력값 형태__
 
 4D 텐서:
-data_format='channels_first'의 경우 `(samples, channels, rows, cols)`, 
-data_format='channels_last'의 경우 `(samples, rows, cols, channels)`의 형태를 갖습니다.
+`data_format='channels_first'`의 경우 `(samples, channels, rows, cols)`, 
+`data_format='channels_last'`의 경우 `(samples, rows, cols, channels)`의 형태를 갖습니다.
 
-__출력 형태__
+__출력값 형태__
 
 4D 텐서:
-data_format='channels_first'의 경우 `(samples, filters, new_rows, new_cols)`
-data_format='channels_last'의 경우 `(samples, new_rows, new_cols, filters)`의 형태를 갖습니다.
-패딩의 결과로 `rows`와 `cols` 값이 달라졌을 수도 있습니다.
+`data_format='channels_first'`의 경우 `(samples, filters, new_rows, new_cols)`
+`data_format='channels_last'`의 경우 `(samples, new_rows, new_cols, filters)`의 형태를 갖습니다.
+패딩의 결과로 `rows`와 `cols` 값이 변할 수 있습니다.
