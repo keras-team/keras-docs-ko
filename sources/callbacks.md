@@ -119,15 +119,16 @@ __인자__
 - __monitor__: 관찰할 항목. 학습률을 감소시킬지 판단할 때 기준이 되는 항목.
 - __factor__: 학습률을 줄이는 정도.
     new_lr = lr * factor
-- __patience__: 학습을 멈추기 전 `mointor`의 값에 진전이 없는 에폭의 수. `patience`개의 에폭 동안 `monitor`의 값에 진전이 없으면 학습을 멈춥니다.
+- __patience__: 학습을 멈추기 위해 기다릴 `mointor`의 값에 진전이 없는 에폭의 수.
+    `patience`개의 에폭 동안 `monitor`의 값에 진전이 없으면 학습을 멈춥니다.
     검증 빈도 (`model.fit(validation_freq=5)`)가 1보다 크다면 매 에폭마다 검증 값<sub>validation quantity</sub>을 계산하지 않습니다.
 - __verbose__: `int`. 0: 메세지 없음, 1: 메시지를 업데이트합니다.
 - __mode__: {auto, min, max} 중 하나. `min` 모드에서는
-    `monitor`의 값이 더 이상 감소하지
-    않으면 학습이 멈춥니다. `max` 모드에서는
-    `monitor`의 값이 더 이상 증가하지
+    관찰하는 항목이 더 이상 감소하지
+    않으면 학습을 멈춥니다. `max` 모드에서는
+    관찰하는 항목이 더 이상 증가하지
     않으면 학습이 멈춥니다. `auto` 모드에서는
-    `monitor`에 의해 자동으로 설정됩니다.
+    관찰하는 항목에 따라 자동으로 설정됩니다.
 - __min_delta__: 새로운 최적값을 계산할 기준점. 유의미한 변화에서만 값을 업데이트하기 위해서입니다.
 - __cooldown__: 학습률을 감소시킨 뒤 학습을 다시 정상적으로 진행하기 위해 기다려야하는 에폭의 수
 - __min_lr__: 학습률의 하한선.
@@ -146,26 +147,26 @@ keras.callbacks.Callback()
 __속성__
 
 - __params__: `dictionary`. 학습 매개변수
-    (예. 다변 모드, 배치 크기, 세대 수…).
+    (예. 메세지 출력 여부, 배치 크기, 에폭 수…).
 - __model__: `keras.models.Model`의 인스턴스.
     학습 중인 모델의 참조.
 
-콜백 메서드가 인수로 받는
-`logs` 딕셔너리는 현재 배치 혹은 세대에 적절한
-수치에 대한 키를 담습니다.
+콜백 메서드가 인자로 받는
+`logs` 딕셔너리는 현재 배치 혹은 에폭과 관련된
+값에 대한 키를 담습니다.
 
 현재 `Sequential` 모델 클래스의 `.fit()` 메서드는
 콜백에 전달하는 `logs`에 다음의
-수치를 포함합니다:
+값을 포함합니다:
 
-on_epoch_end: 로그에 `acc`와 `loss`가 포함되고
-`val_loss`와 (`fit`에서 검증이 사용으로 설정된 경우)
-`val_acc`는(검증과 정확성 모니터링이 사용으로 설정된 경우)
+on_epoch_end: 로그에 `acc`와 `loss`를 포함하고
+`val_loss`와 (`fit`에서 검증을 사용하는 경우)
+`val_acc`는(검증과 정확도 모니터링을 사용하는 경우)
 선택적으로 포함됩니다.  
-on_batch_begin: 로그에는 `size`와
-현재 배치의 샘플의 수가 포함됩니다.
-on_batch_end: 로그에는 `loss`가 포함되고, 선택적으로 `acc`가 포함됩니다
-(정확성 모니터링이 사용으로 설정된 경우).
+on_batch_begin: 로그에 `size`와
+현재 배치의 샘플의 수를 포함합니다.
+on_batch_end: 로그에 `loss`를 포함하고, 선택적으로 `acc`를 포함합니다
+(정확도 모니터링을 사용하는 경우).
 
 ----
 
@@ -176,15 +177,15 @@ on_batch_end: 로그에는 `loss`가 포함되고, 선택적으로 `acc`가 포�
 keras.callbacks.BaseLogger(stateful_metrics=None)
 ```
 
-측정항목의 세대 평균을 축적하는 콜백..
+측정항목의 에폭 평균을 축적하는 콜백.
 
-이 콜백은 모든 케라스 모델에 자동적으로 적용됩니다.
+이 콜백은 모든 케라스 모델에 자동으로 적용됩니다.
 
 __인자__
 
-- __stateful_metrics__: 세대에 걸쳐 평균을 내면 *안 되는*
-    측정 항목의 문자열 이름의 Iterable.
-    `on_epoch_end`에서는 이 리스트의 측정 항목을 원본 그대로 로그합니다.
+- __stateful_metrics__: 에폭에 걸쳐 평균을 내면 *안 되는*
+    측정 항목 이름의 `string` Iterable.
+    `on_epoch_end`에서는 이 리스트의 측정 항목을 원래 값 그대로 로그합니다.
     그 외 측정 항목은 `on_epoch_end`에서 평균을 구해 로그합니다.
     
 ----
@@ -223,37 +224,29 @@ keras.callbacks.History()
 keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 ```
 
-관찰하는 수량이 개선되지 않으면 학습을 멈춥니다.
+관찰하는 값이 향상되지 않으면 학습을 멈춥니다.
 
 __인자__
 
-- __monitor__: 관찰할 수량.
-- __min_delta__: 관찰하는 수량이 향상되었다고 판단할
-    최소한의 변화, 다시 말해 min_delta
-    미만의 절대적 변화는 향상되었다고 
-    판단하지 않습니다.
-- __patience__: number of epochs that produced the monitored
-    after which training will be stopped.
-    quantity with no improvement after which training will
-    be stopped.
-    Validation quantities may not be produced for every
-    epoch, if the validation frequency
-    (`model.fit(validation_freq=5)`) is greater than one.
-- __verbose__: 다변 모드.
+- __monitor__: 관찰할 항목. 학습률을 감소시킬지 판단할 때 기준이 되는 항목.
+- __min_delta__: 관찰하는 항목이 향상되었다고 판단하는
+    최소한의 변화량, 다시 말해 min_delta보다
+    절대 변화량이 작다면 향상되었다고 판단하지 않습니다.
+- __patience__: n학습을 멈추기 위해 기다릴 `mointor`의 값에 진전이 없는 에폭의 수.
+    `patience`개의 에폭 동안 `monitor`의 값에 진전이 없으면 학습을 멈춥니다.
+    검증 빈도 (`model.fit(validation_freq=5)`)가 1보다 크다면 매 에폭마다 검증 값<sub>validation quantity</sub>을 계산하지 않습니다.
+- __verbose__: 상세 정보 표시 정도.
 - __mode__: {auto, min, max} 중 하나. `min` 모드에서는
-    관찰하는 수량이 더 이상 감소하지
-    않으면 학습이 멈춥니다. `max` 모드에서는
-    관찰하는 수량이 더 이상 증가하지
-    않으면 학습이 멈춥니다; `auto` 모드에서는
-    관찰하는 수량의 이름에서
-    방향성이 자동적으로 유추됩니다.
-- __baseline__: 관찰하는 수량이 도달해야 하는 베이스라인 값.
-    모델이 베이스라인을 초과하는 향상을 보이지 않으면
-    학습이 멈춥니다.
-- __restore_best_weights__: 관찰하는 수량의 최선 값이 발생한 세대에서
-    모델 가중치를 복원할지 여부.
-    거짓인 경우, 학습의 마지막 단계에서 얻어진
-    모델 가중치가 사용됩니다.
+    관찰하는 항목이 더 이상 감소하지
+    않으면 학습을 멈춥니다. `max` 모드에서는
+    관찰하는 항목이 더 이상 증가하지
+    않으면 학습이 멈춥니다. `auto` 모드에서는
+    관찰하는 항목에 따라 자동으로 설정됩니다.
+- __baseline__: 관찰하는 항목이 도달해야 하는 최소값.
+    모델의 향상도가 이 값보다 작으면 학습을 멈춥니다.
+- __restore_best_weights__: 관찰 항목이 가장 좋은 값을 보인 에폭의 모델 가중치를 사용할지 여부.
+    `restore_best_weights=False`인 경우, 가장 최신 단계의 학습에서 나온
+    모델 가중치를 사용합니다.
     
 
 ----
@@ -265,14 +258,13 @@ __인자__
 keras.callbacks.LearningRateScheduler(schedule, verbose=0)
 ```
 
-학습 속도 스케쥴러.
+학습률 스케쥴러.
 
 __인자__
 
-- __schedule__: 세대 색인(정수, 0에서 색인 시작)과 현재
-    학습 속도를 인풋으로 받고, 새로운 학습 속도를
-    아웃풋(부정소수점)으로 반환하는 함수.
-- __verbose__: 정수. 0: 자동, 1: 최신화 메시지.
+- __schedule__: 에폭 인덱스(`int`, 인덱스는 0에서 시작)와 현재
+    학습률을 입력값으로 받고, 새로운 학습률(`float`)을 반환하는 함수.
+- __verbose__: `int`. 0: 메세지 없음, 1: 메시지를 업데이트합니다.
     
 ----
 
@@ -289,59 +281,57 @@ TensorBoard 기초 시각화.
 텐서플로우가 제공하는 시각화 도구입니다.
 
 이 콜백은 TensorBoard에 로그를 기록하여
-학습과 테스트 측정 항목에 대한 동적 그래프나
-모델 내 다양한 레이어에 대한 활성화 히스토그램을
-시각화 할 수 있도록 합니다.
+학습과 테스트의 측정 항목을 동적 그래프와
+모델 내 다양한 층에 대한 활성화 히스토그램을 통해
+시각화를 돕습니다.
 
 pip으로 텐서플로우를 설치했다면, 다음과 같이
-명령 줄에서 TensorBoard를 시작할 수 있습니다:
+명령줄<sub>command line</sub>에서 TensorBoard를 실행할 수 있습니다.
 ```sh
 tensorboard --logdir=/full_path_to_your_logs
 ```
 
+텐서플로우가 설치만 되어있다면
 텐서플로우 외의 백엔드를 사용하는 경우에도
-(텐서플로우가 설치만 되어있다면), TensorBoard가 동작하기는 하지만,
-손실과 측정 항목 플롯을 보여주는 기능만 사용이 가능합니다.
+TensorBoard가 동작합니다. 하지만 
+손실과 측정 항목 그래프를 보여주는 기능만 사용할 수 있습니다.
 
 __인자__
 
-- __log_dir__: TensorBoard가 구문 분석할 로그 파일을
+- __log_dir__: TensorBoard에서 사용할 로그 파일을
     저장할 위치 경로.
-- __histogram_freq__: 모델의 레이어에 대해 활성화와 가중치 히스토그램을 계산할
-    (세대 내) 빈도. 0으로 설정되어 있으면 히스토그램을 계산하지
-    않습니다. 히스토그램 시각화를 하려면 검증 데이터(혹은 데이터 조각)이
-    특정되어야 합니다.
-- __batch_size__: 히스토그램 계산 목적으로 네트워크에 전달할
-    인풋 배치의 크기.
+- __histogram_freq__: 모델의 층에 대해 활성화와 가중치 히스토그램을 계산할
+    (에폭 내) 빈도. 0인 경우 히스토그램을 계산하지
+    않습니다. 히스토그램 시각화를 하려면 검증 데이터가 지정되어야합니다.(또는, 데이터가 분할<sub>split></sub>되어 있어야합니다.)
+- __batch_size__: 히스토그램을 계산하기 위해 네트워크에 전달할
+    입력값 배치의 크기.
 - __write_graph__: TensorBoard에서 그래프를 시각화할지 여부.
-    write_graph이 참으로 설정되어 있으면
-    로그 파일이 상당히 커질 수 있습니다.
-- __write_grads__: TensorBoard에서 경사 히스토그램를 시각화할지 여부.
+    `write_graph=True`인 경우 로그 파일이 상당히 커질 수 있습니다.
+- __write_grads__: TensorBoard에서 그래디언트 히스토그램를 시각화할지 여부.
     `histogram_freq`이 0보다 커야 합니다.
-- __write_images__: TensorBoard에서 이미지로 시각화할 모델 가중치를
-    작성할지 여부.
-- __embeddings_freq__: 선택된 임베딩 레이어가 저장되는 (세대 내) 빈도.
-    0으로 설정되어 있으면, 임베딩이 계산되지 않습니다.
+- __write_images__: TensorBoard에서 이미지로 시각화하기 위해 모델 가중치를
+    기록할지 여부.
+- __embeddings_freq__: 선택된 임베딩 층을 저장할 (에폭 내) 빈도.
+    0인 경우, 임베딩을 계산하지 않습니다.
     TensorBoard의 Embedding 탭에서 시각화할 데이터는
     `embeddings_data`로 전달되어야 합니다.
-- __embeddings_layer_names__: 관찰할 레이어 이름의 리스트.
-    None이나 빈 리스트의 경우 모든 임베딩 레이어가 관찰됩니다.
-- __embeddings_metadata__: 레이어 이름을 해당 임베딩 레이어의 메타데이터가 저장되는
-    파일 이름에 매핑하는 딕셔너리. 메타데이터 파일 형식에 대해서는
+- __embeddings_layer_names__: 관찰할 층 이름의 리스트.
+    `None`이나 빈 리스트의 경우 모든 임베딩 레이어를 관찰됩니다.
+- __embeddings_metadata__: 층 이름을 층의 메타데이터가 저장되는
+    파일 이름에 매핑하는 `dictionary`. 메타데이터 파일 형식은
     [세부사항](https://www.tensorflow.org/guide/embedding#metadata)을
-    참고하십시오. 모든 임베딩 레이어에 대해서 동일한 메타데이터
-    파일이 사용되는 경우는 문자열을 전달할 수 있습니다.
-- __embeddings_data__: `embeddings_layer_names`에 특정되어 레이어에 
-    임베딩할 데이터. Numpy 배열 (모델이 하나의 인풋을 갖는 경우) 혹은
-    Numpy 배열의 리스트 (모델이 여러 인풋을 갖는 경우).
+    참고하십시오. 모든 임베딩 층에서 동일한 메타데이터
+    파일을 사용하는 경우 `string`을 전달할 수 있습니다.
+- __embeddings_data__: `embeddings_layer_names`에서 설정한 층에
+    임베딩할 데이터. Numpy 배열 (모델이 하나의 입력값을 갖는 경우) 혹은
+    Numpy 배열의 리스트 (모델이 여러개의 입력값을 갖는 경우).
     임베딩에 대해서 [더 알아보려면](
     https://www.tensorflow.org/guide/embedding).
-- __update_freq__: `'batch'`, `'epoch'`, 혹은 정수. `'batch'`를 사용하는 경우
-    각 배치 이후 손실과 특정항목을 TensorBoard에 기록합니다.
-    `'epoch'`의 경우에도 마찬가지입니다. 정수를 사용하는 경우,
-    예를 들어 `10000`이라면, 10000 샘플마다 콜백이 측정 항목과 손실을
-    TensorBoard에 작성합니다. TensorBoard에 너무 자주 기록하면
-    학습이 느려질 수도 있다는 점을 참고하십시오.
+- __update_freq__: `'batch'`, `'epoch'`, 혹은 `int`. `'batch'`를 사용하는 경우
+    각 배치 이후 손실과 측정 항목을 TensorBoard에 기록합니다.
+    `'epoch'`의 경우에도 동일합니다. `int`인 경우는 다음의 예시와 같습니다.
+    예를 들어 `10000`이라면, 10000개의 샘플마다 측정 항목과 손실을
+    TensorBoard에 기록합니다. 너무 자주 기록하면 학습이 느려질 수 있습니다.
     
 ----
 
@@ -472,7 +462,7 @@ history = LossHistory()
 model.fit(x_train, y_train, batch_size=128, epochs=20, verbose=0, callbacks=[history])
 
 print(history.losses)
-# 아웃풋
+# 출력값
 '''
 [0.66047596406559383, 0.3547245744908703, ..., 0.25953155204159617, 0.25901699725311789]
 '''
