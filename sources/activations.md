@@ -43,7 +43,7 @@ __인자__
 
 __반환값__
 
-Softmax 변환으로 생성된 텐서.
+Softmax 변환으로 생성된 텐서 `exp(x) / sum(exp(x))`.
 
 __오류__
 
@@ -179,7 +179,10 @@ __인자__
 
 __반환값__
 
-ReLU 변환으로 생성된 텐서.
+ReLU 변환으로 생성된 텐서.  
+`x >= max_value` 일 때 `f(x) = max_value`,  
+`threshold <= x < max_value` 일 때 `f(x) = x`,  
+그 외는 `f(x) = alpha * (x - threshold)`.
 
 ----
 
