@@ -23,7 +23,7 @@ __입력값<sub>input</sub> 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, steps, features)`
-    형태의 3D 텐서<sub>tensor</sub>.
+    형태의 3D 텐서.
 - `data_format='channels_first'`이면
     `(batch_size, features, steps)`
     형태의 3D 텐서.
