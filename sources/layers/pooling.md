@@ -5,30 +5,30 @@
 keras.layers.MaxPooling1D(pool_size=2, strides=None, padding='valid', data_format='channels_last')
 ```
 
-시계열 자료형에 대한 최대값 풀링<sub>Max Pooling</sub>.
+시계열 자료형에 대한 최대값 풀링<sub>max pooling</sub>.
 
-__인수__
+__인자__
 
-- __pool_size__: `int`, 최대값 풀링 창<sub>Window</sub>의 크기.
+- __pool_size__: `int`, 최대값 풀링 창<sub>window</sub>의 크기.
 - __strides__: `int`, 혹은 `None`. 차원을 축소할 정도.
     예: 2는 입력 값을 반으로 줄입니다.
     `None`일 경우, 기본값으로 `pool_size`을 사용합니다.  
 - __padding__: `"valid"` 또는 `"same"`(대소문자 무시).
 - __data_format__: `string`,
     `channels_last`(기본값) 혹은 `channels_first`.
-    입력 인수의 순서.
+    입력 인자의 순서.
     `channels_last`는 `(batch, steps, features)`, `channels_first`는 `(batch, features, steps)` 형태를 의미합니다.
 
-__입력값<sub>Input</sub> 형태__
+__입력값<sub>input</sub> 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, steps, features)`
-    형태의 3D 텐서<sub>Tensor</sub>.
+    형태의 3D 텐서<sub>tensor</sub>.
 - `data_format='channels_first'`이면
     `(batch_size, features, steps)`
     형태의 3D 텐서.
 
-__출력값<sub>Output</sub> 형태__
+__출력값<sub>output</sub> 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, downsampled_steps, features)`
@@ -48,7 +48,7 @@ keras.layers.MaxPooling2D(pool_size=(2, 2), strides=None, padding='valid', data_
 
 공간 자료형에 대한 최대값 풀링.
 
-__인수__
+__인자__
 
 - __pool_size__: `int` 혹은 2개의 `int`이루어진 튜플,
     (가로, 세로)의 차원을 축소할 정도.
@@ -95,7 +95,7 @@ keras.layers.MaxPooling3D(pool_size=(2, 2, 2), strides=None, padding='valid', da
 
 (공간 혹은 시공간) 3D 자료형에 대한 최대값 풀링.
 
-__인수__
+__인자__
 
 - __pool_size__: 3개의 `int`로 이루어진 튜플,
     (dim1, dim2, dim3)의 차원을 축소할 정도.
@@ -104,7 +104,7 @@ __인수__
 - __padding__: `"valid"` 혹은 `"same"`(대소문자 무시).
 - __data_format__:`string`,
     `channels_last` (기본값) 혹은 `channels_first`.
-    입력 인수의 순서. `channels_last`는
+    입력 인자의 순서. `channels_last`는
     `(batch, spatial_dim1, spatial_dim2, spatial_dim3, channels)`
     , `channels_first`는
     `(batch, channels, spatial_dim1, spatial_dim2, spatial_dim3)`
@@ -142,7 +142,7 @@ keras.layers.AveragePooling1D(pool_size=2, strides=None, padding='valid', data_f
 
 시계열 자료형에 대한 평균 풀링.
 
-__인수__
+__인자__
 
 - __pool_size__: `int`, 평균 풀링 창의 크기.
 - __strides__: `int`, 혹은 `None`. 차원을 축소할 정도.
@@ -184,7 +184,7 @@ keras.layers.AveragePooling2D(pool_size=(2, 2), strides=None, padding='valid', d
 
 공간 자료형에 대한 평균 풀링.
 
-__인수__
+__인자__
 - __pool_size__: `int` 혹은 2개의 `int`이루어진 튜플,
     (가로, 세로)의 차원을 축소할 정도.
     예: (2, 2)는 입력값을 두 차원 모두에서 반으로 축소합니다.
@@ -194,7 +194,7 @@ __인수__
 - __padding__: `"valid"` 혹은 `"same"`(대소문자 무시).
 - __data_format__: `string`,
     `channels_last` (기본값) 혹은 `channels_first`.
-    입력 인수의 형태.
+    입력 인자의 형태.
     `channels_last`는 `(batch, height, width, channels)`, `channels_first`는
     `(batch, channels, height, width)` 형태를 의미합니다.
     기본 설정은 `~/.keras/keras.json`의
@@ -230,7 +230,7 @@ keras.layers.AveragePooling3D(pool_size=(2, 2, 2), strides=None, padding='valid'
 
 (공간 혹은 시공간) 3D 자료형에 대한 평균 풀링.
 
-__인수__
+__인자__
 
 - __pool_size__: 3개의 `int`로 이루어진 튜플,
     (dim1, dim2, dim3)의 차원을 축소할 정도.
@@ -275,7 +275,7 @@ keras.layers.GlobalMaxPooling1D(data_format='channels_last')
 
 시계열 자료형에 대한 전역 최대값 풀링.
 
-__인수__
+__인자__
 
 - __data_format__: `string`,
     `channels_last` (기본값) 혹은 `channels_first`.
@@ -308,7 +308,7 @@ keras.layers.GlobalAveragePooling1D(data_format='channels_last')
 
 Global average pooling operation for temporal data.
 
-__인수__
+__인자__
 
 - __data_format__: `string`,
     `channels_last` (기본값) 혹은 `channels_first`.
@@ -341,7 +341,7 @@ keras.layers.GlobalMaxPooling2D(data_format=None)
 
 공간 자료형에 대한 전역 최대값 풀링.
 
-__인수__
+__인자__
 
 - __data_format__: `string`,
     `channels_last` (기본값) 혹은 `channels_first`.
@@ -376,7 +376,7 @@ keras.layers.GlobalAveragePooling2D(data_format=None)
 
 공간 자료형에 대한 전역 평균 풀링.
 
-__인수__
+__인자__
 
 - __data_format__: `string`,
     `channels_last` (기본값) 혹은 `channels_first`.
@@ -411,7 +411,7 @@ keras.layers.GlobalMaxPooling3D(data_format=None)
 
 3D 데이터에 대한 전역 최대값 풀링
 
-__인수__
+__인자__
 
 - __data_format__: `string`,
     `channels_last` (기본값) 혹은 `channels_first`.
@@ -446,7 +446,7 @@ keras.layers.GlobalAveragePooling3D(data_format=None)
 
 3D 자료형에 대한 전역 평균 풀링
 
-__인수__
+__인자__
 
 - __data_format__: `string`,
     `channels_last` (기본값) 혹은 `channels_first`.
