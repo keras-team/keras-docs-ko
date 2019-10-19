@@ -231,7 +231,7 @@ keras.layers.AveragePooling3D(pool_size=(2, 2, 2), strides=None, padding='valid'
 
 __인자__
 
-- __pool_size__: 3개의 `int`로 이루어진 튜플.
+- __pool_size__: `int` 또는 3개의 `int`로 이루어진 튜플.
     (dim1, dim2, dim3)의 차원을 축소할 정도.
     예: (2, 2, 2)는 3D 입력값을 각 차원에서 반으로 축소합니다.
 - __strides__: `int`, 3개의 `int`로 이루어진 튜플 또는 `None`. 스트라이드.
