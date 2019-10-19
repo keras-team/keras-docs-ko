@@ -46,10 +46,10 @@ keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_be
 __인자__
 
 - __filepath__: `string`, 모델 파일을 저장할 경로.
-- __monitor__: 기록할 값.
+- __monitor__: 기록할 항목.
 - __verbose__: 상세 정보 표시 정도, 0 혹은 1.
 - __save_best_only__: `True`인 경우
-    `__monitor__`값을 기준으로 가장 최신의 최고 모델은 덮어쓰지 않습니다.
+    `__monitor__`값을 기준으로 최신이고 가장 좋은 모델은 덮어쓰지 않습니다.
 - __save_weights_only__: `True`인 경우 모델의 가중치만 저장되고
     (`model.save_weights(filepath)`), 아닌 경우
     전체 모델이 저장됩니다 (`model.save(filepath)`).
@@ -74,7 +74,7 @@ keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch
 이벤트를 서버에 스트리밍하는 콜백
 
 `requests` 라이브러리가 필요합니다.
-기본값으로 이벤트는 `root + '/publish/epoch/end/'`으로 보내집니다.
+기본값으로 이벤트를 `root + '/publish/epoch/end/'`으로 보냅니다.
 요청은 HTTP POST를 이용합니다. `data`인자에 JSON 형식의 딕셔너리로 이벤트 데이터를 전달합니다. 
 `send_as_json=True`인 경우, `content-type`은
 `application/json`입니다. 이외의 경우에는 직렬화<sub>serialized</sub>된 JSON을 전달합니다.
@@ -82,11 +82,11 @@ keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch
 __인자__
 
 - __root__: `string`, 표적 서버의 최상위 url.
-- __path__: `string`, 이벤트가 보내질 `root`를 기준으로 한 상대 경로
+- __path__: `string`, 이벤트가 보내질 `root`를 기준으로 한 상대 경로.
 - __field__: `string`, 데이터가 저장될 JSON 필드.
     폼 내에 payload가 보내지는 경우에만 필드가 사용됩니다
     (`send_as_json=False`인 경우).
-- __headers__: `dictaionary`, 선택적 커스텀 HTTP 헤더
+- __headers__: `dictaionary`, 선택적 커스텀 HTTP 헤더.
 - __send_as_json__: `bool`, 요청을 `application/json`으로
     보낼지 여부.
     
@@ -119,8 +119,8 @@ __인자__
 - __monitor__: 관찰할 항목. 학습률을 감소시킬지 판단할 때 기준이 되는 항목.
 - __factor__: 학습률을 줄이는 정도.
     new_lr = lr * factor
-- __patience__: 학습을 멈추기 위해 기다릴 `mointor`의 값에 진전이 없는 에폭의 수.
-    `patience`개의 에폭 동안 `monitor`의 값에 진전이 없으면 학습을 멈춥니다.
+- __patience__: 학습을 멈추기 전에 관찰하는 항목이 향상되지 않은 에폭의 수.
+    `patience`개의 에폭 동안 관찰하는 항목이 향상되지 않으면 학습을 멈춥니다.
     검증 빈도 (`model.fit(validation_freq=5)`)가 1보다 크다면 매 에폭마다 검증 값<sub>validation quantity</sub>을 계산하지 않습니다.
 - __verbose__: `int`. 0: 메세지 없음, 1: 메시지를 업데이트합니다.
 - __mode__: {auto, min, max} 중 하나. `min` 모드에서는
@@ -153,7 +153,7 @@ __속성__
 
 콜백 메서드가 인자로 받는
 `logs` 딕셔너리는 현재 배치 혹은 에폭과 관련된
-값에 대한 키를 담습니다.
+값에 대한 키를 포함합니다.
 
 현재 `Sequential` 모델 클래스의 `.fit()` 메서드는
 콜백에 전달하는 `logs`에 다음의
@@ -224,7 +224,7 @@ keras.callbacks.History()
 keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 ```
 
-관찰하는 값이 향상되지 않으면 학습을 멈춥니다.
+관찰하는 항목이 향상되지 않으면 학습을 멈춥니다.
 
 __인자__
 
@@ -232,7 +232,7 @@ __인자__
 - __min_delta__: 관찰하는 항목이 향상되었다고 판단하는
     최소한의 변화량, 다시 말해 min_delta보다
     절대 변화량이 작다면 향상되었다고 판단하지 않습니다.
-- __patience__: n학습을 멈추기 위해 기다릴 `mointor`의 값에 진전이 없는 에폭의 수.
+- __patience__: 학습을 멈추기 전에 관찰하는 항목이 향상되지 않은 에폭의 수.
     `patience`개의 에폭 동안 `monitor`의 값에 진전이 없으면 학습을 멈춥니다.
     검증 빈도 (`model.fit(validation_freq=5)`)가 1보다 크다면 매 에폭마다 검증 값<sub>validation quantity</sub>을 계산하지 않습니다.
 - __verbose__: 상세 정보 표시 정도.
@@ -285,7 +285,7 @@ TensorBoard 기초 시각화.
 모델 내 다양한 층에 대한 활성화 히스토그램을 통해
 시각화를 돕습니다.
 
-pip으로 텐서플로우를 설치했다면, 다음과 같이
+텐서플로우를 pip으로 설치했다면, 다음과 같이
 명령줄<sub>command line</sub>에서 TensorBoard를 실행할 수 있습니다.
 ```sh
 tensorboard --logdir=/full_path_to_your_logs
