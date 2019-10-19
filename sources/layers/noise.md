@@ -74,7 +74,9 @@ keras.layers.AlphaDropout(rate, noise_shape=None, seed=None)
 
 입력에 알파 드롭아웃을 적용합니다.
 
-알파 드롭아웃은 드롭아웃 이후에도 자기-정규화<sub>self-normalizing</sub> 특성이 유지                       되도록 입력의 평균과 분산을 원래 값으로 유지하는 `Dropout`입니다.                                알파 드롭아웃은 음수 포화<sub>saturation</sub> 값에서 무작위로 활성화 값을 지정하였기 때문에,
+알파 드롭아웃은 드롭아웃 이후에도 자기-정규화<sub>self-normalizing</sub> 특성이 유지
+되도록 입력의 평균과 분산을 원래 값으로 유지하는 `Dropout`입니다.
+알파 드롭아웃은 음수 포화<sub>saturation</sub> 값에서 무작위로 활성화 값을 지정하였기 때문에,
 조정 지수 선형 유닛 <sub>scaled exponential linear units</sub>에서 학습이 잘 됩니다.
 
 
