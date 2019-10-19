@@ -11,7 +11,7 @@ keras.layers.BatchNormalization(axis=-1, momentum=0.99, epsilon=0.001, center=Tr
 
 __인자 설명__
 
-- __axis__: `int`, 정규화되어야 하는 축을 의미합니다.(일반적으로 feature axis입니다.) 예를 들어, `data_format="channels_first"`가 있는 `Conv2D`층의 다음에 `axis=1`인 `BatchNormalization`을 설정할 수 있습니다.
+- __axis__: `int`, 정규화되어야 하는 축을 의미합니다.(일반적으로 요인 축<sub>feature axis</sub>입니다.) 예를 들어, `data_format="channels_first"`가 있는 `Conv2D`층의 다음에 `axis=1`인 `BatchNormalization`을 설정할 수 있습니다.
 - __momentum__: 이동 평균<sub>moving mean</sub> 및 이동 분산<sub>moving variance</sub>에 대한 모멘텀을 의미합니다. 
 - __epsilon__: 0으로 나누기를 방지하기 위해 분산에 추가되는 작은 `float`값 입니다.
 - __center__: `True`일 경우, 정규화된 텐서에 `beta`만큼의 거리(offset)를 추가합니다. `False`인 경우 `beta`는 무시됩니다. 
