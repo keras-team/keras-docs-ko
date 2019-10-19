@@ -15,8 +15,7 @@ __예시__
 
 ```python
 # 10개의 시간단계와 64개의 출력값을 갖고
-# 노드별로 다른 가중치를 사용하는 창 길이가 3인 1D 합성곱 층을 
-# `Sequential`에 추가합니다.
+# 노드별로 다른 가중치를 사용하는 창 길이가 3인 1D 합성곱 층을 추가합니다.
 model = Sequential()
 model.add(LocallyConnected1D(64, 3, input_shape=(10, 32)))
 # 현재 model.output_shape == (None, 8, 64)
@@ -32,11 +31,11 @@ __인자__
 - __kernel_size__: `int` 혹은 `int` 하나로 이루어진 튜플/리스트,
     1D 합성곱의 창<sub>window</sub> 길이를 결정합니다.
 - __strides__: `int` 혹은 `int` 하나로 이루어진 튜플/리스트,
-    합성곱의 스트라이드 길이를 결정합니다.
+    합성곱의 스트라이드를 결정합니다.
     `__strides__`와 `dilation_rate`  중 하나는 반드시 1이어야 합니다.
 - __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
     차후 `"same"`을 지원할 계획입니다.
-- __data_format__: `string`, `channels_first`, `channels_last` 중 하나.    
+- __data_format__: `string`, `"channels_first"`, `"channels_last"` 중 하나.    
 - __activation__: 사용할 활성화 함수<sub>activation</sub>
     ([활성화](../activations.md) 참조).
     따로 설정하지 않는 경우 활성화가 적용되지 않습니다
@@ -86,11 +85,11 @@ __예시__
 
 ```python
 # 64개의 출력값을 갖고 가중치를 공유하지 않는 3x3 합성곱을
-# `data_format="channels_last"`으로 설정된 32x32 이미지에 적용합니다:
+# `data_format="channels_last"`으로 설정된 32x32 이미지에 적용합니다.
 model = Sequential()
 model.add(LocallyConnected2D(64, (3, 3), input_shape=(32, 32, 3)))
 # 현재 model.output_shape == (None, 30, 30, 64)
-# 이 층이 (30*30)*(3*3*3*64) + (30*30)*64개의
+# 이 층에서 (30*30)*(3*3*3*64) + (30*30)*64개의
 # 매개변수를 사용한다는 점을 유의하십시오
 
 # 32개의 출력값을 갖고 가중치를 공유하지 않는 3x3 합성곱 층을 추가합니다.
@@ -102,21 +101,21 @@ __인자__
 
 - __filters__: `int`, 출력 공간의 차원
     (다시 말해 합성곱 층의 출력 필터의 개수).
-- __kernel_size__: `int` 1개, 또는 2D 컨볼루션 창의
-    넓이와 높이인 `int` 2개로 이루어진 튜플/리스트.
+- __kernel_size__: `int` 1개, 또는 2D 합성곱 창의
+    넓이와 높이를 나타내는 `int` 2개로 이루어진 튜플/리스트.
     `int` 1개인 경우 모든 차원에 같은 값으로 설정합니다.
 - __strides__: `int` 1개, 혹은 넓이와 높이의
-    스트라이드인 `int` 2개로 이루어진 튜플/리스트.
-    `int` 1개인 경우 모든 차원에 같은 값으로 설정합니다.
+    스트라이드를 나타내는 `int` 2개로 이루어진 튜플/리스트.
+    `int` 1개인 경우 모든 차원을 같은 값으로 설정합니다.
 - __padding__: 현재는 (대소문자 구분없이) `"valid"`만을 지원합니다.
     차후 `"same"`을 지원할 계획입니다.
 - __data_format__: `string`,
-    `channels_last` (기본값) 혹은 `channels_first`.
+    `"channels_last"` (기본값) 혹은 `"channels_first"`.
     입력값의 형태.
-    `channels_last`는 `(batch, height, width, channels)`, `channels_first`는
+    `"channels_last"`는 `(batch, height, width, channels)`, `"channels_first"`는
     `(batch, channels, height, width)`의 형태를 의미합니다.
     기본 설정은 `~/.keras/keras.json`의 `image_data_format` 값에서 설정할 수 있습니다.
-    따로 변경하지 않았다면, "channels_last"입니다.
+    따로 변경하지 않았다면, `"channels_last"`입니다.
 - __activation__: 사용할 활성화 함수
     ([활성화](../activations.md) 참조).
     따로 지정하지 않으면 활성화가 적용되지 않습니다
