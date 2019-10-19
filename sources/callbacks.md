@@ -101,7 +101,7 @@ keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, v
 
 측정 항목이 향상되지 않는 경우 학습률을 감소시킵니다.
 
-종종 학습이 잘 되지 않을 때 학습률을 2-10배 줄임으로써
+학습이 잘 되지 않을 때 학습률을 2-10배 감소시키면
 학습이 향상되기도 합니다. 이 콜백은 `patience` 개의 에폭 동안
 측정 항목을 확인하여 학습에 향상이 없으면 학습률을 감소시킵니다.
 
@@ -119,9 +119,7 @@ __인자__
 - __monitor__: 관찰할 항목. 학습률을 감소시킬지 판단할 때 기준이 되는 항목.
 - __factor__: 학습률을 줄이는 정도.
     new_lr = lr * factor
-- __patience__: number of epochs that the monitored
-    quantity with no improvement after which training will
-    be stopped.
+- __patience__: 학습을 멈추기 전 `mointor`의 값에 진전이 없는 에폭의 수. `patience`개의 에폭 동안 `monitor`의 값에 진전이 없으면 학습을 멈춥니다.
     검증 빈도 (`model.fit(validation_freq=5)`)가 1보다 크다면 매 에폭마다 검증 값<sub>validation quantity</sub>을 계산하지 않습니다.
 - __verbose__: `int`. 0: 메세지 없음, 1: 메시지를 업데이트합니다.
 - __mode__: {auto, min, max} 중 하나. `min` 모드에서는
@@ -131,7 +129,7 @@ __인자__
     않으면 학습이 멈춥니다. `auto` 모드에서는
     `monitor`에 의해 자동으로 설정됩니다.
 - __min_delta__: 새로운 최적값을 계산할 기준점. 유의미한 변화에서만 값을 업데이트하기 위해서입니다.
-- __cooldown__: 학습률을 감소시킨 뒤 학습을 정상적으로 다시 진행하기 위해 기다려야하는 에폭의 수
+- __cooldown__: 학습률을 감소시킨 뒤 학습을 다시 정상적으로 진행하기 위해 기다려야하는 에폭의 수
 - __min_lr__: 학습률의 하한선.
     
 ---
