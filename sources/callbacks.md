@@ -1,6 +1,6 @@
 ## 콜백 함수의 사용법<sub>Usage of callbacks</sub>
 
-콜백은 학습 과정에서 특정 단계에 적용할 함수 세트를 의미합니다. 콜백을 사용해서 학습 중인 모델의 내적 상태와 통계값을 확인할 수 있습니다. `Sequential`이나 `Model` 클래스의 `.fit()` 메서드에 키워드 인자 `callbacks`를 통해 콜백의 리스트를 전달할 수 있습니다. 학습의 각 단계마다 관련된 콜백이 호출됩니다.
+콜백은 학습 과정에서 특정 단계에 적용할 함수 세트를 의미합니다. 콜백을 사용해서 학습 중인 모델의 내부 상태와 통계값을 확인할 수 있습니다. `Sequential`이나 `Model` 클래스의 `.fit()` 메서드에 키워드 인자 `callbacks`를 통해 콜백의 리스트를 전달할 수 있습니다. 학습의 각 단계마다 관련된 콜백이 호출됩니다.
 
 ---
 
@@ -15,7 +15,7 @@ keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
 
 __인자__
 
-- __count_mode__: "steps" 혹은 "samples" 중 하나.
+- __count_mode__: "steps"와 "samples" 중 하나.
     검사한 샘플의 수와 검사한 단계(배치) 수 중 진행표시바<sub>progressbar</sub>에 표시할 항목.
 - __stateful_metrics__: 평균으로 표시하지 *않을* 측정 항목의 `string` 이름을 담은 iterable 객체.
     이 리스트의 측정 항목은 원래값 그대로 로그합니다.
@@ -55,11 +55,11 @@ __인자__
     전체 모델이 저장됩니다 (`model.save(filepath)`).
 - __mode__: {auto, min, max} 중 하나.
     `save_best_only=True`이면
-    `__monitor__`값을 최대화할지 최소화할지에 따라
-    현재 저장 파일을 덮어쓸지 결정합니다. `__monitor__=val_acc`의 경우
-    `__mode__=max`가 되어야 하며, `__monitor__=val_loss`라면
-    `__mode__=min`이 되어야 합니다. `auto`의 경우
-    `__monitor__`값을 통해 자동으로 설정됩니다.
+    `monitor`값을 최대화할지 최소화할지에 따라
+    현재 저장 파일을 덮어쓸지 결정합니다. `monitor=val_acc`의 경우
+    `mode=max`가 되어야 하며, `monitor=val_loss`라면
+    `mode=min`이 되어야 합니다. `auto`의 경우
+    `monitor`값을 통해 자동으로 설정됩니다.
 - __period__: 체크포인트를 저장할 간격(에폭의 수).
 
 ----
@@ -71,7 +71,7 @@ __인자__
 keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch/end/', field='data', headers=None, send_as_json=False)
 ```
 
-이벤트를 서버에 스트리밍할 콜백
+이벤트를 서버에 스트리밍하는 콜백
 
 `requests` 라이브러리가 필요합니다.
 기본값으로 이벤트는 `root + '/publish/epoch/end/'`으로 보내집니다.
@@ -82,13 +82,13 @@ keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch
 __인자__
 
 - __root__: `string`, 표적 서버의 최상위 url.
-- __path__: `string`, 이벤트가 보내질 `root`를 기준으로 한 상대적 경로
+- __path__: `string`, 이벤트가 보내질 `root`를 기준으로 한 상대 경로
 - __field__: `string`, 데이터가 저장될 JSON 필드.
-    형식 내 payload가 보내지는 경우에만 필드가 사용됩니다
+    폼 내에 payload가 보내지는 경우에만 필드가 사용됩니다
     (`send_as_json=False`인 경우).
 - __headers__: `dictaionary`, 선택적 커스텀 HTTP 헤더
 - __send_as_json__: `bool`, 요청을 `application/json`으로
-    보내는지 여부.
+    보낼지 여부.
     
 ----
 
@@ -99,12 +99,11 @@ __인자__
 keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
 ```
 
-측정 항목이 향상되지 않는 경우 학습 속도를 줄입니다.
+측정 항목이 향상되지 않는 경우 학습률을 감소시킵니다.
 
-모델은 종종 학습이 부진할 때 학습 속도를 2-10의 인수로 줄여
-효과를 보기도 합니다. 이 콜백은 수량을 관찰하여
-'patience' 수의 세대 동안 향상되는 기미가 없으면
-'patience' 수의 세대 동안 향상되는 기미가 없으면
+종종 학습이 잘 되지 않을 때 학습률을 2-10배 줄임으로써
+학습이 향상되기도 합니다. 이 콜백은 `patience` 개의 에폭 동안
+측정 항목을 확인하여 학습에 향상이 없으면 학습률을 감소시킵니다.
 
 __예시__
 
@@ -117,28 +116,23 @@ model.fit(X_train, Y_train, callbacks=[reduce_lr])
 
 __인자__
 
-- __monitor__: 관찰할 수량.
-- __factor__: 학습 속도를 줄일 인수.
+- __monitor__: 관찰할 항목. 학습률을 감소시킬지 판단할 때 기준이 되는 항목.
+- __factor__: 학습률을 줄이는 정도.
     new_lr = lr * factor
-- __patience__: number of epochs that produced the monitored
+- __patience__: number of epochs that the monitored
     quantity with no improvement after which training will
     be stopped.
-    Validation quantities may not be produced for every
-    epoch, if the validation frequency
-    (`model.fit(validation_freq=5)`) is greater than one.
-- __verbose__: 정수. 0: 자동, 1: 최신화 메시지.
+    검증 빈도 (`model.fit(validation_freq=5)`)가 1보다 크다면 매 에폭마다 검증 값<sub>validation quantity</sub>을 계산하지 않습니다.
+- __verbose__: `int`. 0: 메세지 없음, 1: 메시지를 업데이트합니다.
 - __mode__: {auto, min, max} 중 하나. `min` 모드에서는
-    관찰하는 수량이 더 이상 감소하지
+    `monitor`의 값이 더 이상 감소하지
     않으면 학습이 멈춥니다. `max` 모드에서는
-    관찰하는 수량이 더 이상 증가하지
-    않으면 학습이 멈춥니다; `auto` 모드에서는
-    관찰하는 수량의 이름에서
-    방향성이 자동적으로 유추됩니다.
-- __min_delta__: 유의미한 변화에만 집중해 새로운
-    최적값을 계산할 한계점.
-- __cooldown__: 학습 속도가 감소 된 후 몇 세대를 기다려야 평소
-    가동이 재개되는지를 결정하는 세대의 수.
-- __min_lr__: 학습 속도에 대한 하한선.
+    `monitor`의 값이 더 이상 증가하지
+    않으면 학습이 멈춥니다. `auto` 모드에서는
+    `monitor`에 의해 자동으로 설정됩니다.
+- __min_delta__: 새로운 최적값을 계산할 기준점. 유의미한 변화에서만 값을 업데이트하기 위해서입니다.
+- __cooldown__: 학습률을 감소시킨 뒤 학습을 정상적으로 다시 진행하기 위해 기다려야하는 에폭의 수
+- __min_lr__: 학습률의 하한선.
     
 ---
 
@@ -151,9 +145,9 @@ keras.callbacks.Callback()
 
 새로운 콜백을 만드는데 사용되는 추상 베이스 클래스.
 
-__특성__
+__속성__
 
-- __params__: 딕셔너리. 학습 매개변수
+- __params__: `dictionary`. 학습 매개변수
     (예. 다변 모드, 배치 크기, 세대 수…).
 - __model__: `keras.models.Model`의 인스턴스.
     학습 중인 모델의 참조.
