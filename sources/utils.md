@@ -306,7 +306,7 @@ keras.utils.multi_gpu_model(model, gpus=None, cpu_merge=True, cpu_relocation=Fal
 
 8개의 GPU까지는 거의 선형적으로 속도 향상이 예상됩니다.
 
-이 함수는 현재 텐서플로우 백엔드에서만
+이 함수는 현재 TensorFlow 백엔드에서만
 사용가능합니다.
 
 __인자__
