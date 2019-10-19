@@ -1,4 +1,4 @@
-# Keras 함수형 API 첫걸음
+# 케라스 함수형 API 시작하기
 
 Keras 함수형 API는 multi-output model, 유향 비순환 그래프, 혹은 layer들을 공유하는 모델과 같이 복잡한 model을 정의하는데 최적의 방법입니다.
 
