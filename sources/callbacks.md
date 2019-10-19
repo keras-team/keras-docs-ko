@@ -342,10 +342,10 @@ __인자__
 keras.callbacks.CSVLogger(filename, separator=',', append=False)
 ```
 
-세대 결과를 csv 파일에 스트림하는 콜백.
+에폭의 결과를 csv 파일로 스트리밍하는 콜백.
 
-np.ndarray와 같은 1D interable을 포함,
-문자열로 표현 가능한 모든 값을 지원합니다.
+np.ndarray와 같이 1D iterable을 포함하여
+`string`으로 표현할 수 있는 모든 값을 지원합니다.
 
 __예시__
 
@@ -357,10 +357,10 @@ model.fit(X_train, Y_train, callbacks=[csv_logger])
 
 __인자__
 
-- __filename__: csv 파일의 파일 이름, 예. 'run/log.csv'.
-- __separator__: csv 파일의 성분을 분리하는데 사용할 문자열.
-- __append__: 참: 파일이 존재하는 경우 뒤에 덧붙입니다 (학습을 이어나갈 때
-    유용합니다). 거짓: 기존의 파일을 덧씌웁니다.
+- __filename__: csv 파일의 파일 이름, 예: 'run/log.csv'.
+- __separator__: csv 파일에서 구분자로 사용할 `string`.
+- __append__: `append=True`인 경우, 파일이 존재하면 파일의 뒤에 덧붙입니다(학습을 이어나갈 때
+    유용합니다). `append=False`인 경우, 기존의 파일을 덮어 씁니다.
     
 ----
 
@@ -373,21 +373,20 @@ keras.callbacks.LambdaCallback(on_epoch_begin=None, on_epoch_end=None, on_batch_
 
 간단한 커스텀 콜백을 즉석에서 만드는 콜백.
 
-이 콜백은 적절한 시점에 호출될 익명 함수로 생성됩니다.
-콜백이 다음과 같이 위치적 인수를 전달 받는다는 것을
-참고하십시오:
+이 콜백은 적절한 시점에 호출될 익명 함수를 통해 생성됩니다.
+콜백은 다음과 같이 위치 인자를 전달받습니다.
 
-- `on_epoch_begin`과 `on_epoch_end`는 다음 두 가지 위치적 인수를 전달 받습니다:
+- `on_epoch_begin`과 `on_epoch_end`는 다음과 같은 위치 인자를 전달 받습니다.
 `epoch`, `logs`
-- `on_batch_begin`과 `on_batch_end`는 다음 두 가지 위치적 인수를 전달 받습니다:
+- `on_batch_begin`과 `on_batch_end`는 다음과 같은 위치 인자를 전달 받습니다.
 `batch`, `logs`
-- `on_train_begin`과 `on_train_end`는 다음 위치적 인수를 전달 받습니다:
+- `on_train_begin`과 `on_train_end`는 다음 위치적 인자를 전달 받습니다:
 `logs`
 
 __인자__
 
-- __on_epoch_begin__: 각 세대의 시작에 호출됩니다.
-- __on_epoch_end__: 각 세대의 끝에 호출됩니다.
+- __on_epoch_begin__: 각 에폭의 시작에 호출됩니다.
+- __on_epoch_end__: 각 에폭의 끝에 호출됩니다.
 - __on_batch_begin__: 각 배치의 시작에 호출됩니다.
 - __on_batch_end__: 각 배치의 끝에 호출됩니다.
 - __on_train_begin__: 모델 학습의 시작에 호출됩니다.
@@ -397,12 +396,12 @@ __예시__
 
 
 ```python
-# 각 배치가 시작할 때 배치 번호를 프린트합니다
+# 각 배치가 시작할 때 배치 번호를 출력합니다
 batch_print_callback = LambdaCallback(
-    on_batch_begin=lambda batch,logs: print(batch))
+    on_batch_begin=lambda batch, logs: print(batch))
 
-# 세대 손실을 JSON 형식으로 파일에 스트림합니다
-# 파일 내용은 명확히 구성된 JSON이 아니며 줄 별로 JSON 객체를 가집니다
+# 에폭 손실을 JSON 형식으로 파일에 스트림합니다
+# 파일 내용은 완벽한 형식의 JSON이 아니며, 줄 마다 JSON 객체가 있는 형식입니다.
 import json
 json_log = open('loss_log.json', mode='wt', buffering=1)
 json_logging_callback = LambdaCallback(
@@ -411,7 +410,7 @@ json_logging_callback = LambdaCallback(
     on_train_end=lambda logs: json_log.close()
 )
 
-# 모델 학습을 끝낸 후 몇몇 처리 과정을 종료합니다
+# 모델 학습을 끝낸 후 몇 개의 프로세스를 종료합니다.
 processes = ...
 cleanup_callback = LambdaCallback(
     on_train_end=lambda logs: [
@@ -427,11 +426,11 @@ model.fit(...,
 ---
 
 
-# 콜백을 만드십시오
+# 콜백 만들기
 
-베이스 클래스인 `keras.callbacks.Callback`를 확장해서 커스텀 콜백을 만들 수 있습니다. 콜백은 클래스 재산인 `self.model`을 통해서 관련 모델에 접근할 수 있습니다.
+베이스 클래스인 `keras.callbacks.Callback`를 확장해서 커스텀 콜백을 만들 수 있습니다. 콜백은 클래스 속성인 `self.model`을 통해서 관련 모델에 접근할 수 있습니다.
 
-다음은 학습 과정 중 각 배치에 대한 손실 리스트를 저장하는 간단한 예시입니다:
+다음은 학습 과정 중 각 배치의 손실 리스트를 저장하는 간단한 예시입니다:
 ```python
 class LossHistory(keras.callbacks.Callback):
     def on_train_begin(self, logs={}):
@@ -443,7 +442,7 @@ class LossHistory(keras.callbacks.Callback):
 
 ---
 
-### 예시: 손실 역사 기록
+### 예시: 손실값의 기록
 
 ```python
 class LossHistory(keras.callbacks.Callback):
