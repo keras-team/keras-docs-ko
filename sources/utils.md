@@ -7,7 +7,7 @@ keras.utils.CustomObjectScope()
 
 `_GLOBAL_CUSTOM_OBJECTS`로의 변환이 벗어나지 못하는 유효범위를 제공합니다.
 
-`with` 명령문 내의 코드는 이름을 통해 커스텀 객체에 접근할 수 있습니다.
+`with` 명령문 내의 코드는 문자열 이름을 통해 커스텀 객체에 접근할 수 있습니다.
 글로벌 커스텀 객체로의 변환은
 `with` 명령문의 영역 내에서 유효합니다. `with` 명령문이 끝나면,
 글로벌 커스텀 객체는 
@@ -16,12 +16,12 @@ keras.utils.CustomObjectScope()
 __예시__
 
 
-`MyObject`(예. 클래스)라는 커스텀 객체를 생각해 봅시다:
+`MyObject`(예: 클래스)라는 커스텀 객체에 대해, 다음과 같이 접근할 수 있습니다.
 
 ```python
-with CustomObjectScope({'MyObject':MyObject}):
+with CustomObjectScope({'MyObject': MyObject}):
+    # save, load 등의 함수들은 문자열 이름으로 커스텀 객체에 접근할 수 있습니다.
     layer = Dense(..., kernel_regularizer='MyObject')
-    # save, load, 등의 함수가 주어진 이름으로 커스텀 객체를 인지합니다.
 ```
 
 ----
@@ -33,7 +33,7 @@ with CustomObjectScope({'MyObject':MyObject}):
 keras.utils.HDF5Matrix(datapath, dataset, start=0, end=None, normalizer=None)
 ```
 
-Numpy 배열을 대체하는 HDF5 데이터셋 표현양식.
+NumPy 배열을 대체하는 HDF5 데이터 세트 표현양식.
 
 __예시__
 
@@ -43,23 +43,22 @@ x_data = HDF5Matrix('input/file.hdf5', 'data')
 model.predict(x_data)
 ```
 
-`start`와 `end` 인자를 이용하여 데이터셋을 자를 수 있습니다.
+`start`와 `end` 인자를 통해 가져올 데이터 범위의 시작과 끝을 지정할 수 있습니다.
 
 추가적으로 정규화 함수(혹은 람다)를 사용할 수 있습니다.
-이는 회수된 모든 데이터 조각에 대해 호출됩니다.
+이는 가져온 모든 데이터에 대해 호출됩니다.
 
 __인자__
 
-- __datapath__: 문자열, HDF5 파일의 경로입니다
-- __dataset__: 문자열, 'datapath'에 명시된 파일 내 HDF5 데이터셋의
-    이름입니다
-- __start__: 정수, 데이터셋에서 자르기 원하는 부분의 시작점입니다
-- __end__: 정수, 데이터셋에서 자르기 원하는 부분의 끝점입니다
-- __normalizer__: 데이터가 회수될 때 데이터에 대해서 호출할 함수
+- __datapath__: `str`, HDF5 파일의 경로입니다.
+- __dataset__: `str`, `datapath`에 명시된 파일 내 HDF5 데이터 세트의 이름입니다.
+- __start__: `int`, 데이터 세트에서 자르기 원하는 부분의 시작점입니다.
+- __end__: `int`, 데이터 세트에서 자르기 원하는 부분의 끝점입니다.
+- __normalizer__: 데이터가 회수될 때 데이터에 대해서 호출할 함수입니다.
 
 __반환값__
 
-배열과 비슷한 형태의 HDF5 데이터셋
+배열과 유사한 형태의 HDF5 데이터 세트.
     
 ----
 
@@ -70,13 +69,13 @@ __반환값__
 keras.utils.Sequence()
 ```
 
-데이터셋 등의 데이터 시퀀스를 학습하기 위한 베이스 객체.
+데이터 세트 등의 데이터 시퀀스를 학습하기 위한 베이스 객체.
 
-모든 `Sequence`는 `__getitem__`과 `__len__` 메서드를 실행해야 합니다.
-`on_epoch_end`메서드를 사용하면, 매 에폭의 끝에서 데이터셋을 수정할 수 있습니다.
-`__getitem__` 메서드는 완전한 배치를 반환해야 합니다.
+모든 `Sequence`는 `__getitem__`과 `__len__` 메소드를 실행해야 합니다.
+`on_epoch_end` 메소드를 사용하면, 매 에폭의 끝에서 데이터 세트를 수정할 수 있습니다.
+`__getitem__` 메소드는 완전한 배치를 반환해야 합니다.
 
-__안내_
+__안내__
 
 
 `Sequence`는 멀티프로세싱을 보다 안전하게 실행합니다.
@@ -91,7 +90,7 @@ from skimage.io import imread
 from skimage.transform import resize
 import numpy as np
 
-# 여기서 `x_set`은 이미지 파일 경로의 목록입니다
+# 여기서 `x_set`은 이미지 파일 경로의 목록입니다.
 # 그리고 `y_set`은 관련 클래스입니다.
 
 class CIFAR10Sequence(Sequence):
@@ -122,17 +121,13 @@ keras.utils.to_categorical(y, num_classes=None, dtype='float32')
 ```
 
 
-클래스 벡터(정수)를 이진 클래스 행렬로 변환합니다.
-
-예. categorical_crossentropy와 함께 사용할 수 있습니다.
+정수로 이루어진 벡터를 이진 클래스 행렬로 변환합니다(예: `categorical_crossentropy`와 함께 사용할 수 있습니다).
 
 __인자__
 
-- __y__: 행렬로 변환할 클래스 벡터
-    (0부터 num_classes까지의 정수).
+- __y__: 행렬로 변환할 클래스 벡터(0부터 `num_classes`까지의 정수).
 - __num_classes__: 클래스의 총 개수.
-- __dtype__: 문자열로 표현된 입력값의 데이터 자료형
-    (`float32`, `float64`, `int32`...)
+- __dtype__: 문자열로 표현된 입력값의 데이터 자료형 (`'float32'`, `'float64'`, `'int32'`, ...).
 
 __반환값__
 
@@ -143,7 +138,7 @@ __예시__
 
 
 ```python
-# 3 클래스 {0, 1, 2}에 대한 5개의 라벨로 이루어진 배열을 생각해봅시다:
+# 3 클래스 {0, 1, 2}에 대한 5개의 레이블로 이루어진 배열을 생각해봅시다.
 > labels
 array([0, 2, 1, 2, 0])
 # `to_categorical`은 이를 클래스 수 만큼의 열을 가진
@@ -167,17 +162,17 @@ keras.utils.normalize(x, axis=-1, order=2)
 ```
 
 
-Numpy 배열을 정규화합니다.
+NumPy 배열을 정규화합니다.
 
 __인자__
 
-- __x__: 정규화할 Numpy 배열.
-- __axis__: 정규화를 따라 진행할 축.
-- __order__: 정규화 계수 (예. L2 노름의 경우 2).
+- __x__: 정규화할 NumPy 배열.
+- __axis__: 정규화를 적용할 축.
+- __order__: 정규화 계수 (예: L2 노름의 경우 2).
 
 __반환값__
 
-배열을 정규화한 복사본.
+정규화된 배열의 복사본.
     
 ----
 
@@ -191,44 +186,42 @@ keras.utils.get_file(fname, origin, untar=False, md5_hash=None, file_hash=None, 
 
 캐시에 파일이 존재하지 않으면 URL에서 파일을 다운로드 합니다.
 
-기본적으로 url `origin`에서 cache_subdir인 `datasets` 내 위치한
-cache_dir인 `~/.keras`로 파일이 다운로드되고
-`fname`으로 파일이름이 붙습니다. 그러므로
+기본적으로 URL `origin`에서 `cache_subdir`인 `'datasets'` 내 위치한
+`cache_dir`인 `~/.keras`로 파일이 다운로드되고
+`fname`으로 파일 이름이 붙습니다. 그러므로
 `example.txt` 파일의 최종위치는 `~/.keras/datasets/example.txt`가 됩니다.
 
-tar, tar.gz, tar.bz, 그리고 zip 형식의 파일도 추출가능합니다.
-다운로드 후에 해시를 전달하여 파일을 확인합니다.
+tar, tar.gz, tar.bz, 그리고 zip 형식의 파일도 추출 가능합니다.
+파일 해시를 인자로 전달하면 다운로드 후 파일의 유효성을 검증할 수 있습니다.
 명령줄 프로그램인 `shasum`과 `sha256sum`으로 해시를 계산할 수 있습니다.
 
 __인자__
 
-- __fname__: 파일의 이름. 절대적 경로 `/path/to/file.txt`가 명시된 경우
-    바로 그 위치로 파일이 저장됩니다.
+- __fname__: 파일의 이름. 절대 경로 `/path/to/file.txt`가 명시된 경우 해당 경로에 파일이 저장됩니다.
 - __origin__: 파일의 본래 URL.
-- __untar__: 'untar'대신 'extract'를 권장합니다. 
-    불리언 형식의 입력으로 파일의 압축 해제 여부를 선택합니다.
-- __md5_hash__: 'md5_hash'대신 'file_hash'를 권장합니다.
-    파일검사용 md5 해시.
+- __untar__: `untar`대신 `extract`를 권장합니다. 
+    `bool` 형식의 입력으로 파일의 압축 해제 여부를 선택합니다.
+- __md5_hash__: `md5_hash`대신 `file_hash`를 권장합니다.
+    파일 검사용 md5 해시.
 - __file_hash__: 다운로드 후 예산되는 파일의 해시 문자열.
     해시 알고리즘인 sha256과 md5 둘 모두 지원됩니다.
 - __cache_subdir__: 파일이 저장되는 케라스 캐시 디렉토리 내 하위 디렉토리.
-    절대적 경로 `/path/to/folder`가 명시된 경우
-    바로 그 위치로 파일이 저장됩니다.
+    절대 경로 `/path/to/folder`가 명시된 경우 해당 경로에 파일이 저장됩니다.
 - __hash_algorithm__: 파일을 검사하기 위한 해시 알고리즘을 선택합니다.
-    'md5', 'sha256', 그리고 'auto'를 선택할 수 있습니다.
-    기본값인 'auto'는 사용중인 해시 알고리즘을 감지합니다.
-- __extract__: True 값일 경우 tar 혹은 zip처럼 Archive로 파일을 추출합니다.
+    `'md5'`, `'sha256'`, 그리고 `'auto'`를 선택할 수 있습니다.
+    기본값인 `'auto'`는 사용중인 해시 알고리즘을 감지합니다.
+- __extract__: `True`인 경우 tar 혹은 zip처럼 Archive로 파일을 추출합니다.
 - __archive_format__: 파일 추출을 시도할 Archive 형식.
-    'auto', 'tar', 'zip', 그리고 None을 선택할 수 있습니다.
-    'tar'는 tar, tar.gz, 그리고 tar.bz 파일을 포함합니다.
-    'auto'를 선택할 경우 기본값으로 ['tar', 'zip']가 선택됩니다.
-    None 혹은 빈 목록는 '발견된 매치가 없음'을 메시지를 반환합니다.
+    `'auto'`, `'tar'`, `'zip'`, 그리고 `None`을 선택할 수 있습니다.
+    `'tar'`는 tar, tar.gz, 그리고 tar.bz 파일을 포함합니다.
+    `'auto'`를 선택할 경우 기본값으로 ['tar', 'zip']가 선택됩니다.
+    `None` 혹은 빈 목록는 '발견된 매치가 없음'을 메시지를 반환합니다.
 - __cache_dir__: 캐시된 파일을 저장할 위치.
-    None일 경우 기본값은 [케라스 디렉토리](/faq/#where-is-the-keras-configuration-filed-stored)입니다.
+    `None`일 경우 기본값은 [케라스 디렉토리](/faq/#where-is-the-keras-configuration-filed-stored)입니다.
 
 __반환값__
 
-다운로드된 파일의 경로
+다운로드된 파일의 경로.
     
 ----
 
@@ -246,7 +239,7 @@ __인자__
 
 - __model__: 케라스 모델 인스턴스.
 - __line_length__: 출력 결과의 가로 길이
-    (예. 터미널 창의 가로 길이에 맞도록
+    (예: 터미널 창의 가로 길이에 맞도록
     이 값을 설정합니다).
 - __positions__: 각 라인의 로그 요소의 절대적 혹은 상대적 위치.
     값을 특정하지 않으면 기본값인 `[.33, .55, .67, 1.]`로 설정됩니다.
@@ -276,12 +269,12 @@ __인자__
 - __show_layer_names__: 층 이름을 보여줄지 여부.
 - __rankdir__: `rankdir` 인자가,
     플롯의 형식을 결정하는 문자열인 PyDot으로 전달됩니다:
-    'TB'는 세로 플롯;
-    'LR'는 가로 플롯을 생성합니다.
+    `'TB'`는 세로 플롯;
+    `'LR'`는 가로 플롯을 생성합니다.
 - __expand_nested__: 중첩된 모델을 클러스터로 확장할지 여부.
 - __dpi__: 도트 DPI.
 
-Returns:
+__반환값__
 
 주피터가 설치된 경우 주피터 노트북 이미지 객체를 반환합니다.
 이 메소드를 이용하면 주피터 노트북에서 모델을 바로 출력하여 확인할 수 있습니다.  
@@ -298,7 +291,7 @@ keras.utils.multi_gpu_model(model, gpus=None, cpu_merge=True, cpu_relocation=Fal
 
 다른 GPU에 모델을 복제합니다.
 
-이 함수는 구체적으로 단일기계 다중-GPU 데이터 병렬처리를 실행합니다.
+이 함수는 구체적으로 단일 기계 다중 GPU 데이터 병렬처리를 실행합니다.
 다음과 같은 방식으로 작동합니다:
 
 - 모델의 입력을 여러 하위 배치로 나눕니다.
