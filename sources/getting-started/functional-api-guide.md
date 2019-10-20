@@ -333,7 +333,7 @@ z = keras.layers.add([x, y])
 
 ### 공유 시각 모델
 
-이 모델은 같은 이미지 처리 모듈을 두 개의 입력에 사용하여, 두 MNIST 숫자가 같은 숫자인지 판단합니다.
+이 모델은 동일한 이미지 처리 모듈을 두 개의 입력에 적용하여, 두 MNIST 숫자가 같은 숫자인지 판단합니다.
 
 ```python
 from keras.layers import Conv2D, MaxPooling2D, Input, Dense, Flatten
@@ -362,18 +362,18 @@ out = Dense(1, activation='sigmoid')(concatenated)
 classification_model = Model([digit_a, digit_b], out)
 ```
 
-### 시각적 문답 모델
+### 이미지에 대한 질문에 답변하는 모델
 
-이 모델은 사진에 대한 질문을 받았을 때 올바른 한 단어로 답변을 선택할 수 있습니다.
+이 모델은 이미지에 대한 자연어 질문에 대해 한 단어짜리 정답을 제시합니다.
 
-질문과 이미지를 벡터로 인코딩하여 두 벡터를 연결한 후, 잠재적 답변의 어휘 목록에 대해서 상층의 로지스틱 회귀를 학습시키는 방식으로 작동합니다.
+이 모델은 이미지를 벡터로 인코딩하여 이어붙이고 정답이 될 수 있는 단어 목록에 로지스틱 회귀를 학습합니다.
 
 ```python
 from keras.layers import Conv2D, MaxPooling2D, Flatten
 from keras.layers import Input, LSTM, Embedding, Dense
 from keras.models import Model, Sequential
 
-# 우선 Sequential 모델을 사용해서 시각 모델을 정의합시다.
+# 우선 Sequential 모델을 사용해서 이미지 모델을 정의합니다.
 # 다음 모델은 이미지를 벡터로 인코딩합니다.
 vision_model = Sequential()
 vision_model.add(Conv2D(64, (3, 3), activation='relu', padding='same', input_shape=(224, 224, 3)))
@@ -388,45 +388,45 @@ vision_model.add(Conv2D(256, (3, 3), activation='relu'))
 vision_model.add(MaxPooling2D((2, 2)))
 vision_model.add(Flatten())
 
-# 시각 모델의 출력으로 텐서를 얻어 봅시다.
+# 이미지 모델의 출력 텐서를 얻습니다.
 image_input = Input(shape=(224, 224, 3))
 encoded_image = vision_model(image_input)
 
 # 다음은 질문을 벡터로 인코딩할 언어 모델을 정의합니다
-# 각 질문의 최대 길이는 100 단어입니다.
-# 그리고 각 단어에 1에서 9999까지의 `int` 인덱스를 부여합니다.
+# 질문은 최대 100 단어입니다.
+# 각 단어에 1에서 9999까지의 `int` 인덱스를 부여합니다.
 question_input = Input(shape=(100,), dtype='int32')
 embedded_question = Embedding(input_dim=10000, output_dim=256, input_length=100)(question_input)
 encoded_question = LSTM(256)(embedded_question)
 
-# 질문 벡터와 이미지 벡터를 연결해 봅시다.
+# 질문 벡터와 이미지 벡터를 이어붙입니다.
 merged = keras.layers.concatenate([encoded_question, encoded_image])
 
-# 그리고 상층에 1000개의 잠재적 답변에 대한 로지스틱 회귀를 학습시킵시다.
+# 그 위에 답이 될 수 있는 1000개의 단어에 대해 로지스틱 회귀를 학습시킵니다.
 output = Dense(1000, activation='softmax')(merged)
 
 # 다음은 최종 모델입니다.
 vqa_model = Model(inputs=[image_input, question_input], outputs=output)
 
-# 다음 단계는 실제 데이터에 대해 이 모델을 학습시키는 것입니다.
+# 다음 단계에서는 실제 데이터를 이용해 모델을 학습시켜봅시다.
 ```
 
-### 비디오 문답 모델
+### 비디오에 대한 질문에 답변하는 모델
 
-이미지 문답 모델을 학습했으니, 이를 간단하게 비디오 문답 모델로 바꿀 수 있습니다. 적절한 학습을 통해서 모델에 짧은 비디오(예. 100-프레임 사람 행동)를 보여주고 비디오에 대한 질문을 할 수 있습니다(예: "남자 아이는 무슨 스포츠를 하고 있니?" -> "축구").
+이미지에 대한 모델을 간단하게 비디오에 대한 모델로 바꿔봅시다. 적절한 학습을 통해서 모델에 짧은 비디오(예: 100 프레임으로 된 사람의 움직임 영상)를 보여주고 비디오에 대한 질문을 할 수 있습니다(예: "남자 아이는 무슨 스포츠를 하고 있니?" -> "축구").
 
 ```python
 from keras.layers import TimeDistributed
 
 video_input = Input(shape=(100, 224, 224, 3))
-# 기존에 학습된 (가중치가 재사용된) vision_model을 통해서 인코딩된 비디오입니다.
+# 기존에 학습된 vision_model로 비디오를 인코딩합니다(가중치를 재사용합니다.).
 encoded_frame_sequence = TimeDistributed(vision_model)(video_input)  # 출력은 벡터의 시퀀스가 됩니다.
 encoded_video = LSTM(256)(encoded_frame_sequence)  # 출력은 벡터입니다.
 
-# 다음은 이전 예시와 동일한 가중치를 재사용한 질문 인코더의 모델 수준 표현입니다.
+# 다음은 이전 모델의 가중치를 재사용하여 만든 질문 인코더의 모델 표현입니다.
 question_encoder = Model(inputs=question_input, outputs=encoded_question)
 
-# 이를 사용해서 질문을 인코딩해 봅시다.
+# 이 모델을 이용해서 질문을 인코딩해 봅시다.
 video_question_input = Input(shape=(100,), dtype='int32')
 encoded_video_question = question_encoder(video_question_input)
 
