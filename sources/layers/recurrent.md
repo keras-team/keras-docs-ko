@@ -7,7 +7,7 @@ keras.layers.RNN(cell, return_sequences=False, return_state=False, go_backwards=
 
 순환 신경망<sub>Recurrent Neural Network</sub> 층<sub>layer</sub>의 기본 클래스.
 
-__인자<sub>argument</sub>__
+__인자__
 - __cell__: 순환 신경망 내부의 셀 인스턴스입니다. 순환 신경망은 특정한 연산을 입력된 시계열 길이만큼 반복하는 형태의 신경망입니다. 셀은 이 반복되는 연산 부분을 담당하는 영역으로 생성한 순환 신경망 인스턴스의 `cell`속성에 할당됩니다. 셀은 다음과 같은 하위 요소들을 가진 클래스입니다.
     - `t`시점의 입력<sub>input</sub>과 상태<sub>state</sub>를 불러오는 `call`메소드(`call(input_at_t, states_at_t)`). `t`시점의 출력<sub>output</sub>과 `t+1`시점의 상태`(output_at_t, states_at_t_plus_1)`를 반환합니다. 셀 인스턴스의 `call`메소드는 필요한 경우 `constants`인자를 이용하여 별도의 원하는 상수값을 입력받을 수 있습니다. 자세한 내용은 아래 "별도의 상수 전달 시의 유의점"을 참고하십시오.
     - `state_size` 속성. 신경망 안에서 단계마다 전달되는 상태의 크기를 나타냅니다(셀의 출력과 크기가 같아야 합니다). 셀이 가지게 될 상태가 하나인 경우 하나의 정수를, 여럿인 경우 정수로 이루어진 리스트/튜플을 입력받습니다.   
