@@ -1,6 +1,6 @@
-# 케라스 함수형 API 시작하기<sub>Getting started with the Keras functional API</sub>
+# 케라스 함수형 API 시작하기
 
-Keras 함수형 API는 다중 출력 모델<sub>multi-output model</sub>, 유향 비순환 그래프<sub>directed acyclic graphs</sub>, 혹은 층<sub>layer</sub>들을 공유하는 모델과 같이 복잡한 모델을 정의하는데 최적의 방법입니다.
+Keras 함수형 API<sub>functional API</sub>는 다중 출력 모델<sub>multi-output model</sub>, 유향 비순환 그래프<sub>directed acyclic graphs</sub>, 혹은 층<sub>layer</sub>들을 공유하는 모델과 같이 복잡한 모델을 정의하는 최적의 방법입니다.
 
 이 가이드는 독자가 이미 `Sequential` 모델에 대한 지식이 있다고 가정합니다.
 
@@ -8,12 +8,12 @@ Keras 함수형 API는 다중 출력 모델<sub>multi-output model</sub>, 유향
 
 -----
 
-## 완전 연결 신경망<sub>densely-connected network</sub>
+## 첫 번째 예시: 완전 연결 신경망<sub>densely-connected network</sub>
 
-완전 연결 신경망을 구현하기에는 `Sequential` 모델이 더 적합하지만, 아주 간단한 예시로 설명하기 위해서 Keras 함수형 API로 구현해 보겠습니다.
+완전 연결 신경망에는 `Sequential` 모델이 더 적합하지만, 간단한 예시를 위해 Keras 함수형 API로 구현해 보겠습니다.
 
 - 층 인스턴스<sub>instance</sub>는 텐서에 대해 호출 가능하고, 텐서를 반환합니다.
-- 입력<sub>input</sub> 텐서와 출력<sub>output</sub> 텐서는 `Model`을 정의하는데 사용됩니다.
+- 입력<sub>input</sub> 텐서와 출력<sub>output</sub> 텐서을 통해 `Model`을 정의할 수 있습니다.
 - 이러한 모델은 Keras `Sequential` 모델과 동일한 방식으로 학습됩니다.
 
 ```python
@@ -23,7 +23,7 @@ from keras.models import Model
 # 텐서를 반환합니다.
 inputs = Input(shape=(784,))
 
-# 층 인스턴스는 텐서에 대해 호출 가능하고, 텐서를 반환합니다.
+# 층 인스턴스는 텐서를 호출할 수 있는 객체이며, 텐서를 반환합니다.
 output_1 = Dense(64, activation='relu')(inputs)
 output_2 = Dense(64, activation='relu')(output_1)
 predictions = Dense(10, activation='softmax')(output_2)
@@ -41,11 +41,11 @@ model.fit(data, labels)  # 학습을 시작합니다.
 
 ## 모든 모델은 층 인스턴스처럼 호출 가능합니다
 
-함수형 API를 사용하면 학습된 모델을 재사용하기 편리합니다. 어느 모델이건 텐서에 대해 호출하여 층 인스턴스처럼 사용할 수 있습니다. 모델을 호출하면 모델의 *구조*만 재사용하는 것이 아니라 가중치<sub>weights</sub>까지 재사용하게 됩니다.
+함수형 API를 사용하면 학습된 모델을 재사용하기 편리합니다. 어느 모델이건 텐서를 호출하여 층 인스턴스처럼 사용할 수 있습니다. 모델을 호출하면 모델의 *구조*만 재사용하는 것이 아니라 가중치<sub>weights</sub>까지 재사용하게 됩니다.
 
 ```python
 x = Input(shape=(784,))
-# 다음이 실행되어 위에서 정의한 10-way softmax를 반환합니다.
+# 위에서 정의한 10-way softmax를 반환합니다.
 y = model(x)
 ```
 
@@ -54,13 +54,13 @@ y = model(x)
 ```python
 from keras.layers import TimeDistributed
 
-# 20 프레임 시퀀스를 위한 입력 텐서이며,
-# 각각 784 차원의 벡터를 담고 있습니다.
+# 20개의 시간 단계를 갖는 시퀀스의 입력 텐서입니다.
+# 각 시간 단계는 784 차원의 벡터입니다.
 input_sequences = Input(shape=(20, 784))
 
 # 입력 시퀀스의 모든 시간 단계에 이전 모델을 적용합니다.
 # 앞선 모델의 출력이 10-way softmax였으므로,
-# 아래에 주어진 layer 인스턴스의 출력은 10 차원의 벡터 20개로 이루어진 시퀀스입니다.
+# 아래에 주어진 layer 인스턴스의 출력은 10차원 벡터 20개로 이루어진 시퀀스입니다.
 processed_sequences = TimeDistributed(model)(input_sequences)
 ```
 
