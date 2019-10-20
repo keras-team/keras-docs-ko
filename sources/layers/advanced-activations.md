@@ -8,8 +8,8 @@ keras.layers.LeakyReLU(alpha=0.3)
 Leaky Rectified Linear Unit 활성화 함수입니다.
 
 유닛이 활성화되지 않는 경우 작은 그래디언트를 허용합니다.  
-`x < 0인 경우 f(x) = alpha * x`,  
-`x >= 0인 경우 f(x) = x`.
+- `x < 0`인 경우 `f(x) = alpha * x`  
+- `x >= 0`인 경우 `f(x) = x`
 
 __입력 형태__
 
@@ -40,13 +40,14 @@ keras.layers.PReLU(alpha_initializer='zeros', alpha_regularizer=None, alpha_cons
 Parametric Rectified Linear Unit 활성화 함수입니다.
 
 PReLU는 다음과 같습니다.  
-`x < 0인 경우 f(x) = alpha * x`,  
-`x >= 0인 경우 f(x) = x`,  
+- `x < 0`인 경우, `f(x) = alpha * x`  
+- `x >= 0`인 경우, `f(x) = x`
+
 `alpha`는 x와 동일한 형태를 가진 학습된 배열입니다.
 
 __입력 형태__
 
-입력값의 형태는 임의로 지정됩니다. `PReLU`을 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
+입력값의 형태는 임의로 지정됩니다. `PReLU`를 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
 
 __출력 형태__
 
@@ -76,12 +77,12 @@ keras.layers.ELU(alpha=1.0)
 Exponential Linear Unit 활성화 함수입니다.
 
 ELU는 다음과 같습니다.  
-`x < 0인 경우 f(x) =  alpha * (exp(x) - 1.)`,  
-`x >= 0인 경우 f(x) = x`.
+- `x < 0`인 경우, `f(x) =  alpha * (exp(x) - 1.)`  
+- `x >= 0`인 경우, `f(x) = x`
 
 __입력 형태__
 
-입력값의 형태는 임의로 지정됩니다. `ELU`을 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
+입력값의 형태는 임의로 지정됩니다. `ELU` 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
 
 __출력 형태__
 
@@ -108,12 +109,12 @@ keras.layers.ThresholdedReLU(theta=1.0)
 ThresholdedReLU 활성화 함수입니다.
 
 ThresholdedReLU는 다음과 같습니다.  
-`x > theta인 경우 f(x) = x`,  
-`그렇지 않은 경우 f(x) = 0`.
+- `x > theta`인 경우, `f(x) = x`  
+- `x <= theta`인 경우,  `f(x) = 0`
 
 __입력 형태__
 
-입력값의 형태는 임의로 지정됩니다. `ThresholdedReLU`을 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
+입력값의 형태는 임의로 지정됩니다. `ThresholdedReLU`를 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
 
 __출력 형태__
 
@@ -141,7 +142,7 @@ Softmax 활성화 함수입니다.
 
 __입력 형태__
 
-입력값의 형태는 임의로 지정됩니다. `Softmax`을 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
+입력값의 형태는 임의로 지정됩니다. `Softmax`를 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
 
 __출력 형태__
 
@@ -165,13 +166,13 @@ Rectified Linear Unit 활성화 함수입니다.
 인자들의 기본값을 사용하면 원소별로<sub>element-wise</sub> 연산된 `max(x, 0)`를 반환합니다.
 
 다른 인자를 사용하면 다음과 같습니다.  
-`x >= max_value`인 경우 `f(x) = max_value`,  
-`threshold <= x < max_value`인 경우 `f(x) = x`,  
-그렇지 않은 경우 `f(x) = negative_slope * (x - threshold)`.
+- `x >= max_value`인 경우, `f(x) = max_value`  
+- `threshold <= x < max_value`인 경우, `f(x) = x`  
+- 나머지 경우, `f(x) = negative_slope * (x - threshold)`.
 
 __입력 형태__
 
-입력값의 형태는 임의로 지정됩니다. `ReLU`을 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
+입력값의 형태는 임의로 지정됩니다. `ReLU`를 모델의 첫 번째 층으로 사용하는 경우 키워드 인자로 `input_shape` 인자(샘플 축을 제외한 `int` 튜플)를 지정해야 합니다.
 
 __출력 형태__
 
