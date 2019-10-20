@@ -284,7 +284,7 @@ conved_a = conv(a)
 assert conv.input_shape == (None, 32, 32, 3)
 
 conved_b = conv(b)
-# 이제 `.input_shape`은 오류가 발생하지만, 다음의 코드는 오류를 발생하지 않습니다.
+# 이제 `.input_shape`은 오류가 발생하지만, 다음의 코드에서는 오류가 발생하지 않습니다.
 assert conv.get_input_shape_at(0) == (None, 32, 32, 3)
 assert conv.get_input_shape_at(1) == (None, 64, 64, 3)
 ```
