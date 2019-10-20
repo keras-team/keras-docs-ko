@@ -13,7 +13,7 @@ from keras import losses
 model.compile(loss=losses.mean_squared_error, optimizer='sgd')
 ```
 
-케라스가 제공하는 손실 함수의 이름 문자열<sub>string</sub>을 전달하거나. 또는 TensorFlow/Theano의 심볼릭 함수<sub>symbolic function</sub>를 매개 변수로 전달할 수 있습니다. 심볼릭 함수는 다음의 두 인자를 받아 각각의 데이터 포인트에 대한 스칼라를 반환합니다.
+기존의 손실 함수를 매개 변수로 전달하거나 TensorFlow/Theano의 심볼릭 함수<sub>symbolic function</sub>를 매개 변수로 전달할 수 있습니다. 심볼릭 함수는 다음의 두 인자를 받아 각각의 데이터 포인트에 대한 스칼라를 반환합니다.
 
 - __y_true__: 정답 레이블. TensorFlow/Theano 텐서.
 - __y_pred__: 예측값. y_true와 같은 크기<sub>shape</sub>의 TensorFlow/Theano 텐서.
@@ -21,6 +21,7 @@ model.compile(loss=losses.mean_squared_error, optimizer='sgd')
 실제로 최적화되는 값은 모든 데이터 포인트 범위 안에서 출력된 값의 평균값입니다.
 
 손실함수의 예시는 [여기](https://github.com/keras-team/keras/blob/master/keras/losses.py)에서 확인할 수 있습니다.
+
 
 ## 사용 가능한 손실 함수
 
@@ -31,6 +32,19 @@ model.compile(loss=losses.mean_squared_error, optimizer='sgd')
 keras.losses.mean_squared_error(y_true, y_pred)
 ```
 
+
+예측값과 목표값의 평균제곱오차<sub>(MSE, mean squared error)</sub>를 계산합니다.
+`(square(y_pred - y_true))/len(y_true)` 
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
+
 ----
 
 ### mean_absolute_error
@@ -39,6 +53,19 @@ keras.losses.mean_squared_error(y_true, y_pred)
 ```python
 keras.losses.mean_absolute_error(y_true, y_pred)
 ```
+
+
+예측값과 목표값의 평균절대값오차<sub>(MAE, mean absolute error)</sub>를 계산합니다.
+`(abs(y_pred - y_true))/len(y_true)` 
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
 
 ----
 
@@ -49,6 +76,19 @@ keras.losses.mean_absolute_error(y_true, y_pred)
 keras.losses.mean_absolute_percentage_error(y_true, y_pred)
 ```
 
+
+예측값과 목표값의 평균절대값퍼센트오차<sub>(MAPE, mean absolute percentage error)</sub>를 계산합니다.  
+`100.*((abs(y_pred - y_true))/len(y_true))` 
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
+
 ----
 
 ### mean_squared_logarithmic_error
@@ -57,6 +97,19 @@ keras.losses.mean_absolute_percentage_error(y_true, y_pred)
 ```python
 keras.losses.mean_squared_logarithmic_error(y_true, y_pred)
 ```
+
+
+예측값과 목표값의 평균제곱로그오차<sub>(MSLE, mean squared logarithmic error)</sub>를 계산합니다.  
+`mean(square(log(y_pred + 1) - log(y_true + 1)))`
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
 
 ----
 
@@ -67,6 +120,19 @@ keras.losses.mean_squared_logarithmic_error(y_true, y_pred)
 keras.losses.squared_hinge(y_true, y_pred)
 ```
 
+
+예측값과 목표값의 'squared hinge' 손실값을 계산합니다.  
+`mean(square(maximum(1 - y_true * y_pred, 0)))`
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
+
 ----
 
 ### hinge
@@ -76,6 +142,19 @@ keras.losses.squared_hinge(y_true, y_pred)
 keras.losses.hinge(y_true, y_pred)
 ```
 
+
+예측값과 목표값의 'hinge' 손실값을 계산합니다.  
+`mean(maximum(1 - y_true * y_pred, 0)`
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
+
 ----
 
 ### categorical_hinge
@@ -84,6 +163,19 @@ keras.losses.hinge(y_true, y_pred)
 ```python
 keras.losses.categorical_hinge(y_true, y_pred)
 ```
+
+
+예측값과 목표값의 'categorical hinge' 손실값을 계산합니다.  
+`maximum(0, max((1 - y_true) * y_pred) - sum(y_true * y_pred) + 1)`
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
 
 ----
 
@@ -102,14 +194,14 @@ keras.losses.logcosh(y_true, y_pred)
 평균 제곱 오차와 비슷한 양상을 보이지만, 가끔 발생하는 완전히 부정확한 예측의 영향을 크게
 받지는 않습니다.
 
-__Arguments__
+__인자__
 
-- __y_true__: 정답 타겟의 텐서.
-- __y_pred__: 예측 타겟의 텐서.
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
 
-__Returns__
+__반환값__
 
-샘플당 하나의 스칼라 손실값을 가지는 텐서
+샘플당 하나의 스칼라 손실값 텐서.
     
 ----
 
@@ -120,14 +212,38 @@ __Returns__
 keras.losses.categorical_crossentropy(y_true, y_pred)
 ```
 
+예측된 값과 정답값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.
+입/출력 값의 형태는 원-핫 인코딩<one-hot encoding> 형태를 가져야 합니다.
+ 
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
+
 ----
 
 ### sparse_categorical_crossentropy
 
-
 ```python
 keras.losses.sparse_categorical_crossentropy(y_true, y_pred)
 ```
+
+예측된 값과 정답값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.
+입/출력 값의 형태는 정수형<sub>interger</sub> 형태를 가져야 합니다.
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
 
 ----
 
@@ -138,6 +254,19 @@ keras.losses.sparse_categorical_crossentropy(y_true, y_pred)
 keras.losses.binary_crossentropy(y_true, y_pred)
 ```
 
+예측된 값과 정답값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.
+입/출력 값의 형태는 이진<sub>binary</sub> 형태를 가져야 합니다.
+
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
+
 ----
 
 ### kullback_leibler_divergence
@@ -147,14 +276,39 @@ keras.losses.binary_crossentropy(y_true, y_pred)
 keras.losses.kullback_leibler_divergence(y_true, y_pred)
 ```
 
+예측된 값과 정답값 사이의 KL 다이버전스<sub>kullback_leibler divergence</sub> 값을 계산합니다.
+
+`sum(y_true * log(y_true / y_pred)`
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
+
 ----
 
 ### poisson
 
-
 ```python
 keras.losses.poisson(y_true, y_pred)
 ```
+예측된 값과 정답값 사이의 포아송<sub>poisson</sub> 손실값을 계산합니다.
+목표값이 포아송 분포를 따른다고 생각될 때 사용합니다.
+
+`mean(y_pred - y_true * log(y_pred + epsilon())`
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
 
 ----
 
@@ -165,6 +319,16 @@ keras.losses.poisson(y_true, y_pred)
 keras.losses.cosine_proximity(y_true, y_pred)
 ```
 
+예측된 값과 정답값 사이의 코사인 유사도<sub>cosine_proximity</sub> 값을 계산합니다.
+
+__인자__
+
+- __y_true__: 목표값 텐서.
+- __y_pred__: 예측값 텐서.
+
+__반환값__
+
+샘플당 하나의 스칼라 손실값 텐서.
 
 ----
 
@@ -173,7 +337,6 @@ keras.losses.cosine_proximity(y_true, y_pred)
 ```python
 kearas.losses.is_categorical_crossentropy(loss)
 ```
-
 
 ----
 **Note**: 손실 함수 `categorical_crossentropy`의 경우 사용되는 타겟들은 범주 형식(categorical format)을 따라야 합니다.예를 들어 10개의 클래스(범주)를 가지고 있다면, 각 샘플의 목표값은 샘플 클래스에 해당하는 인덱스의 1을 제외하고 모두 0인 10차원 벡터가 되어야 합니다.
