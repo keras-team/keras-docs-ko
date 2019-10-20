@@ -1,6 +1,6 @@
 # 케라스 함수형 API 시작하기
 
-Keras 함수형 API<sub>functional API</sub>는 다중 출력 모델<sub>multi-output model</sub>, 유향 비순환 그래프<sub>directed acyclic graphs</sub>, 혹은 층<sub>layer</sub>을 공유하는 모델과 같이 복잡한 모델을 정의하는 최적의 방법입니다.
+케라스 함수형 API는 다중 출력 모델<sub>multi-output model</sub>, 유향 비순환 그래프<sub>directed acyclic graphs</sub>, 혹은 층<sub>layer</sub>을 공유하는 모델과 같이 복잡한 모델을 정의하는 최적의 방법입니다.
 
 이 가이드는 독자가 이미 `Sequential` 모델에 대한 배경 지식이 있다고 가정합니다.
 
@@ -10,11 +10,11 @@ Keras 함수형 API<sub>functional API</sub>는 다중 출력 모델<sub>multi-o
 
 ## 첫 번째 예시: 완전 연결 신경망<sub>densely-connected network</sub>
 
-완전 연결 신경망은 `Sequential` 모델로 만드는 것이 더 적합하지만, 간단한 예시를 위해 Keras 함수형 API로 구현해 보겠습니다.
+완전 연결 신경망은 `Sequential` 모델로 만드는 것이 더 적합하지만, 간단한 예시를 위해 케라스 함수형 API로 구현해 보겠습니다.
 
-- 층 인스턴스<sub>instance</sub>는 텐서를 호출할 수 있고, 텐서를 반환합니다.
+- 층 인스턴스는 텐서를 호출할 수 있고, 텐서를 반환합니다.
 - 입력<sub>input</sub> 텐서와 출력<sub>output</sub> 텐서을 통해 `Model`을 정의할 수 있습니다.
-- 이러한 모델은 Keras `Sequential` 모델과 동일한 방식으로 학습됩니다.
+- 이러한 모델은 케라스 `Sequential` 모델과 동일한 방식으로 학습됩니다.
 
 ```python
 from keras.layers import Input, Dense
@@ -49,7 +49,7 @@ x = Input(shape=(784,))
 y = model(x)
 ```
 
-예를 들어, 시퀀스 데이터<sub>sequences</sub>를 처리할 수 있는 모델을 빠르게 만들 수 있습니다. 코드 한 줄로 이미지 분류 모델을 비디오 분류 모델로 바꿀 수 있습니다.
+예를 들어, 시퀀스 데이터를 처리할 수 있는 모델을 빠르게 만들 수 있습니다. 코드 한 줄로 이미지 분류 모델을 비디오 분류 모델로 바꿀 수 있습니다.
 
 ```python
 from keras.layers import TimeDistributed
