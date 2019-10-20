@@ -19,7 +19,7 @@ __예시__
 model = Sequential()
 model.add(LocallyConnected1D(64, 3, input_shape=(10, 32)))
 # 현재 model.output_shape == (None, 8, 64)
-# 새로운 conv1D를 추가합니다
+# 새로운 conv1D를 추가합니다.
 model.add(LocallyConnected1D(32, 3))
 # LocallyConnected1D를 추가한 뒤의 model.output_shape == (None, 6, 32)
 ```
@@ -107,7 +107,7 @@ __인자__
     `int` 1개인 경우 모든 차원을 같은 값으로 설정합니다.
 - __padding__: 현재는 (대소문자 구분없이) `'valid'`만을 지원합니다.
     차후 `'same'`을 지원할 계획입니다.
-- __data_format__: `string`,
+- __data_format__: `str`.
     `'channels_last'`(기본값) 또는 `'channels_first'`.
     입력값의 형태.
     `'channels_last'`는 `(batch, height, width, channels)`, `'channels_first'`는
