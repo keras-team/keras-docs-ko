@@ -316,7 +316,7 @@ tower_3 = Conv2D(64, (1, 1), padding='same', activation='relu')(tower_3)
 output = keras.layers.concatenate([tower_1, tower_2, tower_3], axis=1)
 ```
 
-### 합성곱 층<sub>convolution layer</sub>에 대한 residual connection
+### 합성곱 층<sub>convolution layer</sub>에 대한 Residual connection
 
 Residual network에 대해 더 알고 싶다면, [Deep Residual Learning for Image Recognition](http://arxiv.org/abs/1512.03385)를 참고하십시오.
 
