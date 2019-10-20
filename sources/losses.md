@@ -13,7 +13,7 @@ from keras import losses
 model.compile(loss=losses.mean_squared_error, optimizer='sgd')
 ```
 
-기존의 손실 함수를 매개 변수로 전달하거나 TensorFlow/Theano의 심볼릭 함수<sub>symbolic function</sub>를 매개 변수로 전달할 수 있습니다. 심볼릭 함수는 다음의 두 인자를 받아 각각의 데이터 포인트에 대한 스칼라를 반환합니다.
+케라스가 제공하는 손실 함수의 이름 문자열<sub>string</sub>을 전달하거나. 또는 TensorFlow/Theano의 심볼릭 함수<sub>symbolic function</sub>를 매개 변수로 전달할 수 있습니다. 심볼릭 함수는 다음의 두 인자를 받아 각각의 데이터 포인트에 대한 스칼라를 반환합니다.
 
 - __y_true__: 정답 레이블. TensorFlow/Theano 텐서.
 - __y_pred__: 예측값. y_true와 같은 크기<sub>shape</sub>의 TensorFlow/Theano 텐서.
