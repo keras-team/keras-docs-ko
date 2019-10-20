@@ -77,7 +77,7 @@ keras.layers.ELU(alpha=1.0)
 Exponential Linear Unit 활성화 함수입니다.
 
 ELU는 다음과 같습니다.  
-- `x < 0`인 경우, `f(x) =  alpha * (exp(x) - 1.)`  
+- `x < 0`인 경우, `f(x) =  alpha * (exp(x) - 1)`  
 - `x >= 0`인 경우, `f(x) = x`
 
 __입력 형태__
