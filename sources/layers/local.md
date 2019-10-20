@@ -57,11 +57,11 @@ __인자__
 
 __입력값 형태__
 
-3D 텐서: `(batch_size, steps, input_dim)`
+`(batch_size, steps, input_dim)` 형태의 3D 텐서. 
 
 __출력값 형태__
 
-3D 텐서: `(batch_size, new_steps, filters)`
+`(batch_size, new_steps, filters)` 형태의 3D 텐서.  
 패딩 또는 스트라이드로 인해 `steps` 값이 변할 수 있습니다.
     
 ----
@@ -138,13 +138,13 @@ __인자__
 
 __입력값 형태__
 
-4D 텐서:
-`data_format='channels_first'`의 경우 `(samples, channels, rows, cols)`, 
+4D 텐서.  
+`data_format='channels_first'`의 경우 `(samples, channels, rows, cols)`,  
 `data_format='channels_last'`의 경우 `(samples, rows, cols, channels)`의 형태를 갖습니다.
 
 __출력값 형태__
 
-4D 텐서:
-`data_format='channels_first'`의 경우 `(samples, filters, new_rows, new_cols)`
-`data_format='channels_last'`의 경우 `(samples, new_rows, new_cols, filters)`의 형태를 갖습니다.
+4D 텐서.  
+`data_format='channels_first'`의 경우 `(samples, filters, new_rows, new_cols)`,  
+`data_format='channels_last'`의 경우 `(samples, new_rows, new_cols, filters)`의 형태를 갖습니다.  
 패딩의 결과로 `rows`와 `cols` 값이 변할 수 있습니다.
