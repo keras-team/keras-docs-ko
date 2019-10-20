@@ -1,7 +1,7 @@
 
 ## 손실 함수의 사용
 
-손실 함수(목적 함수 또는 최적화 스코어 함수)는 하나의 모델을 컴파일하기 위해 필요한 두 개의 매개 변수 중 하나입니다.
+손실 함수(목적 함수 또는 최적화 스코어 함수)는 모델을 컴파일하기 위해 필요한 두 개의 매개 변수 중 하나입니다.
 
 ```python
 model.compile(loss='mean_squared_error', optimizer='sgd')
@@ -212,7 +212,7 @@ __반환값__
 keras.losses.categorical_crossentropy(y_true, y_pred)
 ```
 
-예측된 값과 정답값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
+예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
 입/출력 값의 형태는 원-핫 인코딩<one-hot encoding> 형태를 가져야 합니다.
  
 
@@ -233,7 +233,7 @@ __반환값__
 keras.losses.sparse_categorical_crossentropy(y_true, y_pred)
 ```
 
-예측된 값과 정답값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
+예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
 입/출력 값의 형태는 정수형<sub>interger</sub> 형태를 가져야 합니다.
 
 __인자__
@@ -254,7 +254,7 @@ __반환값__
 keras.losses.binary_crossentropy(y_true, y_pred)
 ```
 
-예측된 값과 정답값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
+예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
 입/출력 값의 형태는 이진<sub>binary</sub> 형태를 가져야 합니다.
 
 
@@ -276,7 +276,7 @@ __반환값__
 keras.losses.kullback_leibler_divergence(y_true, y_pred)
 ```
 
-예측된 값과 정답값 사이의 KL 다이버전스<sub>kullback_leibler divergence</sub> 값을 계산합니다.
+예측값과 목표값 사이의 KL 발산<sub>kullback_leibler divergence</sub> 값을 계산합니다.
 
 `sum(y_true * log(y_true / y_pred)`
 
@@ -296,7 +296,7 @@ __반환값__
 ```python
 keras.losses.poisson(y_true, y_pred)
 ```
-예측된 값과 정답값 사이의 포아송<sub>poisson</sub> 손실값을 계산합니다.  
+예측값과 목표값 사이의 포아송<sub>poisson</sub> 손실값을 계산합니다.  
 목표값이 포아송 분포를 따른다고 생각될 때 사용합니다.
 
 `mean(y_pred - y_true * log(y_pred + epsilon())`
@@ -319,7 +319,7 @@ __반환값__
 keras.losses.cosine_proximity(y_true, y_pred)
 ```
 
-예측된 값과 정답값 사이의 코사인 유사도<sub>cosine_proximity</sub> 값을 계산합니다.
+예측값과 목표값 사이의 코사인 유사도<sub>cosine_proximity</sub> 값을 계산합니다.
 
 __인자__
 
