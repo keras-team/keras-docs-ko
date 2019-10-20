@@ -1,6 +1,6 @@
-# 케라스 함수형 API 시작하기
+# 케라스 함수형 API 시작하기<sub>Getting started with the Keras functional API</sub>
 
-Keras 함수형 API는 다중 출력 모델<sub>multi-output model</sub>, 유향 비순환 그래프, 혹은 층<sub>layer</sub>들을 공유하는 모델과 같이 복잡한 모델을 정의하는데 최적의 방법입니다.
+Keras 함수형 API는 다중 출력 모델<sub>multi-output model</sub>, 유향 비순환 그래프<sub>directed acyclic graphs</sub>, 혹은 층<sub>layer</sub>들을 공유하는 모델과 같이 복잡한 모델을 정의하는데 최적의 방법입니다.
 
 이 가이드는 독자가 이미 `Sequential` 모델에 대한 지식이 있다고 가정합니다.
 
@@ -10,7 +10,7 @@ Keras 함수형 API는 다중 출력 모델<sub>multi-output model</sub>, 유향
 
 ## 완전 연결 신경망<sub>densely-connected network</sub>
 
-완전 연결 신경망을 구현하기에는 `Sequential` 모델이 더 적합한 선택이겠지만, 아주 간단한 예시로 설명하기 위해서 Keras 함수형 API로 구현해 보겠습니다.
+완전 연결 신경망을 구현하기에는 `Sequential` 모델이 더 적합하지만, 아주 간단한 예시로 설명하기 위해서 Keras 함수형 API로 구현해 보겠습니다.
 
 - 층 인스턴스<sub>instance</sub>는 텐서에 대해 호출 가능하고, 텐서를 반환합니다.
 - 입력<sub>input</sub> 텐서와 출력<sub>output</sub> 텐서는 `Model`을 정의하는데 사용됩니다.
@@ -23,13 +23,13 @@ from keras.models import Model
 # 텐서를 반환합니다.
 inputs = Input(shape=(784,))
 
-# layer 인스턴스는 텐서에 대해 호출 가능하고, 텐서를 반환합니다.
+# 층 인스턴스는 텐서에 대해 호출 가능하고, 텐서를 반환합니다.
 output_1 = Dense(64, activation='relu')(inputs)
 output_2 = Dense(64, activation='relu')(output_1)
 predictions = Dense(10, activation='softmax')(output_2)
 
 # 입력 층과 3개의 완전 연결 층을
-# 포함하는 모델을 만들어 냅니다.
+# 포함하는 모델을 만듭니다.
 model = Model(inputs=inputs, outputs=predictions)
 model.compile(optimizer='rmsprop',
               loss='categorical_crossentropy',
@@ -79,8 +79,8 @@ processed_sequences = TimeDistributed(model)(input_sequences)
 
 함수형 API로 모델을 구현해 봅시다.
 
-주요 입력은 정수 시퀀스들의 형태로 헤드라인을 (각 정수가 단어 하나를 인코딩하는) 전달받습니다.
-1에서 10,000사이의 정숫값이며 (10,000 단어의 어휘목록), 하나의 정수 시퀀스는 100 단어로 이루어져 있습니다.
+주요 입력은 `int` 시퀀스들의 형태로 헤드라인을 (각 `int`가 단어 하나를 인코딩하는) 전달받습니다.
+1에서 10,000사이의 `int`이며 (10,000 단어의 어휘목록), 하나의 `int` 시퀀스는 100 단어로 이루어져 있습니다.
 
 ```python
 from keras.layers import Input, Embedding, LSTM, Dense
@@ -88,12 +88,12 @@ from keras.models import Model
 import numpy as np
 np.random.seed(0)  # 재현성을 위해 임의의 시드값을 설정합니다.
 
-# 헤드라인 input: 1에서 10000사이의 100개 정수로 이루어진 시퀀스들을 전달받습니다
-# "name" 인자를 전달하여 layer 인스턴스를 명명할 수 있음을 참고하십시오.
+# 헤드라인 입력값: 1에서 10000 사이의 100개 정수로 이루어진 시퀀스들을 전달받습니다
+# "name" 인자를 전달하여 층 인스턴스를 명명할 수 있음을 참고하십시오.
 main_input = Input(shape=(100,), dtype='int32', name='main_input')
 
 # Embedding layer는 입력 시퀀스를
-# 512 차원 밀집벡터들의 시퀀스로 인코딩합니다.
+# 512 차원 완전 연결 벡터들의 시퀀스로 인코딩합니다.
 x = Embedding(output_dim=512, input_dim=10000, input_length=100)(main_input)
 
 # LSTM은 벡터 시퀀스를 전체 시퀀스에 대한
@@ -148,7 +148,7 @@ model.fit([headline_data, additional_data], [headline_labels, additional_labels]
           epochs=50, batch_size=32)
 ```
 
-입력 층 인스턴스와 출력 층 인스턴스에 이름을 부여 했으므로(각 layer 인스턴스에 "name" 인자를 전달했으므로),
+입력 층 인스턴스와 출력 층 인스턴스에 이름을 부여했으므로(각 층 인스턴스에 "name" 인자를 전달했으므로),
 다음과 같은 방식으로도 모델을 컴파일 할 수 있습니다.
 
 ```python
@@ -183,7 +183,7 @@ pred = model.predict([headline_data, additional_data])
 
 문제가 대칭적이므로 긍정적인 트윗 쌍을 인코딩하는 메커니즘을 (가중치 등을 포함해) 전부 재사용하여 부정적인 트윗 쌍을 인코딩해야 합니다. 이 예시에서는 공유된 LSTM 층을 사용해 트윗을 인코딩 합니다.
 
-함수형 API로 model을 만들어 봅시다. `(280, 256)` 형태의 이진 행렬, 다시 말해 256 크기의 벡터 280개로 이루어진 시퀀스를 트윗에 대한 입력으로 받습니다 (여기서 256 차원 벡터의 각 차원은 자모에서 가장 빈번하게 사용되는 256 문자의 유무를 인코딩합니다).
+함수형 API로 모델을 만들어 봅시다. `(280, 256)` 형태의 이진 행렬, 다시 말해 256 크기의 벡터 280개로 이루어진 시퀀스를 트윗에 대한 입력으로 받습니다 (여기서 256 차원 벡터의 각 차원은 자모에서 가장 빈번하게 사용되는 256 문자의 유무를 인코딩합니다).
 
 ```python
 import keras
@@ -194,14 +194,14 @@ tweet_a = Input(shape=(280, 256))
 tweet_b = Input(shape=(280, 256))
 ```
 
-층을 재사용하려면, 간단히 층을 한 번만 인스턴스화하고 서로 다른 입력마다 layer 인스턴스를 호출하면 됩니다.
+층을 재사용하려면, 간단히 층을 한 번만 인스턴스화하고 서로 다른 입력마다 층 인스턴스를 호출하면 됩니다.
 
 ```python
-# 이 layer 인스턴스는 행렬을 입력으로 전달받고
+# 이 층 인스턴스는 행렬을 입력으로 전달받고
 # 크기가 64인 벡터를 반환합니다.
 shared_lstm = LSTM(64)
 
-# 동일한 layer 인스턴스를
+# 동일한 층 인스턴스를
 # 여러 번 재사용하는 경우, layer의
 # 가중치 또한 재사용됩니다.
 # (그렇기에 이는 *동일한* 레이어입니다)
@@ -271,7 +271,7 @@ assert lstm.get_output_at(1) == encoded_b
 
 간단하지 않습니까?
 
-`input_shape`와 `output_shape`의 경우도 마찬가지 입니다: layer 인스턴스가 하나의 노드만 보유하거나 모든 노드가 동일한 입력/출력 형태를 갖는 한, "layer output/input shape"에 대한 개념이 정의되며 `layer.output_shape`/`layer.input_shape`는 동일한 형태를 반환합니다. 하지만 만약 동일한 `Conv2D` layer를 `(32, 32, 3)` 형태의 입력에 대해서 호출한 다음 `(64, 64, 3)` 형태의 입력에 대해서도 호출한다면, layer는 여러 입력/출력 형태를 가지게 됩니다. 이러한 경우 각 입력/출력 형태가 속한 노드의 인덱스를 지정해야만 형태를 얻을 수 있습니다.
+`input_shape`와 `output_shape`의 경우도 마찬가지 입니다: 층 인스턴스가 하나의 노드만 보유하거나 모든 노드가 동일한 입력/출력 형태를 갖는 한, "layer output/input shape"에 대한 개념이 정의되며 `layer.output_shape`/`layer.input_shape`는 동일한 형태를 반환합니다. 하지만 만약 동일한 `Conv2D` layer를 `(32, 32, 3)` 형태의 입력에 대해서 호출한 다음 `(64, 64, 3)` 형태의 입력에 대해서도 호출한다면, layer는 여러 입력/출력 형태를 가지게 됩니다. 이러한 경우 각 입력/출력 형태가 속한 노드의 인덱스를 지정해야만 형태를 얻을 수 있습니다.
 
 ```python
 a = Input(shape=(32, 32, 3))
@@ -323,9 +323,9 @@ Residual network에 대해 더 알고 싶다면, [Deep Residual Learning for Ima
 ```python
 from keras.layers import Conv2D, Input
 
-# 3-channel 256x256 이미지에 대한 input tensor
+# 3개의 채널을 가진 256x256 이미지에 대한 입력 텐서
 x = Input(shape=(256, 256, 3))
-# 3개의 output channel(input channel과 동일)을 가진 3x3 conv
+# 입력 채널과 같은 3개의 출력 채널을 가진 3x3 합성곱
 y = Conv2D(3, (3, 3), padding='same')(x)
 # x + y를 반환합니다
 z = keras.layers.add([x, y])
@@ -394,7 +394,7 @@ encoded_image = vision_model(image_input)
 
 # 다음은 질문을 벡터로 인코딩할 언어 모델을 정의합니다
 # 각 질문의 최대 길이는 100 단어입니다.
-# 그리고 각 단어에 1에서 9999까지의 정수 인덱스를 부여합니다.
+# 그리고 각 단어에 1에서 9999까지의 `int` 인덱스를 부여합니다.
 question_input = Input(shape=(100,), dtype='int32')
 embedded_question = Embedding(input_dim=10000, output_dim=256, input_length=100)(question_input)
 encoded_question = LSTM(256)(embedded_question)
