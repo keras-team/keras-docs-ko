@@ -9,7 +9,7 @@ model.add(Dense(64))
 model.add(Activation('tanh'))
 ```
 
-위의 코드는 아래와 동일합니다
+위의 코드는 아래와 동일합니다.
 
 ```python
 model.add(Dense(64, activation='tanh'))
@@ -43,8 +43,8 @@ __인자__
 
 __반환값__
 
-Softmax 변환으로 생성된 텐서  
-`exp(x) / sum(exp(x))`.
+Softmax 변환으로 생성된 텐서.  
+`f(x) = exp(x) / sum(exp(x))`
 
 __오류__
 
@@ -65,13 +65,13 @@ Exponential linear unit(ELU).
 __인자__
 
 - __x__: 입력 텐서.
-- __alpha__: 스칼라. 음수 부분의 기울기.
+- __alpha__: 스칼라. `x < 0`인 경우의 기울기.
 
 __반환값__
 
 ELU의 활성값.  
-- `x > 0`인 경우, `x`  
- `x < 0`인 경우, `alpha * (exp(x)-1)`
+- `x > 0`인 경우, `f(x) = x`  
+ `x < 0`인 경우, `f(x) = alpha * (exp(x) - 1)`
 
 __참고__
 
@@ -90,10 +90,10 @@ keras.activations.selu(x)
 
 Scaled Exponential Linear Unit(SELU).
 
-SELU는 `scale * elu(x, alpha)`와 같으며, `alpha`와 `scale`은
+SELU는 `scale * elu(x, alpha)`와 같습니다. `alpha`와 `scale`은
 미리 정해지는 상수입니다. 가중치<sub>weights</sub>가 올바르게 초기화되고(`lecun_normal`를 확인해주십시오)
-입력 수가 "충분히 많다"면(참고에서 더 많은 정보를 확인해주십시오) `alpha`와 `scale`의 값은
-입력의 평균값과 분산값이 두 개의 연속되는 층 사이에서 보존되도록 결정됩니다.
+입력 수가 "충분히 많다"면 `alpha`와 `scale`의 값은
+입력의 평균과 분산이 연속되는 두 개의 층에서 보존되도록 결정됩니다. (참고에서 더 많은 정보를 확인해주십시오)
 
 __인자__
 
@@ -102,12 +102,12 @@ __인자__
 __반환값__
 
 SELU의 활성값  
-`scale * elu(x, alpha)`.
+`f(x) = scale * elu(x, alpha)`
 
 __유의 사항__
 
 - `lecun_normal`과 함께 사용되어야 합니다.
-- `AlphaDropout`과 함께 이용되어야 합니다.
+- `AlphaDropout`과 함께 사용되어야 합니다.
 
 __참고__
 
@@ -131,8 +131,8 @@ __인자__
 
 __반환값__
 
-Softplus의 활성값  
-`log(exp(x) + 1)`.
+Softplus의 활성값.  
+`f(x) = log(exp(x) + 1)`
 
 ----
 
@@ -153,7 +153,7 @@ __인자__
 __반환값__
 
 Softsign의 활성값.  
-`f(x) = x / (abs(x) + 1)`.
+`f(x) = x / (abs(x) + 1)
 
 ----
 
@@ -167,9 +167,9 @@ keras.activations.relu(x, alpha=0.0, max_value=None, threshold=0.0)
 
 Rectified Linear Unit(ReLU).
 
-기본값을 사용하면 원소별로 연산된 `max(x, 0)`를 반환합니다.
+인자의 기본값을 사용하면 원소별로 연산된 `max(x, 0)`를 반환합니다.
 
-다른 인수를 사용하면 다음과 같습니다.
+다른 인자를 사용하면 ReLU는 다음과 같습니다.
 - `x >= max_value`인 경우, `f(x) = max_value` 
 - `threshold <= x < max_value`인 경우, `f(x) = x`  
 - 나머지 경우, `f(x) = alpha * (x - threshold)`
@@ -177,16 +177,16 @@ Rectified Linear Unit(ReLU).
 __인자__
 
 - __x__: 입력 텐서.
-- __alpha__: `float`. 음수 부분의 기울기. 기본값은 0.
+- __alpha__: `float`. `x < 0`인 경우의 기울기. 기본값은 0.
 - __max_value__: `float`. 포화 임계값.
-- __threshold__: `float`. 활성화를 위한 임계치.
+- __threshold__: `float`. 활성화가 일어나는 임계값.
 
 __반환값__
 
 ReLU 변환으로 생성된 텐서.  
-- `x >= max_value`인 경우, `f(x) = max_value`,  
-- `threshold <= x < max_value`인 경우, `f(x) = x`,  
-- 나머지 경우, `f(x) = alpha * (x - threshold)`.
+- `x >= max_value`인 경우, `f(x) = max_value` 
+- `threshold <= x < max_value`인 경우, `f(x) = x`  
+- 나머지 경우, `f(x) = alpha * (x - threshold)`
 
 ----
 
@@ -206,7 +206,7 @@ __인자__
 
 __반환값__
 
-Hyperbolic tangent의 활성값  
+Hyperbolic tangent의 활성값.  
 `f(x) = tanh(x) = (exp(x) - exp(-x)) / (exp(x) + exp(-x))`
 
 
@@ -267,7 +267,7 @@ keras.activations.exponential(x)
 ```
 
 
-지수(밑은 e) 활성화 함수.
+(밑이 e인) 지수 활성화 함수.
 
 __인자__
 
@@ -276,7 +276,7 @@ __인자__
 __반환값__
 
 Exponential의 활성값.
-`f(x) = exp(x)`.
+`f(x) = exp(x)`
 
 ----
 
