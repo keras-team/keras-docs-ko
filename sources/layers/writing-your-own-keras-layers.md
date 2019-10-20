@@ -1,11 +1,11 @@
-# 직접 케라스 레이어 만들기
+# 직접 케라스 층<sub>layer</sub> 만들기
 
-작업이 단순한 상태 비보존형 사용자 정의<sub>custom</sub> 작업을 하기 위해서는 `layers.core.Lambda` 층<sub>layer</sub>를 사용하는 것이 좋습니다. 하지만 학습 가능한 가중치를 사용해야 하는 사용자 정의 작업을 하기 위해서는 직접 층을 구성해야 합니다.
+작업이 단순한 상태 비보존형 사용자 정의<sub>custom</sub> 연산을 하기 위해서는 `layers.core.Lambda` 층을 사용하는 것이 좋습니다. 하지만 학습 가능한 가중치를 사용해야 하는 사용자 정의 연산을 하기 위해서는 직접 층을 구성해야 합니다.
 
 **Keras 2.0** 버전을 기준으로 케라스 층의 골격은 세 가지 메서드를 필요로 합니다(기준 버전보다 낮은 버전을 사용하고 있다면, 업그레이드 해야합니다).
 
 - 'build(input_shape)': 사용 할 가중치를 정의합니다. 이 메서드의 끝에서는 `self.built = True` 로 지정하기 위해 반드시 `super([Layer], self).build()`를 호출해야만 합니다.
-- 'call(x)': 층의 논리를 구성합니다. 마스킹을 지원하지 않는 층을 구성하려면, `call` 의 첫 번째 인자로 입력 텐서만 전달해주어야 합니다.
+- 'call(x)': 층의 논리를 구성합니다. 마스킹을 지원하는 층을 만드는 경우가 아니라면, `call`의 첫 번째 인자인 입력 텐서만 고려하면 됩니다.
 - 'compute_output_shape(input_shape)': 층이 행하는 연산에서 입력의 형태를 수정하는 경우, 변형된 형태를 명시해주어야 합니다. 이는 케라스가 자동으로 형태를 추론할 수 있게 합니다.
 
 ```python
@@ -33,7 +33,7 @@ class MyLayer(Layer):
         return (input_shape[0], self.output_dim)
 ```
 
-케라스를 활용하여 다중 입력 텐서와 다중 출력 텐서를 가진 층을 정의하는 것도 가능합니다. 이를 위해선 `build(input_shape)` , `call(x)` 그리고 `compute_output_shape(input_shape)` 의 입력과 출력이 리스트라고 가정해야 합니다. 다음은 위와 비슷한 예시입니다.
+케라스를 활용하여 다중 입력 텐서와 다중 출력 텐서를 가진 층을 정의하는 것도 가능합니다. 이를 위해선 `build(input_shape)`, `call(x)`,`compute_output_shape(input_shape)`의 입력과 출력이 리스트라고 가정해야 합니다. 다음은 위와 비슷한 예시입니다.
 
 ```python
 from keras import backend as K
