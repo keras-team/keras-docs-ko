@@ -189,10 +189,10 @@ keras.losses.logcosh(y_true, y_pred)
 
 예측 오차의 하이퍼볼릭 코사인 로그값.
 
-`log(cosh(x))`는 작은 `x`값에 대하여 `(x ** 2) / 2`, 큰 `x`값에 대하여
+`log(cosh(x))`는 `x`가 작은 경우에는 `(x ** 2) / 2`, `x`가 큰 경우에는
  `abs(x) - log(2)`와 거의 같은 값을 가집니다. 다시 말해 `logcosh`는 대부분 
-평균 제곱 오차와 비슷한 양상을 보이지만, 가끔 발생하는 완전히 부정확한 예측의 영향을 크게
-받지는 않습니다.
+평균 제곱 오차와 비슷한 양상을 보이지만, 가끔 잘못된 예측을 하더라도 영향을 크게
+받지 않습니다.
 
 __인자__
 
@@ -212,7 +212,7 @@ __반환값__
 keras.losses.categorical_crossentropy(y_true, y_pred)
 ```
 
-예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
+예측값과 목표값 의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
 입/출력은 원-핫 인코딩<one-hot encoding> 형태를 가져야 합니다.
  
 
@@ -296,7 +296,7 @@ __반환값__
 ```python
 keras.losses.poisson(y_true, y_pred)
 ```
-예측값과 목표값 사이의 포아송<sub>poisson</sub> 손실값을 계산합니다.  
+예측값과 목표값 사이의 포아송 손실값<sub>poisson loss</sub>을 계산합니다.  
 목표값이 포아송 분포를 따른다고 생각될 때 사용합니다.
 
 `mean(y_pred - y_true * log(y_pred + epsilon())`
@@ -339,8 +339,8 @@ kearas.losses.is_categorical_crossentropy(loss)
 ```
 
 ----
-**Note**: 손실 함수 `categorical_crossentropy`의 경우 사용되는 타겟들은 범주 형식(categorical format)을 따라야 합니다.예를 들어 10개의 클래스(범주)를 가지고 있다면, 각 샘플의 목표값은 샘플 클래스에 해당하는 인덱스의 1을 제외하고 모두 0인 10차원 벡터가 되어야 합니다.
-Keras의 기능인 `to_categorical`을 통해 정수형 타겟(*integer target*)을 범주형 타겟(*categorical target*)으로 변환할 수 있습니다.
+**Note**: 손실 함수 `categorical_crossentropy`의 목표값은 범주 형식<sub>categorical format</sub>을 따라야 합니다. 예를 들어 10개의 클래스(범주)를 가지고 있다면, 각 샘플의 목표값은 샘플 클래스에 해당하는 인덱스에서는 1이고 나머지 인덱스에서는 0인 10차원 벡터가 되어야 합니다.
+케라스의 `to_categorical`을 통해 정수형 타겟(*integer target*)을 범주형 타겟(*categorical target*)으로 변환할 수 있습니다.
 
 ```python
 from keras.utils import to_categorical
