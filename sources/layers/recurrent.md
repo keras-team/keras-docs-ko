@@ -43,7 +43,7 @@ __순환 신경망의 상태 저장 모드 사용에 대한 의점__
 저장된 상태를 초기화하고자 한다면 특정 층에 대해서는 `layer.reset_states()`, 모델 전체에 대해서는 `model.reset_states()`를 사용합니다.
 
 __순환 신경망 초기 상태 특정 시의 유의점__
-`initial_stats`인자를 사용하면 심볼릭 텐서를 이용하여 순환 신경망 층의 초기 상태를 원하는 값으로 설정할 수 있습니다. 이때 설정에 사용할 값은 해당 순환 신경망 층이 요구하는 초기 상태와 같은 형태의 텐서나 텐서의 리스트여야 합니다.  
+`initial_state`인자를 사용하면 심볼릭 텐서를 이용하여 순환 신경망 층의 초기 상태를 원하는 값으로 설정할 수 있습니다. 이때 설정에 사용할 값은 해당 순환 신경망 층이 요구하는 초기 상태와 같은 형태의 텐서나 텐서의 리스트여야 합니다.  
 
 `reset_states` 호출시에 `states`인자를 사용하면 NumPy 배열<sub>array</sub>을 이용하여 순환 신경망 층의 초기 상태를 원하는 값으로 설정할 수 있습니다. 이때 설정에 사용할 값은 해당 순환 신경망 층이 요구하는 초기 상태와 같은 형태의 NumPy 배열이나 배열의 리스트여야 합니다.  
 
@@ -106,9 +106,9 @@ keras.layers.SimpleRNN(units, activation='tanh', use_bias=True, kernel_initializ
 이전 시점의 출력을 현 시점의 입력으로 받는 완전 연결<sub>fully-connected</sub> 순환 신경망.
 
 __인자__
-- __units__: 양의 정수, 출력값의 차원 크기를 결정합니다..
-- __activation__: 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __use_bias__: `bool`, 층의 연산에 편향<sub>bias</bias>을 적용할지 여부를 결정합니다.
+- __units__: 양의 정수. 출력값의 차원 크기를 결정합니다.
+- __activation__: 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`. 층의 연산에 편향<sub>bias</bias>을 적용할지 여부를 결정합니다.
 - __kernel_initializer__: `kernel` 가중치<sub>weights</sub> 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
@@ -120,12 +120,12 @@ __인자__
 - __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __dropout__: `0`과 `1`사이의 `float`. 입력값의 선형 변환에 사용되는 `kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
-- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 0으로 바꾸어 탈락시킵니다.
+- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
 - __return_sequences__: `bool`. 시계열 가운데 모든 시점의 출력값을 반환할지 마지막 시점의 출력값만을 반환할지 결정합니다. 기본값은 `False`입니다. 
-- __return_state__: `bool`. 출력과 함께 해당 단계의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
+- __return_state__: `bool`. 출력과 함께 마지막 시점의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
 - __go_backwards__: `bool`. 기본값은 `False`입니다. `True`인 경우 입력의 순서를 뒤집어 거꾸로된 순서의 처리 결과를 반환합니다. 
 - __stateful__: `bool`. 기본값은 `False`입니다. `True`인 경우 현재 입력된 배치의 각 인덱스 `i`에 해당하는 입력값의 마지막 상태가 다음 배치의 각 인덱스 `i`에 해당하는 입력값의 초기 상태로 사용됩니다. 매우 긴 시계열을 연속된 배치로 나누어 처리할 때 유용합니다.  
-- __unroll__: `bool`. 기본값은 `False`입니다. `True`인 경우 순환구조로 처리되는 신경망을 펼쳐서 연산의 일부를 동시에 처리합니다. 이 경우 전체를 순환구조로 처리하는 것보다 빠른 연산이 가능하지만 그만큼 많은 정보를 동시에 저장해야 하기 때문에 메모리 소모가 커집니다. 시계열 단계가 짧은 경우 적합합니다.  
+- __unroll__: `bool`. 기본값은 `False`입니다. `True`인 경우 순환구조로 처리되는 신경망을 펼쳐서 연산의 일부를 동시에 처리합니다. 이 경우 전체를 순환구조로 처리하는 것보다 빠른 연산이 가능하지만 그만큼 많은 정보를 동시에 저장해야 하기 때문에 메모리 소모가 커집니다. 시계열 길이가 짧은 경우 적합합니다.  
 
 
 ----
@@ -144,10 +144,10 @@ Gated Recurrent Unit - Cho et al. 2014.
 
 __인자__
 
-- __units__: 양의 정수, 출력값의 차원 크기를 결정합니다..
-- __activation__: GRU에서 현재 시점 입력 계산에 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __recurrent_activation__: GRU의 업데이트 게이트와 리셋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 시그모이드(`sigmoid`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __units__: 양의 정수. 출력값의 차원 크기를 결정합니다.
+- __activation__: GRU에서 현재 시점 입력 계산에 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __recurrent_activation__: GRU의 업데이트 게이트와 리셋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 시그모이드(`'sigmoid'`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`. 층의 연산에 편향을 적용할지 여부를 결정합니다.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
@@ -159,13 +159,13 @@ __인자__
 - __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __dropout__: `0`과 `1`사이의 `float`. 입력값의 선형 변환에 사용되는 `kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
-- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 0으로 바꾸어 탈락시킵니다.
-- __implementation__: `1`또는 `2`. 연산 모드를 설정합니다. `1`은 작은 크기의 내적과 덧셈을 많이 하는 구성, `2`는 큰 크기의 내적과 덧셈을 보다 적은 횟수로 하는 구성입니다. 이러한 설정은 하드웨어 및 어플리케이션에 따라 서로 다른 연산 성능을 가져옵니다. 기본값은 `2`입니다.
+- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
+- __implementation__: `1` 또는 `2`. 연산 모드를 설정합니다. `1`은 작은 크기의 내적과 덧셈을 많이 하는 구성, `2`는 큰 크기의 내적과 덧셈을 보다 적은 횟수로 하는 구성입니다. 이러한 설정은 하드웨어 및 어플리케이션에 따라 서로 다른 연산 성능을 가져옵니다. 기본값은 `2`입니다.
 - __return_sequences__: `bool`. 시계열 가운데 모든 시점의 출력값을 반환할지 마지막 시점의 출력값만을 반환할지 결정합니다. 기본값은 `False`입니다. 
-- __return_state__: `bool`. 출력과 함께 해당 단계의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
+- __return_state__: `bool`. 출력과 함께 마지막 시점의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
 - __go_backwards__: `bool`. 기본값은 `False`입니다. `True`인 경우 입력의 순서를 뒤집어 거꾸로된 순서의 처리 결과를 반환합니다. 
 - __stateful__: `bool`. 기본값은 `False`입니다. `True`인 경우 현재 입력된 배치의 각 인덱스 `i`에 해당하는 입력값의 마지막 상태가 다음 배치의 각 인덱스 `i`에 해당하는 입력값의 초기 상태로 사용됩니다. 매우 긴 시계열을 연속된 배치로 나누어 처리할 때 유용합니다.  
-- __unroll__: `bool`. 기본값은 `False`입니다. `True`인 경우 순환구조로 처리되는 신경망을 펼쳐서 연산의 일부를 동시에 처리합니다. 이 경우 전체를 순환구조로 처리하는 것보다 빠른 연산이 가능하지만 그만큼 많은 정보를 동시에 저장해야 하기 때문에 메모리 소모가 커집니다. 시계열 단계가 짧은 경우 적합합니다.  
+- __unroll__: `bool`. 기본값은 `False`입니다. `True`인 경우 순환구조로 처리되는 신경망을 펼쳐서 연산의 일부를 동시에 처리합니다. 이 경우 전체를 순환구조로 처리하는 것보다 빠른 연산이 가능하지만 그만큼 많은 정보를 동시에 저장해야 하기 때문에 메모리 소모가 커집니다. 시계열 길이가 짧은 경우 적합합니다.  
 - __reset_after__: 리셋 게이트를 은닉 상태에 적용하는 시점을 지정합니다. `False`인 경우 `recurrent_kernel`을 곱하기 전에 적용하며, `True`인 경우 `recurrent_kernel`을 곱한 다음 그 결과에 적용합니다(`CuDNN`과 호환되는 방식입니다). 
 
 __참고__
@@ -192,14 +192,14 @@ Long Short-Term Memory - Hochreiter 1997.
 
 __인자__
 
-- __units__: 양의 정수, 출력값의 차원 크기를 결정합니다.
-- __activation__: LSTM에서 현재 시점 입력을 바탕으로 후보값<sub>candidate value</sub>을 계산하는 과정 및 셀 상태<sub>csll state</sub>를 이용하여 현재 시점의 출력값을 계산하는 과정에서 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __recurrent_activation__: LSTM의 인풋 게이트와 포겟 게이트, 아웃풋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 하드 시그모이드(`hard_sigmoid`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __units__: 양의 정수. 출력값의 차원 크기를 결정합니다.
+- __activation__: LSTM에서 현재 시점 입력을 바탕으로 후보값<sub>candidate value</sub>을 계산하는 과정 및 셀 상태<sub>csll state</sub>를 이용하여 현재 시점의 출력값을 계산하는 과정에서 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __recurrent_activation__: LSTM의 인풋 게이트와 포겟 게이트, 아웃풋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 하드 시그모이드(`'hard_sigmoid'`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`. 층의 연산에 편향을 적용할지 여부를 결정합니다.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
-- __unit_forget_bias__: `bool`. `True`인 경우 [Jozefowicz et al. (2015)](http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf)의 제안에 따라 포겟 게이트의 편향에 `1`을 더합니다. 또한 강제적으로 `bias_initializer="zeros"`로 설정하여 나머지 게이트의 편향을 `0`으로 시작하게끔 합니다. 기본값은 `True`입니다.
+- __unit_forget_bias__: `bool`. `True`인 경우 [Jozefowicz et al. (2015)](http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf)의 제안에 따라 포겟 게이트의 편향에 `1`을 더합니다. 또한 강제적으로 `bias_initializer='zeros'`로 설정하여 나머지 게이트의 편향을 `0`으로 시작하게끔 합니다. 기본값은 `True`입니다.
 - __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
 - __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
 - __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
@@ -208,13 +208,13 @@ __인자__
 - __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __dropout__: `0`과 `1`사이의 `float`. 입력값의 선형 변환에 사용되는 `kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
-- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 0으로 바꾸어 탈락시킵니다.
-- __implementation__: `1`또는 `2`. 연산 모드를 설정합니다. `1`은 작은 크기의 내적과 덧셈을 많이 하는 구성, `2`는 큰 크기의 내적과 덧셈을 보다 적은 횟수로 하는 구성입니다. 이러한 설정은 하드웨어 및 어플리케이션에 따라 서로 다른 연산 성능을 가져옵니다. 기본값은 `2`입니다.
+- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
+- __implementation__: `1` 또는 `2`. 연산 모드를 설정합니다. `1`은 작은 크기의 내적과 덧셈을 많이 하는 구성, `2`는 큰 크기의 내적과 덧셈을 보다 적은 횟수로 하는 구성입니다. 이러한 설정은 하드웨어 및 어플리케이션에 따라 서로 다른 연산 성능을 가져옵니다. 기본값은 `2`입니다.
 - __return_sequences__: `bool`. 시계열 가운데 모든 시점의 출력값을 반환할지 마지막 시점의 출력값만을 반환할지 결정합니다. 기본값은 `False`입니다. 
-- __return_state__: `bool`. 출력과 함께 해당 단계의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
+- __return_state__: `bool`. 출력과 함께 마지막 시점의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
 - __go_backwards__: `bool`. 기본값은 `False`입니다. `True`인 경우 입력의 순서를 뒤집어 거꾸로된 순서의 처리 결과를 반환합니다. 
 - __stateful__: `bool`. 기본값은 `False`입니다. `True`인 경우 현재 입력된 배치의 각 인덱스 `i`에 해당하는 입력값의 마지막 상태가 다음 배치의 각 인덱스 `i`에 해당하는 입력값의 초기 상태로 사용됩니다. 매우 긴 시계열을 연속된 배치로 나누어 처리할 때 유용합니다.  
-- __unroll__: `bool`. 기본값은 `False`입니다. `True`인 경우 순환구조로 처리되는 신경망을 펼쳐서 연산의 일부를 동시에 처리합니다. 이 경우 전체를 순환구조로 처리하는 것보다 빠른 연산이 가능하지만 그만큼 많은 정보를 동시에 저장해야 하기 때문에 메모리 소모가 커집니다. 시계열 단계가 짧은 경우 적합합니다.  
+- __unroll__: `bool`. 기본값은 `False`입니다. `True`인 경우 순환구조로 처리되는 신경망을 펼쳐서 연산의 일부를 동시에 처리합니다. 이 경우 전체를 순환구조로 처리하는 것보다 빠른 연산이 가능하지만 그만큼 많은 정보를 동시에 저장해야 하기 때문에 메모리 소모가 커집니다. 시계열 길이가 짧은 경우 적합합니다.  
 
 __참고__
 
@@ -242,19 +242,19 @@ LSTM과 비슷하지만 입력값과 상태의 변환에 합성곱이 적용됩�
 
 __인자__
 
-- __filters__: `int`. 출력할 결과값의 차원으로 합성곱 필터의 갯수를 나타냅니다. 
+- __filters__: `int`. 출력할 결과값의 차원으로 합성곱 필터의 개수를 나타냅니다. 
 - __kernel_size__: `int` 또는 `int`로 이루어진 튜플/리스트. 합성곱 필터의 크기를 지정합니다.
 - __strides__: `int` 또는 `int`로 이루어진 튜플/리스트. 합성곱 필터의 스트라이드를 지정합니다. 기본값은 `(1, 1)`입니다. 만약 팽창 합성곱<sub>dilated convolution</sub>을 사용하고자 할 때 스트라이드의 크기를 `1`보다 크게 지정했다면 `dilation_rate`인자는 반드시 `1`로 맞춰야 합니다.
-- __padding__: `str`. 입력값의 패딩처리 여부를 `"valid"` 또는 `"same"` 가운데 하나로 지정합니다(대소문자 무관). `"valid"`는 패딩이 없는 경우, `"same"`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다.
-- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `"channels_last"`(기본값) 또는 `"channels_first"` 가운데 하나를 지정합니다. 입력 형태가 `(batch, time, ..., channels)`로 채널 정보가 마지막에 올 경우 `"channels_last"`를, `(batch, time, channels, ...)`로 채널 정보가 먼저 올 경우 `"channels_first"`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `"channels_last"`를 기본값으로 적용합니다. 
+- __padding__: `str`. 입력값의 패딩처리 여부를 `'valid'` 또는 `'same'` 가운데 하나로 지정합니다(대소문자 무관). `'valid'`는 패딩이 없는 경우, `'same'`은 출력의 형태를 입력과 같게 맞추고자 하는 경우에 사용합니다.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `'channels_last'`(기본값) 또는 `'channels_first'` 가운데 하나를 지정합니다. 입력 형태가 `(batch, time, ..., channels)`로 채널 정보가 마지막에 올 경우 `'channels_last'`를, `(batch, time, channels, ...)`로 채널 정보가 먼저 올 경우 `'channels_first'`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `'channels_last'`를 기본값으로 적용합니다. 
 - __dilation_rate__: `int` 또는 `int`로 이루어진 튜플/리스트. 팽창 합성곱 필터의 팽창비율을 결정합니다. 팽창 합성곱은 원래 조밀한 형태 그대로 입력에 적용되는 합성곱 필터를 각 원소 사이에 가로, 세로 방향으로 간격을 띄우는 방식으로 팽창시켜 성긴 대신 보다 넓은 영역에 적용될 수 있도록 변형한 합성곱입니다. 자세한 내용은 [Multi-Scale Context Aggregation by Dilated Convolutions](https://arxiv.org/abs/1511.07122v3)을 참고하십시오. 기본값은 `(1, 1)`이며, 현재 버전에서는 `dilation_rate`가 `1`보다 큰 경우 `1`보다 큰 `strides`를 지정할 수 없습니다. 
-- __activation__: LSTM에서 현재 시점 입력을 바탕으로 후보값을 계산하는 과정 및 셀 상태를 이용하여 현재 시점의 출력값을 계산하는 과정에서 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __recurrent_activation__: LSTM의 인풋 게이트와 포겟 게이트, 아웃풋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 하드 시그모이드(`hard_sigmoid`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __activation__: LSTM에서 현재 시점 입력을 바탕으로 후보값을 계산하는 과정 및 셀 상태를 이용하여 현재 시점의 출력값을 계산하는 과정에서 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __recurrent_activation__: LSTM의 인풋 게이트와 포겟 게이트, 아웃풋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 하드 시그모이드(`'hard_sigmoid'`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`. 층의 연산에 편향을 적용할지 여부를 결정합니다.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
-- __unit_forget_bias__: `bool`. `True`인 경우 [Jozefowicz et al. (2015)](http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf)의 제안에 따라 포겟 게이트의 편향에 `1`을 더합니다. 또한 강제적으로 `bias_initializer="zeros"`로 설정하여 나머지 게이트의 편향을 `0`으로 시작하게끔 합니다. 기본값은 `True`입니다.
+- __unit_forget_bias__: `bool`. `True`인 경우 [Jozefowicz et al. (2015)](http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf)의 제안에 따라 포겟 게이트의 편향에 `1`을 더합니다. 또한 강제적으로 `bias_initializer='zeros'`로 설정하여 나머지 게이트의 편향을 `0`으로 시작하게끔 합니다. 기본값은 `True`입니다.
 - __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
 - __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
 - __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
@@ -315,9 +315,9 @@ SimpleRNN의 셀 클래스.
 
 __인자__
 
-- __units__: 양의 정수, 출력값의 차원 크기를 결정합니다..
-- __activation__: 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __units__: 양의 정수. 출력값의 차원 크기를 결정합니다.
+- __activation__: 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`. 층의 연산에 편향을 적용할지 여부를 결정합니다.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
@@ -328,7 +328,7 @@ __인자__
 - __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __dropout__: `0`과 `1`사이의 `float`. 입력값의 선형 변환에 사용되는 `kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
-- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 0으로 바꾸어 탈락시킵니다.
+- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
 
     
 ----
@@ -339,14 +339,14 @@ __인자__
 keras.layers.GRUCell(units, activation='tanh', recurrent_activation='sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.0, recurrent_dropout=0.0, implementation=2, reset_after=False)
 ```
 
-Gated Recurrent Unit의 셀 클래스.
+GRU의 셀 클래스.
 
 __인자__
 
-- __units__: 양의 정수, 출력값의 차원 크기를 결정합니다..
-- __activation__: GRU에서 현재 시점 입력 계산에 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __recurrent_activation__: GRU의 업데이트 게이트와 리셋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 시그모이드(`sigmoid`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __units__: 양의 정수. 출력값의 차원 크기를 결정합니다.
+- __activation__: GRU에서 현재 시점 입력 계산에 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __recurrent_activation__: GRU의 업데이트 게이트와 리셋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 시그모이드(`'sigmoid'`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`. 층의 연산에 편향을 적용할지 여부를 결정합니다.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
@@ -357,13 +357,13 @@ __인자__
 - __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __dropout__: `0`과 `1`사이의 `float`. 입력값의 선형 변환에 사용되는 `kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
-- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 0으로 바꾸어 탈락시킵니다.
-- __implementation__: `1`또는 `2`. 연산 모드를 설정합니다. `1`은 작은 크기의 내적과 덧셈을 많이 하는 구성, `2`는 큰 크기의 내적과 덧셈을 보다 적은 횟수로 하는 구성입니다. 이러한 설정은 하드웨어 및 어플리케이션에 따라 서로 다른 연산 성능을 가져옵니다. 기본값은 `2`입니다.
+- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
+- __implementation__: `1` 또는 `2`. 연산 모드를 설정합니다. `1`은 작은 크기의 내적과 덧셈을 많이 하는 구성, `2`는 큰 크기의 내적과 덧셈을 보다 적은 횟수로 하는 구성입니다. 이러한 설정은 하드웨어 및 어플리케이션에 따라 서로 다른 연산 성능을 가져옵니다. 기본값은 `2`입니다.
 - __return_sequences__: `bool`. 시계열 가운데 모든 시점의 출력값을 반환할지 마지막 시점의 출력값만을 반환할지 결정합니다. 기본값은 `False`입니다. 
-- __return_state__: `bool`. 출력과 함께 해당 단계의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
+- __return_state__: `bool`. 출력과 함께 마지막 시점의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
 - __go_backwards__: `bool`. 기본값은 `False`입니다. `True`인 경우 입력의 순서를 뒤집어 거꾸로된 순서의 처리 결과를 반환합니다. 
 - __stateful__: `bool`. 기본값은 `False`입니다. `True`인 경우 현재 입력된 배치의 각 인덱스 `i`에 해당하는 입력값의 마지막 상태가 다음 배치의 각 인덱스 `i`에 해당하는 입력값의 초기 상태로 사용됩니다. 매우 긴 시계열을 연속된 배치로 나누어 처리할 때 유용합니다.  
-- __unroll__: `bool`. 기본값은 `False`입니다. `True`인 경우 순환구조로 처리되는 신경망을 펼쳐서 연산의 일부를 동시에 처리합니다. 이 경우 전체를 순환구조로 처리하는 것보다 빠른 연산이 가능하지만 그만큼 많은 정보를 동시에 저장해야 하기 때문에 메모리 소모가 커집니다. 시계열 단계가 짧은 경우 적합합니다.  
+- __unroll__: `bool`. 기본값은 `False`입니다. `True`인 경우 순환구조로 처리되는 신경망을 펼쳐서 연산의 일부를 동시에 처리합니다. 이 경우 전체를 순환구조로 처리하는 것보다 빠른 연산이 가능하지만 그만큼 많은 정보를 동시에 저장해야 하기 때문에 메모리 소모가 커집니다. 시계열 길이가 짧은 경우 적합합니다.  
 - __reset_after__: 리셋 게이트를 은닉 상태에 적용하는 시점을 지정합니다. `False`인 경우 `recurrent_kernel`을 곱하기 전에 적용하며, `True`인 경우 `recurrent_kernel`을 곱한 다음 그 결과에 적용합니다(`CuDNN`과 호환되는 방식입니다). 
 
 
@@ -375,18 +375,18 @@ __인자__
 keras.layers.LSTMCell(units, activation='tanh', recurrent_activation='hard_sigmoid', use_bias=True, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, dropout=0.0, recurrent_dropout=0.0, implementation=1)
 ```
 
-장단기 메모리의 셀 클래스.
+LSTM의 셀 클래스.
 
 __인자__
 
 - __units__: 양의 정수, 출력값의 차원 크기를 결정합니다.
-- __activation__: LSTM에서 현재 시점 입력을 바탕으로 후보값을 계산하는 과정 및 셀 상태를 이용하여 현재 시점의 출력값을 계산하는 과정에서 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __recurrent_activation__: LSTM의 인풋 게이트와 포겟 게이트, 아웃풋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 하드 시그모이드(`hard_sigmoid`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다 (`a(x) = x`). 참고: [활성화 함수](../activations.md)
-- __use_bias__: `bool`, 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __activation__: LSTM에서 현재 시점 입력을 바탕으로 후보값을 계산하는 과정 및 셀 상태를 이용하여 현재 시점의 출력값을 계산하는 과정에서 사용할 활성화 함수입니다. 기본값은 하이퍼볼릭탄젠트(`tanh`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __recurrent_activation__: LSTM의 인풋 게이트와 포겟 게이트, 아웃풋 게이트 계산에 사용할 활성화 함수입니다. 기본값은 하드 시그모이드(`'hard_sigmoid'`)이며 `None`을 전달할 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`. 층의 연산에 편향을 적용할지 여부를 결정합니다.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
-- __unit_forget_bias__: `bool`. `True`인 경우 [Jozefowicz et al. (2015)](http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf)의 제안에 따라 포겟 게이트의 편향에 `1`을 더합니다. 또한 강제적으로 `bias_initializer="zeros"`로 설정하여 나머지 게이트의 편향을 `0`으로 시작하게끔 합니다. 기본값은 `True`입니다.
+- __unit_forget_bias__: `bool`. `True`인 경우 [Jozefowicz et al. (2015)](http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf)의 제안에 따라 포겟 게이트의 편향에 `1`을 더합니다. 또한 강제적으로 `bias_initializer='zeros'`로 설정하여 나머지 게이트의 편향을 `0`으로 시작하게끔 합니다. 기본값은 `True`입니다.
 - __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
 - __recurrent_regularizer__: `recurrent_kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
 - __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
@@ -394,7 +394,7 @@ __인자__
 - __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __dropout__: `0`과 `1`사이의 `float`. 입력값의 선형 변환에 사용되는 `kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
-- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 0으로 바꾸어 탈락시킵니다.
+- __recurrent_dropout__: `0`과 `1`사이의 `float`. 상태값의 선형 변환에 사용되는 `recurrent_kernel` 가중치의 값 가운데 지정한 만큼의 비율을 무작위로 `0`으로 바꾸어 탈락시킵니다.
 - __implementation__: `1`또는 `2`. 연산 모드를 설정합니다. `1`은 작은 크기의 내적과 덧셈을 많이 하는 구성, `2`는 큰 크기의 내적과 덧셈을 보다 적은 횟수로 하는 구성입니다. 이러한 설정은 하드웨어 및 어플리케이션에 따라 서로 다른 연산 성능을 가져옵니다. 기본값은 `2`입니다.
 
 
@@ -406,13 +406,13 @@ __인자__
 keras.layers.CuDNNGRU(units, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, return_sequences=False, return_state=False, stateful=False)
 ```
 
-[CuDNN](https://developer.nvidia.com/cudnn)을 사용한 빠른 Gated Recurrent Unit 구현 층. 
+[CuDNN](https://developer.nvidia.com/cudnn)을 사용한 빠른 GRU 구현 층. 
 
-텐서플로우 백엔드로 CuDNN을 지원하는 GPU에서만 실행할 수 있습니다.
+TensorFlow 백엔드로 CuDNN을 지원하는 GPU에서만 실행할 수 있습니다.
 
 __인자__
 
-- __units__: 양의 정수, 출력값의 차원 크기를 결정합니다..
+- __units__: 양의 정수. 출력값의 차원 크기를 결정합니다..
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
@@ -424,7 +424,7 @@ __인자__
 - __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __return_sequences__: `bool`. 시계열 가운데 모든 시점의 출력값을 반환할지 마지막 시점의 출력값만을 반환할지 결정합니다. 기본값은 `False`입니다. 
-- __return_state__: `bool`. 출력과 함께 해당 단계의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
+- __return_state__: `bool`. 출력과 함께 마지막 시점의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
 - __stateful__: `bool`. 기본값은 `False`입니다. `True`인 경우 현재 입력된 배치의 각 인덱스 `i`에 해당하는 입력값의 마지막 상태가 다음 배치의 각 인덱스 `i`에 해당하는 입력값의 초기 상태로 사용됩니다. 매우 긴 시계열을 연속된 배치로 나누어 처리할 때 유용합니다.  
 
     
@@ -437,13 +437,13 @@ __인자__
 keras.layers.CuDNNLSTM(units, kernel_initializer='glorot_uniform', recurrent_initializer='orthogonal', bias_initializer='zeros', unit_forget_bias=True, kernel_regularizer=None, recurrent_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, recurrent_constraint=None, bias_constraint=None, return_sequences=False, return_state=False, stateful=False)
 ```
 
-[CuDNN](https://developer.nvidia.com/cudnn)을 사용한 빠른 Long Short-Term Memory 구현 층.
+[CuDNN](https://developer.nvidia.com/cudnn)을 사용한 빠른 LSTM 구현 층.
 
-텐서플로우 백엔드로 CuDNN을 지원하는 GPU에서만 실행할 수 있습니다.
+TensorFlow 백엔드로 CuDNN을 지원하는 GPU에서만 실행할 수 있습니다.
 
 __인자__
 
-- __units__: 양의 정수, 출력값의 차원 크기를 결정합니다.
+- __units__: 양의 정수. 출력값의 차원 크기를 결정합니다.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __unit_forget_bias__: `bool`. `True`인 경우 [Jozefowicz et al. (2015)](http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf)의 제안에 따라 포겟 게이트의 편향에 `1`을 더합니다. 또한 강제적으로 `bias_initializer="zeros"`로 설정하여 나머지 게이트의 편향을 `0`으로 시작하게끔 합니다. 기본값은 `True`입니다.
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
@@ -456,6 +456,6 @@ __인자__
 - __recurrent_constraint__: `recurrent_kernel` 가중치 행렬에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
 - __return_sequences__: `bool`. 시계열 가운데 모든 시점의 출력값을 반환할지 마지막 시점의 출력값만을 반환할지 결정합니다. 기본값은 `False`입니다. 
-- __return_state__: `bool`. 출력과 함께 해당 단계의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
+- __return_state__: `bool`. 출력과 함께 마지막 시점의 상태값도 반환할지의 여부를 결정합니다. 기본값은 `False`입니다.
 - __stateful__: `bool`. 기본값은 `False`입니다. `True`인 경우 현재 입력된 배치의 각 인덱스 `i`에 해당하는 입력값의 마지막 상태가 다음 배치의 각 인덱스 `i`에 해당하는 입력값의 초기 상태로 사용됩니다. 매우 긴 시계열을 연속된 배치로 나누어 처리할 때 유용합니다.  
     
