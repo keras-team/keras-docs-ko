@@ -10,7 +10,7 @@ Keras 함수형 API<sub>functional API</sub>는 다중 출력 모델<sub>multi-o
 
 ## 첫 번째 예시: 완전 연결 신경망<sub>densely-connected network</sub>
 
-완전 연결 신경망에는 `Sequential` 모델이 더 적합하지만, 간단한 예시를 위해 Keras 함수형 API로 구현해 보겠습니다.
+완전 연결 신경망은 `Sequential` 모델로 만드는 것이 더 적합하지만, 간단한 예시를 위해 Keras 함수형 API로 구현해 보겠습니다.
 
 - 층 인스턴스<sub>instance</sub>는 텐서를 호출할 수 있고, 텐서를 반환합니다.
 - 입력<sub>input</sub> 텐서와 출력<sub>output</sub> 텐서을 통해 `Model`을 정의할 수 있습니다.
