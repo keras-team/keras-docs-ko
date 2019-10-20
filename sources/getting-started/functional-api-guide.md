@@ -107,7 +107,7 @@ lstm_out = LSTM(32)(x)
 auxiliary_output = Dense(1, activation='sigmoid', name='aux_output')(lstm_out)
 ```
 
-이제, 보조 입력 데이터를 LSTM 출력에 이어붙여 모델에 전달합니다.
+이제, 보조 입력 데이터를 LSTM 출력에 이어붙여<sub>concatenate</sub> 모델에 전달합니다.
 
 ```python
 auxiliary_input = Input(shape=(5,), name='aux_input')
@@ -177,13 +177,13 @@ pred = model.predict([headline_data, additional_data])
 
 공유 층을 사용하는 모델은 함수형 API가 유용한 경우 중 하나입니다. 공유 층에 대해서 알아봅시다.
 
-트윗 데이터셋을 고려해 봅시다. 서로 다른 두 개의 트윗을 두고 동일한 사람이 작성했는지 여부를 가려내는 모델을 만들고자 합니다 (예를 들어, 트윗의 유사성을 기준으로 사용자를 비교할 수 있습니다).
+트윗 데이터셋을 생각해봅시다. 서로 다른 두 개의 트윗을 동일한 사람이 작성했는지 구별하는 모델을 만들고자 합니다 (예를 들어, 트윗의 유사성을 기준으로 사용자를 비교할 수 있습니다).
 
-이를 구현하는 한 가지 방법은 두 개의 트윗을 두 벡터로 인코딩하고 그 두 벡터를 연결한 후 로지스틱 회귀를 수행하는 모델을 만드는 것입니다; 이 모델은 서로 다른 두 트윗의 작성자가 동일할 확률을 출력합니다. 그런 다음 모델은 긍정적인 트윗 쌍과 부정적인 트윗 쌍에 대해서 학습됩니다.
+이 문제를 해결하는 한 가지 방법은 두 개의 트윗을 각각 벡터로 인코딩하고 두 벡터를 연결한 후 로지스틱 회귀를 수행하는 모델을 만드는 것입니다. 이 모델은 서로 다른 두 트윗을 같은 사람이 작성할 확률을 출력합니다. 그런 다음 모델은 긍정적인 트윗 쌍과 부정적인 트윗 쌍을 통해 학습됩니다.
 
-문제가 대칭적이므로 긍정적인 트윗 쌍을 인코딩하는 메커니즘을 (가중치 등을 포함해) 전부 재사용하여 부정적인 트윗 쌍을 인코딩해야 합니다. 이 예시에서는 공유된 LSTM 층을 사용해 트윗을 인코딩 합니다.
+문제가 대칭적이므로 긍정적인 트윗 쌍을 인코딩하는 메커니즘과 같은 방법으로 부정적인 트윗 쌍을 인코딩해야 합니다. 가중치 등 모든 값이 재사용됩니다. 이 예시에서는 공유된 LSTM 층을 사용해 트윗을 인코딩 합니다.
 
-함수형 API로 모델을 만들어 봅시다. `(280, 256)` 형태의 이진 행렬, 다시 말해 256 크기의 벡터 280개로 이루어진 시퀀스를 트윗에 대한 입력으로 받습니다 (여기서 256 차원 벡터의 각 차원은 자모에서 가장 빈번하게 사용되는 256 문자의 유무를 인코딩합니다).
+함수형 API로 모델을 만들어 봅시다. 트윗에 대한 입력으로 (280, 256) 형태의 이진 행렬(256차원의 벡터 280개로 이루어진 시퀀스)을 받습니다 (여기서 256차원 벡터의 각 차원은 가장 빈번하게 사용되는 256개의 문자의 유무를 인코딩합니다).
 
 ```python
 import keras
@@ -194,10 +194,10 @@ tweet_a = Input(shape=(280, 256))
 tweet_b = Input(shape=(280, 256))
 ```
 
-층을 재사용하려면, 간단히 층을 한 번만 인스턴스화하고 서로 다른 입력마다 층 인스턴스를 호출하면 됩니다.
+여러 종류의 입력에 동일한 층을 사용하려면, 층을 한 번 인스턴스화하고 필요한 만큼 층 인스턴스를 호출하면 됩니다.
 
 ```python
-# 이 층 인스턴스는 행렬을 입력으로 전달받고
+# 이 층 인스턴스는 행렬을 입력 받아
 # 크기가 64인 벡터를 반환합니다.
 shared_lstm = LSTM(64)
 
@@ -208,13 +208,13 @@ shared_lstm = LSTM(64)
 encoded_a = shared_lstm(tweet_a)
 encoded_b = shared_lstm(tweet_b)
 
-# 이제 두 벡터를 연결할 수 있습니다.
+# 이제 두 벡터를 이어붙입니다.
 merged_vector = keras.layers.concatenate([encoded_a, encoded_b], axis=-1)
 
-# 그리고 로지스틱 회귀를 상층에 추가합니다.
+# 로지스틱 회귀를 추가합니다.
 predictions = Dense(1, activation='sigmoid')(merged_vector)
 
-# 트윗 입력을 예측에 연결하는
+# 트윗을 입력받아 예측하는
 # 학습 가능한 모델을 정의합니다.
 model = Model(inputs=[tweet_a, tweet_b], outputs=predictions)
 
@@ -224,17 +224,17 @@ model.compile(optimizer='rmsprop',
 model.fit([data_a, data_b], labels, epochs=10)
 ```
 
-잠시 멈춰서 공유 층 인스턴스의 출력 또는 출력 형태<sub>shape</sub>가 어떠한지 살펴봅시다.
+여기서 잠깐, 공유 층 인스턴스의 출력 또는 출력 형태<sub>shape</sub>에 대해 살펴봅시다.
 
 -----
 
-## "노드"의 개념
+## "노드" 층의 개념
 
-입력에 대해서 층 인스턴스를 호출하면, 새로운 텐서(층 인스턴스의 출력)가 생성됩니다. 또한 "노드"가 층 인스턴스에 추가되어 입력 텐서와 출력 텐서를 연결합니다. 동일한 층 인스턴스를 여러 번 호출하면, 층 인스턴스는 0, 1, 2…와 같은 인덱스가 달린 여러 개의 노드를 소유하게 됩니다.
+어떤 입력에 대해서 층 인스턴스를 호출하면, 새로운 텐서(층 인스턴스의 출력)가 생성됩니다. 또한 입력 텐서와 출력 텐서를 연결하는 "노드"가 층 인스턴스에 추가됩니다. 동일한 층 인스턴스를 여러 번 호출하면, 층 인스턴스는 0, 1, 2…와 같은 인덱스가 달린 여러 개의 노드를 갖게 됩니다.
 
-케라스 이전 버전에서는 `layer.get_output()`를 통해 층 인스턴스의 출력 텐서를 얻을 수 있고, `layer.output_shape`를 통해 출력 형태를 얻을 수 있었습니다. 이러한 방식이 여전히 가능하기는 하지만 (단, `get_output()`은 `output`이라는 속성으로 대체되었습니다), 층 인스턴스가 여러 입력에 연결된 경우는 어떻게 하시겠습니까?
+케라스의 이전 버전에서는 `layer.get_output()`와 `layer.output_shape`를 통해 층 인스턴스의 출력 텐서와 출력 형태를 얻을 수 있었습니다. 여전히 이 방법을 사용할 수 있지만 층 인스턴스가 여러 개의 입력과 연결된 경우에는 어떻게 할 수 있을까요?(단, `get_output()`은 `output`이라는 속성으로 대체되었습니다.)
 
-층 인스턴스가 하나의 입력에만 연결되어 있으면 `.output`은 층 인스턴스의 단일 출력을 반환할 것입니다.
+층 인스턴스가 하나의 입력에만 연결되어 있으면 `.output`은 층 인스턴스의 단일 출력을 반환합니다.
 
 ```python
 a = Input(shape=(280, 256))
@@ -245,7 +245,7 @@ encoded_a = lstm(a)
 assert lstm.output == encoded_a
 ```
 
-층 인스턴스가 여러 입력에 대해서 호출이 된다면 상황이 달라집니다.
+층 인스턴스가 여러 개의 입력과 연결된 경우에는 오류가 발생합니다.
 ```python
 a = Input(shape=(280, 256))
 b = Input(shape=(280, 256))
@@ -262,16 +262,16 @@ hence the notion of "layer output" is ill-defined.
 Use `get_output_at(node_index)` instead.
 ```
 
-다음은 제대로 작동합니다.
+다음 코드는 제대로 작동합니다.
 
 ```python
 assert lstm.get_output_at(0) == encoded_a
 assert lstm.get_output_at(1) == encoded_b
 ```
 
-간단하지 않습니까?
+간단하죠?
 
-`input_shape`와 `output_shape`의 경우도 마찬가지 입니다: 층 인스턴스가 하나의 노드만 보유하거나 모든 노드가 동일한 입력/출력 형태를 갖는 한, "layer output/input shape"에 대한 개념이 정의되며 `layer.output_shape`/`layer.input_shape`는 동일한 형태를 반환합니다. 하지만 만약 동일한 `Conv2D` layer를 `(32, 32, 3)` 형태의 입력에 대해서 호출한 다음 `(64, 64, 3)` 형태의 입력에 대해서도 호출한다면, layer는 여러 입력/출력 형태를 가지게 됩니다. 이러한 경우 각 입력/출력 형태가 속한 노드의 인덱스를 지정해야만 형태를 얻을 수 있습니다.
+`input_shape`와 `output_shape`의 경우도 마찬가지입니다. 층 인스턴스가 하나의 노드를 갖거나 모든 노드가 동일한 입력/출력 형태를 가지는 경우에는 `layer output`/`input shape`가 자동으로 결정됩니다. `layer.output_shape`/`layer.input_shape`는 하나의 값을 갖습니다. 하지만 `Conv2D` 층을 `(32, 32, 3)` 형태의 입력에 대해서 호출한 다음 `(64, 64, 3)` 형태의 입력에 대해서도 호출하면, 층 인스턴스는 여러 개의 입력/출력 형태를 가지게 됩니다. 이 경우에는 노드의 인덱스를 지정해야 오류가 발생하지 않습니다.
 
 ```python
 a = Input(shape=(32, 32, 3))
@@ -280,11 +280,11 @@ b = Input(shape=(64, 64, 3))
 conv = Conv2D(16, (3, 3), padding='same')
 conved_a = conv(a)
 
-# 지금까지 하나의 입력만 존재하므로 다음은 제대로 동작합니다.
+# 현재는 입력이 하나이므로 아래의 코드에서 오류가 발생하지 않습니다.
 assert conv.input_shape == (None, 32, 32, 3)
 
 conved_b = conv(b)
-# 이제 `.input_shape`은 제대로 작동하지 않지만, 다음은 동작합니다.
+# 이제 `.input_shape`은 오류가 발생하지만, 다음의 코드는 오류를 발생하지 않습니다.
 assert conv.get_input_shape_at(0) == (None, 32, 32, 3)
 assert conv.get_input_shape_at(1) == (None, 64, 64, 3)
 ```
@@ -293,7 +293,7 @@ assert conv.get_input_shape_at(1) == (None, 64, 64, 3)
 
 ## 추가 예시
 
-시작하기에 코드 예시보다 좋은 방법은 없으므로, 몇 가지 예시를 더 살펴봅시다.
+몇 가지 예시를 더 살펴봅시다.
 
 ### Inception 모듈
 
@@ -325,7 +325,7 @@ from keras.layers import Conv2D, Input
 
 # 3개의 채널을 가진 256x256 이미지에 대한 입력 텐서
 x = Input(shape=(256, 256, 3))
-# 입력 채널과 같은 3개의 출력 채널을 가진 3x3 합성곱
+# 입력 채널과 같은 3개의 출력 채널을 가지는 3x3 합성곱
 y = Conv2D(3, (3, 3), padding='same')(x)
 # x + y를 반환합니다
 z = keras.layers.add([x, y])
@@ -333,7 +333,7 @@ z = keras.layers.add([x, y])
 
 ### 공유 시각 모델
 
-이 모델은 동일한 이미지 처리 모듈을 두 입력에 대해서 재사용하여, 두 MNIST 숫자가 같은 숫자인지 다른 숫자인지 여부를 분류합니다.
+이 모델은 같은 이미지 처리 모듈을 두 개의 입력에 사용하여, 두 MNIST 숫자가 같은 숫자인지 판단합니다.
 
 ```python
 from keras.layers import Conv2D, MaxPooling2D, Input, Dense, Flatten
@@ -348,11 +348,11 @@ out = Flatten()(x)
 
 vision_model = Model(digit_input, out)
 
-# 그리고 숫자 분류 모델을 정의합니다.
+# 숫자 분류 모델을 정의합니다.
 digit_a = Input(shape=(27, 27, 1))
 digit_b = Input(shape=(27, 27, 1))
 
-# 시각 모델은 가중치 등을 포함한 모든것이 공유됩니다.
+# 시각 모델은 가중치 등을 포함한 모든 것을 공유합니다.
 out_a = vision_model(digit_a)
 out_b = vision_model(digit_b)
 
