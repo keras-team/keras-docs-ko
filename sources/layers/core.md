@@ -6,14 +6,14 @@
 keras.layers.Dense(units, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-일반적인 밀집 연결 신경망 층<sub>densely-connected NN layer</sub>.
+일반적인 완전 연결 신경망 층<sub>densely-connected NN layer</sub>.
 
 `Dense`는 `output = activation(dot(input, kernel) + bias)` 을 실행합니다.
 여기서 `activation`은 `activation` 인자로 전달되는 원소 단위<sub>element-wise</sub> 활성화 함수이고,
-`kernel`은 층이 만들어낸 가중치 행렬<sub>weight matrix</sub>이며,
-`bias`는 층이 만들어낸 편향<sub>bias</sub> 벡터이며 `use_bias`가 `True`인 경우만 적용 가능합니다.
+`kernel`은 층에서 만들어진 가중치 행렬<sub>weight matrix</sub>입니다.,
+`bias`는 층에서 만들어진 편향<sub>bias</sub> 벡터이며 `'use_bias=True'`인 경우만 적용 가능합니다.
 
-참고: 층의 입력 랭크가 2보다 클 경우, `kernel`과의 내적<sub>dot product</sub>을 하기 전에 층의 차원을 1차원으로 만들어주어야 합니다.
+참고: 층의 입력 랭크가 2보다 클 경우, `kernel`과의 내적<sub>dot product</sub>을 하기 전에 층의 차원을 1D 벡터로 형태를 바꿔야합니다.
 
 __예시__
 
@@ -25,32 +25,32 @@ model.add(Dense(32, input_shape=(16,)))
 # (*, 32) 형태의 배열을 출력합니다
 
 # 첫 번째 층 이후에는,
-# 입력의 크기를 특정하지 않아도 됩니다:
+# 입력의 크기를 지정하지 않아도 됩니다:
 model.add(Dense(32))
 ```
 
 __인자__
 
-- __units__: 양의 정수, 출력 공간의 차원.
+- __units__: 양의 `int`, 출력 공간의 차원.
 - __activation__: 사용할 활성화 함수
-  ([활성화 함수](../activations.md)를 참조하십시오).
+  ([활성화 함수](../activations.md)를 참고하십시오).
   따로 설정하지 않으면, 활성화 함수가 적용되지 않습니다.
   (즉, "linear" 활성화 함수: `a(x) = x`).
-- __use_bias__: `Bool`. 층이 편향 벡터를 사용하는지 여부.
+- __use_bias__: `bool`. 층이 편향 벡터를 사용하는지 여부.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화<sub>initalizer</sub> 함수
-  ([초기값 함수](../initializers.md)를 참조하십시오).
+  ([초기값 함수](../initializers.md)를 참고하십시오).
 - __bias_initializer__: 편향 벡터의 초기값 함수
-  ([초기값 함수](../initializers.md)를 참조하십시오).
+  ([초기값 함수](../initializers.md)를 참고하십시오).
 - __kernel_regularizer__: `kernel` 가중치 행렬에 적용되는 규제<sub>regularizer</sub> 함수
-  ([규제 함수](../regularizers.md)를 참조하십시오).
+  ([규제 함수](../regularizers.md)를 참고하십시오).
 - __bias_regularizer__: 편향 벡터에 적용되는 규제 함수
-  ([규제 함수](../regularizers.md)를 참조하십시오).
+  ([규제 함수](../regularizers.md)를 참고하십시오).
 - __activity_regularizer__: 층의 출력값(층의 “활성화” 값)에 적용되는 규제 함수
-  ([규제 함수](../regularizers.md)를 참조하십시오).
-- __kernel_constraint__: `kernel` 가중치 행렬에 적용되는 제약<sub>constraints</sub> 함수
-  ([제약 함수](../constraints.md)을 참조하십시오).
-- __bias_constraint__: 편향 벡터에 적용하는 제약 함수
-  ([제약 함수](../constraints.md)을 참조하십시오).
+  ([규제 함수](../regularizers.md)를 참고하십시오).
+- __kernel_constraint__: `kernel` 가중치 행렬에 적용되는 제약<sub>constraints</sub> 
+  ([제약](../constraints.md)을 참고하십시오).
+- __bias_constraint__: 편향 벡터에 적용하는 제약
+  ([제약](../constraints.md)을 참고하십시오).
 
 __입력 형태__
 
@@ -79,17 +79,17 @@ keras.layers.Activation(activation)
 __인자__
 
 - __activation__:  Theano나 Tensorflow 또는 다른 곳에서 사용하는 활성화 함수의 이름
-  ([활성화 함수](../activations.md)를 참조하십시오)
+  ([활성화 함수](../activations.md)를 참고하십시오)
 
 __입력 형태__
 
 임의의 형태입니다. 모델의 첫 번째 층으로 Activation층을
-사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
+사용할 때 키워드 인자 `input_shape`로 형태를 지정합니다. 
 `input_shape`는 정수 튜플<sub>tuple of integers</sub>로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
 
-입력 형태와 동일하다.
+입력 형태와 동일합니다.
     
 
 ------
@@ -109,7 +109,7 @@ keras.layers.Dropout(rate, noise_shape=None, seed=None)
 __인자__
 
 - __rate__: 0과 1사이 `float`. 드롭시킬 입력 유닛의 비율.
-- __noise_shape__: 입력과 곱하게 되는 이진 드롭아웃 마스크<sub>mask</sub>의
+- __noise_shape__: 입력과 곱하게 되는 이진 드롭아웃 마스크의
   형태를 나타내는 1D 정수 텐서.
   예를 들어, 입력이 `(batch_size, timesteps, features)`의
   형태를 가지는 경우, 드롭아웃 마스크를
@@ -117,7 +117,7 @@ __인자__
   `noise_shape=(batch_size, 1, features)`를 사용하면 됩니다.
 - __seed__: 난수<sub>random</sub> 시드로 사용할 파이썬 정수형.
 
-__참조__
+__참고__
 
 - [Dropout: A Simple Way to Prevent Neural Networks from Overfitting](
   http://www.jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf)
@@ -132,18 +132,18 @@ __참조__
 keras.layers.Flatten(data_format=None)
 ```
 
-입력을 1차원으로 펼칩니다. 배치 크기에는 영향을 미치치 않습니다.
+입력을 1차원으로 바꿉니다. 배치 크기에는 영향을 미치치 않습니다.
 
 __인자__
 
 - __data_format__: `string`,
-  입력 차원의 순서를 지정할수 있으며 `channels_last` (기본값) 혹은 `channels_first` 중 하나를 지정합니다.              
+  입력 차원의 순서를 지정할수 있으며 `'channels_last'` (기본값) 혹은 `'channels_first'` 중 하나를 지정합니다.              
   이 인자는 모델을 하나의 데이터 형식에서 다른 형식으로
   바꿀 때 가중치 순서를 보존할 때 이용됩니다.
-  `channels_last`는 `(batch, ..., channels)` 형태의 입력에 대응되고, `channels_first`는 `(batch, channels, ...)` 형태의 입력에 대응합니다.
+  `'channels_last'`는 `(batch, ..., channels)` 형태의 입력에 대응되고, `'channels_first'`는 `(batch, channels, ...)` 형태의 입력에 대응합니다.
   기본 값은 `~/.keras/keras.json`에 위치한
   케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-  따로 설정하지 않으면 `"channels_last"`으로 설정이 됩니다.
+  따로 설정하지 않으면 `'channels_last'`으로 설정이 됩니다.
 
 __예시__
 
@@ -196,7 +196,7 @@ __인자__
   따로 지정하지 않을 경우, 자동으로 생성됩니다.
 - __dtype__: `string`, 입력으로 들어가야 할 데이터 자료형
   (`float32`, `float64`, `int32`...)
-- __sparse__: `Bool`, 만들어 낼 플레이스홀더<sub>placeholder</sub>가 희소<sub>sparse</sub>한지
+- __sparse__: `bool`, 만들어 낼 플레이스홀더<sub>placeholder</sub>가 희소<sub>sparse</sub>한지
   여부를 확인합니다.
 - __tensor__: `Input` 층으로 래핑<sub>wrap</sub>할 수 있는 기존 텐서.
   따로 설정하는 경우, 층은 플레이스홀더 텐서를 만들어 내지 않습니다.
@@ -452,8 +452,8 @@ keras.layers.ActivityRegularization(l1=0.0, l2=0.0)
 
 __인자__
 
-- __l1__: L1 규제화 인수 (양의 부동소수점).
-- __l2__: L2 규제화 인수 (양의 부동소수점).
+- __l1__: L1 규제화 인수 (양의 `float`).
+- __l2__: L2 규제화 인수 (양의 `float`).
 
 __입력 형태__
 
@@ -502,7 +502,7 @@ model.add(LSTM(32))
 
 __인자__
 
-​    __mask_value__: None 혹은 건너뛸 마스크 값
+    __mask_value__: None 혹은 건너뛸 마스크 값
 
 ------
 
@@ -518,22 +518,22 @@ keras.layers.SpatialDropout1D(rate)
 드롭아웃의 공간적 1D 버전.
 
 이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 원소 대신
-1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱<sub>convolution</sub>층에서는                                  특성 맵 내 인접한 프레임<sub>frame</sub>이 강한 상관관계를 보이는 경우가 많습니다.                  보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
+1D 특성 맵 전체를 드롭시킵니다. 초기 합성곱<sub>convolution</sub>층에서는 특성 맵 내 인접한 프레임<sub>frame</sub>이 강한 상관관계를 보이는 경우가 많습니다. 보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를 감소시킵니다.
 이러한 경우, SpatialDropout1D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
 __인자__
 
-​    __rate__: 0과 1사이 부동소수점. 드롭시킬 입력 유닛의 비율.
+    __rate__: `0`과 `1`사이 `float`. 드롭시킬 입력 유닛의 비율.
 
 __입력 형태__
 
-​    `(samples, timesteps, channels)`형태의 3D 텐서.
+    `(samples, timesteps, channels)`형태의 3D 텐서.
 
 __출력 형태__
 
-​    입력 형태와 동일.
+    입력 형태와 동일.
 
-__참조__
+__참고__
 
 - [Efficient Object Localization Using Convolutional Networks](
   https://arxiv.org/abs/1411.4280)
@@ -552,29 +552,33 @@ keras.layers.SpatialDropout2D(rate, data_format=None)
 드롭아웃의 공간적 2D 버전.
 
 이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 원소 대신
-1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱층에서는                                  특성 맵 내 인접한 픽셀<sub>Pixels</sub>이 강한 상관관계를 보이는 경우가 많습니다.                       보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
+1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱층에서는 특성 맵 내 인접한 픽셀<sub>Pixels</sub>이 강한 상관관계를 보이는 경우가 많습니다.
+보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를 감소시킵니다.
 이러한 경우, SpatialDropout2D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
 __인수__
 
 - __rate__: 0과 1사이 부동소수점. 드롭시킬 입력 유닛의 비율.
-- __data_format__: 입력 차원의 순서를 지정할수 있으며 `channels_last` (기본값)     혹은 `channels_first` 중 하나를 지정합니다.                                              `channels_first` 모드에서는, 채널 차원(깊이)의 인덱스 1이며,
-  `channels_last` 모드에서는, 채널 차원(깊이)의 인덱스 3입니다.                                                            기본값은 `~/.keras/keras.json`에 위치한
+
+- __data_format__: 입력 차원의 순서를 지정할수 있으며   `'channels_last'` (기본값)     혹은 `'channels_first'` 중 하나를 지정 합니다.
+  `'channels_first'` 모드에서는, 채널 차원(깊이)의 인덱스 1이며,
+  `'channels_last'` 모드에서는, 채널 차원(깊이)의 인덱스 3입니다. 
+  기본값은 `~/.keras/keras.json`에 위치한
   케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-  따로 설정하지 않으면, `"channels_last"`으로 설정이 됩니다.
+  따로 설정하지 않으면, `'channels_last'`으로 설정이 됩니다.
 
 __입력 형태__
 
-data_format=`channels_first`인 경우
+data_format=`'channels_first'`인 경우
 `(samples, channels, rows, cols)` 형태의 4D 텐서.
-data_format=`channels_last`인 경우
+data_format=`'channels_last'`인 경우
 `(samples, rows, cols, channels)` 형태의 4D 텐서.
 
 __출력 형태__
 
 입력 형태와 동일.
 
-__참조__
+__참고__
 
 - [Efficient Object Localization Using Convolutional Networks](
   https://arxiv.org/abs/1411.4280)
@@ -593,30 +597,31 @@ keras.layers.SpatialDropout3D(rate, data_format=None)
 드롭아웃의 공간적 3D 버전.
 
 이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 원소 대신
-1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱층에서는                                  특성 맵 내 인접한 복셀<sub>Voxels</sub>이 강한 상관관계를 보이는 경우가 많습니다.                       보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를                 감소시킵니다.
+1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱층에서는 특성 맵 내 인접한 복셀<sub>Voxels</sub>이 강한 상관관계를 보이는 경우가 많습니다.
+보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를 감소시킵니다.
 이러한 경우, SpatialDropout3D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
 __인자__
 
 - __rate__: 0과 1사이 부동소수점. 드롭시킬 입력 유닛의 비율.
-- __data_format__:입력 차원의 순서를 지정할수 있으며 `channels_last` (기본값)       혹은 `channels_first` 중 하나를 지정합니다. 
-  `channels_first` 모드에서는, 채널 차원(깊이)의 인덱스 1이며,       `channels_last` 모드에서는, 채널 차원(깊이)의인덱스 4이다.
+- __data_format__:입력 차원의 순서를 지정할수 있으며 `'channels_last'` (기본값) 혹은 `'channels_first'` 중 하나를 지정합니다. 
+  `'channels_first'` 모드에서는, 채널 차원(깊이)의 인덱스 1이며, `'channels_last'` 모드에서는, 채널 차원(깊이)의인덱스 4이다.
   기본값은 `~/.keras/keras.json`에 위치한
   케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-  따로 설정하지 않으면, `"channels_last"`으로 설정이 됩니다.
+  따로 설정하지 않으면, `'channels_last'`으로 설정이 됩니다.
 
 __입력 형태__
 
-data_format=`channels_first`인 경우
+data_format=`'channels_first'`인 경우
 `(samples, channels, dim1, dim2, dim3)` 형태의 5D 텐서.
-data_format=`channels_last`인 경우
+data_format=`'channels_last'`인 경우
 `(samples, dim1, dim2, dim3, channels)` 형태의 5D 텐서.
 
 __출력 형태__
 
 입력 형태와 동일.
 
-__참조__
+__참고__
 
 - [Efficient Object Localization Using Convolutional Networks](
   https://arxiv.org/abs/1411.4280)
