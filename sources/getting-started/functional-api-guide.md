@@ -1,8 +1,8 @@
 # 케라스 함수형 API 시작하기
 
-Keras 함수형 API<sub>functional API</sub>는 다중 출력 모델<sub>multi-output model</sub>, 유향 비순환 그래프<sub>directed acyclic graphs</sub>, 혹은 층<sub>layer</sub>들을 공유하는 모델과 같이 복잡한 모델을 정의하는 최적의 방법입니다.
+Keras 함수형 API<sub>functional API</sub>는 다중 출력 모델<sub>multi-output model</sub>, 유향 비순환 그래프<sub>directed acyclic graphs</sub>, 혹은 층<sub>layer</sub>을 공유하는 모델과 같이 복잡한 모델을 정의하는 최적의 방법입니다.
 
-이 가이드는 독자가 이미 `Sequential` 모델에 대한 지식이 있다고 가정합니다.
+이 가이드는 독자가 이미 `Sequential` 모델에 대한 배경 지식이 있다고 가정합니다.
 
 간단한 예시로 시작합시다.
 
@@ -12,7 +12,7 @@ Keras 함수형 API<sub>functional API</sub>는 다중 출력 모델<sub>multi-o
 
 완전 연결 신경망에는 `Sequential` 모델이 더 적합하지만, 간단한 예시를 위해 Keras 함수형 API로 구현해 보겠습니다.
 
-- 층 인스턴스<sub>instance</sub>는 텐서에 대해 호출 가능하고, 텐서를 반환합니다.
+- 층 인스턴스<sub>instance</sub>는 텐서를 호출할 수 있고, 텐서를 반환합니다.
 - 입력<sub>input</sub> 텐서와 출력<sub>output</sub> 텐서을 통해 `Model`을 정의할 수 있습니다.
 - 이러한 모델은 Keras `Sequential` 모델과 동일한 방식으로 학습됩니다.
 
@@ -39,7 +39,7 @@ model.fit(data, labels)  # 학습을 시작합니다.
 
 -----
 
-## 모든 모델은 층 인스턴스처럼 호출 가능합니다
+## 모든 모델은 층 인스턴스처럼 호출할 수 있습니다.
 
 함수형 API를 사용하면 학습된 모델을 재사용하기 편리합니다. 어느 모델이건 텐서를 호출하여 층 인스턴스처럼 사용할 수 있습니다. 모델을 호출하면 모델의 *구조*만 재사용하는 것이 아니라 가중치<sub>weights</sub>까지 재사용하게 됩니다.
 
@@ -49,18 +49,18 @@ x = Input(shape=(784,))
 y = model(x)
 ```
 
-예를 들어, 이를 이용하면 시퀀스 데이터<sub>sequences</sub>를 처리할 수 있는 모델을 빠르게 만들 수 있습니다. 코드 한 줄로 이미지 분류 모델을 비디오 분류 모델로 바꿀 수 있습니다.
+예를 들어, 시퀀스 데이터<sub>sequences</sub>를 처리할 수 있는 모델을 빠르게 만들 수 있습니다. 코드 한 줄로 이미지 분류 모델을 비디오 분류 모델로 바꿀 수 있습니다.
 
 ```python
 from keras.layers import TimeDistributed
 
-# 20개의 시간 단계를 갖는 시퀀스의 입력 텐서입니다.
-# 각 시간 단계는 784 차원의 벡터입니다.
+# 입력 텐서: 20개의 시간 단계를 갖는 시퀀스.
+# 각 시간 단계는 784차원의 벡터입니다.
 input_sequences = Input(shape=(20, 784))
 
-# 입력 시퀀스의 모든 시간 단계에 이전 모델을 적용합니다.
-# 앞선 모델의 출력이 10-way softmax였으므로,
-# 아래에 주어진 layer 인스턴스의 출력은 10차원 벡터 20개로 이루어진 시퀀스입니다.
+# 입력 시퀀스의 모든 시간 단계에 위에서 만든 `model`을 적용합니다.
+# `model`의 출력이 10-way softmax였으므로,
+# 아래에 주어진 층 인스턴스의 출력값은 10차원 벡터 20개로 이루어진 시퀀스입니다.
 processed_sequences = TimeDistributed(model)(input_sequences)
 ```
 
@@ -68,46 +68,46 @@ processed_sequences = TimeDistributed(model)(input_sequences)
 
 ## 다중 입력<sub>multi-input</sub>과 다중 출력 모델
 
-다중 입력과 출력을 가지는 모델은 함수형 API를 적용하기 적합한 사례입니다. 함수형 API를 사용해서 복잡하게 얽힌 많은 수의 데이터 흐름을 간편하게 관리할 수 있습니다.
+함수형 API는 다중 입력과 출력을 가지는 모델에 적합합니다. 함수형 API를 사용하면 대량의 복잡한 데이터 스트림을 간편하게 관리할 수 있습니다.
 
-다음 모델을 고려해 봅시다. 트위터에서 특정 뉴스 헤드라인이 얼마나 많은 리트윗과 좋아요를 받을지 예측하려고 합니다. 모델에 대한 주요 입력은 연속된 단어들로 표현된 헤드라인 자체이지만, 약간의 변화를 주기 위해서 보조 입력으로 헤드라인이 게시된 시간 등과 같은 추가 데이터를 받도록 합니다.
-모델 학습에는 두 개의 손실 함수<sub>loss function</sub>가 사용됩니다. 주요 손실 함수를 모델의 초기 단계에 사용하는 것이 심층 모델에 있어 적절한 정규화<sub>regularization</sub> 메커니즘입니다.
+다음의 경우를 생각해봅시다. 트위터에서 특정 뉴스 헤드라인이 얼마나 많은 리트윗과 좋아요를 받을지 예측하려고 합니다. 모델에서 가장 중요한 입력값은 단어의 시퀀스로 표현된 헤드라인 자체입니다. 하지만 모델의 성능을 높이기 위해 헤드라인이 게시된 시간 등과 같은 데이터를 추가로 입력 받도록 합시다.
+모델 학습에는 두 개의 손실 함수<sub>loss function</sub>가 사용됩니다. 층이 많은 모델에서는 주요 손실 함수를 모델의 초기 단계에 사용하는 것이 적절한 정규화<sub>regularization</sub> 방법입니다.
 
-다음은 모델이 어떻게 구성되어있는지 보여줍니다.
+모델은 아래와 같이 구성되어있습니다.
 
 <img src="https://s3.amazonaws.com/keras.io/img/multi-input-multi-output-graph.png" alt="multi-input-multi-output-graph" style="width: 400px;"/>
 
 함수형 API로 모델을 구현해 봅시다.
 
-주요 입력은 `int` 시퀀스들의 형태로 헤드라인을 (각 `int`가 단어 하나를 인코딩하는) 전달받습니다.
-1에서 10,000사이의 `int`이며 (10,000 단어의 어휘목록), 하나의 `int` 시퀀스는 100 단어로 이루어져 있습니다.
+주요 입력으로 헤드라인이 전달됩니다. 헤드라인은 하나의 `int`가 단어 하나를 인코딩하는 `int` 시퀀스 형태입니다.
+`int`는 1에서 10,000사이의 값을 갖습니다(10,000 단어의 어휘목록). 하나의 `int` 시퀀스는 100개의 단어로 이루어져 있습니다.
 
 ```python
 from keras.layers import Input, Embedding, LSTM, Dense
 from keras.models import Model
 import numpy as np
-np.random.seed(0)  # 재현성을 위해 임의의 시드값을 설정합니다.
+np.random.seed(0)  # 시드값을 설정해서 항상 동일한 결과가 나오도록 합니다.
 
-# 헤드라인 입력값: 1에서 10000 사이의 100개 정수로 이루어진 시퀀스들을 전달받습니다
-# "name" 인자를 전달하여 층 인스턴스를 명명할 수 있음을 참고하십시오.
+# 주요 입력인 헤드라인: 1에서 10000 사이 값을 갖는 `int` 100개로 이루어진 시퀀스.
+# "name" 인자를 통해 층 인스턴스의 이름을 지정할 수 있습니다.
 main_input = Input(shape=(100,), dtype='int32', name='main_input')
 
-# Embedding layer는 입력 시퀀스를
-# 512 차원 완전 연결 벡터들의 시퀀스로 인코딩합니다.
+# `Embedding` 층은 입력 시퀀스를
+# 512차원 완전 연결 벡터들의 시퀀스로 인코딩합니다.
 x = Embedding(output_dim=512, input_dim=10000, input_length=100)(main_input)
 
 # LSTM은 벡터 시퀀스를 전체 시퀀스에 대한
-# 정보를 포함하는 단일 벡터로 변환합니다.
+# 정보를 포함하는 한 개의 벡터로 변환합니다.
 lstm_out = LSTM(32)(x)
 ```
 
-보조 손실 함수를 사용하여 모델에서 주요 손실 함수가 후기 단계에서 사용되더라도 LSTM 및 Embedding layer를 원활하게 학습 할 수 있습니다.
+보조 손실 함수를 통해 모델에서 주요 손실 함수의 손실<sub>main loss</sub>이 크더라도 `LSTM` 및 `Embedding` 층을 원활하게 학습하도록 합니다.
 
 ```python
 auxiliary_output = Dense(1, activation='sigmoid', name='aux_output')(lstm_out)
 ```
 
-이 시점에서 보조 입력 데이터를 LSTM 출력과 연결함으로써 보조 입력 데이터를 모델에 전달합니다.
+이제, 보조 입력 데이터를 LSTM 출력에 이어붙여 모델에 전달합니다.
 
 ```python
 auxiliary_input = Input(shape=(5,), name='aux_input')
@@ -118,7 +118,7 @@ x = Dense(64, activation='relu')(x)
 x = Dense(64, activation='relu')(x)
 x = Dense(64, activation='relu')(x)
 
-# 끝으로 주요 로지스틱 회귀 층을 추가합니다
+# 마지막으로 주요 로지스틱 회귀 층을 추가합니다
 main_output = Dense(1, activation='sigmoid', name='main_output')(x)
 ```
 
@@ -128,9 +128,9 @@ main_output = Dense(1, activation='sigmoid', name='main_output')(x)
 model = Model(inputs=[main_input, auxiliary_input], outputs=[main_output, auxiliary_output])
 ```
 
-보조 손실의 가중치로 0.2를 할당하고 모델을 컴파일합니다.
+보조 손실의 가중치를 0.2로 설정하고 모델을 컴파일합니다.
 리스트나 딕셔너리를 사용해서 각각의 출력에 서로 다른 `loss_weights` 혹은 `loss`를 지정할 수 있습니다.
-여기서는 `loss` 인자<sub>argument</sub>에 하나의 손실 함수를 전달하므로 모든 출력에 동일한 손실 함수가 사용됩니다.
+여기서는 `loss` 인자<sub>argument</sub>가 한 개의 손실 함수이므로 모든 출력에 동일한 손실 함수를 사용합니다.
 
 ```python
 model.compile(optimizer='rmsprop', loss='binary_crossentropy',
@@ -148,7 +148,7 @@ model.fit([headline_data, additional_data], [headline_labels, additional_labels]
           epochs=50, batch_size=32)
 ```
 
-입력 층 인스턴스와 출력 층 인스턴스에 이름을 부여했으므로(각 층 인스턴스에 "name" 인자를 전달했으므로),
+입력 층 인스턴스와 출력 층 인스턴스에 이름을 지정했으므로(각 층 인스턴스의 "name" 인자를 통해 이름을 지정했습니다),
 다음과 같은 방식으로도 모델을 컴파일 할 수 있습니다.
 
 ```python
@@ -162,11 +162,11 @@ model.fit({'main_input': headline_data, 'aux_input': additional_data},
           epochs=50, batch_size=32)
 ```
 
-예측을 하기 위해서 모델을 사용할 때, 다음과 같이 사용하거나
+다음 두 가지 방법을 통해 예측을 할 수 있습니다.
 ```python
 model.predict({'main_input': headline_data, 'aux_input': additional_data})
 ```
-다음과 같은 방법으로도 사용할 수 있습니다.
+
 ```python
 pred = model.predict([headline_data, additional_data])
 ```
@@ -175,7 +175,7 @@ pred = model.predict([headline_data, additional_data])
 
 ## 공유 층<sub>shared layers</sub>
 
-함수형 API의 다른 유용한 사례는 공유 층을 사용하는 모델입니다. 공유 층에 대해서 알아봅시다.
+공유 층을 사용하는 모델은 함수형 API가 유용한 경우 중 하나입니다. 공유 층에 대해서 알아봅시다.
 
 트윗 데이터셋을 고려해 봅시다. 서로 다른 두 개의 트윗을 두고 동일한 사람이 작성했는지 여부를 가려내는 모델을 만들고자 합니다 (예를 들어, 트윗의 유사성을 기준으로 사용자를 비교할 수 있습니다).
 
