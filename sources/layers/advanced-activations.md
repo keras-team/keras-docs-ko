@@ -22,7 +22,7 @@ __출력 형태__
 
 __인자__
 
-- __alpha__: 음이 아닌 `float`. 음의 부분 기울기 계수.
+- __alpha__: 음이 아닌 `float`. `x < 0`인 경우의 기울기 계수.
 
 __참고__
 
@@ -59,7 +59,7 @@ __인자__
 - __alpha_initializer__: 가중치<sub>weights</sub>를 위한 초기화 함수<sub>initializer</sub>.
 - __alpha_regularizer__: 가중치를 위한 규제 함수<sub>regularizer</sub>.
 - __alpha_constraint__: 가중치의 제약<sub>constraint</sub>.
-- __shared_axes__: 활성화 함수에 대해 학습 가능한 파라미터들을 공유할 축. 예를 들어, 만일 입력 특징 맵<sub>feature map</sub>들이 2D 합성곱<sub>convolution</sub>으로부터 생성되어 `(batch, height, width, channels)`의 형태를 가진다면, `shared_axes=[1, 2]`로 설정하여 각 필터가 하나의 매개 변수 세트를 공유하도록 할 수 있습니다.
+- __shared_axes__: 활성화 함수에서 학습 가능한 파라미터들을 공유할 축. 예를 들어, 만일 입력 특징 맵<sub>feature map</sub>들이 2D 합성곱<sub>convolution</sub>으로부터 생성되어 `(batch, height, width, channels)`의 형태를 가진다면, `shared_axes=[1, 2]`로 설정하여 각 필터가 하나의 매개 변수 세트를 공유하도록 할 수 있습니다.
 
 __참고__
 
@@ -123,7 +123,7 @@ __출력 형태__
 
 __인자__
 
-- __theta__: 음이 아닌 `float`. 활성화가 이루어지는 임계값.
+- __theta__: 음이 아닌 `float`. 활성화가 일어나는 임계값.
 
 __참고__
 
@@ -181,6 +181,6 @@ __출력 형태__
 
 __인자__
 
-- __max_value__: 음이 아닌 `float`. 최대 활성화 값.
-- __negative_slope__: 음이 아닌 `float`. 음의 부분 기울기 계수.
-- __threshold__: `float`. 임계값이 정해진 활성화 함수인 경우,  임계값.
+- __max_value__: 음이 아닌 `float`. 활성화 함수의 최댓값.
+- __negative_slope__: 음이 아닌 `float`. `x < 0`인 경우의 기울기 계수.
+- __threshold__: `float`. 임계값이 정해진 활성화 함수인 경우, 임계값.
