@@ -11,15 +11,15 @@
 keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
 ```
 
-표준입출력<sub>stdout</sub>으로 측정 항목을 출력하는 콜백
+표준입출력<sub>stdout</sub>으로 평가 지표를 출력하는 콜백
 
 __인자__
 
 - __count_mode__: "steps"와 "samples" 중 하나.
     검사한 샘플의 수와 검사한 단계(배치) 수 중 진행표시바<sub>progressbar</sub>에 표시할 항목.
-- __stateful_metrics__: 평균으로 표시하지 *않을* 측정 항목의 `string` 이름을 담은 iterable 객체.
-    이 리스트의 측정 항목은 원래값 그대로 로그합니다.
-    그 외 측정 항목은 에폭의 평균값으로 로그합니다 (예. 손실 등).
+- __stateful_metrics__: 평균으로 표시하지 *않을* 평가 지표의 `string` 이름을 담은 iterable 객체.
+    이 리스트의 평가 지표는 원래값 그대로 로그합니다.
+    그 외 평가 지표의 에폭의 평균값으로 로그합니다 (예. 손실 등).
 
 __오류__
 
@@ -99,11 +99,11 @@ __인자__
 keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=0, mode='auto', min_delta=0.0001, cooldown=0, min_lr=0)
 ```
 
-측정 항목이 향상되지 않는 경우 학습률을 감소시킵니다.
+평가 지표가 향상되지 않는 경우 학습률을 감소시킵니다.
 
 학습이 잘 되지 않을 때 학습률을 2-10배 감소시키면
 학습이 향상되기도 합니다. 이 콜백은 `patience` 개의 에폭 동안
-측정 항목을 확인하여 학습에 향상이 없으면 학습률을 감소시킵니다.
+평가 지표를 확인하여 학습에 향상이 없으면 학습률을 감소시킵니다.
 
 __예시__
 
@@ -177,16 +177,16 @@ on_batch_end: 로그에 `loss`를 포함하고, 선택적으로 `acc`를 포함�
 keras.callbacks.BaseLogger(stateful_metrics=None)
 ```
 
-측정항목의 에폭 평균을 축적하는 콜백.
+평가 지표의 에폭 평균을 축적하는 콜백.
 
 이 콜백은 모든 케라스 모델에 자동으로 적용됩니다.
 
 __인자__
 
 - __stateful_metrics__: 에폭에 걸쳐 평균을 내면 *안 되는*
-    측정 항목 이름의 `string` Iterable.
-    `on_epoch_end`에서는 이 리스트의 측정 항목을 원래 값 그대로 로그합니다.
-    그 외 측정 항목은 `on_epoch_end`에서 평균을 구해 로그합니다.
+    평가 지표 이름의 `string` Iterable.
+    `on_epoch_end`에서는 이 리스트의 평가 지표를 원래 값 그대로 로그합니다.
+    그 외 평가 지표는 `on_epoch_end`에서 평균을 구해 로그합니다.
     
 ----
 
@@ -281,7 +281,7 @@ TensorBoard 기초 시각화.
 텐서플로우가 제공하는 시각화 도구입니다.
 
 이 콜백은 TensorBoard에 로그를 기록하여
-학습과 테스트의 측정 항목을 동적 그래프와
+학습과 테스트의 평가 지표를 동적 그래프와
 모델 내 다양한 층에 대한 활성화 히스토그램을 통해
 시각화를 돕습니다.
 
@@ -294,7 +294,7 @@ tensorboard --logdir=/full_path_to_your_logs
 텐서플로우가 설치만 되어있다면
 텐서플로우 외의 백엔드를 사용하는 경우에도
 TensorBoard가 동작합니다. 하지만 
-손실과 측정 항목 그래프를 보여주는 기능만 사용할 수 있습니다.
+손실과 평가 지표의 그래프를 보여주는 기능만 사용할 수 있습니다.
 
 __인자__
 
@@ -328,9 +328,9 @@ __인자__
     임베딩에 대해서 [더 알아보려면](
     https://www.tensorflow.org/guide/embedding).
 - __update_freq__: `'batch'`, `'epoch'`, 혹은 `int`. `'batch'`를 사용하는 경우
-    각 배치 이후 손실과 측정 항목을 TensorBoard에 기록합니다.
+    각 배치 이후 손실과 평가 지표를 TensorBoard에 기록합니다.
     `'epoch'`의 경우에도 동일합니다. `int`인 경우는 다음의 예시와 같습니다.
-    예를 들어 `10000`이라면, 10000개의 샘플마다 측정 항목과 손실을
+    예를 들어 `10000`이라면, 10000개의 샘플마다 평가 지표와 손실을
     TensorBoard에 기록합니다. 너무 자주 기록하면 학습이 느려질 수 있습니다.
     
 ----
