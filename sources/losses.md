@@ -13,12 +13,12 @@ from keras import losses
 model.compile(loss=losses.mean_squared_error, optimizer='sgd')
 ```
 
-케라스가 제공하는 손실 함수의 이름 문자열<sub>string</sub>을 전달하거나. 또는 TensorFlow/Theano의 심볼릭 함수<sub>symbolic function</sub>를 매개 변수로 전달할 수 있습니다. 심볼릭 함수는 다음의 두 인자를 받아 각각의 데이터 포인트에 대한 스칼라를 반환합니다.
+케라스가 제공하는 손실 함수의 이름 문자열<sub>string</sub> 또는 TensorFlow/Theano의 심볼릭 함수<sub>symbolic function</sub>를 매개 변수로 전달할 수 있습니다. 심볼릭 함수는 다음의 두 인자를 받아 각각의 데이터 포인트에 대한 스칼라를 반환합니다.
 
 - __y_true__: 정답 레이블. TensorFlow/Theano 텐서.
-- __y_pred__: 예측값. y_true와 같은 크기<sub>shape</sub>의 TensorFlow/Theano 텐서.
+- __y_pred__: 예측값. `y_true`와 같은 크기<sub>shape</sub>의 TensorFlow/Theano 텐서.
 
-실제로 최적화되는 값은 모든 데이터 포인트 범위 안에서 출력된 값의 평균값입니다.
+실제로 최적화되는 값은 모든 데이터 포인트에서의 출력값의 평균값입니다.
 
 손실함수의 예시는 [여기](https://github.com/keras-team/keras/blob/master/keras/losses.py)에서 확인할 수 있습니다.
 
@@ -33,7 +33,7 @@ keras.losses.mean_squared_error(y_true, y_pred)
 ```
 
 
-예측값과 목표값의 평균제곱오차<sub>(MSE, mean squared error)</sub>를 계산합니다.  
+예측값과 목표값의 평균 제곱 오차<sub>(MSE, mean squared error)</sub>를 계산합니다.  
 `(square(y_pred - y_true))/len(y_true)` 
 
 __인자__
@@ -55,7 +55,7 @@ keras.losses.mean_absolute_error(y_true, y_pred)
 ```
 
 
-예측값과 목표값의 평균절대값오차<sub>(MAE, mean absolute error)</sub>를 계산합니다.  
+예측값과 목표값의 평균 절대 오차<sub>(MAE, mean absolute error)</sub>를 계산합니다.  
 `(abs(y_pred - y_true))/len(y_true)` 
 
 __인자__
@@ -77,7 +77,7 @@ keras.losses.mean_absolute_percentage_error(y_true, y_pred)
 ```
 
 
-예측값과 목표값의 평균절대값퍼센트오차<sub>(MAPE, mean absolute percentage error)</sub>를 계산합니다.    
+예측값과 목표값의 평균 절대 퍼센트 오차<sub>(MAPE, mean absolute percentage error)</sub>를 계산합니다.    
 `100.*((abs(y_pred - y_true))/len(y_true))` 
 
 __인자__
@@ -99,7 +99,7 @@ keras.losses.mean_squared_logarithmic_error(y_true, y_pred)
 ```
 
 
-예측값과 목표값의 평균제곱로그오차<sub>(MSLE, mean squared logarithmic error)</sub>를 계산합니다.   
+예측값과 목표값의 평균 제곱 로그 오차<sub>(MSLE, mean squared logarithmic error)</sub>를 계산합니다.   
 `mean(square(log(y_pred + 1) - log(y_true + 1)))`
 
 __인자__
@@ -213,7 +213,7 @@ keras.losses.categorical_crossentropy(y_true, y_pred)
 ```
 
 예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
-입/출력 값의 형태는 원-핫 인코딩<one-hot encoding> 형태를 가져야 합니다.
+입/출력은 원-핫 인코딩<one-hot encoding> 형태를 가져야 합니다.
  
 
 __인자__
@@ -234,7 +234,7 @@ keras.losses.sparse_categorical_crossentropy(y_true, y_pred)
 ```
 
 예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
-입/출력 값의 형태는 정수형<sub>interger</sub> 형태를 가져야 합니다.
+입/출력은 `int`형태를 가져야 합니다.
 
 __인자__
 
@@ -255,7 +255,7 @@ keras.losses.binary_crossentropy(y_true, y_pred)
 ```
 
 예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
-입/출력 값의 형태는 이진<sub>binary</sub> 형태를 가져야 합니다.
+입/출력은 이진<sub>binary</sub> 형태를 가져야 합니다.
 
 
 __인자__
