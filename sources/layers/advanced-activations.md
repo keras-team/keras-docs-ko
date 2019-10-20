@@ -57,7 +57,7 @@ __인자__
 - __alpha_initializer__: 가중치<sub>weights</sub>를 위한 초기화 함수<sub>initializer</sub>입니다.
 - __alpha_regularizer__: 가중치를 위한 규제 함수<sub>regularizer</sub>입니다.
 - __alpha_constraint__: 가중치의 제약<sub>constraint</sub>입니다.
-- __shared_axes__: 활성화 함수에 대해 학습 가능한 파라미터들을 공유할 축을 의미합니다. 예를 들어, 만일 입력 특징 맵<sub>feature map</sub>들이 `(batch, height, width, channels)`의 출력 형태로 2D 합성곱<sub>convolution</sub>으로부터 생성된 것이며, 각 필터가 하나의 매개 변수 세트를 공유하도록 하고 싶은 경우, `shared_axes=[1, 2]`로 설정하십시오.
+- __shared_axes__: 활성화 함수에 대해 학습 가능한 파라미터들을 공유할 축을 지정합니다. 예를 들어, 만일 입력 특징 맵<sub>feature map</sub>들이 2D 합성곱<sub>convolution</sub>으로부터 생성되어 `(batch, height, width, channels)`의 형태를 가진다면, `shared_axes=[1, 2]`로 설정하여 각 필터가 하나의 매개 변수 세트를 공유하도록 할 수 있습니다.
 
 __참고 자료__
 
@@ -89,7 +89,7 @@ __출력 형태__
 
 __인자__
 
-- __alpha__: 음의 부분 인수<sub>factor</sub>에 대한 값입니다.
+- __alpha__: 음의 조건에서 사용되는 값<sub>factor</sub>입니다.
 
 __참고 자료__
 
@@ -162,7 +162,7 @@ keras.layers.ReLU(max_value=None, negative_slope=0.0, threshold=0.0)
 
 Rectified Linear Unit 활성화 함수입니다.
 
-디폴트 인수들을 사용하면 원소별로 연산된<sub>element-wise</sub> `max(x, 0)`를 반환합니다.
+인수들의 기본값을 사용하면 원소별로 연산된<sub>element-wise</sub> `max(x, 0)`를 반환합니다.
 
 다른 인수를 사용하면 다음과 같습니다.  
 `x >= max_value`인 경우 `f(x) = max_value`,  
@@ -179,7 +179,7 @@ __출력 형태__
 
 __인자__
 
-- __max_value__: 음이 아닌 부동소수. 최대 활성화 값을 의미합니다.
+- __max_value__: 음이 아닌 부동소수. 최대 활성화 값을 지정합니다.
 - __negative_slope__: 음이 아닌 부동소수. 음의 부분 기울기 계수입니다.
-- __threshold__: 부동소수. 임계값이 정해진 활성화를 위한 임계값을 의미합니다.
+- __threshold__: 부동소수. 임계값이 정해진 활성화를 위한 임계값을 지정합니다.
 
