@@ -88,7 +88,7 @@ Existing files in `sources/` should be edited in-line.
 | factor| 값/요인/요소|
 | fully-connected, densely connected| 완전 연결|
 | global| 전역|
-| generator| 생성자|
+| generator| 제너레이터|
 | gradient| 그래디언트|
 | gradient ascent| 경사상승법|
 | gradient descent| 경사하강법|
