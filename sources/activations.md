@@ -1,6 +1,6 @@
 ## 활성화 함수의 사용법<sub>Usage of activations</sub>
 
-활성화 함수는 `Activation` 층<sub>layer</sub>이나 포워드 패스에 사용되는 층에서 지원하는 `activation` 인자로 사용 가능합니다.
+활성화 함수는 `Activation` 층<sub>layer</sub>이나 포워드 패스를 사용하는 모든 층에서 `activation` 인자로 사용 가능합니다.
 
 ```python
 from keras.layers import Activation, Dense
@@ -9,13 +9,13 @@ model.add(Dense(64))
 model.add(Activation('tanh'))
 ```
 
-이것은 다음과 같습니다.
+위의 코드는 아래와 동일합니다
 
 ```python
 model.add(Dense(64, activation='tanh'))
 ```
 
-여러분은 TensorFlow, Theano, CNTK에서 제공하는 원소별<sub>element-wise</sub> 연산도 활성화 함수로 사용할 수 있습니다.
+TensorFlow, Theano, CNTK에서 제공하는 원소별<sub>element-wise</sub> 연산도 활성화 함수로 사용할 수 있습니다.
 
 ```python
 from keras import backend as K
@@ -163,7 +163,7 @@ keras.activations.relu(x, alpha=0.0, max_value=None, threshold=0.0)
 
 Rectified Linear Unit(ReLU).
 
-디폴트 인자들을 사용하면 원소별로 연산된 `max(x, 0)`를 반환합니다.
+기본값을 사용하면 원소별로 연산된 `max(x, 0)`를 반환합니다.
 
 다른 인수를 사용하면 다음과 같습니다.  
 `x >= max_value` 일 때 `f(x) = max_value`,  
@@ -173,7 +173,7 @@ Rectified Linear Unit(ReLU).
 __인자__
 
 - __x__: 입력 텐서.
-- __alpha__: `float`. 음수 부분의 기울기. 디폴트 값은 0.
+- __alpha__: `float`. 음수 부분의 기울기. 기본값은 0.
 - __max_value__: `float`. 포화 임계값.
 - __threshold__: `float`. 활성화를 위한 임계치.
 
