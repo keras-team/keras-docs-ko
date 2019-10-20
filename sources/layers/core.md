@@ -10,7 +10,7 @@ keras.layers.Dense(units, activation=None, use_bias=True, kernel_initializer='gl
 
 `Dense`는 `output = activation(dot(input, kernel) + bias)` 을 실행합니다.
 여기서 `activation`은 `activation` 인자로 전달되는 원소 단위<sub>element-wise</sub> 활성화 함수이고,
-`kernel`은 층에서 만들어진 가중치 행렬<sub>weight matrix</sub>입니다.,
+`kernel`은 층에서 만들어진 가중치 행렬<sub>weight matrix</sub>입니다.
 `bias`는 층에서 만들어진 편향<sub>bias</sub> 벡터이며 `'use_bias=True'`인 경우만 적용 가능합니다.
 
 참고: 층의 입력 랭크가 2보다 클 경우, `kernel`과의 내적<sub>dot product</sub>을 하기 전에 층의 차원을 1D 벡터로 형태를 바꿔야합니다.
@@ -18,14 +18,14 @@ keras.layers.Dense(units, activation=None, use_bias=True, kernel_initializer='gl
 __예시__
 
 ```python
-# 시퀀스 모델의 첫 번째 층:
+# 시퀀스 모델의 첫 번째 층
 model = Sequential()
 model.add(Dense(32, input_shape=(16,)))
 # 모델은 (*, 16) 형태의 배열을 입력으로 받고
 # (*, 32) 형태의 배열을 출력합니다
 
 # 첫 번째 층 이후에는,
-# 입력의 크기를 지정하지 않아도 됩니다:
+# 입력의 크기를 지정하지 않아도 됩니다.
 model.add(Dense(32))
 ```
 
@@ -140,7 +140,8 @@ __인자__
   입력 차원의 순서를 지정할수 있으며 `'channels_last'` (기본값) 혹은 `'channels_first'` 중 하나를 지정합니다.              
   이 인자는 모델을 하나의 데이터 형식에서 다른 형식으로
   바꿀 때 가중치 순서를 보존할 때 이용됩니다.
-  `'channels_last'`는 `(batch, ..., channels)` 형태의 입력에 대응되고, `'channels_first'`는 `(batch, channels, ...)` 형태의 입력에 대응합니다.
+  `'channels_last'`는 `(batch, ..., channels)` 형태의 입력에 대응되고, `'channels_first'`는 `(batch, channels, ...)` 형태의
+  입력에 대응합니다.
   기본 값은 `~/.keras/keras.json`에 위치한
   케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
   따로 설정하지 않으면 `'channels_last'`으로 설정이 됩니다.
@@ -432,7 +433,7 @@ __입력 형태__
 
 __출력 형태__
 
-`output_shape`  인자의 형태를 따릅니다.
+`output_shape` 인자의 형태를 따릅니다.
 혹은 TensorFlow나 CNTK를 사용하는 경우 자동으로 형태가 지정됩니다.
 
 
@@ -604,7 +605,7 @@ keras.layers.SpatialDropout3D(rate, data_format=None)
 __인자__
 
 - __rate__: 0과 1사이 부동소수점. 드롭시킬 입력 유닛의 비율.
-- __data_format__:입력 차원의 순서를 지정할수 있으며 `'channels_last'` (기본값) 혹은 `'channels_first'` 중 하나를 지정합니다. 
+- __data_format__: 입력 차원의 순서를 지정할수 있으며 `'channels_last'` (기본값) 혹은 `'channels_first'` 중 하나를 지정합니다. 
   `'channels_first'` 모드에서는, 채널 차원(깊이)의 인덱스 1이며, `'channels_last'` 모드에서는, 채널 차원(깊이)의인덱스 4이다.
   기본값은 `~/.keras/keras.json`에 위치한
   케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
