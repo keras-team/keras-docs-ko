@@ -5,9 +5,10 @@
 keras.layers.LeakyReLU(alpha=0.3)
 ```
 
-Leaky Rectified Linear Unit 활성화 함수입니다.
-
+Leaky Rectified Linear Unit 활성화 함수입니다.  
 유닛이 활성화되지 않는 경우 작은 그래디언트를 허용합니다.  
+
+Leaky ReLU는 다음과 같습니다.  
 - `x < 0`인 경우, `f(x) = alpha * x`  
 - `x >= 0`인 경우, `f(x) = x`
 
@@ -106,9 +107,9 @@ __참고__
 keras.layers.ThresholdedReLU(theta=1.0)
 ```
 
-ThresholdedReLU 활성화 함수입니다.
+Thresholded Rectified Linear Unit 활성화 함수입니다.
 
-ThresholdedReLU는 다음과 같습니다.  
+Thresholded ReLU는 다음과 같습니다.  
 - `x > theta`인 경우, `f(x) = x`  
 - `x <= theta`인 경우,  `f(x) = 0`
 
