@@ -15,7 +15,7 @@ keras.callbacks.ProgbarLogger(count_mode='samples', stateful_metrics=None)
 
 __인수__
 
-- __count_mode__: "steps" 혹은 "samples" 중 하나.
+- __count_mode__: 'steps' 혹은 'samples' 중 하나.
     진행 표시줄이 검사한 샘플의 수에 기반하는지
     검사한 단계(배치)의 수에 기반하는지 여부.
 - __stateful_metrics__: 세대에 걸쳐 평균을 내면 *안 되는*
