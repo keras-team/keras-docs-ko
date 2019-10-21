@@ -34,7 +34,7 @@ keras.losses.mean_squared_error(y_true, y_pred)
 
 
 예측값과 목표값의 평균 제곱 오차<sub>(MSE, mean squared error)</sub>를 계산합니다.  
-`(square(y_pred - y_true))/len(y_true)` 
+`mean((square(y_pred - y_true)))` 
 
 __인자__
 
@@ -56,7 +56,7 @@ keras.losses.mean_absolute_error(y_true, y_pred)
 
 
 예측값과 목표값의 평균 절대 오차<sub>(MAE, mean absolute error)</sub>를 계산합니다.  
-`(abs(y_pred - y_true))/len(y_true)` 
+`mean(abs(y_pred - y_true))` 
 
 __인자__
 
@@ -78,7 +78,7 @@ keras.losses.mean_absolute_percentage_error(y_true, y_pred)
 
 
 예측값과 목표값의 평균 절대 퍼센트 오차<sub>(MAPE, mean absolute percentage error)</sub>를 계산합니다.    
-`100.*((abs(y_pred - y_true))/len(y_true))` 
+`100.*mean((abs(y_pred - y_true)))` 
 
 __인자__
 
@@ -144,7 +144,7 @@ keras.losses.hinge(y_true, y_pred)
 
 
 예측값과 목표값의 'hinge' 손실값을 계산합니다.  
-`mean(maximum(1 - y_true * y_pred, 0)`
+`mean(maximum(1 - y_true * y_pred, 0))`
 
 __인자__
 
@@ -278,7 +278,7 @@ keras.losses.kullback_leibler_divergence(y_true, y_pred)
 
 예측값과 목표값 사이의 KL 발산<sub>kullback_leibler divergence</sub> 값을 계산합니다.
 
-`sum(y_true * log(y_true / y_pred)`
+`sum(y_true * log(y_true / y_pred))`
 
 __인자__
 
@@ -299,7 +299,7 @@ keras.losses.poisson(y_true, y_pred)
 예측값과 목표값 사이의 포아송 손실값<sub>poisson loss</sub>을 계산합니다.  
 목표값이 포아송 분포를 따른다고 생각될 때 사용합니다.
 
-`mean(y_pred - y_true * log(y_pred + epsilon())`
+`mean(y_pred - y_true * log(y_pred + epsilon()))`
 
 __인자__
 
