@@ -9,7 +9,7 @@ keras.layers.RNN(cell, return_sequences=False, return_state=False, go_backwards=
 
 __인자__
 - __cell__: 순환 신경망 내부의 셀 인스턴스입니다. 순환 신경망은 특정한 연산을 입력된 시계열 길이만큼 반복하는 형태의 신경망입니다. 셀은 이 반복되는 연산 부분을 담당하는 영역으로 생성한 순환 신경망 인스턴스의 `cell`속성에 할당됩니다. 셀은 다음과 같은 하위 요소들을 가진 클래스입니다.
-    - `t`시점의 입력<sub>input</sub>과 상태<sub>state</sub>를 불러오는 `call`메소드(`call(input_at_t, states_at_t)`). `t`시점의 출력<sub>output</sub>과 `t+1`시점의 상태`(output_at_t, states_at_t_plus_1)`를 반환합니다. 셀 인스턴스의 `call`메소드는 필요한 경우 `constants`인자를 이용하여 별도의 원하는 상수값을 입력받을 수 있습니다. 자세한 내용은 아래 "별도의 상수 전달 시의 유의점"을 참고하십시오.
+    - `t`시점의 입력<sub>input</sub>과 상태<sub>state</sub>를 불러오는 `call`메소드(`call(input_at_t, states_at_t)`). `t`시점의 출력<sub>output</sub>과 `t+1`시점의 상태`(output_at_t, states_at_t_plus_1)`를 반환합니다. 셀 인스턴스의 `call`메소드는 필요한 경우 `constants`인자를 이용하여 별도의 원하는 상수값을 입력받을 수 있습니다. 자세한 내용은 아래 '별도의 상수 전달 시의 유의점'을 참고하십시오.
     - `state_size` 속성. 신경망 안에서 단계마다 전달되는 상태의 크기를 나타냅니다(셀의 출력과 크기가 같아야 합니다). 셀이 가지게 될 상태가 하나인 경우 하나의 정수를, 여럿인 경우 정수로 이루어진 리스트/튜플을 입력받습니다.   
     - `output_size` 속성. 출력값의 크기를 나태냅니다. 정수 혹은 `TensorShape`를 입력받습니다. 만약 해당 속성이 없는 경우, `state_size`의 첫번째 값으로부터 유추한 결과로 대신합니다.
     
@@ -447,7 +447,7 @@ __인자__
 
 - __units__: 양의 정수. 출력값의 차원 크기를 결정합니다.
 - __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
-- __unit_forget_bias__: `bool`. `True`인 경우 [Jozefowicz et al. (2015)](http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf)의 제안에 따라 포겟 게이트의 편향에 `1`을 더합니다. 또한 강제적으로 `bias_initializer="zeros"`로 설정하여 나머지 게이트의 편향을 `0`으로 시작하게끔 합니다. 기본값은 `True`입니다.
+- __unit_forget_bias__: `bool`. `True`인 경우 [Jozefowicz et al. (2015)](http://www.jmlr.org/proceedings/papers/v37/jozefowicz15.pdf)의 제안에 따라 포겟 게이트의 편향에 `1`을 더합니다. 또한 강제적으로 `bias_initializer='zeros'`로 설정하여 나머지 게이트의 편향을 `0`으로 시작하게끔 합니다. 기본값은 `True`입니다.
 - __recurrent_initializer__: `recurrent_kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 이전 시점으로부터 전달받은 상태값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
 - __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
 - __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
