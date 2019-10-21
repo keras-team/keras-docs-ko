@@ -98,7 +98,7 @@ keras.initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='norma
 - `'fan_out'`: 가중치 텐서의 출력 차원 크기. 
 - `'fan_avg'`: 입력 차원, 출력 차원 크기의 평균값.
 
-또는 균등분포(`distribution="uniform"`)를 선택할 경우 `[-limit, limit]`의 범위를 가진 균등분포로부터 값이 선택됩니다. 여기서 `limit`은 `sqrt(3 * scale / n)`으로 정의됩니다. 위와 마찬가지로 `n`값은 `mode`인자에 따라 정해집니다.
+또는 균등분포(`distribution='uniform'`)를 선택할 경우 `[-limit, limit]`의 범위를 가진 균등분포로부터 값이 선택됩니다. 여기서 `limit`은 `sqrt(3 * scale / n)`으로 정의됩니다. 위와 마찬가지로 `n`값은 `mode`인자에 따라 정해집니다.
 
 __인자__
 - __scale__: 스케일링 값. 양의 `float`를 입력해야 하며 기본값은 `1.0`입니다.
