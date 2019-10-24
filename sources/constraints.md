@@ -80,7 +80,7 @@ __인수__
     `(input_dim, output_dim)`의 형태를 취할 때,
     `axis`를 `0`으로 설정해서 `(input_dim,)`의 길이를 갖는
     각 가중치 벡터를 제약할 수 있습니다.
-    `data_format="channels_last"`의 데이터 포맷을 갖는 `Conv2D`레이어의 경우,
+    `data_format='channels_last'`의 데이터 포맷을 갖는 `Conv2D`레이어의 경우,
     가중치 텐서는
     `(rows, cols, input_depth, output_depth)`의 형태를 가지며,
     `axis`를 `[0, 1, 2]`로 설정하여
@@ -117,7 +117,7 @@ __인수__
     `(input_dim, output_dim)`의 형태를 취할 때,
     `axis`를 `0`으로 설정해서 `(input_dim,)`의 길이를 갖는
     각 가중치 벡터를 제약할 수 있습니다.
-    `data_format="channels_last"`의 데이터 포맷을 갖는 `Conv2D`레이어의 경우,
+    `data_format='channels_last'`의 데이터 포맷을 갖는 `Conv2D`레이어의 경우,
     가중치 텐서는
     `(rows, cols, input_depth, output_depth)`의 형태를 가지며,
     `axis`를 `[0, 1, 2]`로 설정하여
