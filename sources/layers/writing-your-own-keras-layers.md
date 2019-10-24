@@ -1,4 +1,4 @@
-# 직접 케라스 층<sub>layer</sub> 만들기
+# 직접 케라스 층<sub>writing-your-own-keras-layers</sub> 만들기
 
 작업이 단순한 상태 비보존형 사용자 정의<sub>custom</sub> 연산을 하기 위해서는 `layers.core.Lambda` 층을 사용하는 것이 좋습니다. 하지만 학습 가능한 가중치를 사용해야 하는 사용자 정의 연산을 하기 위해서는 직접 층을 구성해야 합니다.
 
