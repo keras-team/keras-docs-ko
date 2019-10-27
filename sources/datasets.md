@@ -1,8 +1,8 @@
-# 데이터 셋
+# 데이터 세트
 
 ## CIFAR10 소형 이미지 분류
 
-50,000개의 32x32 컬러 학습 이미지, 10개 범주의 라벨, 10,000개의 테스트 이미지로 구성된 데이터셋.
+50,000개의 32x32 컬러 학습 이미지, 10개 범주의 레이블, 10,000개의 테스트 이미지로 구성된 데이터 세트.
 
 ### 사용법:
 
@@ -14,15 +14,15 @@ from keras.datasets import cifar10
 
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: RGB 이미지 데이터의 uint8 배열. `channels_first` 이나 `channels_last`의 `image_data_format` 백엔드 세팅에 따라 각각 (num_samples, 3, 32, 32) 혹은 (num_samples, 32, 32, 3)의 형태를 취합니다.
-        - __y_train, y_test__: 범주 라벨의 uint8 배열 (0-9 범위의 정수). (num_samples,)의 형태를 취합니다. 
+        - __x_train, x_test__: RGB 이미지 데이터의 `uint8` 배열. 케라스 백엔드의 `image_data_format` 설정이 `channels_first`인지 `channels_last`인지에 따라 각각 `(num_samples, 3, 32, 32)` 혹은 `(num_samples, 32, 32, 3)`의 형태를 취합니다.
+        - __y_train, y_test__: 범주형 레이블의 `uint8` 배열<sub>array</sub>로 0-9 범위의 정수값을 갖습니다. (num_samples, )의 형태를 취합니다. 
 
 
 ---
 
 ## CIFAR100 소형 이미지 분류:
 
-50,000개의 32x32 컬러 학습 이미지, 10개 범주의 라벨, 10,000개의 테스트 이미지로 구성된 데이터셋.
+50,000개의 32x32 컬러 학습 이미지, 100개 범주의 레이블, 10,000개의 테스트 이미지로 구성된 데이터 세트.
 
 ### 사용법:
 
@@ -34,28 +34,28 @@ from keras.datasets import cifar100
 
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: RGB 이미지 데이터의 uint8 배열. `channels_first` 이나 `channels_last`의 `image_data_format` 백엔드 세팅에 따라 각각 (num_samples, 3, 32, 32) 혹은 (num_samples, 32, 32, 3)의 형태를 취합니다.
-        - __y_train, y_test__: 범주 라벨의 uint8 배열 (0-9 범위의 정수). (num_samples,)의 형태를 취합니다.
+        - __x_train, x_test__: RGB 이미지 데이터의 `uint8` 배열. 케라스 백엔드의 `image_data_format` 설정이 `channels_first`인지 `channels_last`인지에 따라 각각 `(num_samples, 3, 32, 32)` 혹은 `(num_samples, 32, 32, 3)`의 형태를 취합니다.
+        - __y_train, y_test__: 범주형 레이블의 `uint8` 배열<sub>array</sub>로 0-9 범위의 정수값을 갖습니다. (num_samples, )의 형태를 취합니다.
 
-- __인수:__
+- __인자:__
 
-    - __label_mode__: "fine" 혹은 "coarse".
+    - __label_mode__: `'fine'` 혹은 `'coarse'`. 기본값은 `'fine'`입니다.
 
 
 ---
 
 ## IMDB 영화 리뷰 감정 분류:
 
-감정에 따라 (긍정적/부정적)으로 라벨된 25,000개의 IMDB 영화 리뷰로 구성된 데이터셋. 리뷰는 선행처리되었으며, 각 리뷰는 단어 인덱스(정수)로 구성된 [sequence](preprocessing/sequence.md)로 인코딩 되었습니다. 편의를 위해 단어는 데이터내 전체적 사용빈도에 따라 인덱스화 되었습니다. 예를 들어, 정수 "3"은 데이터 내에서 세 번째로 빈번하게 사용된 단어를 나타냅니다. 이는 "가장 빈번하게 사용된 10,000 단어만을 고려하되 가장 많이 쓰인 20 단어는 제외"와 같은 빠른 필터링 작업을 가능케 합니다.
+감정에 따라 긍정적/부정적으로 분류한 25,000개의 IMDB 영화 리뷰로 구성된 데이터 세트. 각 리뷰는 전처리 과정을 통해 단어 인덱스(정수)로 구성된 [순서형](preprocessing/sequence.md)<sub>sequence</sub> 데이터로 인코딩 되었습니다. 편의를 위해 단어는 전체 데이터 내의 등장빈도에 따라 인덱스화 되었습니다. 예를 들어, 정수 "3"은 데이터 내에서 세 번째로 빈번하게 사용된 단어를 나타냅니다. 이는 "가장 빈번하게 사용된 10,000 단어만을 고려하되 가장 많이 쓰인 20 단어는 제외"와 같은 빠른 필터링 작업을 가능케 합니다.
 
-관습에 따라 "0"은 특정 단어를 나타내는 것이 아니라 미확인 단어를 통칭합니다. 
+관습에 따라 `0`은 특정 단어에 할당되지 않는 인덱스로 목록에 없는 미확인 단어를 통칭하는 데 사용됩니다.
 
 ### 사용법:
 
 ```python
 from keras.datasets import imdb
 
-(x_train, y_train), (x_test, y_test) = imdb.load_data(path="imdb.npz",
+(x_train, y_train), (x_test, y_test) = imdb.load_data(path='imdb.npz',
                                                       num_words=None,
                                                       skip_top=0,
                                                       maxlen=None,
@@ -66,34 +66,33 @@ from keras.datasets import imdb
 ```
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: 인덱스(정수)의 리스트인 시퀀스로 이루어진 리스트. 만약 num_words 인수를 특정지으면, 인덱스의 최대값은 num_words-1 입니다. 만약 maxlen 인수를 특정지으면, 시퀀스 길이의 최대값은 maxlen입니다.
-        - __y_train, y_test__: 정수 라벨(1 or 0)로 이루어진 리스트. 
+        - __x_train, x_test__: 글에 등장하는 단어 순서에 따라 정수 인덱스가 나열된 리스트들로 이루어진 리스트. `num_words`인자를 지정하면 사용 가능한 인덱스의 최댓값은 `num_words-1`이 됩니다. `maxlen`인자를 지정하면 개별 리스트 길이의 최댓값은 maxlen이 됩니다.
+        - __y_train, y_test__: `1` 또는 `0`의 정수 레이블로 이루어진 리스트. 
 
-- __인수:__
+- __인자:__
 
     - __path__: (`'~/.keras/datasets/' + path`)의 위치에 데이터가 없다면, 이 위치로 데이터가 다운로드됩니다.
-    - __num_words__: 정수 혹은 None. 고려할 가장 빈번한 단어. 그보다 드물게 사용된 단어는 시퀸스 데이터에 `oov_char` 값으로 나타납니다.
-    - __skip_top__: 정수. 고려하지 않을 가장 빈번한 단어. 이러한 단어는 시퀀스 데이터에 `oov_char` 값으로 나타납니다.
-    - __maxlen__: 정수. 시퀀스 길의의 최대값. 더 긴 시퀀스는 잘라냅니다.
-    - __seed__: 정수. 재현 가능한 데이터 셔플링을 위한 시드입니다.
-    - __start_char__: 정수. 시퀀스의 첫 시작이 이 문자로 마킹됩니다.
-        0은 통상 패딩 문자이므로 1으로 조정하십시오.
-    - __oov_char__: 정수. `num_words` 혹은 `skip_top`으로 인하여 제외된 단어는 이 문자로 대체됩니다.
-    - __index_from__: 정수. 단어를 이 인덱스 이상의 수로 인덱스화 시킵니다.
+    - __num_words__: `int` 혹은 `None`. 등장 횟수가 큰 순서대로 상위 몇 번째까지의 단어를 인덱스로 사용할지 결정합니다. 범위 바깥의 단어는 데이터에서 `oov_char`값으로 나타납니다. 기본값은 `None`입니다.
+    - __skip_top__: `int`. 등장 횟수가 큰 순서대로 상위 몇 번째까지의 단어를 무시할지 결정합니다. 지정된 단어는 데이터에 `oov_char` 값으로 나타납니다. 기본값은 `0`입니다.
+    - __maxlen__: `int`. 개별 텍스트를 나타내는 순서형 인덱스 리스트의 최대 길이. 초과하는 부분은 잘라냅니다. 기본값은 `None`입니다.
+    - __seed__: `int`. 데이터 뒤섞기 과정을 재현 가능하게 하기 위한 시드입니다.
+    - __start_char__: `int`. 텍스트의 시작 지점을 나타내기 위한 인덱스를 지정합니다. 대개 `0`은 패딩에 사용되는 인덱스이므로 `1`을 사용합니다.
+    - __oov_char__: `int`. `num_words` 혹은 `skip_top`으로 인하여 제외된 단어는 여기서 지정한 인덱스로 대체됩니다. 기본값은 `2`입니다.
+    - __index_from__: `int`. 단어에 부여할 인덱스의 최솟값을 지정합니다. 기본값은 `3`입니다.
 
 
 ---
 
 ## 로이터 뉴스 토픽 분류
 
-46가지 토픽으로 라벨이 달린 11,228개의 로이터 뉴스로 이루어진 데이터셋. IMDB 데이터셋과 마찬가지로, 각 뉴스는 (같은 방식을 사용한) 단어 인덱스의 시퀀스로 인코딩되어 있습니다.
+11,228개의 로이터 뉴스를 46가지 주제에 따라 분류한 데이터 세트. IMDB 데이터 세트와 마찬가지로 동일한 전처리 과정을 거친 단어 인덱스의 순서형 데이터로 인코딩되어 있습니다.
 
 ### 사용법:
 
 ```python
 from keras.datasets import reuters
 
-(x_train, y_train), (x_test, y_test) = reuters.load_data(path="reuters.npz",
+(x_train, y_train), (x_test, y_test) = reuters.load_data(path='reuters.npz',
                                                          num_words=None,
                                                          skip_top=0,
                                                          maxlen=None,
@@ -104,19 +103,19 @@ from keras.datasets import reuters
                                                          index_from=3)
 ```
 
-세부사항은 IMDB 데이터셋과 동일하나, 다음의 추가사항이 있습니다:
+인자 및 세부사항은 IMDB 데이터 세트와 동일하나, 다음과 같은 추가사항이 있습니다.
 
-- __test_split__: float. 테스트 데이터로 사용할 데이터셋의 비율.
+- __test_split__: `float`. 전체 데이터 세트 가운데 테스트용으로 분리할 데이터의 비율. 기본값은 `0.2`입니다.
 
-또한 이 데이터셋은 시퀀스를 인코딩하는데 사용할 단어 인덱스를 제공합니다:
+또한 뉴스 데이터를 인코딩하는데 사용된 단어 인덱스도 함께 제공됩니다.
 
 ```python
-word_index = reuters.get_word_index(path="reuters_word_index.json")
+word_index = reuters.get_word_index(path='reuters_word_index.json')
 ```
 
-- __반환값:__ 키가 단어(str)이고 값이 인덱스(integer)인 하나의 딕셔너리. 예시. `word_index["giraffe"]`는 `1234`라는 값을 반환할 수 있습니다. 
+- __반환값:__ 키가 단어(`str`)이고 값이 인덱스(`int`)인 하나의 딕셔너리. (예: `word_index['giraffe']`는 `1234`라는 값을 반환할 수 있습니다.) 
 
-- __인수:__
+- __인자:__
 
     - __path__: (`'~/.keras/datasets/' + path`)의 위치에 인덱스 파일이 없다면, 이 위치로 다운로드 됩니다.
     
@@ -125,7 +124,7 @@ word_index = reuters.get_word_index(path="reuters_word_index.json")
 
 ## 손으로 쓴 숫자들로 이루어진 MNIST 데이터베이스
 
-10가지 숫자에 대한 60,000개의 28x28 그레이 스케일 이미지 데이터셋과, 그에 더해 10,000개의 이미지로 이루어진 테스트셋.
+10가지 숫자에 대한 60,000개의 28x28 그레이 스케일 이미지 데이터 세트와 10,000개의 이미지로 이루어진 테스트 세트.
 
 ### 사용법:
 
@@ -137,21 +136,21 @@ from keras.datasets import mnist
 
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: 그레이 스케일 이미지 데이터의 uint8 배열. (num_samples, 28, 28)의 형태를 취합니다.
-        - __y_train, y_test__: 숫자 라벨의 uint8 배열 (0-9 범위의 정수). (num_samples,)의 형태를 취합니다.
+        - __x_train, x_test__: 그레이 스케일 이미지 데이터의 `uint8` 배열. `(num_samples, 28, 28)`의 형태를 취합니다.
+        - __y_train, y_test__: 숫자 레이블의 `uint8` 배열로 0-9 범위의 정수값을 갖습니다. `(num_samples, )`의 형태를 취합니다.
 
-- __인수:__
+- __인자:__
 
-    - __path__: ('~/.keras/datasets/' + path`)의 위치에 인덱스 파일이 없다면, 이 위치로 다운로드 됩니다.
+    - __path__: (`'~/.keras/datasets/' + path`)의 위치에 인덱스 파일이 없다면, 이 위치로 다운로드 됩니다.
 
 
 ---
 
 ## 패션 이미지로 이루어진 패션-MNIST 데이터베이스
 
-10가지 패션 범주에 대한 60,000개의 28x28 그레일 스케일 이미지로 이루어진 데이터셋과, 그에 더해 10,000개의 이미지로 이루어진 테스트셋. 이 데이터 셋은 MNIST를 간편하게 대체하는 용도로 사용할 수 있습니다. 클래스 라벨은 다음과 같습니다:
+10가지 패션 범주에 대한 60,000개의 28x28 그레일 스케일 이미지로 이루어진 데이터 세트와 10,000개의 이미지로 이루어진 테스트 세트. 이 데이터 세트는 MNIST를 간편하게 대체하는 용도로 사용할 수 있습니다. 클래스 레이블은 다음과 같습니다:
 
-| 라벨 | 설명 |
+| 레이블 | 설명 |
 | --- | --- |
 | 0 | 티셔츠/상의 |
 | 1 | 바지 |
@@ -174,19 +173,19 @@ from keras.datasets import fashion_mnist
 
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: 그레이 스케일 이미지 데이터의 uint8 배열. (num_samples, 28, 28)의 형태를 취합니다.
-        - __y_train, y_test__: 숫자 라벨의 uint8 배열 (0-9 범위의 정수). (num_samples,)의 형태를 취합니다.
+        - __x_train, x_test__: 그레이 스케일 이미지 데이터의 `uint8` 배열. `(num_samples, 28, 28)`의 형태를 취합니다.
+        - __y_train, y_test__: 숫자 레이블의 `uint8` 배열로 0-9 범위의 정수값을 갖습니다. `(num_samples, )`의 형태를 취합니다.
 
 
 ---
 
-## 보스턴 주택 가격 회귀 데이터셋
+## 보스턴 주택 가격 회귀 데이터 세트
 
 
-카네기 멜론 대학이 관리하는 StatLib 도서관의 데이터셋. 
-
-각 샘플은 1970년대 보스턴 근교 여러지역에 위치한 주택의 13가지 속성으로 이루어져 있습니다.
-타겟은 한 지역의 주택들의 (1,000$ 단위) 중앙값입니다.
+카네기 멜론 대학이 관리하는 StatLib 도서관의 데이터 세트.  
+  
+각 샘플은 1970년대 보스턴 근교 여러지역에 위치한 주택의 13가지 속성값으로 이루어져 있습니다. 
+타겟은 한 지역의 주택들의 (1,000$ 단위) 중앙값<sub>median</sub>입니다.
 
 
 ### 사용법:
@@ -197,11 +196,10 @@ from keras.datasets import boston_housing
 (x_train, y_train), (x_test, y_test) = boston_housing.load_data()
 ```
 
-- __인수:__
-    - __path__: 데이터셋을 로컬로 캐싱할 경로
-        (~/.keras/datasets를 기준으로).
-    - __seed__: 테스트 데이터를 분할하기 전 데이터 셔플링을 위한 시드.
-    - __test_split__: 테스트셋으로 남겨둘 데이터의 비율.
+- __인자:__
+    - __path__: 데이터 세트를 다운로드할 경로. (`'~/.keras/datasets/' + path`)의 형태로 지정됩니다.
+    - __seed__: 데이터 뒤섞기 과정을 재현 가능하게 하기 위한 시드입니다. 뒤섞기 과정은 데이터 세트를 분할하기 전에 이루어집니다.
+    - __test_split__: 테스트용으로 분리할 데이터의 비율.
 
 - __반환값:__
-    Numpy 배열들로 이루어진 튜플: `(x_train, y_train), (x_test, y_test)`.
+    NumPy 배열들로 이루어진 튜플: `(x_train, y_train), (x_test, y_test)`.
