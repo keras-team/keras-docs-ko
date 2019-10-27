@@ -1,4 +1,4 @@
-# 직접 케라스 층<sub>writing-your-own-keras-layers</sub> 만들기
+# 사용자 정의 케라스 층<sub>writing-your-own-keras-layers</sub> 만들기
 
 가중치<sub>weight</sub>를 학습하지 않는 간단한 사용자 정의 연산이 필요한 경우에는  `layers.core.Lambda` 층을 사용하는 것이 좋습니다. 하지만 가중치 학습이 필요한 경우라면 직접 층을 만들어야 합니다.
 
