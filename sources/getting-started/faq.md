@@ -310,7 +310,7 @@ layer_output = get_3rd_layer_output([x, 1])[0]
 
 ---
 
-### 메모리를 초과하는 데이터셋에 케라스를 사용하려면 어떻게 해야 합니까?
+### 메모리를 초과하는 데이터 세트에 케라스를 사용하려면 어떻게 해야 합니까?
 
 `model.train_on_batch(x, y)`와 `model.test_on_batch(x, y)`를 사용하면 배치 단위로 학습시킬 수 있습니다. 자세한 내용은 [Sequential 모델 API](/models/sequential)문서에 있습니다.
 
