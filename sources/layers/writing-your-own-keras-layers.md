@@ -33,7 +33,7 @@ class MyLayer(Layer):
         return (input_shape[0], self.output_dim)
 ```
 
-여러 텐서를 입력받아 다시 여러 텐서를 출력하는 층을 정의할 수도 있습니다. 이를 위해선 `build(input_shape)`, `call(x)`,`compute_output_shape(input_shape)`의 입력과 출력이 리스트라고 가정해야 합니다. 다음은 위와 동일한 연산에 리스트 입출력을 적용한 예시입니다:
+여러 텐서를 입력받아 다시 여러 텐서를 출력하는 층을 정의할 수도 있습니다. 이를 위해선 `build(input_shape)`, `call(x)`,`compute_output_shape(input_shape)`의 입력과 출력이 리스트라고 가정해야 합니다. 다음은 위와 동일한 연산에 리스트 입출력을 적용한 예시입니다.
 
 ```python
 from keras import backend as K
