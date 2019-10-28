@@ -14,8 +14,8 @@ from keras.datasets import cifar10
 
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: RGB 이미지 데이터의 `uint8` 배열. 케라스 백엔드의 `image_data_format` 설정이 `channels_first`인지 `channels_last`인지에 따라 각각 `(num_samples, 3, 32, 32)` 혹은 `(num_samples, 32, 32, 3)`의 형태를 취합니다.
-        - __y_train, y_test__: 범주형 레이블의 `uint8` 배열<sub>array</sub>로 0-9 범위의 정수값을 갖습니다. (num_samples, )의 형태를 취합니다. 
+        - __x_train, x_test__: `uint8` 타입의 RGB 이미지 데이터 배열<sub>array</sub>. 케라스 백엔드의 `image_data_format` 설정이 `channels_first`인지 `channels_last`인지에 따라 각각 `(num_samples, 3, 32, 32)` 혹은 `(num_samples, 32, 32, 3)`의 형태를 취합니다.
+        - __y_train, y_test__: `uint8` 타입의 범주형 레이블 배열로 0-9 범위의 정수값을 갖습니다. (num_samples, )의 형태를 취합니다. 
 
 
 ---
@@ -34,8 +34,8 @@ from keras.datasets import cifar100
 
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: RGB 이미지 데이터의 `uint8` 배열. 케라스 백엔드의 `image_data_format` 설정이 `channels_first`인지 `channels_last`인지에 따라 각각 `(num_samples, 3, 32, 32)` 혹은 `(num_samples, 32, 32, 3)`의 형태를 취합니다.
-        - __y_train, y_test__: 범주형 레이블의 `uint8` 배열<sub>array</sub>로 0-9 범위의 정수값을 갖습니다. (num_samples, )의 형태를 취합니다.
+        - __x_train, x_test__: `uint8` 타입의 RGB 이미지 데이터 배열. 케라스 백엔드의 `image_data_format` 설정이 `channels_first`인지 `channels_last`인지에 따라 각각 `(num_samples, 3, 32, 32)` 혹은 `(num_samples, 32, 32, 3)`의 형태를 취합니다.
+        - __y_train, y_test__: `uint8` 타입의 범주형 레이블 배열로 0-9 범위의 정수값을 갖습니다. (num_samples, )의 형태를 취합니다.
 
 - __인자:__
 
@@ -66,7 +66,7 @@ from keras.datasets import imdb
 ```
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: 글에 등장하는 단어 순서에 따라 정수 인덱스가 나열된 리스트들로 이루어진 리스트. `num_words`인자를 지정하면 사용 가능한 인덱스의 최댓값은 `num_words-1`이 됩니다. `maxlen`인자를 지정하면 개별 리스트 길이의 최댓값은 maxlen이 됩니다.
+        - __x_train, x_test__: 글에 등장하는 단어 순서에 따라 각 단어의 정수 인덱스를 나열한 리스트들로 이루어진 리스트. `num_words`인자를 지정하면 사용 가능한 인덱스의 최댓값은 `num_words-1`이 됩니다. `maxlen`인자를 지정하면 개별 리스트 길이의 최댓값은 maxlen이 됩니다.
         - __y_train, y_test__: `1` 또는 `0`의 정수 레이블로 이루어진 리스트. 
 
 - __인자:__
@@ -136,8 +136,8 @@ from keras.datasets import mnist
 
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: 그레이 스케일 이미지 데이터의 `uint8` 배열. `(num_samples, 28, 28)`의 형태를 취합니다.
-        - __y_train, y_test__: 숫자 레이블의 `uint8` 배열로 0-9 범위의 정수값을 갖습니다. `(num_samples, )`의 형태를 취합니다.
+        - __x_train, x_test__: `uint8` 타입의 그레이 스케일 이미지 데이터 배열. `(num_samples, 28, 28)`의 형태를 취합니다.
+        - __y_train, y_test__: `uint8` 타입의 숫자 레이블 배열로 0-9 범위의 정수값을 갖습니다. `(num_samples, )`의 형태를 취합니다.
 
 - __인자:__
 
@@ -173,8 +173,8 @@ from keras.datasets import fashion_mnist
 
 - __반환값:__
     - 2개의 튜플:
-        - __x_train, x_test__: 그레이 스케일 이미지 데이터의 `uint8` 배열. `(num_samples, 28, 28)`의 형태를 취합니다.
-        - __y_train, y_test__: 숫자 레이블의 `uint8` 배열로 0-9 범위의 정수값을 갖습니다. `(num_samples, )`의 형태를 취합니다.
+        - __x_train, x_test__: `uint8` 타입의 그레이 스케일 이미지 데이터 배열. `(num_samples, 28, 28)`의 형태를 취합니다.
+        - __y_train, y_test__: `uint8` 타입의 숫자 레이블 배열로 0-9 범위의 정수값을 갖습니다. `(num_samples, )`의 형태를 취합니다.
 
 
 ---
@@ -199,7 +199,7 @@ from keras.datasets import boston_housing
 - __인자:__
     - __path__: 데이터 세트를 다운로드할 경로. (`'~/.keras/datasets/' + path`)의 형태로 지정됩니다.
     - __seed__: 데이터 뒤섞기 과정을 재현 가능하게 하기 위한 시드입니다. 뒤섞기 과정은 데이터 세트를 분할하기 전에 이루어집니다.
-    - __test_split__: 테스트용으로 분리할 데이터의 비율.
+    - __test_split__: 전체 데이터 세트 가운데 테스트용으로 분리할 데이터의 비율.
 
 - __반환값:__
     NumPy 배열들로 이루어진 튜플: `(x_train, y_train), (x_test, y_test)`.
