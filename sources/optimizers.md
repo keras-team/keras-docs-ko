@@ -46,11 +46,11 @@ sgd = optimizers.SGD(lr=0.01, clipvalue=0.5)
 
 ---
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L157)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L164)</span>
 ### SGD
 
 ```python
-keras.optimizers.SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
+keras.optimizers.SGD(learning_rate=0.01, momentum=0.0, nesterov=False)
 ```
 
 확률적 경사 하강법(Stochastic Gradient Descent, SGD) 옵티마이저.
@@ -59,34 +59,28 @@ keras.optimizers.SGD(lr=0.01, momentum=0.0, decay=0.0, nesterov=False)
 
 __인자__
 
-- __lr__: 0보다 크거나 같은 float 값. 학습률.
+- __learning_rate__: 0보다 크거나 같은 float 값. 학습률.
 - __momentum__: 0보다 크거나 같은 float 값. 
     SGD를 적절한 방향으로 가속화하며, 흔들림(진동)을 줄여주는 매개변수입니다.
-- __decay__: 0보다 크거나 같은 float 값. 업데이트마다 적용되는 학습률의 감소율입니다.
 - __nesterov__: 불리언. 네스테로프 모멘텀의 적용 여부를 설정합니다.
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L220)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L229)</span>
 ### RMSprop
 
 ```python
-keras.optimizers.RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.0)
+keras.optimizers.RMSprop(learning_rate=0.001, rho=0.9)
 ```
 
 RMSProp 옵티마이저.
 
 RMSProp을 사용할 때는 학습률을 제외한 모든 인자의 기본값을 사용하는 것이 권장됩니다. 
 
-일반적으로 순환 신경망(Recurrent Neural Networks)의 옵티마이저로 많이 사용됩니다.
-
 __인자__
 
-- __lr__: 0보다 크거나 같은 float 값. 학습률.
+- __learning_rate__: 0보다 크거나 같은 float 값. 학습률.
 - __rho__: 0보다 크거나 같은 float 값.
-- __epsilon__:  0보다 크거나 같은 float형 fuzz factor.
-    `None`인 경우 `K.epsilon()`이 사용됩니다.
-- __decay__: 0보다 크거나 같은 float 값. 업데이트마다 적용되는 학습률의 감소율입니다.
 
 __참고__
 
@@ -94,11 +88,11 @@ __참고__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L288)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L303)</span>
 ### Adagrad
 
 ```python
-keras.optimizers.Adagrad(lr=0.01, epsilon=None, decay=0.0)
+keras.optimizers.Adagrad(learning_rate=0.01)
 ```
 
 Adagrad 옵티마이저.
@@ -111,10 +105,7 @@ Adagrad를 사용할 때는 모든 인자의 기본값을 사용하는 것이 �
 
 __인자__
 
-- __lr__: 0보다 크거나 같은 float 값. 학습률.
-- __epsilon__:  0보다 크거나 같은 float 값.
-    `None`인 경우 `K.epsilon()`이 사용됩니다.
-- __decay__: 0보다 크거나 같은 float 값. 업데이트마다 적용되는 학습률의 감소율입니다.
+- __learning_rate__: 0보다 크거나 같은 float 값. 학습률.
 
 __참고__
 
@@ -123,11 +114,11 @@ __참고__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L353)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L376)</span>
 ### Adadelta
 
 ```python
-keras.optimizers.Adadelta(lr=1.0, rho=0.95, epsilon=None, decay=0.0)
+keras.optimizers.Adadelta(learning_rate=1.0, rho=0.95)
 ```
 
 Adadelta 옵티마이저.
@@ -142,13 +133,10 @@ Adadelta를 사용할 때는 모든 인자의 기본값을 사용하는 것이 �
 
 __인자__
 
-- __lr__: 0보다 크거나 같은 float 값. 초기 학습률로, 기본값은 1입니다.
+- __learning_rate__: 0보다 크거나 같은 float 값. 초기 학습률로, 기본값은 1입니다.
     기본값을 사용하는 것이 권장됩니다.
 - __rho__: 0보다 크거나 같은 float 값.
     학습률 감소에 쓰이는 인자로, 각 시점에 유지되는 그래디언트의 비율에 해당합니다.
-- __epsilon__: 0보다 크거나 같은 float형 fuzz factor.
-    `None`인 경우 `K.epsilon()`이 사용됩니다.
-- __decay__: 0보다 크거나 같은 float 값. 초기 학습률 감소율입니다.
 
 __참고__
 
@@ -157,11 +145,11 @@ __참고__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L436)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L467)</span>
 ### Adam
 
 ```python
-keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False)
+keras.optimizers.Adam(learning_rate=0.001, beta_1=0.9, beta_2=0.999, amsgrad=False)
 ```
 
 Adam 옵티마이저.
@@ -170,12 +158,9 @@ Adam 옵티마이저.
 
 __인자__
 
-- __lr__: 0보다 크거나 같은 float 값. 학습률.
+- __learning_rate__: 0보다 크거나 같은 float 값. 학습률.
 - __beta_1__: 0보다 크고 1보다 작은 float 값. 일반적으로 1에 가깝게 설정됩니다.
 - __beta_2__: 0보다 크고 1보다 작은 float 값. 일반적으로 1에 가깝게 설정됩니다.
-- __epsilon__: 0보다 크거나 같은 float형 fuzz factor.
-    `None`인 경우 `K.epsilon()`이 사용됩니다.
-- __decay__: 0보다 크거나 같은 float 값. 업데이트마다 적용되는 학습률의 감소율입니다.
 - __amsgrad__: 불리언. Adam의 변형인 AMSGrad의 적용 여부를 설정합니다.
     AMSGrad는 "On the Convergence of Adam and Beyond" 논문에서 소개되었습니다.
 
@@ -188,7 +173,7 @@ __참조__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L527)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L567)</span>
 ### Adamax
 
 ```python
@@ -202,12 +187,10 @@ Adam 논문의 섹션 7에 소개된 Adamax 옵티마이저.
 
 __인자__
 
-- __lr__: 0보다 크거나 같은 float 값. 학습률.
+- __learning_rate__: 0보다 크거나 같은 float 값. 학습률.
 - __beta_1__: 0보다 크고 1보다 작은 float 값. 일반적으로 1에 가깝게 설정됩니다.
-- __beta_2__: 0보다 크고 1보다 작은 float 값. 일반적으로 1에 가깝게 설정됩니다.
-- __epsilon__: 0보다 크거나 같은 float형 fuzz factor.
-    `None`인 경우 `K.epsilon()`이 사용됩니다.
-- __decay__: 0보다 크거나 같은 float 값. 업데이트마다 적용되는 학습률의 감소율입니다.
+- __beta_2__: float, 0 < beta < 1. Generally close to 1.
+
 
 __참고__
 
@@ -216,11 +199,11 @@ __참고__
     
 ----
 
-<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L605)</span>
+<span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/optimizers.py#L645)</span>
 ### Nadam
 
 ```python
-keras.optimizers.Nadam(lr=0.002, beta_1=0.9, beta_2=0.999, epsilon=None, schedule_decay=0.004)
+keras.optimizers.Nadam(learning_rate=0.002, beta_1=0.9, beta_2=0.999)
 ```
 
 네스테로프 Adam 옵티마이저.
@@ -233,11 +216,9 @@ Nadam을 사용할 때는 모든 인자의 기본값을 사용하는 것이 권�
 
 __인자__
 
-- __lr__: 0보다 크거나 같은 float 값. 학습률.
+- __learning_rate__: 0보다 크거나 같은 float 값. 학습률.
 - __beta_1__: 0보다 크고 1보다 작은 float 값. 일반적으로 1에 가깝게 설정됩니다.
 - __beta_2__: 0보다 크고 1보다 작은 float 값. 일반적으로 1에 가깝게 설정됩니다.
-- __epsilon__: 0보다 크거나 같은 float형 fuzz factor.
-    `None`인 경우 `K.epsilon()`이 사용됩니다.
 
 __참고__
 
