@@ -1,6 +1,6 @@
 ## 최적화 함수의 사용법<sub>Usage of optimizers</sub>
 
-최적화 함수<sub>opti</sub>는 손실 함수<sub>loss</sub>와 더불어 케라스 모델을 컴파일<sub>compile</sub>하기 위한 인자입니다.
+최적화 함수<sub>optimizer</sub>는 손실 함수<sub>loss</sub>와 더불어 케라스 모델을 컴파일<sub>compile</sub>하기 위한 인자입니다.
 
 ```python
 from keras import optimizers
