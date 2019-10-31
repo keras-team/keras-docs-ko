@@ -212,7 +212,7 @@ __반환값__
 keras.losses.categorical_crossentropy(y_true, y_pred)
 ```
 
-예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
+예측값과 목표값 사이의 크로스 엔트로피값을 계산합니다.  
 입/출력은 원-핫 인코딩<one-hot encoding> 형태를 가져야 합니다.
  
 
@@ -233,7 +233,7 @@ __반환값__
 keras.losses.sparse_categorical_crossentropy(y_true, y_pred)
 ```
 
-예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
+예측값과 목표값 사이의 크로스 엔트로피값을 계산합니다.  
 입/출력은 `int` 형태를 가져야 합니다.
 
 __인자__
@@ -254,7 +254,7 @@ __반환값__
 keras.losses.binary_crossentropy(y_true, y_pred)
 ```
 
-예측값과 목표값 사이의 크로스 엔트로피<sub>crossentropy</sub> 값을 계산합니다.  
+예측값과 목표값 사이의 크로스 엔트로피값을 계산합니다.  
 입/출력은 이진<sub>binary</sub> 형태를 가져야 합니다.
 
 
