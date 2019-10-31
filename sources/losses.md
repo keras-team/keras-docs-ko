@@ -276,7 +276,7 @@ __반환값__
 keras.losses.kullback_leibler_divergence(y_true, y_pred)
 ```
 
-예측값과 목표값 사이의 KL 발산<sub>kullback_leibler divergence</sub> 값을 계산합니다.
+예측값과 목표값 사이의 KL 발산<sub>kullback Leibler divergence</sub> 값을 계산합니다.
 
 `sum(y_true * log(y_true / y_pred)`
 
@@ -319,7 +319,7 @@ __반환값__
 keras.losses.cosine_proximity(y_true, y_pred)
 ```
 
-예측값과 목표값 사이의 코사인 유사도<sub>cosine_proximity</sub> 값을 계산합니다.
+예측값과 목표값 사이의 코사인 유사도<sub>cosine proximity</sub> 값을 계산합니다.
 
 __인자__
 
