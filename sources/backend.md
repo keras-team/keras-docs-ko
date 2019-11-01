@@ -4353,26 +4353,24 @@ keras.backend.pool3d(x, pool_size, strides=(1, 1, 1), padding='valid', data_form
 
 3D Pooling.
 
-__Arguments__
+__Arguments__ <sag>
 
-- __x__: Tensor or variable.
-- __pool_size__: tuple of 3 integers.
-- __strides__: tuple of 3 integers.
-- __padding__: string, `"same"` or `"valid"`.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-- __pool_mode__: string, `"max"` or `"avg"`.
+- __x__: 텐서 또는 변수.
+- __pool_size__: 3 <sag>integers</sag>의 튜플.
+- __strides__: 3 <sag>integers</sag>의 튜플.
+- __padding__: <sag>string</sag>, `"same"` 또는 `"valid"`.
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
+- __pool_mode__:  <sag>string</sag>, `"max"` 또는 `"avg"`.
 
 __Returns__
 
-A tensor, result of 3D pooling.
+텐서, 3차원 풀링 결과.
 
 __Raises__
 
-- __ValueError__: if `data_format` is
+- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
 
-neither `"channels_last"` or `"channels_first"`.
-
-- __ValueError__: if `pool_mode` is neither `"max"` or `"avg"`.
+- __ValueError__: 만약 `pool_mode` 라면 `"max"` 또는 `"avg"` 둘 다 아니다.
     
 ----
 
@@ -4384,25 +4382,27 @@ keras.backend.bias_add(x, bias, data_format=None)
 ```
 
 
-Adds a bias vector to a tensor.
+텐서에 대한 바이어스 벡터 추가. 
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __bias__: Bias tensor to add.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
+- __x__: 텐서 또는 변수.
+- __bias__: 추가 할 바이어스 텐서. 
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
+
 
 __Returns__
 
-Output tensor.
+결과 텐서.
 
 __Raises__
 
-ValueError: In one of the two cases below:
-1. invalid `data_format` argument.
-2. invalid bias shape.
-the bias should be either a vector or
-a tensor with ndim(x) - 1 dimension
+ValueError : 아래 두 경우 중 하나에서 :
+1. 유효하지 않은`data_format` 인수.
+2. 잘못된 편향 모양.
+편향은 벡터이거나 ndim (x)-1 차원의 텐서.
+
+
 __Numpy implementation__
 
 
@@ -4435,20 +4435,20 @@ keras.backend.random_normal(shape, mean=0.0, stddev=1.0, dtype=None, seed=None)
 ```
 
 
-Returns a tensor with normal distribution of values.
+값의 정규분포를 포함한 텐서를 반환 합니다.
 
 __Arguments__
 
-- __shape__: A tuple of integers, the shape of tensor to create.
-- __mean__: A float, mean of the normal distribution to draw samples.
-- __stddev__: A float, standard deviation of the normal distribution
-    to draw samples.
-- __dtype__: String, dtype of returned tensor.
-- __seed__: Integer, random seed.
+- __shape__: <sag>integers</sag>의 튜플, 생성할 텐서의 형식.
+- __mean__: <sag>float</sag>, 정규 분포의 평균 그리기.
+- __stddev__: <sag>float</sag>, 정규 분포의 표준편차 그리기.
+- __dtype__: <sag>string</sag>, 반환된 텐서의 dtype.
+- __seed__: <sag>Integer</sag>, random seed.
+
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -4460,21 +4460,20 @@ keras.backend.random_uniform(shape, minval=0.0, maxval=1.0, dtype=None, seed=Non
 ```
 
 
-Returns a tensor with uniform distribution of values.
+값의 균등분포를 포함한 텐서를 반환 합니다. 
 
 __Arguments__
 
-- __shape__: A tuple of integers, the shape of tensor to create.
-- __minval__: A float, lower boundary of the uniform distribution
-    to draw samples.
-- __maxval__: A float, upper boundary of the uniform distribution
-    to draw samples.
-- __dtype__: String, dtype of returned tensor.
-- __seed__: Integer, random seed.
+
+- __shape__: <sag>integers</sag>의 튜플, 생성할 텐서의 형식.
+- __minval__: <sag>float</sag>, 균등 분포의 하한 샘플 그리기.
+- __maxval__: <sag>float</sag>, 균등 분포의 상한 샘플 그리기.
+- __dtype__: <sag>string</sag>, 반환된 텐서의 dtype.
+- __seed__: <sag>Integer</sag>, random seed.
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -4486,18 +4485,19 @@ keras.backend.random_binomial(shape, p=0.0, dtype=None, seed=None)
 ```
 
 
-Returns a tensor with random binomial distribution of values.
+값의 임의의 이항 분포의 텐서를 반환합니다. 
 
 __Arguments__
 
-- __shape__: A tuple of integers, the shape of tensor to create.
-- __p__: A float, `0. <= p <= 1`, probability of binomial distribution.
-- __dtype__: String, dtype of returned tensor.
-- __seed__: Integer, random seed.
+- __shape__: <sag>integers</sag>의 튜플, 생성할 텐서의 형식.
+- __p__: <sag>float</sag>, `0. <= p <= 1`범위의 이항 분포의 확률
+- __dtype__: <sag>string</sag>, 반환된 텐서의 dtype.
+- __seed__: <sag>Integer</sag>, random seed.
 
 __Returns__
 
-A tensor.
+
+텐서.
     
 ----
 
@@ -4509,24 +4509,23 @@ keras.backend.truncated_normal(shape, mean=0.0, stddev=1.0, dtype=None, seed=Non
 ```
 
 
-Returns a tensor with truncated random normal distribution of values.
+값의 임의의 정규분포가 잘린 텐서를 반환합니다. 
 
-The generated values follow a normal distribution
-with specified mean and standard deviation,
-except that values whose magnitude is more than
-two standard deviations from the mean are dropped and re-picked.
+
+평균에 대한 두 표준편차가 제거되고 다시 지정되어 크기가 더 큰 값을 제외한 뒤
+지정된 평균과 표준편차로 정규푼보에 따라 생성된 값.
 
 __Arguments__
 
-- __shape__: A tuple of integers, the shape of tensor to create.
-- __mean__: Mean of the values.
-- __stddev__: Standard deviation of the values.
-- __dtype__: String, dtype of returned tensor.
-- __seed__: Integer, random seed.
+- __shape__: <sag>integers</sag>의 튜플, 생성할 텐서의 형식.
+- __mean__: 값들의 평균.
+- __stddev__: 값들의 표준편차. 
+- __dtype__: <sag>string</sag>, 반환된 텐서의 dtype.
+- __seed__: <sag>Integer</sag>, 난수생성.
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -4537,17 +4536,18 @@ A tensor.
 keras.backend.ctc_label_dense_to_sparse(labels, label_lengths)
 ```
 
+<sag>dense</sag>에서 <sag>sparse</sag>로 CTC레이블을 변환합니다.
 
-Converts CTC labels from dense to sparse.
+
 
 __Arguments__
 
-- __labels__: dense CTC labels.
-- __label_lengths__: length of the labels.
+- __labels__: <sag>dense</sag> CTC 레이블.
+- __label_lengths__: 레이블의 길이.
 
 __Returns__
 
-A sparse tensor representation of the labels.
+레이블의 희소 텐서 표현.
     
 ----
 
@@ -4559,23 +4559,20 @@ keras.backend.ctc_batch_cost(y_true, y_pred, input_length, label_length)
 ```
 
 
-Runs CTC loss algorithm on each batch element.
+각 배치에서 CTC손실 알고리즘을 수행합니다.  
 
 __Arguments__
 
-- __y_true__: tensor `(samples, max_string_length)`
-    containing the truth labels.
-- __y_pred__: tensor `(samples, time_steps, num_categories)`
-    containing the prediction, or output of the softmax.
-- __input_length__: tensor `(samples, 1)` containing the sequence length for
-    each batch item in `y_pred`.
-- __label_length__: tensor `(samples, 1)` containing the sequence length for
-    each batch item in `y_true`.
+
+- __y_true__: truth 레이블을 포함한 `(samples, max_string_length)` 텐서.
+- __y_pred__: softmax의 출력 또는 예측값을 포함한 `(samples, time_steps, num_categories)` 텐서.
+- __input_length__: `y_pred`의 각 배치 항목의 시퀀스 길이를 포함하는 `(samples, 1)`텐서.
+- __label_length__:  `y_true`의 각 배치 항목의 시퀀스 길이를 포함하는 `(samples, 1)`텐서.
+
 
 __Returns__
 
-Tensor with shape (samples,1) containing the
-    CTC loss of each element.
+각 요소의 CTC 손실값을 포함한 텐서의 (samples,1)형식.
     
 ----
 
@@ -4587,34 +4584,28 @@ keras.backend.ctc_decode(y_pred, input_length, greedy=True, beam_width=100, top_
 ```
 
 
-Decodes the output of a softmax.
+소프트맥스의 결과를 해석.
 
-Can use either greedy search (also known as best path)
-or a constrained dictionary search.
+
+그리디 탐색(최적화)이나 제한적인 딕셔너리 탐색이 가능합니다.
 
 __Arguments__
 
-- __y_pred__: tensor `(samples, time_steps, num_categories)`
-    containing the prediction, or output of the softmax.
-- __input_length__: tensor `(samples, )` containing the sequence length for
-    each batch item in `y_pred`.
-- __greedy__: perform much faster best-path search if `true`.
-    This does not use a dictionary.
-- __beam_width__: if `greedy` is `false`: a beam search decoder will be used
-    with a beam of this width.
-- __top_paths__: if `greedy` is `false`,
-    how many of the most probable paths will be returned.
+
+- __y_pred__: 예측을 포함한  `(samples, time_steps, num_categories)` 텐서 또는 소프트맥스의 출력.
+- __input_length__: `y_pred`의 각 배치 항목에 대한 시퀀스 길이를 포함한 `(samples, )`텐서. 
+- __greedy__: 만약 `true`라면 훨씬 더 빠르고 좋은 탐색을 수행합니다. 딕셔너리 자료형을 사용하지 않습니다. 
+- __beam_width__: `greedy`가 `false`일 때, beam 탐색 디코더가 너비의 beam으로 사용됩니다. 
+- __top_paths__: `greedy`가 `false`일 때, 가장 가능할만한 경로 중에 얼마나 많은 경로가 있는지 반환합니다. 
+   
 
 __Returns__
 
 - __Tuple__:
-    List: if `greedy` is `true`, returns a list of one element that
-        contains the decoded sequence.
-        If `false`, returns the `top_paths` most probable
-        decoded sequences.
-        Important: blank labels are returned as `-1`.
-    Tensor `(top_paths, )` that contains
-        the log probability of each decoded sequence.
+    List:  `greedy`가 `true`일 때, 디코딩 된 시퀀스를 포함한 요소의 리스트를 반환합니다.
+        `false`일 때, 가장 높은 가능성이 있는 `top_paths`을 반환합니다.
+        Important: `-1`로 비어있는 레이블을 반환합니다.
+        디코딩 된 각 시퀀스의 로그확률을 포함한  `(top_paths, )`텐서.
     
 ----
 
@@ -4625,19 +4616,18 @@ __Returns__
 keras.backend.map_fn(fn, elems, name=None, dtype=None)
 ```
 
-
-Map the function fn over the elements elems and return the outputs.
+fn 함수를 요소 위에 맵핑하고 출력을 반환합니다. 
 
 __Arguments__
 
-- __fn__: Callable that will be called upon each element in elems
-- __elems__: tensor
-- __name__: A string name for the map node in the graph
-- __dtype__: Output data type.
+- __fn__: <sag>elems</sag>에 있는 각 요소에 대해 호출가능.
+- __elems__: 텐서
+- __name__: 그래프에서 맵 노드에 대한 문자열 이름. 
+- __dtype__: 출력 데이터 타입.
 
 __Returns__
 
-Tensor with dtype `dtype`.
+`dtype`의 텐서.
     
 ----
 
@@ -4649,19 +4639,18 @@ keras.backend.foldl(fn, elems, initializer=None, name=None)
 ```
 
 
-Reduce elems using fn to combine them from left to right.
+왼쪽에서 오른쪽으로 결합하기위해 <sag>fn</sag>을 사용해 요소를 감소시킵니다.  
 
 __Arguments__
 
-- __fn__: Callable that will be called upon each element in elems and an
-    accumulator, for instance `lambda acc, x: acc + x`
-- __elems__: tensor
-- __initializer__: The first value used (`elems[0]` in case of None)
-- __name__: A string name for the foldl node in the graph
+- __fn__: <sag>elems</sag>에서 각 요소에 호출 될 연산기, 예를 들어, `lambda acc, x: acc + x` 
+- __elems__: 텐서
+- __initializer__: 사용된 첫 번째 값. (`elems[0]` in case of None)
+- __name__: 그래프 fodl 노드에 대한 문자열 이름.
 
 __Returns__
 
-Tensor with same type and shape as `initializer`.
+`initializer` 모양과 같은 타입의 텐서.
     
 ----
 
@@ -4673,21 +4662,23 @@ keras.backend.foldr(fn, elems, initializer=None, name=None)
 ```
 
 
-Reduce elems using fn to combine them from right to left.
+<sag>fn</sag>인자를 사용하여 오른쪽에서 왼쪽으로 텐서 요소들을 줄인다.
 
 __Arguments__
 
-- __fn__: Callable that will be called upon each element in elems and an
-    accumulator, for instance `lambda acc, x: acc + x`
-- __elems__: tensor
-- __initializer__: The first value used (`elems[-1]` in case of None)
-- __name__: A string name for the foldr node in the graph
+- __fn__: <sag>elems</sag>에서 호출가능한 각 요소와 누산기. 
+    예를들어, `lambda acc, x: acc + x`
+- __elems__: 텐서
+- __initializer__: 사용된 첫번 째 값 (`elems[-1]` in case of None)
+- __name__: 그래프에서 <sag>foldr node</sag>의 문자열 이름
 
 __Returns__
 
-Tensor with same type and shape as `initializer`.
+`initializer` 모양과 같은 타입의 텐서.
     
 ----
+
+
 
 ### local_conv1d
 
@@ -4697,29 +4688,26 @@ keras.backend.local_conv1d(inputs, kernel, kernel_size, strides, data_format=Non
 ```
 
 
-Apply 1D conv with un-shared weights.
+공유되지 않은 가중치를 1D 컨볼루션에 적용합니다.
 
 __Arguments__
 
-- __inputs__: 3D tensor with shape: (batch_size, steps, input_dim)
-- __kernel__: the unshared weight for convolution,
-        with shape (output_length, feature_dim, filters)
-- __kernel_size__: a tuple of a single integer,
-             specifying the length of the 1D convolution window
-- __strides__: a tuple of a single integer,
-         specifying the stride length of the convolution
-- __data_format__: the data format, channels_first or channels_last
+- __inputs__: 3D 텐서의 형식: (batch_size, steps, input_dim)
+- __kernel__: (output_length, feature_dim, filters)형식의 컨볼루션의 공유되지 않은 가중치.
+- __kernel_size__: 1d 컨볼루션 윈도우의 길이를 지정한 단일 <sag>integer</sag> 튜플.
+- __strides__: 컨볼루션의 스타라이드 길이를 지정한 단일 <sag>integer</sag> 튜플.
+- __data_format__: 데이터 형식, channels_first 또는 channels_last
+
 
 __Returns__
 
-the tensor after 1d conv with un-shared weights,
-with shape (batch_size, output_length, filters)
+(batch_size, output_length, filters)형식: 공유되지 않은 가중치로 1d 컨볼루션 연산 후의 텐서.
 
 __Raises__
 
-- __ValueError__: If `data_format` is neither
-    `"channels_last"` nor `"channels_first"`.
-    
+- __ValueError__: If `data_format`가 
+    <sag>channels_last</sag> 또는 <sag>channels_first"`이 아닐 때, 오류.
+       
 ----
 
 ### local_conv2d
@@ -4730,38 +4718,37 @@ keras.backend.local_conv2d(inputs, kernel, kernel_size, strides, output_shape, d
 ```
 
 
-Apply 2D conv with un-shared weights.
+2D 컨볼루션에 공유되지 않은 가중치를 적용합니다.
+
 
 __Arguments__
 
-- __inputs__: 4D tensor with shape:
+- __inputs__: 
+        data_format='channels_first'일 때, 4D 텐서 형식:
         (batch_size, filters, new_rows, new_cols)
-        if data_format='channels_first'
-        or 4D tensor with shape:
+        data_format='channels_last'일 때, 4D 텐서 형식:
         (batch_size, new_rows, new_cols, filters)
-        if data_format='channels_last'.
-- __kernel__: the unshared weight for convolution,
-        with shape (output_items, feature_dim, filters)
-- __kernel_size__: a tuple of 2 integers, specifying the
-             width and height of the 2D convolution window.
-- __strides__: a tuple of 2 integers, specifying the strides
-         of the convolution along the width and height.
-- __output_shape__: a tuple with (output_row, output_col)
-- __data_format__: the data format, channels_first or channels_last
+- __kernel__: (output_items, feature_dim, filters) 형식의 컨볼루션 연산을 위한 공유되지 않은 가중치
+- __kernel_size__: 2차원 컨볼루션 윈도우의 너비와 높이를 지정한 2<sag>integers</sag>의 튜플.
+- __strides__: 2<sag>integers</sag>인 튜플,  너비와 높이에 따른 컨볼루션의 스트라이드를 지정합니다. 
+- __output_shape__: (output_row, output_col)형태의 튜플
+- __data_format__: 데이터 형식, 'channels_first' 또는 'channels_last'.
+
 
 __Returns__
 
-A 4d tensor with shape:
+4d 텐서의 형식:
+data_format='channels_first'일 때,
 (batch_size, filters, new_rows, new_cols)
-if data_format='channels_first'
-or 4D tensor with shape:
+
+ 4d 텐서의 형식:
+data_format='channels_last'일 때,
 (batch_size, new_rows, new_cols, filters)
-if data_format='channels_last'.
 
 __Raises__
 
-- __ValueError__: if `data_format` is neither
-            `channels_last` or `channels_first`.
+- __ValueError__: <sag>data_format</sag>가 
+            <sag>channels_last</sag> 또는 <sag>channels_first</sag>이 아니었을 때, 오류.
     
 ----
 
@@ -4773,12 +4760,12 @@ keras.backend.backend()
 ```
 
 
-Publicly accessible method
-for determining the current backend.
+백엔드를 결정하기 위한 공개접근방식.
+
 
 __Returns__
 
-String, the name of the backend Keras is currently using.
+<sag>string</sag>, 현재 사용 중인 케라스 백엔드 이름.
 
 __Example__
 
