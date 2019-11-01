@@ -3131,18 +3131,17 @@ keras.backend.one_hot(indices, num_classes)
 ```
 
 
-Computes the one-hot representation of an integer tensor.
+정수형 텐서의 원핫 표기를 계산합니다.
 
 __Arguments__
 
-- __indices__: nD integer tensor of shape
-    `(batch_size, dim1, dim2, ... dim(n-1))`
-- __num_classes__: Integer, number of classes to consider.
+- __indices__: `(batch_size, dim1, dim2, ... dim(n-1))`형식의 n차원 정수형 텐서.
+- __num_classes__: <sag>integer</sag>, 클래스들의 갯수.
 
 __Returns__
 
-(n + 1)D one hot representation of the input
-with shape `(batch_size, dim1, dim2, ... dim(n-1), num_classes)`
+
+`(batch_size, dim1, dim2, ... dim(n-1), num_classes)`형식의 입력값의 (n+1)차원의 원핫 표현형식.
     
 ----
 
@@ -3154,17 +3153,16 @@ keras.backend.reverse(x, axes)
 ```
 
 
-Reverses a tensor along the specified axes.
+지정된 축을 따라 텐서를 반전시킵니다.
 
 __Arguments__
 
-- __x__: Tensor to reverse.
-- __axes__: Integer or iterable of integers.
-    Axes to reverse.
+- __x__: 텐서를 반전시킨다.
+- __axes__: 축이 반전된, 정수형 또는 반복 가능한 정수.
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -3187,17 +3185,14 @@ keras.backend.slice(x, start, size)
 ```
 
 
-Extracts a slice from a tensor.
+텐서에서 슬라이스를 추출합니다.
 
 __Arguments__
 
-- __x__: Input tensor.
-- __start__: Integer list/tuple or tensor
-    indicating the start indices of the slice
-    along each axis.
-- __size__: Integer list/tuple or tensor
-    indicating how many dimensions to slice
-    along each axis.
+- __x__: 입력 텐서.
+- __start__: 각 축에 따라 슬라이스의 시작 인덱스를 나타내는 텐서 또는 <sag>integer</sag>리스트/튜플 자료형.
+- __size__: 각 축을 따라 슬라이스 할 차원의 수를 나타내는 텐서 또는 <sag>integer</sag>리스트/튜플 자료형.
+
 
 __Returns__
 
@@ -3230,11 +3225,11 @@ Returns the value of a variable.
 
 __Arguments__
 
-- __x__: input variable.
+- __x__: 입력 변수. 
 
 __Returns__
 
-A Numpy array.
+넘파이 배열.
     
 ----
 
@@ -3246,15 +3241,15 @@ keras.backend.batch_get_value(ops)
 ```
 
 
-Returns the value of more than one tensor variable.
+한 가지 이상의 텐서 변수의 값을 반환합니다.
 
 __Arguments__
 
-- __ops__: list of ops to run.
+- __ops__: 실행할 ops 목록.
 
 __Returns__
 
-A list of Numpy arrays.
+넘파이 배열 리스트.
     
 ----
 
@@ -3266,14 +3261,14 @@ keras.backend.set_value(x, value)
 ```
 
 
-Sets the value of a variable, from a Numpy array.
+넘파이 배열에서 변수의 값을 설정합니다. 
 
 __Arguments__
 
-- __x__: Tensor to set to a new value.
-- __value__: Value to set the tensor to, as a Numpy array
-    (of the same shape).
-    
+- __x__: 새로운 값으로 설정하는 텐서.
+- __value__: 넘파이 배열로 텐서를 설정하는 값.
+
+
 ----
 
 ### batch_set_value
@@ -3283,13 +3278,12 @@ __Arguments__
 keras.backend.batch_set_value(tuples)
 ```
 
+한번에 밚은 텐서 변수들의 값을 설정합니다.
 
-Sets the values of many tensor variables at once.
 
 __Arguments__
 
-- __tuples__: a list of tuples `(tensor, value)`.
-    `value` should be a Numpy array.
+- __tuples__: `(tensor, value)` 튜플 리스트, <sag>value</sag>인자는 넘파이 배열이어야 합니다.
     
 ----
 
@@ -3301,11 +3295,13 @@ keras.backend.print_tensor(x, message='')
 ```
 
 
-Prints `message` and the tensor value when evaluated.
 
-Note that `print_tensor` returns a new tensor identical to `x`
-which should be used in the following code. Otherwise the
-print operation is not taken into account during evaluation.
+평가시 <sag>message</sag>와 텐서 값을 출력합니다. 
+
+`print_tensor`는 `x`와 동일한 새로운 텐서를 반환합니다. 이 코드는 반드시 다음코드에 사용해야 합니다. 
+그렇지 않으면 평가 중 프린트 연산이 고려되지 않습니다. 
+
+
 
 __Example__
 
@@ -3315,12 +3311,13 @@ __Example__
 
 __Arguments__
 
-- __x__: Tensor to print.
-- __message__: Message to print jointly with the tensor.
+- __x__: 출력 할 텐서.
+- __message__: 텐서와 함께 출력 할 메시지.
+
 
 __Returns__
 
-The same tensor `x`, unchanged.
+변경되지 않은 같은 텐서  `x`.
     
 ----
 
@@ -3332,22 +3329,24 @@ keras.backend.function(inputs, outputs, updates=None)
 ```
 
 
-Instantiates a Keras function.
+케라스 함수 인스턴스화하기.
 
 __Arguments__
 
-- __inputs__: List of placeholder tensors.
-- __outputs__: List of output tensors.
-- __updates__: List of update ops.
-- __**kwargs__: Passed to `tf.Session.run`.
+- __inputs__: 플레이스홀더 텐서의 리스트.
+- __outputs__: 출력 텐서의 리스트. 
+- __updates__: 업데이트 연산의 리스트.
+- __**kwargs__: `tf.Session.run`에 전달되는 값.
+
 
 __Returns__
 
-Output values as Numpy arrays.
+
+넘파이 배열의 값 출력.
 
 __Raises__
 
-- __ValueError__: if invalid kwargs are passed in.
+- __ValueError__: 유효하지 않은 kwargs 가 전달된 경우.
     
 ----
 
@@ -3359,16 +3358,16 @@ keras.backend.gradients(loss, variables)
 ```
 
 
-Returns the gradients of `loss` w.r.t. `variables`.
+변수에 대한 손실의 그라디언트를 반환합니다.
 
 __Arguments__
 
-- __loss__: Scalar tensor to minimize.
-- __variables__: List of variables.
+- __loss__: 최소화시킨 스칼라값 텐서.
+- __variables__: 변수들의 리스트.
 
 __Returns__
 
-A gradients tensor.
+그라디언트 텐서.
     
 ----
 
@@ -3380,18 +3379,18 @@ keras.backend.stop_gradient(variables)
 ```
 
 
-Returns `variables` but with zero gradient w.r.t. every other variable.
+모든 다른 변수에 대한 0 그라디언트 'variables'를 반환합니다. 
 
 __Arguments__
 
-- __variables__: tensor or list of tensors to consider constant with respect
-    to any other variable.
+- __variables__: 또 다른 변수에 대한 상수를 고려한 텐서 또는 텐서의 리스트.
 
 __Returns__
 
-A single tensor or a list of tensors (depending on the passed argument)
-    that has constant gradient with respect to any other variable.
-    
+전달받은 인자에 따른 또 다른 변수에 대한 상수 그라디언트를 가진 텐서 또는 텐서의 리스트.
+
+
+
 ----
 
 ### rnn
@@ -3402,52 +3401,43 @@ keras.backend.rnn(step_function, inputs, initial_states, go_backwards=False, mas
 ```
 
 
-Iterates over the time dimension of a tensor.
+텐서의 시간 차원에 대한 반복.
 
 __Arguments__
 
 - __step_function__:
-    Parameters:
-        inputs: Tensor with shape (samples, ...) (no time dimension),
-            representing input for the batch of samples at a certain
-            time step.
-        states: List of tensors.
-    Returns:
-        outputs: Tensor with shape (samples, ...) (no time dimension),
-        new_states: List of tensors, same length and shapes
-            as 'states'.
-- __inputs__: Tensor of temporal data of shape (samples, time, ...)
-    (at least 3D).
-- __initial_states__: Tensor with shape (samples, ...) (no time dimension),
-    containing the initial values for the states used in
-    the step function.
-- __go_backwards__: Boolean. If True, do the iteration over the time
-    dimension in reverse order and return the reversed sequence.
-- __mask__: Binary tensor with shape (samples, time),
-    with a zero for every element that is masked.
-- __constants__: A list of constant values passed at each step.
-- __unroll__: Whether to unroll the RNN or to use a symbolic loop
-    (`while_loop` or `scan` depending on backend).
-- __input_length__: Static number of timesteps in the input.
+    매개변수:
+        inputs: 시간 차원이 없고 형식이 있는 텐서. 어떤 시간 단계의 배치에 관한 입력값을 나타냅니다.
+        state: 텐서의 리스트.
+    반환값:
+        outputs: 시간 차원이 없고 형식이 있는 텐서. 
+        new_states: 'states'의 형식과 같은 길이의 텐서 리스트. 
+- __inputs__: 적어도 3차원인 형식의 일시적인 데이터의 텐서  (samples, time, ...)
+- __initial_states__: 단계함수에서 사용된 상태의 초기 값을 포함한 시간 차원이 없고 형식이 있는 텐서.
+- __go_backwards__: <sag>boolean</sag> 만약 True라면 그 시간동안 반복한다. 
+        뒤집힌 순서를 반환하며 뒤집힌 순서의 차원이다. 
+- __mask__: (samples, time)형식을 가진 이진 텐서. 마스크의 모든 요소에 0 포함.
+- __constants__:  각 단계에 전달된 상수 값 리스트. 
+- __unroll__:  RNN을 사용하거나 기호 루프를 사용할지에 대한 여부. (백엔드에 따라 `while_loop` 또는 `scan`)
+- __input_length__: 입력 시, 시간단계의  <sag>static</sag>숫자.
+
 
 __Returns__
 
 A tuple, `(last_output, outputs, new_states)`.
 
-last_output: The latest output of the rnn, of shape `(samples, ...)`
-outputs: Tensor with shape `(samples, time, ...)` where each
-entry `outputs[s, t]` is the output of the step function
-at time `t` for sample `s`.
-new_states: List of tensors, latest states returned by
-the step function, of shape `(samples, ...)`.
+last_output: `(samples, ...)` 형식의, rnn의 최근 출력값. 
+outputs: `(samples, time, ...)` 형식이 있는 텐서 의 각 `outputs[s, t]`요소는 's'샘플에 대한 't'시간에 대한 단계 함수의 출력요소 입니다. 
+new_states: `(samples, ...)`형식의 단계함수로 반환된 최근 상태의 텐서 리스트.
+
 
 __Raises__
 
-- __ValueError__: If input dimension is less than 3.
-- __ValueError__: If `unroll` is `True`
-    but input timestep is not a fixed number.
-- __ValueError__: If `mask` is provided (not `None`)
-    but states is not provided (`len(states)` == 0).
+- __ValueError__: 입력 차원이 3보다 작은 경우.
+- __ValueError__: `unroll`이  `True`인 경우. 
+    입력 시간 단계는 고정이 아님.
+- __ValueError__: `mask` 가 존재하면 (not `None`)
+    상태는 (`len(states)` == 0).
 
 __Numpy implementation__
 
@@ -3517,24 +3507,25 @@ keras.backend.switch(condition, then_expression, else_expression)
 ```
 
 
-Switches between two operations depending on a scalar value.
+스칼라 값에 따라 두 연산사이를 전환합니다. 
 
-Note that both `then_expression` and `else_expression`
-should be symbolic tensors of the *same shape*.
+`then_expression` 와 `else_expression` 모두 동일 모양의 기호 텐서. 
+
 
 __Arguments__
 
-- __condition__: tensor (`int` or `bool`).
-- __then_expression__: either a tensor, or a callable that returns a tensor.
-- __else_expression__: either a tensor, or a callable that returns a tensor.
+
+- __condition__: 텐서 (<sag>int</sag> or <sag>bool</sag>).
+- __then_expression__: 텐서 또는 텐서를 반환하는 호출가능한 값.
+- __else_expression__: 텐서 또는 텐서를 반환하는 호출가능한 값.
 
 __Returns__
 
-The selected tensor.
+지정한 텐서.
 
 __Raises__
 
-- __ValueError__: If rank of `condition` is greater than rank of expressions.
+- __ValueError__: 표현된 랭크보다 더 나은 'condition'의 랭크일 경우, 에러.
 
 __Numpy implementation__
 
@@ -3558,24 +3549,25 @@ keras.backend.in_train_phase(x, alt, training=None)
 ```
 
 
-Selects `x` in train phase, and `alt` otherwise.
+열차 단계에서 'x'를 선택하고 그렇지 않으면 'alt'를 선택합니다.
 
-Note that `alt` should have the *same shape* as `x`.
+`alt`는`x`와 동일한 모양 *을 가져야합니다.
 
 __Arguments__
 
-- __x__: What to return in train phase
-    (tensor or callable that returns a tensor).
-- __alt__: What to return otherwise
-    (tensor or callable that returns a tensor).
-- __training__: Optional scalar tensor
-    (or Python boolean, or Python integer)
-    specifying the learning phase.
+
+- __x__: 훈련 단계에서 반환하는 것.
+    (텐서 또는 호출가능한 텐서).
+- __alt__: 그 밖의 것을 반환.
+    (텐서 또는 호출가능한 텐서).
+- __training__: 학습 단계를 지정한 선택적 스칼라 텐서. 
+    (<sag>Python boolean</sag> 또는 <sag>Python integer</sag>)
+
 
 __Returns__
 
-Either `x` or `alt` based on the `training` flag.
-the `training` flag defaults to `K.learning_phase()`.
+플래그에 기반한 `x` 또는 `alt`.
+`training` 플래그는 기본적으로 `K.learning_phase()`입니다. 
     
 ----
 
