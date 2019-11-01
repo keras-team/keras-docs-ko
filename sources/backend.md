@@ -1116,16 +1116,17 @@ keras.backend.identity(x, name=None)
 ```
 
 
-Returns a tensor with the same content as the input tensor.
+입력 텐서와 내용이 같은 텐서를 반환합니다.
 
 __Arguments__
 
-- __x__: The input tensor.
-- __name__: String, name for the variable to create.
+- __x__: 입력텐서.
+- __name__: <sag>string</sag>, 생성 할 변수의 이름.
 
 __Returns__
 
-A tensor of the same shape, type and content.
+
+형식 및 내용이 같은 텐서.
     
 ----
 
@@ -1137,20 +1138,22 @@ keras.backend.random_uniform_variable(shape, low, high, dtype=None, name=None, s
 ```
 
 
-Instantiates a variable with values drawn from a uniform distribution.
+균등 분포에서 가져온 값의 변수를 인스턴스화 합니다. 
 
 __Arguments__
 
-- __shape__: Tuple of integers, shape of returned Keras variable.
-- __low__: Float, lower boundary of the output interval.
-- __high__: Float, upper boundary of the output interval.
-- __dtype__: String, dtype of returned Keras variable.
-- __name__: String, name of returned Keras variable.
-- __seed__: Integer, random seed.
+
+- __shape__: <sag>integers</sag>의 튜플, 반환된 케라스 변수의 형식.
+- __low__: <sag>float</sag>, 출력 범위의 하한.
+- __high__: <sag>float</sag>, 출력 번위의 상한. 
+- __dtype__: <sag>string</sag>, 반환된 케라스 변수의 dtype.
+- __name__: <sag>string</sag>, 반환된 케라스 변수의 이름.
+- __seed__: <sag>integer</sag>, 난수생성.
 
 __Returns__
 
-A Keras variable, filled with drawn samples.
+
+샘플에서 가져온 케라스 변수.
 
 __Example__
 
@@ -1182,20 +1185,22 @@ keras.backend.random_normal_variable(shape, mean, scale, dtype=None, name=None, 
 ```
 
 
-Instantiates a variable with values drawn from a normal distribution.
+정규 분포에서 가져온 값의 변수를 인스턴스화 합니다. 
 
 __Arguments__
 
-- __shape__: Tuple of integers, shape of returned Keras variable.
-- __mean__: Float, mean of the normal distribution.
-- __scale__: Float, standard deviation of the normal distribution.
-- __dtype__: String, dtype of returned Keras variable.
-- __name__: String, name of returned Keras variable.
-- __seed__: Integer, random seed.
+
+- __shape__: <sag>integers</sag>의 튜플, 반환된 케라스 변수의 형식.
+- __mean__: <sag>float</sag>, 정규분포의 평균.
+- __scale__: <sag>float</sag>, 정규분포의 표준편차.
+- __dtype__: <sag>string</sag>, 반환된 케라스 변수의 dtype.
+- __name__: <sag>string</sag>, 반환된 케라스 변수의 이름.
+- __seed__: <sag>integer</sag>, 난수생성.
 
 __Returns__
 
-A Keras variable, filled with drawn samples.
+
+샘플에서 가져온 케라스 변수.
 
 __Example__
 
@@ -1227,16 +1232,17 @@ keras.backend.count_params(x)
 ```
 
 
-Returns the static number of elements in a Keras variable or tensor.
+케라스 변수 또는 텐서에서 요소들의 <sag>static</sag> 숫자를 반환합니다. 
 
 __Arguments__
 
-- __x__: Keras variable or tensor.
+- __x__: 케라스 텐서 또는 변수.
 
 __Returns__
 
-Integer, the number of elements in `x`, i.e., the product of the
-array's static dimensions.
+
+<sag>integer</sag>,`x`요소의 갯수,
+즉, 배열의 정적차원<sag>static dimensions</sag>의 곱 연산.
 
 __Example__
 
@@ -1267,18 +1273,21 @@ keras.backend.cast(x, dtype)
 ```
 
 
-Casts a tensor to a different dtype and returns it.
+텐서를 다른 dtype으로 타입을 바꿔주고 반환합니다.
 
-You can cast a Keras variable but it still returns a Keras tensor.
+케라스 변수 타입을 바꿔줄 수 있으나 여전히 텐서를 반환합니다. 
 
 __Arguments__
 
-- __x__: Keras tensor (or variable).
-- __dtype__: String, either (`'float16'`, `'float32'`, or `'float64'`).
+
+
+- __x__: 케라스 텐서 또는 변수.
+- __dtype__: <sag>string</sag>, 'float16', 'float32', 또는 'float64'
+
 
 __Returns__
 
-Keras tensor with dtype `dtype`.
+<sag>dtype</sag>의 케라스 텐서.
 
 __Example__
 
@@ -1308,16 +1317,18 @@ keras.backend.update(x, new_x)
 ```
 
 
-Update the value of `x` to `new_x`.
+x값을 new_x로 갱신합니다.
 
 __Arguments__
 
-- __x__: A `Variable`.
-- __new_x__: A tensor of same shape as `x`.
+
+- __x__: 한개의 변수.
+- __new_x__: x의 같은 형식의 텐서. 
 
 __Returns__
 
-The variable `x` updated.
+
+x변수를 갱신합니다.
     
 ----
 
@@ -1329,16 +1340,19 @@ keras.backend.update_add(x, increment)
 ```
 
 
-Update the value of `x` by adding `increment`.
+<sag>increment</sag>를 x에 더한 값을 갱신합니다. 
 
 __Arguments__
 
-- __x__: A `Variable`.
-- __increment__: A tensor of same shape as `x`.
+
+- __x__: 변수.
+- __increment__: x와 같은 형식의 텐서.
+
 
 __Returns__
 
-The variable `x` updated.
+
+변수 x 갱신.
     
 ----
 
@@ -1350,16 +1364,18 @@ keras.backend.update_sub(x, decrement)
 ```
 
 
-Update the value of `x` by subtracting `decrement`.
+<sag>decrement</sag>를 뺀 후  x의 값 갱신.
 
 __Arguments__
 
+
 - __x__: A `Variable`.
-- __decrement__: A tensor of same shape as `x`.
+- __decrement__: x와 같은 형식의 텐서.
 
 __Returns__
 
-The variable `x` updated.
+
+변수 x 갱신.
     
 ----
 
@@ -1371,17 +1387,18 @@ keras.backend.moving_average_update(x, value, momentum)
 ```
 
 
-Compute the moving average of a variable.
+변수의 이동평균을 계산합니다. 
 
 __Arguments__
 
-- __x__: A `Variable`.
-- __value__: A tensor with the same shape as `x`.
-- __momentum__: The moving average momentum.
+
+- __x__: `Variable`.
+- __value__:같은`x`형식의 텐서.
+- __momentum__: 이동 평균 운동량.
 
 __Returns__
 
-An operation to update the variable.
+변수를 업데이트하는 연산.
     
 ----
 
