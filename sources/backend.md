@@ -1032,18 +1032,21 @@ keras.backend.zeros_like(x, dtype=None, name=None)
 ```
 
 
-Instantiates an all-zeros variable of the same shape as another tensor.
+또 다른 텐서이면서 같은 형식의 모두 0값인 변수가 인스턴스화 됩니다.
 
 __Arguments__
 
-- __x__: Keras variable or Keras tensor.
-- __dtype__: String, dtype of returned Keras variable.
-     None uses the dtype of x.
-- __name__: String, name for the variable to create.
+
+- __x__: 케라스 변수 또는 케라스 텐서. 
+- __dtype__: <sag>string</sag>, 반환된 케라스 변수의 dtype.
+     x의 dtype을 사용하지 않습니다.
+- __name__: <sag>string</sag>, 생성할 변수의 이름. 
+
 
 __Returns__
 
-A Keras variable with the shape of x filled with zeros.
+
+0으로 채워진 x 형식의 케라스 변수.
 
 __Example__
 
@@ -1074,18 +1077,21 @@ keras.backend.ones_like(x, dtype=None, name=None)
 ```
 
 
-Instantiates an all-ones variable of the same shape as another tensor.
+또 다른 텐서와 동일한 모양의 <sag>all-ones</sag> 변수를 인스턴스화 합니다.
+
 
 __Arguments__
 
-- __x__: Keras variable or tensor.
-- __dtype__: String, dtype of returned Keras variable.
-     None uses the dtype of x.
-- __name__: String, name for the variable to create.
+
+
+- __x__: 케라스 변수 또는 케라스 텐서. 
+- __dtype__: <sag>string</sag>, 반환된 케라스 변수의 dtype.
+     x의 dtype을 사용하지 않습니다.
+- __name__: <sag>string</sag>, 생성할 변수의 이름. 
 
 __Returns__
 
-A Keras variable with the shape of x filled with ones.
+ones로 전달된 형식에 대한 케라스 변수.
 
 __Example__
 
