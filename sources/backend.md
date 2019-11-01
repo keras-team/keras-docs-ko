@@ -1917,22 +1917,23 @@ keras.backend.std(x, axis=None, keepdims=False)
 ```
 
 
-Standard deviation of a tensor, alongside the specified axis.
+
+지정된 축과 함께 텐서의 표준 편차를 반환한다. 
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to compute the standard deviation. If `None` (default),
-    computes the standard deviation over all dimensions.
-- __keepdims__: A boolean, whether to keep the dimensions or not.
-    If `keepdims` is `False`, the rank of the tensor is reduced
-    by 1. If `keepdims` is `True`,
-    the reduced dimension is retained with length 1.
+- __x__: 텐서 또는 변수. 
+- __axis__:  [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>으로, 표준편차를 계산하는 축.
+    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 표준편차를 계산합니다. 
+- __keepdims__: <sag>boolean</sag>, 차원을 유지 하였는지에 대한 진리값.
+    `keepdims` 가 <sag>False</sag>인 경우, 텐서의 랭크가 1씩 감소합니다.   
+    `keepdims` 가 <sag>True</sag>인 경우, 줄어든 차원의 길이는 1로 유지됩니다. 
+
 
 __Returns__
 
-A tensor with the standard deviation of elements of `x`.
+x의 요소의 표준편차에 대한 텐서. 
+
 __Numpy implementation__
 
 
@@ -1954,22 +1955,25 @@ keras.backend.mean(x, axis=None, keepdims=False)
 ```
 
 
-Mean of a tensor, alongside the specified axis.
+지정된 축에 따른 텐서의 평균.
+
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to compute the mean. If `None` (default), computes
-    the mean over all dimensions.
-- __keepdims__: A boolean, whether to keep the dimensions or not.
-    If `keepdims` is `False`, the rank of the tensor is reduced
-    by 1 for each entry in `axis`. If `keepdims` is `True`,
-    the reduced dimensions are retained with length 1.
+
+- __x__: 텐서 또는 변수.
+- __axis__: [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>으로, 평균을 계산하는 축.
+    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 평균을 계산합니다. 
+- __keepdims__: <sag>boolean</sag>, 차원을 유지 하였는지에 대한 진리값.
+    `keepdims` 가 <sag>False</sag>인 경우, 축의 각 항목에 대해 텐서의 랭크가 1씩 감소합니다.   
+    `keepdims` 가 <sag>True</sag>인 경우, 줄어든 차원의 길이는 1로 유지됩니다. 
+
 
 __Returns__
 
-A tensor with the mean of elements of `x`.
+
+`x`의 요소의 평균을 가진 텐서. 
+
 __Numpy implementation__
 
 
@@ -1991,19 +1995,23 @@ keras.backend.any(x, axis=None, keepdims=False)
 ```
 
 
-Bitwise reduction (logical OR).
+
+비트단위 감소(logical OR).
 
 __Arguments__
 
+
 - __x__: Tensor or variable.
-- __axis__: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to compute the logical or. If `None` (default), computes
-    the logical or over all dimensions.
-- __keepdims__: whether the drop or broadcast the reduction axes.
+- __axis__:  [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>
+    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 평균을 계산합니다. 
+- __keepdims__: 감소한 축을 브로드캐스트 하는지 드롭하는지에 대한 여부.
+
 
 __Returns__
 
-A uint8 tensor (0s and 1s).
+
+uint8텐서 (0s and 1s).
+
 __Numpy implementation__
 
 
@@ -2025,19 +2033,22 @@ keras.backend.all(x, axis=None, keepdims=False)
 ```
 
 
-Bitwise reduction (logical AND).
+비트단위 감소 (logical AND).
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __axis__: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to compute the logical and. If `None` (default), computes
-    the logical and over all dimensions.
-- __keepdims__: whether the drop or broadcast the reduction axes.
+
+- __x__: 텐서 또는 변수. 
+- __axis__: [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>
+    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 평균을 계산합니다. 
+- __keepdims__: 감소한 축을 브로드캐스트 하는지 드롭하는지에 대한 여부.
+
 
 __Returns__
 
-A uint8 tensor (0s and 1s).
+
+uint8텐서 (0s and 1s).
+
 __Numpy implementation__
 
 
@@ -2059,16 +2070,18 @@ keras.backend.argmax(x, axis=-1)
 ```
 
 
-Returns the index of the maximum value along an axis.
+축에 따른 최댓값의 인덱스를 반환합니다. 
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __axis__: axis along which to perform the reduction.
+
+- __x__: 텐서 또는 변수. 
+- __axis__: 감소 수행에 따른 축. 
 
 __Returns__
 
-A tensor.
+텐서.
+
 __Numpy implementation__
 
 
@@ -2088,16 +2101,18 @@ keras.backend.argmin(x, axis=-1)
 ```
 
 
-Returns the index of the minimum value along an axis.
+축에 따른 최솟값의 인덱스를 반환합니다.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __axis__: axis along which to perform the reduction.
+
+- __x__: 텐서 또는 변수. 
+- __axis__: 축소를 수행에 따른 축.
 
 __Returns__
 
-A tensor.
+텐서
+
 __Numpy implementation__
 
 
@@ -2117,15 +2132,15 @@ keras.backend.square(x)
 ```
 
 
-Element-wise square.
+요소별로 제곱계산.
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수. 
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2137,15 +2152,16 @@ keras.backend.abs(x)
 ```
 
 
-Element-wise absolute value.
+절대값 계산.
+
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수. 
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2157,15 +2173,16 @@ keras.backend.sqrt(x)
 ```
 
 
-Element-wise square root.
+요소별 제곱근 계산.
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서
+
 __Numpy implementation__
 
 
