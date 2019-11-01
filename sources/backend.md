@@ -416,7 +416,8 @@ Keras 함수에 입력으로 전달되는 bool형 텐서 (0 = 테스트, 1 = 학
 
 __Returns__
 
-Learning phase (scalar integer tensor or Python integer).
+
+학습 단계 ( 스칼라 정수 텐서 또는 파이썬 정수형 ).
 
 ----
 
@@ -448,11 +449,11 @@ keras.backend.is_sparse(tensor)
 ```
 
 
-Returns whether a tensor is a sparse tensor.
+희소 텐서인지 아닌지를 반환합니다. 
 
 __Arguments__
 
-- __tensor__: A tensor instance.
+- __tensor__: 한 개의 텐서 인스턴스.
 
 __Returns__
 
@@ -480,15 +481,16 @@ keras.backend.to_dense(tensor)
 ```
 
 
-Converts a sparse tensor into a dense tensor and returns it.
+<sag>sparse</sag> 텐서에서 <sag>dense</sag>텐서로 바꿔준다.
 
 __Arguments__
 
-- __tensor__: A tensor instance (potentially sparse).
+- __tensor__: <sag>sparse</sag> 텐서일 수도 있는 인스턴스.
 
 __Returns__
 
-A dense tensor.
+
+한 개의 <sag>dense</sag>텐서.
 
 __Examples__
 
@@ -554,7 +556,6 @@ keras.backend.constant(value, dtype=None, shape=None, name=None)
 
 __Arguments__
 
-- __value__: A constant value (or list)
 - __value__: 상수 값(또는 리스트)
 - __dtype__: 결과의 텐서의 요소의 형태.
 - __shape__: 결과 텐서의 크기(선택사항).
