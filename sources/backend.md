@@ -229,11 +229,11 @@ keras.backend.set_floatx(floatx)
 ```
 
 
-디폴트 float 타입을 설정합니다.
+기본 실수형 타입을 설정합니다.
 
 __Arguments__
 
-- __floatx__: String, 'float16', 'float32', or 'float64'.
+- __floatx__: <sag>String</sag>, 'float16', 'float32', or 'float64'.
 
 __Example__
 
@@ -256,7 +256,7 @@ keras.backend.cast_to_floatx(x)
 ```
 
 
-NumPy 배열을 Keras의 디폴트 float 타입으로 변환합니다.
+NumPy 배열을 Keras의 기본 실수형 타입으로 변환합니다.
 
 __Arguments__
 
