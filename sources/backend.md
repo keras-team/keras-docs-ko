@@ -3587,23 +3587,23 @@ keras.backend.in_test_phase(x, alt, training=None)
 ```
 
 
-Selects `x` in test phase, and `alt` otherwise.
+열차 단계에서 'x'를 선택하고 그렇지 않으면 'alt'를 선택합니다.
 
-Note that `alt` should have the *same shape* as `x`.
+`alt`는`x`와 동일한 모양 *을 가져야합니다.
 
 __Arguments__
 
-- __x__: What to return in test phase
+- __x__: 테스트 단계에서 반환 할 내용. 
     (tensor or callable that returns a tensor).
-- __alt__: What to return otherwise
+- __alt__: 다른 경우 반환 할 내용.
     (tensor or callable that returns a tensor).
-- __training__: Optional scalar tensor
-    (or Python boolean, or Python integer)
-    specifying the learning phase.
+- __training__: 학습 단계를 지정한 선택적 스칼라 텐서. 
+    (<sag>Python boolean</sag> 또는 <sag>Python integer</sag>)
+
 
 __Returns__
 
-Either `x` or `alt` based on `K.learning_phase`.
+'learning_phase()'에 기반한 `x` 또는 `alt'.
     
 ----
 
@@ -3615,25 +3615,25 @@ keras.backend.relu(x, alpha=0.0, max_value=None, threshold=0.0)
 ```
 
 
-Rectified linear unit.
+정제된 선형 단위.
 
-With default values, it returns element-wise `max(x, 0)`.
+기본값으로, 요소별로`max(x, 0)를 반환합니다.
 
-Otherwise, it follows:
+그 외,
 `f(x) = max_value` for `x >= max_value`,
 `f(x) = x` for `threshold <= x < max_value`,
 `f(x) = alpha * (x - threshold)` otherwise.
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __alpha__: A scalar, slope of negative section (default=`0.`).
-- __max_value__: float. Saturation threshold.
-- __threshold__: float. Threshold value for thresholded activation.
+- __x__: 텐서 또는 변수. 
+- __alpha__: 음수 섹션의 스칼라, 기울기 (default=`0.`).
+- __max_value__: <sag>float</sag>, 포화상태의 임계값.
+- __threshold__: <sag>float</sag>, 임계값 활성화에 대한 임계값.
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -3659,16 +3659,16 @@ keras.backend.elu(x, alpha=1.0)
 ```
 
 
-Exponential linear unit.
+지수적증가의 선형 단위.
 
 __Arguments__
 
-- __x__: A tensor or variable to compute the activation function for.
-- __alpha__: A scalar, slope of negative section.
+- __x__: 활성화 함수를 계산할 텐서 또는 변수 입니다. 
+- __alpha__: 음수 섹션의 스칼라, 기울기. 
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -3689,17 +3689,17 @@ keras.backend.softmax(x, axis=-1)
 ```
 
 
-Softmax of a tensor.
+텐서의 Softmax.
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: The dimension softmax would be performed on.
-    The default is -1 which indicates the last dimension.
+- __x__: 텐서 또는 변수. 
+- __axis__: 차수 softmax가 수행 됩니다. 
+    기본값은 -1을 나타내며 마지막 차원을 나타냅니다. 
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -3721,15 +3721,15 @@ keras.backend.softplus(x)
 ```
 
 
-Softplus of a tensor.
+텐서의 Softplus.
 
 __Arguments__
 
-- __x__: A tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -3750,15 +3750,15 @@ keras.backend.softsign(x)
 ```
 
 
-Softsign of a tensor.
+텐서의 Softsign.
 
 __Arguments__
 
-- __x__: A tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -3779,29 +3779,27 @@ keras.backend.categorical_crossentropy(target, output, from_logits=False, axis=-
 ```
 
 
-Categorical crossentropy between an output tensor and a target tensor.
+결과 텐서와 목표 텐서 사이의 범주형의 크로스엔트로피.
 
 __Arguments__
 
-- __target__: A tensor of the same shape as `output`.
-- __output__: A tensor resulting from a softmax
+- __target__: `output`과 같은 모양의 텐서.
+- __output__: softmax의 결과 텐서.
     (unless `from_logits` is True, in which
     case `output` is expected to be the logits).
-- __from_logits__: Boolean, whether `output` is the
-    result of a softmax, or is a tensor of logits.
-- __axis__: Int specifying the channels axis. `axis=-1`
-    corresponds to data format `channels_last`,
-    and `axis=1` corresponds to data format
-    `channels_first`.
+- __from_logits__: <sag>boolean</sag>, <sag>logits</sag>의 텐서이거나 softmax의 결과의 'output' 입니다. 
+- __axis__: 채널 축을 지정합니다. `axis=-1`
+    `channels_last`형식 데이터에 해당합니다,
+    `channels_first` 데이터 형식은 `axis=1`에 해당 합니다. 
 
 __Returns__
 
-Output tensor.
+출력 텐서. 
 
 __Raises__
 
-- __ValueError__: if `axis` is neither -1 nor one of
-    the axes of `output`.
+- __ValueError__: `output`의 축 도 아니고 -1도 아닌 축.
+
     
 ----
 
@@ -3813,29 +3811,28 @@ keras.backend.sparse_categorical_crossentropy(target, output, from_logits=False,
 ```
 
 
-Categorical crossentropy with integer targets.
+정수 목표를 가진 범주형 크로스엔트로피.
 
 __Arguments__
 
 - __target__: An integer tensor.
-- __output__: A tensor resulting from a softmax
+- __output__: softmax의 결과로 나온 텐서. 
     (unless `from_logits` is True, in which
     case `output` is expected to be the logits).
 - __from_logits__: Boolean, whether `output` is the
     result of a softmax, or is a tensor of logits.
-- __axis__: Int specifying the channels axis. `axis=-1`
-    corresponds to data format `channels_last`,
-    and `axis=1` corresponds to data format
-    `channels_first`.
+- __axis__:
+    `channels_last` 데이터 형식에 해당하는  Int 채널 축을 지정합니다. `axis=-1`
+    and `axis=1` corresponds to data format `channels_first`.
 
 __Returns__
 
-Output tensor.
+텐서.
 
 __Raises__
 
-- __ValueError__: if `axis` is neither -1 nor one of
-    the axes of `output`.
+- __ValueError__: `axis`가 -1 또는 `output`의 축 모두 아니다.
+
     
 ----
 
