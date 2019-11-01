@@ -7,8 +7,11 @@ Keras는 딥러닝 모델을 개발하기 위한 고수준의 구성요성 요�
 현재 Keras는 **TensorFlow**, **Theano**, 그리고 **CNTK**의 세 가지 백엔드를 지원합니다.
 
 - [TensorFlow](http://www.tensorflow.org/) is an open-source symbolic tensor manipulation framework developed by Google.
-- [Theano](http://deeplearning.net/software/theano/) is an open-source symbolic tensor manipulation framework developed by LISA Lab at Université de Montréal.
+- [Theano](http://deeplearning.net/software/theano/) is an open-source symbolic tensor manipulation framework developed by LISA Lab at   Université de Montréal.
 - [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/) is an open-source toolkit for deep learning developed by Microsoft.
+- [TensorFlow](http://www.tensorflow.org/)는 구글에서 만든 기호텐서 프레임워크 오픈소스입니다.
+- [Theano](http://deeplearning.net/software/theano/)은 Université de Montréal LISA Lab에서 개발한 기호텐서 프레임워크 오픈소스입니다. 
+- [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/)마이크로소프트에서 만든 딥러닝 개발을 위한 오픈소스 툴킷입니다.
 
 앞으로 더 많은 백엔드 옵션을 지원할 예정입니다.
 
