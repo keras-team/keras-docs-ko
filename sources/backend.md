@@ -1708,22 +1708,24 @@ keras.backend.min(x, axis=None, keepdims=False)
 ```
 
 
-Minimum value in a tensor.
+텐서에 대한 최솟값.
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to find minimum values. If `None` (default), finds the
-    minimum over all dimensions.
-- __keepdims__: A boolean, whether to keep the dimensions or not.
-    If `keepdims` is `False`, the rank of the tensor is reduced
-    by 1. If `keepdims` is `True`,
-    the reduced dimension is retained with length 1.
+
+
+- __x__: 텐서 또는 변수. 
+- __axis__: [-rank(x), rank(x)) 범위의 <sag>integers</sag>의 튜플 또는 <sag>integer</sag>
+    최솟값을 찾기위한 축. 만약 <sag>None</sag>이라면 모든 차원에 대한 최솟값을 찾습니다. 
+- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지에 대한 여부. 
+    `keepdims`가`False` 인 경우 텐서의 rank가 1만큼 감소합니다
+    `keepdims`가`True`이면 축소 된 치수는 길이 1로 유지됩니다.
+
 
 __Returns__
 
-A tensor with miminum values of `x`.
+
+x의 최솟값에 대한 텐서. 
 
 __Numpy implementation__
 
@@ -1746,22 +1748,24 @@ keras.backend.sum(x, axis=None, keepdims=False)
 ```
 
 
-Sum of the values in a tensor, alongside the specified axis.
+지정된 축에따른 텐서의 값들의 합.
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to sum over. If `None` (default), sums over all
-    dimensions.
-- __keepdims__: A boolean, whether to keep the dimensions or not.
-    If `keepdims` is `False`, the rank of the tensor is reduced
-    by 1. If `keepdims` is `True`,
-    the reduced dimension is retained with length 1.
+
+
+- __x__: 텐서 또는 변수. 
+- __axis__: [-rank(x), rank(x)) 범위의 <sag>integers</sag>의 튜플 또는 <sag>integer</sag>를 합산 하기위한 축.
+     만약 <sag>None</sag>이라면 모든 차원에 대한 합의 값을 찾습니다. 
+- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지에 대한 여부. 
+    `keepdims`가`False` 인 경우 텐서의 rank가 1만큼 감소합니다
+    `keepdims`가`True`이면 축소 된 치수는 길이 1로 유지됩니다.
+    
 
 __Returns__
 
-A tensor with sum of `x`.
+
+'x'의 합을 가진 텐서. 
 
 __Numpy implementation__
 
@@ -1784,22 +1788,25 @@ keras.backend.prod(x, axis=None, keepdims=False)
 ```
 
 
-Multiplies the values in a tensor, alongside the specified axis.
+
+지정된 축을 따라, 텐서의 값을 곱합니다.
 
 __Arguments__
 
 - __x__: A tensor or variable.
-- __axis__: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to compute the product. If `None` (default), computes
-    the product over all dimensions.
-- __keepdims__: A boolean, whether to keep the dimensions or not.
-    If `keepdims` is `False`, the rank of the tensor is reduced
-    by 1. If `keepdims` is `True`,
-    the reduced dimension is retained with length 1.
+- __x__: 텐서 또는 변수. 
+- __axis__: An integer or list of integers in [-rank(x), rank(x)) 범위 내 
+    <sag>integers</sag>의 리스트 또는 <sag>integers</sag>로서, 곱을 계산한 축. 
+    만약 <sag>None</sag>이라면 모든 차원에 대해 곱을 계산합니다. 
+- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지 아닌지에 대한 진리값. 
+    만약 `keepdims` 가 <sag>False</sag>라면, 텐서의 랭크가 1만큼 감소합니다. 
+    만약 `keepdims` 가 <sag>True</sag>라면, 줄어든 차원이 길이 1만큼 유지됩니다. 
+
 
 __Returns__
 
-A tensor with the product of elements of `x`.
+
+'x'의 요소들의 곱에대한 텐서.
 
 __Numpy implementation__
 
@@ -1822,16 +1829,19 @@ keras.backend.cumsum(x, axis=0)
 ```
 
 
-Cumulative sum of the values in a tensor, alongside the specified axis.
+지정된 축에 따라, 텐서 값의 누적된 합계. 
+
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: An integer, the axis to compute the sum.
+
+- __x__: 텐서 또는 변수.
+- __axis__: An integer, 합계를 계산하는 축.
 
 __Returns__
 
-A tensor of the cumulative sum of values of `x` along `axis`.
+x의 값에 따른 축의 누적된 합의 텐서.
+
 __Numpy implementation__
 
 
@@ -1851,16 +1861,19 @@ keras.backend.cumprod(x, axis=0)
 ```
 
 
-Cumulative product of the values in a tensor, alongside the specified axis.
+지정된 축에 따라, 텐서 값의 누적된 곱.
+
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: An integer, the axis to compute the product.
+
+- __x__: 텐서 또는 변수.
+- __axis__: An integer, 곱 계산에 대한 축.
 
 __Returns__
 
-A tensor of the cumulative product of values of `x` along `axis`.
+x의 값에 따른 축의 누적된 곱의 텐서.
+
 __Numpy implementation__
 
 
@@ -1880,22 +1893,23 @@ keras.backend.var(x, axis=None, keepdims=False)
 ```
 
 
-Variance of a tensor, alongside the specified axis.
+지정된 축에 따라, 텐서의 분산.
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to compute the variance. If `None` (default), computes
-    the variance over all dimensions.
-- __keepdims__: A boolean, whether to keep the dimensions or not.
-    If `keepdims` is `False`, the rank of the tensor is reduced
-    by 1. If `keepdims` is `True`,
-    the reduced dimension is retained with length 1.
+- __x__: 텐서 또는 변수. 
+- __axis__: [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>으로, 분산을 계산 할 축.
+    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 분산을 계산합니다..
+- __keepdims__: <sag>boolean</sag>, 차원을 유지 하였는지에 대한 진리값.
+    `keepdims` 가 <sag>False</sag>인 경우, 텐서의 랭크가 1씩 감소합니다.   
+    `keepdims` 가 <sag>True</sag>인 경우, 줄어든 차원의 길이는 1로 유지됩니다. 
+
 
 __Returns__
 
-A tensor with the variance of elements of `x`.
+`x`의 요소의 분산을 갖는 텐서.
+
+
 __Numpy implementation__
 
 
