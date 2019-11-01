@@ -905,19 +905,20 @@ keras.backend.zeros(shape, dtype=None, name=None)
 ```
 
 
-Instantiates an all-zeros variable and returns it.
+모두 0인 변수로 인스턴스화 하고 반환한다.
+
 
 __Arguments__
 
-- __shape__: Tuple of integers, shape of returned Keras variable
-- __dtype__: String, data type of returned Keras variable
-- __name__: String, name of returned Keras variable
+- __shape__: <sag>integers</sag>의 튜플, 반환된 케라스 변수의 형식
+- __dtype__: <sag>string</sag>, 반환된 케라스 변수의 데이터 타입
+- __name__: <sag>string</sag>, 반환된 케라스 변수의 이름
 
 __Returns__
 
-A variable (including Keras metadata), filled with `0.0`.
-Note that if `shape` was symbolic, we cannot return a variable,
-and will return a dynamically-shaped tensor instead.
+Keras 메타 데이터를 포함한 `0.0`으로 채워진 변수.
+`shape`가 기호 인 경우 변수를 반환 할 수 없습니다.
+대신 동적 모양의 텐서를 반환합니다.
 
 __Example__
 
@@ -948,19 +949,21 @@ keras.backend.ones(shape, dtype=None, name=None)
 ```
 
 
-Instantiates an all-ones variable and returns it.
+모든 변수를 인스턴스화하고 반환합니다.
 
 __Arguments__
 
-- __shape__: Tuple of integers, shape of returned Keras variable.
-- __dtype__: String, data type of returned Keras variable.
-- __name__: String, name of returned Keras variable.
+- __shape__: <sag>integers</sag>의 튜플, 반환된 케라스 변수 형식.
+- __dtype__: <sag>string</sag>, 반환된 케라스 데이터 타입. 
+- __name__: <sag>string</sag>, 반환된 케라스 변수 이름.
 
 __Returns__
 
-A Keras variable, filled with `1.0`.
-Note that if `shape` was symbolic, we cannot return a variable,
-and will return a dynamically-shaped tensor instead.
+
+
+`1.0`으로 채워진 Keras 변수.
+`shape`가 기호 인 경우 변수를 반환 할 수 없습니다.
+대신 동적 모양의 텐서를 반환합니다.
 
 __Example__
 
@@ -991,17 +994,19 @@ keras.backend.eye(size, dtype=None, name=None)
 ```
 
 
-Instantiate an identity matrix and returns it.
+단위행렬을 인스턴스화 하고 반환합니다. 
+
 
 __Arguments__
 
-- __size__: Integer, number of rows/columns.
-- __dtype__: String, data type of returned Keras variable.
-- __name__: String, name of returned Keras variable.
+
+- __size__: <sag>integer</sag>, 행과 열의 수. 
+- __dtype__: <sag>string</sag>, 반환된 케라스 변수의 데이터 타입. 
+- __name__: <sag>string</sag>,  반환된 케라스 변수의 이름. 
 
 __Returns__
 
-A Keras variable, an identity matrix.
+단위행렬, 케라스 변수. 
 
 __Example__
 
