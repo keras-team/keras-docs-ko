@@ -638,22 +638,22 @@ keras.backend.placeholder(shape=None, ndim=None, dtype=None, sparse=False, name=
 ```
 
 
-Instantiates a placeholder tensor and returns it.
+플레이스홀더 텐서를 인스턴스화 한 후 반환합니다.
 
 __Arguments__
 
-- __shape__: Shape of the placeholder
-    (integer tuple, may include `None` entries).
-- __ndim__: Number of axes of the tensor.
-    At least one of {`shape`, `ndim`} must be specified.
-    If both are specified, `shape` is used.
-- __dtype__: Placeholder type.
-- __sparse__: Boolean, whether the placeholder should have a sparse type.
-- __name__: Optional name string for the placeholder.
+- __shape__: 플레이스홀더의 형식
+    (<sag>integer</sag> 튜플은 <sag>None</sag>요소가 없을수도 있습니다.)
+- __ndim__: 텐서 축의 갯수.
+    적어도 {'shape`, `ndim`} 중 하나는 반드시 명시되어야 합니다.
+    만약 두 요소 모두 명시되었다면, <sag>shape</sag>가 사용됩니다.
+- __dtype__: 플레이스홀더 타입.
+- __sparse__: 불리언 타입<sag>Boolean</sag>,플레이스홀더가 <sag>sparse</sag>타입이어야 하는지에 대한 진리값.
+- __name__: 문자열 플레이스홀더에 대한 선택적인 이름.
 
 __Returns__
 
-Tensor instance (with Keras metadata included).
+케라스의 메타데이터가 포함된 텐서 인스턴스. 
 
 __Examples__
 
@@ -676,15 +676,16 @@ keras.backend.is_placeholder(x)
 ```
 
 
-Returns whether `x` is a placeholder.
+'x'가 플레이스홀더인지 아닌지를 반환한다.
 
 __Arguments__
 
-- __x__: A candidate placeholder.
+- __x__: 한 개의 후보 플레이스홀더.
 
 __Returns__
 
-Boolean.
+
+불리언 값.
     
 ----
 
@@ -696,15 +697,15 @@ keras.backend.shape(x)
 ```
 
 
-Returns the symbolic shape of a tensor or variable.
+텐서 또는 변수의 기호 형식을 반환합니다.
 
 __Arguments__
 
-- __x__: A tensor or variable.
+- __x__: 한 개의 텐서 또는 변수. 
 
 __Returns__
 
-A symbolic shape (which is itself a tensor).
+텐서 그 자체의 기호형식.
 
 __Examples__
 
