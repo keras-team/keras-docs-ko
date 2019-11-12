@@ -6,23 +6,23 @@
 keras.layers.Dense(units, activation=None, use_bias=True, kernel_initializer='glorot_uniform', bias_initializer='zeros', kernel_regularizer=None, bias_regularizer=None, activity_regularizer=None, kernel_constraint=None, bias_constraint=None)
 ```
 
-일반적인 완전 연결 신경망 층<sub>densely-connected NN layer</sub>.
+일반적인 완전 연결 신경망 층<sub>densely connected layer</sub>.
 
-`Dense`는 `output = activation(dot(input, kernel) + bias)` 을 실행합니다.
-여기서 `activation`은 `activation` 인자로 전달되는 원소 단위<sub>element-wise</sub> 활성화 함수이고,
+`Dense`는 `output = activation(dot(input, kernel) + bias)`을 실행합니다.
+여기서 `activation`은 `activation` 인자로 전달되는 원소별<sub>element-wise</sub> 활성화 함수이고,
 `kernel`은 층에서 만들어진 가중치 행렬<sub>weight matrix</sub>입니다.
-`bias`는 층에서 만들어진 편향<sub>bias</sub> 벡터이며 `'use_bias=True'`인 경우만 적용 가능합니다.
+`bias`는 층에서 만들어진 편향<sub>bias</sub> 벡터이며 `'use_bias=True'`인 경우에만 적용 가능합니다.
 
-참고: 층의 입력 랭크가 2보다 클 경우, `kernel`과의 내적<sub>dot product</sub>을 하기 전에 층의 차원을 1D 벡터로 형태를 바꿔야합니다.
+참고: 층의 입력 텐서의 랭크가 2보다 클 경우, `kernel`과의 내적<sub>dot product</sub>을 하기 전에 1D 벡터로 형태를 변환해야 합니다.
 
 __예시__
 
 ```python
-# 시퀀스 모델의 첫 번째 층
+# Sequential 모델의 첫 번째 층.
 model = Sequential()
 model.add(Dense(32, input_shape=(16,)))
 # 모델은 (*, 16) 형태의 배열을 입력으로 받고
-# (*, 32) 형태의 배열을 출력합니다
+# (*, 32) 형태의 배열을 출력합니다.
 
 # 첫 번째 층 이후에는,
 # 입력의 크기를 지정하지 않아도 됩니다.
@@ -31,26 +31,17 @@ model.add(Dense(32))
 
 __인자__
 
-- __units__: 양의 `int`, 출력 공간의 차원.
-- __activation__: 사용할 활성화 함수
-  ([활성화 함수](../activations.md)를 참고하십시오).
-  따로 설정하지 않으면, 활성화 함수가 적용되지 않습니다.
-  (즉, "linear" 활성화 함수: `a(x) = x`).
-- __use_bias__: `bool`. 층이 편향 벡터를 사용하는지 여부.
-- __kernel_initializer__: `kernel` 가중치 행렬의 초기화<sub>initalizer</sub> 함수
-  ([초기값 함수](../initializers.md)를 참고하십시오).
-- __bias_initializer__: 편향 벡터의 초기값 함수
-  ([초기값 함수](../initializers.md)를 참고하십시오).
-- __kernel_regularizer__: `kernel` 가중치 행렬에 적용되는 규제<sub>regularizer</sub> 함수
-  ([규제 함수](../regularizers.md)를 참고하십시오).
-- __bias_regularizer__: 편향 벡터에 적용되는 규제 함수
-  ([규제 함수](../regularizers.md)를 참고하십시오).
-- __activity_regularizer__: 층의 출력값(층의 “활성화” 값)에 적용되는 규제 함수
-  ([규제 함수](../regularizers.md)를 참고하십시오).
-- __kernel_constraint__: `kernel` 가중치 행렬에 적용되는 제약<sub>constraints</sub> 
-  ([제약](../constraints.md)을 참고하십시오).
-- __bias_constraint__: 편향 벡터에 적용하는 제약
-  ([제약](../constraints.md)을 참고하십시오).
+- __units__: 양의 `int`. 출력값의 차원 크기를 결정합니다.
+- __activation__: 사용할 활성화 함수입니다. 기본값은 `None`이며, 이 경우 활성화 함수가 적용되지 않습니다(`a(x) = x`). 참고: [활성화 함수](../activations.md)
+- __use_bias__: `bool`. 층의 연산에 편향을 적용할지 여부를 결정합니다.
+- __kernel_initializer__: `kernel` 가중치 행렬의 초기화 함수를 결정합니다. 이 가중치는 입력값에 곱해져서 선형변환하는 연산에 사용됩니다. 참고: [초기화 함수](../initializers.md)
+- __bias_initializer__: 편향 벡터의 초기화 함수를 결정합니다. 참고: [초기화 함수](../initializers.md)
+- __kernel_regularizer__: `kernel` 가중치 행렬에 적용할 규제 함수<sub>regularizer</sub>를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __bias_regularizer__: 편향 벡터에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __activity_regularizer__: 층의 출력값에 적용할 규제 함수를 결정합니다. 참고: [규제 함수](../regularizers.md)
+- __kernel_constraint__: `kernel` 가중치 행렬에 적용할 제약<sub>constraints</sub>을 결정합니다. 참고: [제약](../constraints.md))
+- __bias_constraint__: 편향 벡터에 적용할 제약을 결정합니다. 참고: [제약](../constraints.md))
+
 
 __입력 형태__
 
@@ -78,14 +69,13 @@ keras.layers.Activation(activation)
 
 __인자__
 
-- __activation__:  Theano나 Tensorflow 또는 다른 곳에서 사용하는 활성화 함수의 이름
-  ([활성화 함수](../activations.md)를 참고하십시오)
+- __activation__:  Theano나 TensorFlow 또는 다른 곳에서 사용하는 활성화 함수의 이름 문자열. 참고: [활성화 함수](../activations.md)
 
 __입력 형태__
 
-임의의 형태입니다. 모델의 첫 번째 층으로 Activation층을
-사용할 때 키워드 인자 `input_shape`로 형태를 지정합니다. 
-`input_shape`는 정수 튜플<sub>tuple of integers</sub>로 샘플 축을 포함하지 않습니다.
+임의의 형태입니다. 모델의 첫 번째 층으로 `Activation`층을
+사용하려면 키워드 인자 `input_shape`로 형태를 지정해야 합니다. 
+`input_shape`는 `int`로 이루어진 튜플로 샘플 축을 포함하지 않습니다.
 
 __출력 형태__
 
@@ -104,18 +94,18 @@ keras.layers.Dropout(rate, noise_shape=None, seed=None)
 
 입력에 드롭아웃을 적용합니다.
 
-드롭아웃은 학습 과정 중 업데이트를 할 때  `rate` 의 비율에 따라 입력 유닛을 무작위로 0으로 설정합니다. 이는 과적합을 방지하는데 도움이 됩니다.
+드롭아웃은 학습 과정 중 업데이트를 할 때  `rate`의 비율에 따라 입력 유닛을 무작위로 0으로 설정합니다. 이는 과적합을 방지하는데 도움이 됩니다.
 
 __인자__
 
-- __rate__: 0과 1사이 `float`. 드롭시킬 입력 유닛의 비율.
+- __rate__: 0과 1사이의 `float`. 0으로 설정할 입력 유닛의 비율입니다.
 - __noise_shape__: 입력과 곱하게 되는 이진 드롭아웃 마스크의
-  형태를 나타내는 1D 정수 텐서.
+  형태를 나타내는 1D 정수 텐서입니다.
   예를 들어, 입력이 `(batch_size, timesteps, features)`의
   형태를 가지는 경우, 드롭아웃 마스크를
   모든 시간 단계에 대해서 동일하게 적용하고 싶다면
   `noise_shape=(batch_size, 1, features)`를 사용하면 됩니다.
-- __seed__: 난수<sub>random</sub> 시드로 사용할 파이썬 정수형.
+- __seed__: `int`. 난수 생성에 사용할 시드를 정합니다.
 
 __참고__
 
@@ -136,15 +126,7 @@ keras.layers.Flatten(data_format=None)
 
 __인자__
 
-- __data_format__: `string`,
-  입력 차원의 순서를 지정할수 있으며 `'channels_last'` (기본값) 혹은 `'channels_first'` 중 하나를 지정합니다.              
-  이 인자는 모델을 하나의 데이터 형식에서 다른 형식으로
-  바꿀 때 가중치 순서를 보존할 때 이용됩니다.
-  `'channels_last'`는 `(batch, ..., channels)` 형태의 입력에 대응되고, `'channels_first'`는 `(batch, channels, ...)` 형태의
-  입력에 대응합니다.
-  기본 값은 `~/.keras/keras.json`에 위치한
-  케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-  따로 설정하지 않으면 `'channels_last'`으로 설정이 됩니다.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `'channels_last'`(기본값) 또는 `'channels_first'` 가운데 하나를 지정합니다. 입력 형태가 `(batch, time, ..., channels)`로 채널 정보가 마지막에 올 경우 `'channels_last'`를, `(batch, time, channels, ...)`로 채널 정보가 먼저 올 경우 `'channels_first'`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `'channels_last'`를 기본값으로 적용합니다. 
 
 __예시__
 
