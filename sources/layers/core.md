@@ -296,7 +296,7 @@ keras.layers.RepeatVector(n)
 
 ```
 
-입력을 n회 반복합니다.
+입력을 `n`회 반복합니다.
 
 __예시__
 
@@ -304,16 +304,16 @@ __예시__
 model = Sequential()
 model.add(Dense(32, input_dim=32))
 # 현재: model.output_shape == (None, 32)
-# 참고: `None`은 배치 차원입니다
+# 참고: `None`은 배치 차원입니다.
 
 model.add(RepeatVector(3))
-# 현재: model.output_shape == (None, 3, 32)
+# 현재: model.output_shape == (None, 3, 32).
 
 ```
 
 __인자__
 
-- __n__: 정수, 반복 인자.
+- __n__: `int`, 반복 인자.
 
 __입력 형태__
 
@@ -335,12 +335,12 @@ keras.layers.Lambda(function, output_shape=None, mask=None, arguments=None)
 
 ```
 
-사용자가 생성한 임의의 표현을 `Layer` 객체로 래핑<sub>wrap</sub>합니다.
+임의의 표현식을 `Layer` 객체로 래핑하는 함수입니다.
 
 __예시__
 
 ```python
-# x -> x^2 층를 더합니다
+# x -> x^2 층을 추가합니다.
 model.add(Lambda(lambda x: x ** 2))
 
 ```
@@ -348,7 +348,7 @@ model.add(Lambda(lambda x: x ** 2))
 ```python
 # 입력의 음성 부분과 양성 부분의
 # 연결을 반환하는
-# 층을 더합니다.
+# 층을 추가합니다.
 
 def antirectifier(x):
     x -= K.mean(x, axis=1, keepdims=True)
@@ -359,7 +359,7 @@ def antirectifier(x):
 
 def antirectifier_output_shape(input_shape):
     shape = list(input_shape)
-    assert len(shape) == 2  # 2D 탠서만 유효합니다.
+    assert len(shape) == 2  # 2D 텐서만 유효합니다.
     shape[-1] *= 2
     return tuple(shape)
 
@@ -370,7 +370,7 @@ model.add(Lambda(antirectifier,
 
 ```python
 # 두 입력 텐서의 아다마르 곱과
-# 합을 반환하는 층을 더합니다.
+# 합을 반환하는 층을 추가합니다.
 
 def hadamard_product_sum(tensors):
     out1 = tensors[0] * tensors[1]
@@ -380,7 +380,7 @@ def hadamard_product_sum(tensors):
 def hadamard_product_sum_output_shape(input_shapes):
     shape1 = list(input_shapes[0])
     shape2 = list(input_shapes[1])
-    assert shape1 == shape2  # 그렇지 않으면 아다마르 곱이 성립하지 않습니다
+    assert shape1 == shape2  # 형태가 다르면 아다마르 곱이 성립하지 않습니다.
     return [tuple(shape1), tuple(shape2[:-1])]
 
 x1 = Dense(32)(input_1)
@@ -392,22 +392,22 @@ x_hadamard, x_sum = layer([x1, x2])
 
 __인자__
 
-- __function__: 평가할 함수.
-  첫 번째 인자로 텐서 혹은 텐서 리스트를 입력을 받습니다.
-- __output_shape__: 함수를 통해 예측되는 출력 형태.
+- __function__: 임의의 표현식 또는 함수. 함수는
+  첫 번째 인자로 텐서 혹은 텐서의 리스트를 입력 받아야 합니다.
+- __output_shape__: 함수의 출력 형태.
   Theano를 사용하는 경우에만 유효합니다. 튜플 혹은 함수가 될 수 있습니다.
   튜플인 경우, 첫 번째 차원만 차원을 지정합니다.
-  샘플 차원이 입력 차원과 동일하다고 가정하거나(`output_shape = (input_shape[0], ) + output_shape`)
-   혹은, 입력이 `None`이고 샘플 차원 또한 `None`이라고 가정합니다. ( `output_shape = (None, ) + output_shape`)
-  함수인 경우, 전체 형태를 입력 함수의 형태로 지정 합니다. (`output_shape = f(input_shape)`
-- __mask__: 없음(마스크를 하지 않는다) 또는 임베딩용 입력 마스크 텐서. 
-- __arguments__: 함수에 전달하는 키워드 인자의 딕셔너리<sub>Dictionary</sub>
+  샘플 차원은 입력 차원과 동일하다고 가정하거나(`output_shape = (input_shape[0], ) + output_shape`),
+  입력이 `None`인 경우 샘플 차원 또한 `None`이라고 가정합니다(`output_shape = (None, ) + output_shape`).
+  함수인 경우, 전체 형태를 입력 함수의 형태로 지정 합니다(`output_shape = f(input_shape)`).
+- __mask__: `None`(마스킹을 하지 않는 경우) 또는 임베딩에 사용할 마스크 텐서. 
+- __arguments__: 함수에 전달하는 키워드 인자의 딕셔너리.
 
 __입력 형태__
 
-임의의 형태입니다. 모델의 첫 번째 층으로 Lambda층을
-사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
-`input_shape`는 정수 튜플로 샘플 축을 포함하지 않습니다.
+임의의 형태입니다. 모델의 첫 번째 층으로 `Lambda`층을
+사용하려면 키워드 인자 `input_shape`로 형태를 지정합니다. 
+`input_shape`는 `int`로 이루어진 튜플로 배치 축을 포함하지 않습니다.
 
 __출력 형태__
 
@@ -427,7 +427,7 @@ keras.layers.ActivityRegularization(l1=0.0, l2=0.0)
 
 ```
 
-입력 엑티비티에 대한 비용 함수<sub>cost function</sub>를 업데이트를 시행할 때 사용하는 층입니다.
+손실 함수에 항을 추가하여 입력값에 규제화 함수를 적용합니다. 
 
 __인자__
 
@@ -436,13 +436,13 @@ __인자__
 
 __입력 형태__
 
-임의의 형태입니다. 모델의 첫 번째 층으로 ActivityRegularization층을
-사용할 때 키워드 인자 `input_shape`을 함께 사용하여 형태를 지정합니다. 
-`input_shape`는 정수 튜플로 샘플 축을 포함하지 않습니다.
+임의의 형태입니다. 모델의 첫 번째 층으로 `ActivityRegularization`층을
+사용하려면 키워드 인자 `input_shape`로 형태를 지정합니다. 
+`input_shape`는 `int`로 이루어진 튜플로 배치 축을 포함하지 않습니다.
 
 __출력 형태__
 
-입력 형태와 동일.
+입력 형태와 동일합니다.
     
 
 ------
@@ -456,9 +456,9 @@ keras.layers.Masking(mask_value=0.0)
 
 ```
 
-시간 단계를 건너 뛰기 위해 마스크 값을 이용해 시퀀스<sub>sequence</sub>를 마스킹합니다.
+시간 단계를 건너 뛰기 위해 마스크 값을 이용해 시퀀스를 마스킹합니다.
 
-주어진 샘플 시간 단계<sub>time step</sub>의 모든 특성<sub>feature</sub>이 `mask_value`와 동일하고 마스킹을 지원한다면 모든 하위 층에서 해당되는 샘플 시간 단계를 마스킹합니다.
+주어진 샘플 시간 단계<sub>time step</sub>의 모든 특징<sub>feature</sub>이 `mask_value`와 동일하고 마스킹을 지원한다면 모든 하위 층에서 해당되는 샘플 시간 단계를 마스킹합니다.
 
 아직 하위 층이 마스킹을 지원하지 않는데 입력 마스킹을
 받아들이는 경우 예외가 발생합니다.
@@ -467,10 +467,10 @@ __예시__
 
 LSTM 층에 전달할 `(samples, timesteps, features)`의
 형태를 가진 NumPy 데이터 배열 `x`를 생각해 봅시다.
-샘플 시간 단계에 대한 특성이 없는 경우, 시간 단계 #3의 샘플 #0과 시간 단계 #5의 샘플 #2를 마스킹하고 싶다면, 다음을 실행하면 됩니다
+샘플 시간 단계에 대한 특성이 없는 경우, 시간 단계 #3의 샘플 #0과 시간 단계 #5의 샘플 #2를 마스킹하고 싶다면, 다음을 실행하면 됩니다.
 
-- `x[0, 3, :] = 0.`, 그리고 `x[2, 5, :] = 0.`으로 설정합니다
-- LSTM층 전에 `mask_value=0.`의 `Masking` 층을 삽입합니다
+- `x[0, 3, :] = 0.`, 그리고 `x[2, 5, :] = 0.`으로 설정합니다.
+- LSTM층 전에 `mask_value=0.`의 `Masking` 층을 삽입합니다.
 
 ```python
 model = Sequential()
@@ -481,7 +481,7 @@ model.add(LSTM(32))
 
 __인자__
 
-    __mask_value__: None 혹은 건너뛸 마스크 값
+__mask_value__: `None` 또는 건너뛸 마스크 값.
 
 ------
 
@@ -497,20 +497,20 @@ keras.layers.SpatialDropout1D(rate)
 드롭아웃의 공간적 1D 버전.
 
 이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 원소 대신
-1D 특성 맵 전체를 드롭시킵니다. 초기 합성곱<sub>convolution</sub>층에서는 특성 맵 내 인접한 프레임<sub>frame</sub>이 강한 상관관계를 보이는 경우가 많습니다. 보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를 감소시킵니다.
-이러한 경우, SpatialDropout1D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
+1D 특징 맵 전체를 드롭시킵니다. 초기 합성곱 층에서는 특징 맵 내 인접한 프레임들이 강한 상관관계를 보이는 경우가 많습니다. 이 경우 일반적인 드롭아웃으로는 활성값들을 정규화 시키지 못하고 그저 학습 속도를 감소시키는 것과 같은 결과를 낳습니다.
+이때 `SpatialDropout1D`을 사용하면 특징 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
 __인자__
 
-    __rate__: `0`과 `1`사이 `float`. 드롭시킬 입력 유닛의 비율.
+- __rate__: `0`과 `1`사이의 `float`. 드롭시킬 입력 유닛의 비율.
 
 __입력 형태__
 
-    `(samples, timesteps, channels)`형태의 3D 텐서.
+`(samples, timesteps, channels)`형태의 3D 텐서.
 
 __출력 형태__
 
-    입력 형태와 동일.
+입력 형태와 동일.
 
 __참고__
 
@@ -518,6 +518,7 @@ __참고__
   https://arxiv.org/abs/1411.4280)
 
 ------
+
 
 <span style="float:right;">[[source]](https://github.com/keras-team/keras/blob/master/keras/layers/core.py#L178)</span>
 
@@ -531,31 +532,25 @@ keras.layers.SpatialDropout2D(rate, data_format=None)
 드롭아웃의 공간적 2D 버전.
 
 이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 원소 대신
-1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱층에서는 특성 맵 내 인접한 픽셀<sub>Pixels</sub>이 강한 상관관계를 보이는 경우가 많습니다.
-보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를 감소시킵니다.
-이러한 경우, SpatialDropout2D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
+2D 특징 맵 전체를 드롭시킵니다. 초기 합성곱 층에서는 특징 맵 내 인접한 픽셀들이 강한 상관관계를 보이는 경우가 많습니다.
+이 경우 일반적인 드롭아웃으로는 활성값들을 정규화 시키지 못하고 그저 학습 속도를 감소시키는 것과 같은 결과를 낳습니다.
+이때 `SpatialDropout2D`을 사용하면 특징 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
 __인수__
 
-- __rate__: 0과 1사이 부동소수점. 드롭시킬 입력 유닛의 비율.
-
-- __data_format__: 입력 차원의 순서를 지정할수 있으며   `'channels_last'` (기본값)     혹은 `'channels_first'` 중 하나를 지정 합니다.
-  `'channels_first'` 모드에서는, 채널 차원(깊이)의 인덱스 1이며,
-  `'channels_last'` 모드에서는, 채널 차원(깊이)의 인덱스 3입니다. 
-  기본값은 `~/.keras/keras.json`에 위치한
-  케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-  따로 설정하지 않으면, `'channels_last'`으로 설정이 됩니다.
+- __rate__: `0`과 `1`사이의 `float`. 드롭시킬 입력 유닛의 비율.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `'channels_last'`(기본값) 또는 `'channels_first'` 가운데 하나를 지정합니다. 입력 형태가 `(batch, time, ..., channels)`로 채널 정보가 마지막에 올 경우 `'channels_last'`를, `(batch, time, channels, ...)`로 채널 정보가 먼저 올 경우 `'channels_first'`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `'channels_last'`를 기본값으로 적용합니다. 
 
 __입력 형태__
 
-data_format=`'channels_first'`인 경우
+- data_format=`'channels_first'`인 경우:
 `(samples, channels, rows, cols)` 형태의 4D 텐서.
-data_format=`'channels_last'`인 경우
+- data_format=`'channels_last'`인 경우:
 `(samples, rows, cols, channels)` 형태의 4D 텐서.
 
 __출력 형태__
 
-입력 형태와 동일.
+입력 형태와 동일합니다.
 
 __참고__
 
@@ -576,29 +571,25 @@ keras.layers.SpatialDropout3D(rate, data_format=None)
 드롭아웃의 공간적 3D 버전.
 
 이 버전은 드롭아웃과 같은 함수를 수행하지만, 개별적 원소 대신
-1D 특성 맵 전체를 드롭시킵니다.  초기 합성곱층에서는 특성 맵 내 인접한 복셀<sub>Voxels</sub>이 강한 상관관계를 보이는 경우가 많습니다.
-보통의 드롭아웃은 활성화 함수들을 정규화 시키지 못하고 그저 학습 속도를 감소시킵니다.
-이러한 경우, SpatialDropout3D은 일반적인 드롭아웃 대신 특성 맵 사이의 독립성을 유지하는데 도움을 줍니다.
+3D 특징 맵 전체를 드롭시킵니다. 초기 합성곱 층에서는 특징 맵 내 인접한 복셀들이 강한 상관관계를 보이는 경우가 많습니다.
+이 경우 일반적인 드롭아웃으로는 활성값들을 정규화 시키지 못하고 그저 학습 속도를 감소시키는 것과 같은 결과를 낳습니다.
+이때 `SpatialDropout3D`을 사용하면 특징 맵 사이의 독립성을 유지하는데 도움을 줍니다.
 
 __인자__
 
-- __rate__: 0과 1사이 부동소수점. 드롭시킬 입력 유닛의 비율.
-- __data_format__: 입력 차원의 순서를 지정할수 있으며 `'channels_last'` (기본값) 혹은 `'channels_first'` 중 하나를 지정합니다. 
-  `'channels_first'` 모드에서는, 채널 차원(깊이)의 인덱스 1이며, `'channels_last'` 모드에서는, 채널 차원(깊이)의인덱스 4이다.
-  기본값은 `~/.keras/keras.json`에 위치한
-  케라스 구성 파일의 `image_data_format` 값으로 지정됩니다.
-  따로 설정하지 않으면, `'channels_last'`으로 설정이 됩니다.
+- __rate__: `0`과 `1`사이의 `float`. 드롭시킬 입력 유닛의 비율.
+- __data_format__: `str`. 입력 데이터의 차원 순서를 정의하는 인자로 `'channels_last'`(기본값) 또는 `'channels_first'` 가운데 하나를 지정합니다. 입력 형태가 `(batch, time, ..., channels)`로 채널 정보가 마지막에 올 경우 `'channels_last'`를, `(batch, time, channels, ...)`로 채널 정보가 먼저 올 경우 `'channels_first'`를 선택합니다. 케라스 설정 `~/.keras/keras.json`파일에 있는 `image_data_format`값을 기본값으로 사용하며, 해당 값이 없는 경우 자동으로 `'channels_last'`를 기본값으로 적용합니다. 
 
 __입력 형태__
 
-data_format=`'channels_first'`인 경우
+- data_format=`'channels_first'`인 경우:
 `(samples, channels, dim1, dim2, dim3)` 형태의 5D 텐서.
-data_format=`'channels_last'`인 경우
+- data_format=`'channels_last'`인 경우:
 `(samples, dim1, dim2, dim3, channels)` 형태의 5D 텐서.
 
 __출력 형태__
 
-입력 형태와 동일.
+입력 형태와 동일합니다.
 
 __참고__
 
