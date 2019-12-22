@@ -3910,19 +3910,18 @@ keras.backend.binary_crossentropy(target, output, from_logits=False)
 ```
 
 
-Binary crossentropy between an output tensor and a target tensor.
+출력 텐서와 목표 텐서 사나의 이진 크로스엔트로피.
 
 __Arguments__
 
-- __target__: A tensor with the same shape as `output`.
-- __output__: A tensor.
-- __from_logits__: Whether `output` is expected to be a logits tensor.
-    By default, we consider that `output`
-    encodes a probability distribution.
+- __target__: `output`과 같은 형식의 텐서.
+- __output__: 텐서.
+- __from_logits__: logits 텐서가 출력값으로 나올 것인지에 대한 값.
+    기본적으로 'output'은 확률분포를 내포 합니다. 
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -3934,15 +3933,15 @@ keras.backend.sigmoid(x)
 ```
 
 
-Element-wise sigmoid.
+요소별로 sigmoid.
 
 __Arguments__
 
-- __x__: A tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -3963,19 +3962,21 @@ keras.backend.hard_sigmoid(x)
 ```
 
 
-Segment-wise linear approximation of sigmoid.
 
-Faster than sigmoid.
+각 세그먼트의 sigmoid 선형 근사.
+
+sigmoid보다 더 빠르다.
 Returns `0.` if `x < -2.5`, `1.` if `x > 2.5`.
 In `-2.5 <= x <= 2.5`, returns `0.2 * x + 0.5`.
 
+
 __Arguments__
 
-- __x__: A tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -3997,15 +3998,15 @@ keras.backend.tanh(x)
 ```
 
 
-Element-wise tanh.
+요소별로 tanh.
 
 __Arguments__
 
-- __x__: A tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -4025,21 +4026,22 @@ def tanh(x):
 keras.backend.dropout(x, level, noise_shape=None, seed=None)
 ```
 
+전체 텐서를 스케일링하는 동안 'x'의 항목을 임의로 설정합니다. 
 
-Sets entries in `x` to zero at random, while scaling the entire tensor.
 
 __Arguments__
 
-- __x__: tensor
-- __level__: fraction of the entries in the tensor
-    that will be set to 0.
-- __noise_shape__: shape for randomly generated keep/drop flags,
-    must be broadcastable to the shape of `x`
-- __seed__: random seed to ensure determinism.
+- __x__: 텐서.
+- __level__: 텐서 항목의 일부가 0으로 설정됩니다.
+- __noise_shape__: `x`의 형식을 확장해야 하므로 유지/삭제 플래그를 랜덤으로 생성하는 형식.
+- __seed__: 결정성을 보장하기 위한 난수생성.
+
 
 __Returns__
 
-A tensor.
+
+텐서.
+
 __Numpy implementation__
 
 
@@ -4073,16 +4075,17 @@ keras.backend.l2_normalize(x, axis=None)
 ```
 
 
-Normalizes a tensor wrt the L2 norm alongside the specified axis.
+지정된 축을 따라 L2 norm으로 텐서를 정규화 시킨다. 
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __axis__: axis along which to perform normalization.
+- __x__: 텐서 또는 변수.
+- __axis__: axis along which to perform normalization. 정규화를 수행하는 축.
+
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -4104,19 +4107,19 @@ keras.backend.in_top_k(predictions, targets, k)
 ```
 
 
-Returns whether the `targets` are in the top `k` `predictions`.
+`targets`이 최상위`k` `predictions`에 있는지를 반환합니다.
 
 __Arguments__
 
-- __predictions__: A tensor of shape `(batch_size, classes)` and type `float32`.
-- __targets__: A 1D tensor of length `batch_size` and type `int32` or `int64`.
-- __k__: An `int`, number of top elements to consider.
+- __predictions__: `float32`타입과  `(batch_size, classes)`형식의 텐서.
+- __targets__: `batch_size` and type `int32` or `int64`의 길이의 1차원 텐서. 
+- __k__: An `int`, 고려해야 할 최상위 요소의 수. 
 
 __Returns__
 
 A 1D tensor of length `batch_size` and type `bool`.
-`output[i]` is `True` if `predictions[i, targets[i]]` is within top-`k`
-values of `predictions[i]`.
+만약 `predictions[i, targets[i]]` 이 top-`k`내에 있다면, `output[i]` 이 `True`.
+`predictions[i]'의 값. 
     
 ----
 
@@ -4132,21 +4135,23 @@ keras.backend.conv1d(x, kernel, strides=1, padding='valid', data_format=None, di
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __kernel__: kernel tensor.
-- __strides__: stride integer.
-- __padding__: string, `"same"`, `"causal"` or `"valid"`.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-- __dilation_rate__: integer dilate rate.
+- __x__: 텐서 또는 변수. 
+- __kernel__: 커널 텐서.
+- __strides__: 정수형 스트라이드. 
+- __padding__: <sag>string</sag>, `"same"`, `"causal"` or `"valid"`.
+- __data_format__: <sag>string</sag>, `"channels_last"` or `"channels_first"`.
+- __dilation_rate__: 정수 확장 비율.
+
+
 
 __Returns__
 
-A tensor, result of 1D convolution.
+1차원 컨볼루션 연산 결과, 텐서 값.
 
 __Raises__
 
-- __ValueError__: If `data_format` is neither
-    `"channels_last"` nor `"channels_first"`.
+- __ValueError__:`data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
+    
     
 ----
 
@@ -4158,28 +4163,29 @@ keras.backend.conv2d(x, kernel, strides=(1, 1), padding='valid', data_format=Non
 ```
 
 
-2D convolution.
+2차원 컨볼루션.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __kernel__: kernel tensor.
-- __strides__: strides tuple.
-- __padding__: string, `"same"` or `"valid"`.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-    Whether to use Theano or TensorFlow/CNTK data format
-    for inputs/kernels/outputs.
-- __dilation_rate__: tuple of 2 integers.
+- __x__: 텐서 또는 변수.
+- __kernel__: 커널 텐서.
+- __strides__: 스트라이드 튜플.
+- __padding__: <sag>string</sag>, `"same"` or `"valid"`.
+- __data_format__: <sag>string</sag>, `"channels_last"` or `"channels_first"`.
+     inputs/kernels/outputs에 대한 Theano 또는 TensorFlow/CNTK데이터 형식을 사용할 여부.
+- __dilation_rate__: 2 integers의 튜플.
+
+
 
 __Returns__
 
-A tensor, result of 2D convolution.
+텐서, 2차원 컨볼루션 연산 결과.
 
 __Raises__
 
-- __ValueError__: If `data_format` is neither
-    `"channels_last"` nor `"channels_first"`.
-    
+- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
+
+
 ----
 
 ### conv2d_transpose
@@ -4190,28 +4196,28 @@ keras.backend.conv2d_transpose(x, kernel, output_shape, strides=(1, 1), padding=
 ```
 
 
-2D deconvolution (i.e. transposed convolution).
+2차원의 트렌스포즈된 컨볼루션 연산을 수행합니다.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __kernel__: kernel tensor.
-- __output_shape__: 1D int tensor for the output shape.
-- __strides__: strides tuple.
-- __padding__: string, `"same"` or `"valid"`.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-    Whether to use Theano or TensorFlow/CNTK data format
-    for inputs/kernels/outputs.
-- __dilation_rate__: tuple of 2 integers.
+
+- __x__: 텐서 또는 변수.
+- __kernel__: 커널 텐서. 
+- __output_shape__: 1D int tensor 출력 형식에 대해 1차원 <sag>int</sag>텐서 
+- __strides__: 스트라이드 튜플. 
+- __padding__: <sag>string</sag>, `"same"` 또는 `"valid"`.
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
+    inputs/kernels/outputs에 대한 Theano 또는 TensorFlow/CNTK 데이터 형태 
+- __dilation_rate__: 2 <sag>integers</sag>의 튜플.
+
 
 __Returns__
 
-A tensor, result of transposed 2D convolution.
+2차원의 트렌스포즈된 컨볼루션 결과, 텐서.
 
 __Raises__
 
-- __ValueError__: If `data_format` is neither
-    `"channels_last"` nor `"channels_first"`.
+- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
     
 ----
 
@@ -4223,26 +4229,28 @@ keras.backend.separable_conv1d(x, depthwise_kernel, pointwise_kernel, strides=1,
 ```
 
 
-1D convolution with separable filters.
+분리가능한 필터와 1차원 컨볼루션 연산.
 
 __Arguments__
 
 - __x__: input tensor
-- __depthwise_kernel__: convolution kernel for the depthwise convolution.
-- __pointwise_kernel__: kernel for the 1x1 convolution.
-- __strides__: stride integer.
-- __padding__: string, `"same"` or `"valid"`.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
+- __depthwise_kernel__: 깊이 컨볼루션을 위한 컨볼루션 커널.
+- __pointwise_kernel__:  1x1 컨볼루션에 대한 커널.
+- __strides__: 스트라이드 정수형.
+- __padding__: <sag>string</sag>, `"same"` or `"valid"`.
+- __data_format__: <sag>string</sag>, `"channels_last"` or `"channels_first"`.
 - __dilation_rate__: integer dilation rate.
+
+
 
 __Returns__
 
-Output tensor.
+
+출력 텐서.
 
 __Raises__
 
-- __ValueError__: If `data_format` is neither
-    `"channels_last"` nor `"channels_first"`.
+- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
     
 ----
 
@@ -4254,27 +4262,28 @@ keras.backend.separable_conv2d(x, depthwise_kernel, pointwise_kernel, strides=(1
 ```
 
 
-2D convolution with separable filters.
+분리가능한 필터와 2차원 컨볼루션 연산.
 
 __Arguments__
 
 - __x__: input tensor
-- __depthwise_kernel__: convolution kernel for the depthwise convolution.
-- __pointwise_kernel__: kernel for the 1x1 convolution.
+- __depthwise_kernel__: 깊이 컨볼루션을 위한 컨볼루션 커널.
+- __pointwise_kernel__:  1x1 컨볼루션에 대한 커널.
 - __strides__: strides tuple (length 2).
-- __padding__: string, `"same"` or `"valid"`.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-- __dilation_rate__: tuple of integers,
-    dilation rates for the separable convolution.
+- __padding__: <sag>string</sag>, `"same"` or `"valid"`.
+- __data_format__: <sag>string</sag>, `"channels_last"` or `"channels_first"`.
+- __dilation_rate__: integers의 튜플,
+    분리가능한 컨볼루션의 팽창률.
+    
 
 __Returns__
 
-Output tensor.
+출력 텐서.
+
 
 __Raises__
 
-- __ValueError__: If `data_format` is neither
-    `"channels_last"` nor `"channels_first"`.
+- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
     
 ----
 
@@ -4286,26 +4295,26 @@ keras.backend.depthwise_conv2d(x, depthwise_kernel, strides=(1, 1), padding='val
 ```
 
 
-2D convolution with separable filters.
+분리가능한 필터로 2차원 컨볼루션 연산.
 
 __Arguments__
 
 - __x__: input tensor
-- __depthwise_kernel__: convolution kernel for the depthwise convolution.
+- __depthwise_kernel__: 깊이 별 컨볼루션 연산을 위한 컨볼루션 커널.
 - __strides__: strides tuple (length 2).
 - __padding__: string, `"same"` or `"valid"`.
 - __data_format__: string, `"channels_last"` or `"channels_first"`.
-- __dilation_rate__: tuple of integers,
-    dilation rates for the separable convolution.
+- __dilation_rate__: integers의 튜플,
+    분리가능한 컨볼루션의 팽창률.
 
 __Returns__
 
-Output tensor.
+출력텐서.
+
 
 __Raises__
 
-- __ValueError__: If `data_format` is neither
-    `"channels_last"` nor `"channels_first"`.
+- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
     
 ----
 
@@ -4317,27 +4326,26 @@ keras.backend.conv3d(x, kernel, strides=(1, 1, 1), padding='valid', data_format=
 ```
 
 
-3D convolution.
+3차원 컨볼루션 연산.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __kernel__: kernel tensor.
-- __strides__: strides tuple.
-- __padding__: string, `"same"` or `"valid"`.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-    Whether to use Theano or TensorFlow/CNTK data format
-    for inputs/kernels/outputs.
-- __dilation_rate__: tuple of 3 integers.
+- __x__: 텐서 또는 변수.
+- __kernel__: 커널 텐서. 
+- __strides__: 스트라이드 튜플. 
+- __padding__: <sag>string</sag>, `"same"` 또는 `"valid"`.
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
+    inputs/kernels/outputs에 대한 Theano 또는 TensorFlow/CNTK 데이터 형태 
+- __dilation_rate__: 2 <sag>integers</sag>의 튜플.
+
 
 __Returns__
 
-A tensor, result of 3D convolution.
+텐서, 3차원 컨볼루션 연산 결과.
 
 __Raises__
 
-- __ValueError__: If `data_format` is neither
-    `"channels_last"` nor `"channels_first"`.
+- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
     
 ----
 
@@ -4349,27 +4357,27 @@ keras.backend.conv3d_transpose(x, kernel, output_shape, strides=(1, 1, 1), paddi
 ```
 
 
-3D deconvolution (i.e. transposed convolution).
+3차원 트렌스포즈 컨볼루션.
 
 __Arguments__
 
-- __x__: input tensor.
-- __kernel__: kernel tensor.
-- __output_shape__: 1D int tensor for the output shape.
-- __strides__: strides tuple.
-- __padding__: string, "same" or "valid".
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-    Whether to use Theano or TensorFlow/CNTK data format
-    for inputs/kernels/outputs.
+- __x__: 텐서 또는 변수.
+- __kernel__: 커널 텐서. 
+- __output_shape__: 결과값 형식에 대한 1차원 정수형 텐서.
+- __strides__: 스트라이드 튜플. 
+- __padding__: <sag>string</sag>, `"same"` 또는 `"valid"`.
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
+    inputs/kernels/outputs에 대한 Theano 또는 TensorFlow/CNTK 데이터 형태 
+- __dilation_rate__: 2 <sag>integers</sag>의 튜플.
+
 
 __Returns__
 
-A tensor, result of transposed 3D convolution.
+트렌스포즈된 3차원 컨볼루션 연산결과 텐서.
 
 __Raises__
 
-- __ValueError__: If `data_format` is neither
-    `"channels_last"` nor `"channels_first"`.
+- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
     
 ----
 
@@ -4381,28 +4389,27 @@ keras.backend.pool2d(x, pool_size, strides=(1, 1), padding='valid', data_format=
 ```
 
 
-2D Pooling.
+2차원 풀링연산.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __pool_size__: tuple of 2 integers.
-- __strides__: tuple of 2 integers.
-- __padding__: string, `"same"` or `"valid"`.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-- __pool_mode__: string, `"max"` or `"avg"`.
+- __x__: 텐서 또는 변수.
+- __pool_size__: 2 <sag>integers</sag>의 튜플.
+- __strides__: 2 <sag>integers</sag>의 튜플.
+- __padding__: <sag>string</sag>, `"same"` 또는 `"valid"`.
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
+- __pool_mode__: <sag>string</sag>, `"max"`  `"avg"`.
+
 
 __Returns__
 
-A tensor, result of 2D pooling.
+2차원 풀링 연산 결과값의 텐서.
 
 __Raises__
 
-- __ValueError__: if `data_format` is
+- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
 
-neither `"channels_last"` or `"channels_first"`.
-
-- __ValueError__: if `pool_mode` is neither `"max"` or `"avg"`.
+- __ValueError__: 만약 `pool_mode` 라면 `"max"` 또는 `"avg"` 둘 다 아니다.
     
 ----
 
