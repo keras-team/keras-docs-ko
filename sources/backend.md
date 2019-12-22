@@ -2567,7 +2567,7 @@ __Arguments__
 
 __Returns__
 
-A bool tensor.
+불리언 텐서.
 
 __Numpy implementation__
 
@@ -2588,16 +2588,16 @@ keras.backend.less_equal(x, y)
 ```
 
 
-Element-wise truth value of (x <= y).
+(x <= y)의 진리값.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __y__: Tensor or variable.
+- __x__: 텐서 또는 변수.
+- __y__: 텐서 또는 변수.
 
 __Returns__
 
-A bool tensor.
+불리언 텐서.
 
 __Numpy implementation__
 
@@ -2618,16 +2618,17 @@ keras.backend.maximum(x, y)
 ```
 
 
-Element-wise maximum of two tensors.
+두 텐서사이 최댓값.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __y__: Tensor or variable.
+
+- __x__: 텐서 또는 변수.
+- __y__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+한 개의 텐서.
 
 __Numpy implementation__
 
@@ -2648,16 +2649,16 @@ keras.backend.minimum(x, y)
 ```
 
 
-Element-wise minimum of two tensors.
+두 텐서 사이 최솟값.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __y__: Tensor or variable.
+- __x__: 텐서 또는 변수.
+- __y__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
@@ -2678,15 +2679,15 @@ keras.backend.sin(x)
 ```
 
 
-Computes sin of x element-wise.
+x의 sin 계산.
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+한 개의 텐서.
     
 ----
 
@@ -2698,15 +2699,15 @@ keras.backend.cos(x)
 ```
 
 
-Computes cos of x element-wise.
+x의 cos 계산.
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2718,20 +2719,20 @@ keras.backend.normalize_batch_in_training(x, gamma, beta, reduction_axes, epsilo
 ```
 
 
-Computes mean and std for batch then apply batch_normalization on batch.
+배치에 대한 평균과 표준을 계산 한 다음 배치에 배치 정규화를 적용합니다. 
 
 __Arguments__
 
-- __x__: Input tensor or variable.
-- __gamma__: Tensor by which to scale the input.
-- __beta__: Tensor with which to center the input.
-- __reduction_axes__: iterable of integers,
-    axes over which to normalize.
-- __epsilon__: Fuzz factor.
+- __x__: Input 텐서 또는 변수.
+- __gamma__: 입력 스케일링에 사용되는 텐서.
+- __beta__: 입력을 중앙에 위치시키는 텐서.
+- __reduction_axes__: 정수 반복가능, 정규화 할 축.
+- __epsilon__: 퍼지 상수.
+
 
 __Returns__
 
-A tuple length of 3, `(normalized_tensor, mean, variance)`.
+ `(normalized_tensor, mean, variance)` 인자의 튜플 길이.
     
 ----
 
@@ -2743,25 +2744,27 @@ keras.backend.batch_normalization(x, mean, var, beta, gamma, axis=-1, epsilon=0.
 ```
 
 
-Applies batch normalization on x given mean, var, beta and gamma.
+평균, 분산, 베타와 감마가 주어진 x에 대해 배치 정규화를 수행합니다. 
 
 I.e. returns:
 `output = (x - mean) / sqrt(var + epsilon) * gamma + beta`
 
 __Arguments__
 
-- __x__: Input tensor or variable.
-- __mean__: Mean of batch.
-- __var__: Variance of batch.
-- __beta__: Tensor with which to center the input.
-- __gamma__: Tensor by which to scale the input.
-- __axis__: Integer, the axis that should be normalized.
+
+- __x__: 입력 텐서 또는 변수.
+- __mean__: 배치의 평균 
+- __var__: 배치의 분산
+- __beta__: 입력을 중앙에 위치시키는 텐서. 
+- __gamma__: 입력 스케일링에 의한 텐서.
+- __axis__: Integer, 정규화 시켜야 하는 축.
     (typically the features axis).
-- __epsilon__: Fuzz factor.
+- __epsilon__: 퍼지 상수.
+
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2773,16 +2776,17 @@ keras.backend.concatenate(tensors, axis=-1)
 ```
 
 
-Concatenates a list of tensors alongside the specified axis.
+지정된 축에따른 텐서의 리스트 연결.
+
 
 __Arguments__
 
-- __tensors__: list of tensors to concatenate.
-- __axis__: concatenation axis.
+- __tensors__: 연결 할 텐서의 목록.
+- __axis__: 연결 축.
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2794,16 +2798,17 @@ keras.backend.reshape(x, shape)
 ```
 
 
-Reshapes a tensor to the specified shape.
+텐서를 지정한 형식으로 다시 재정의 합니다. 
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __shape__: Target shape tuple.
+- __x__: 텐서 또는 변수.
+- __shape__: 대상이 되는 형식튜플.
+
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2815,17 +2820,17 @@ keras.backend.permute_dimensions(x, pattern)
 ```
 
 
-Permutes axes in a tensor.
+텐서의 축을 치환합니다.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __pattern__: A tuple of
-    dimension indices, e.g. `(0, 2, 1)`.
+- __x__: 텐서 또는 변수.
+- __pattern__: `(0, 2, 1)`처럼 인덱스들의 차원의 튜플.
+
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2837,25 +2842,24 @@ keras.backend.resize_images(x, height_factor, width_factor, data_format, interpo
 ```
 
 
-Resizes the images contained in a 4D tensor.
+4차원 텐서에 포함된 이미지들을 재조정합니다.
 
 __Arguments__
 
-- __x__: Tensor or variable to resize.
-- __height_factor__: Positive integer.
-- __width_factor__: Positive integer.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-- __interpolation__: A string, one of `nearest` or `bilinear`.
+- __x__: 텐서 또는 변수. to resize.
+- __height_factor__: 양의 정수.
+- __width_factor__: 양의 정수.
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
+- __interpolation__: <sag>string</sag>, `nearest` 또는 `bilinear` 중 하나.
+
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Raises__
 
-- __ValueError__: if `data_format` is
-
-neither `"channels_last"` or `"channels_first"`.
+- __ValueError__: `data_format`이면 'channels_last' 또는 'channels_first' 모두 아니다.
     
 ----
 
@@ -2867,25 +2871,24 @@ keras.backend.resize_volumes(x, depth_factor, height_factor, width_factor, data_
 ```
 
 
-Resizes the volume contained in a 5D tensor.
+5차원 텐서에 포함된 볼륨 크기 조정.
 
 __Arguments__
 
-- __x__: Tensor or variable to resize.
-- __depth_factor__: Positive integer.
-- __height_factor__: Positive integer.
-- __width_factor__: Positive integer.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
+- __x__: 텐서 또는 변수. to resize.
+- __depth_factor__: 양의 정수.
+- __height_factor__: 양의 정수.
+- __width_factor__: 양의 정수.
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
+
 
 __Returns__
 
-A tensor.
+한 개의 텐서.
 
 __Raises__
 
-- __ValueError__: if `data_format` is
-
-neither `"channels_last"` or `"channels_first"`.
+- __ValueError__: `data_format`이면 'channels_last' 또는 'channels_first' 모두 아니다.
     
 ----
 
@@ -2897,20 +2900,19 @@ keras.backend.repeat_elements(x, rep, axis)
 ```
 
 
-Repeats the elements of a tensor along an axis, like `np.repeat`.
+`np.repeat`처럼 축을따라 텐서의 요소를 반복.
 
-If `x` has shape `(s1, s2, s3)` and `axis` is `1`, the output
-will have shape `(s1, s2 * rep, s3)`.
+`x` 형식이 `(s1, s2, s3)` 이고, `axis` 이 `1`이면, 출력형식은 (s1, s2 * rep, s3)`입니다.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __rep__: Python integer, number of times to repeat.
-- __axis__: Axis along which to repeat.
+- __x__: 텐서 또는 변수.
+- __rep__: <sag>integer</sag>, 반복횟수.
+- __axis__: 반복 할 축
 
 __Returns__
 
-A tensor.
+한 개의 텐서.
     
 ----
 
@@ -2922,19 +2924,18 @@ keras.backend.repeat(x, n)
 ```
 
 
-Repeats a 2D tensor.
+2차원 텐서를 반복합니다.
+만약 x가 (samples, dim)형식이고 'n'이 2라면, 출력값은 형식이 (samples, 2, dim)가 됩니다.
 
-if `x` has shape (samples, dim) and `n` is `2`,
-the output will have shape `(samples, 2, dim)`.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __n__: Python integer, number of times to repeat.
+- __x__: 텐서 또는 변수.
+- __n__: <sag>integer</sag>, 반복횟수.
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
