@@ -1664,16 +1664,19 @@ keras.backend.gather(reference, indices)
 ```
 
 
-Retrieves the elements of indices `indices` in the tensor `reference`.
+텐서 `reference`에서 `indices`의 인덱스 요소를 검색합니다.
+
 
 __Arguments__
 
-- __reference__: A tensor.
-- __indices__: An integer tensor of indices.
+
+- __reference__: 텐서.
+- __indices__: 인덱스의 <sag>integer</sag>텐서.
 
 __Returns__
 
-A tensor of same type as `reference`.
+
+<sag>reference</sag>와 같은 타입의 텐서.
 
 __Numpy implementation__
 
@@ -1694,22 +1697,24 @@ keras.backend.max(x, axis=None, keepdims=False)
 ```
 
 
-Maximum value in a tensor.
+텐서에 대한 최댓값.
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to find maximum values. If `None` (default), finds the
-    maximum over all dimensions.
-- __keepdims__: A boolean, whether to keep the dimensions or not.
-    If `keepdims` is `False`, the rank of the tensor is reduced
-    by 1. If `keepdims` is `True`,
-    the reduced dimension is retained with length 1.
+
+
+- __x__: 텐서 또는 변수. 
+- __axis__: [-rank(x), rank(x)) 범위의 <sag>integers</sag>의 튜플 또는 <sag>integer</sag>
+    최댓값을 찾기위한 축. 만약 <sag>None</sag>이라면 모든 차원에 대한 최댓값을 찾습니다. 
+- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지에 대한 여부. 
+    `keepdims`가`False` 인 경우 텐서의 rank가 1만큼 감소합니다
+    `keepdims`가`True`이면 축소 된 치수는 길이 1로 유지됩니다.
+    
 
 __Returns__
 
-A tensor with maximum values of `x`.
+
+x의 최대값에 대한 텐서. 
 
 __Numpy implementation__
 
