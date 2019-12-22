@@ -2270,15 +2270,15 @@ keras.backend.log(x)
 ```
 
 
-Element-wise log.
+log 취하기.
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2290,26 +2290,28 @@ keras.backend.logsumexp(x, axis=None, keepdims=False)
 ```
 
 
-Computes log(sum(exp(elements across dimensions of a tensor))).
+log(sum(exp(elements across dimensions of a tensor)))를 계산합니다. 
+log(sum(exp(x))) 보다 수치적으로 안정된 함수입니다.
+큰 입력값의 exp를 취해서 오버플로가 발생하고
+작은 입력값의 log를 가져와서 언더플로가 발생하는 것을 방지합니다.
 
-This function is more numerically stable than log(sum(exp(x))).
-It avoids overflows caused by taking the exp of large inputs and
-underflows caused by taking the log of small inputs.
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: axis: An integer or list of integers in [-rank(x), rank(x)),
-    the axes to compute the logsumexp. If `None` (default), computes
-    the logsumexp over all dimensions.
-- __keepdims__: A boolean, whether to keep the dimensions or not.
-    If `keepdims` is `False`, the rank of the tensor is reduced
-    by 1. If `keepdims` is `True`, the reduced dimension is
-    retained with length 1.
+
+- __x__: 텐서 또는 변수. 
+- __axis__: An integer or list of integers in [-rank(x), rank(x)) 범위 내 
+    <sag>integers</sag>의 리스트 또는 <sag>integers</sag>로서, <sag>logsunexp</sag>을 계산한 축. 
+    만약 <sag>None</sag>이라면 모든 차원에 대해 <sag>logsunexp</sag>을 계산합니다. 
+- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지 아닌지에 대한 진리값. 
+    만약 `keepdims` 가 <sag>False</sag>라면, 텐서의 랭크가 1만큼 감소합니다. 
+    만약 `keepdims` 가 <sag>True</sag>라면, 줄어든 차원이 길이 1만큼 유지됩니다. 
+
 
 __Returns__
 
-The reduced tensor.
+감소된 텐서. 
+
 __Numpy implementation__
 
 
@@ -2331,17 +2333,17 @@ keras.backend.round(x)
 ```
 
 
-Element-wise rounding to the closest integer.
+요소별로 가장 가까운 수로 반올림.
+0.5.의 경우, 가장 가까운 짝수로 반올림 보내는 방식을 사용합니다.
 
-In case of tie, the rounding mode used is "half to even".
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수. 
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2353,15 +2355,15 @@ keras.backend.sign(x)
 ```
 
 
-Element-wise sign.
+요소별로 sign 취하기.
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -2373,16 +2375,18 @@ keras.backend.pow(x, a)
 ```
 
 
-Element-wise exponentiation.
+요소별로 지수화.
+
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __a__: Python integer.
+- __x__: 텐서 또는 변수.
+- __a__: <sag>integer</sag>
 
 __Returns__
 
-A tensor.
+텐서.
+
 __Numpy implementation__
 
 
@@ -2402,17 +2406,18 @@ keras.backend.clip(x, min_value, max_value)
 ```
 
 
-Element-wise value clipping.
+간격이 주어지면 간격 가장자리에서 값이 잘립니다. (클리핑)
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __min_value__: Python float, integer or tensor.
-- __max_value__: Python float, integer or tensor.
+- __x__: 텐서 또는 변수. 
+- __min_value__: <sag>float</sag>, <sag>integer</sag> or tensor.
+- __max_value__: <sag>float</sag>, <sag>integer</sag> or tensor.
 
 __Returns__
 
-A tensor.
+텐서
+
 __Numpy implementation__
 
 
@@ -2432,16 +2437,17 @@ keras.backend.equal(x, y)
 ```
 
 
-Element-wise equality between two tensors.
+두 텐서 사이의 대등함을 비교.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __y__: Tensor or variable.
+- __x__: 텐서 또는 변수.
+- __y__: 텐서 또는 변수.
+
 
 __Returns__
 
-A bool tensor.
+불리언 텐서.
 
 __Numpy implementation__
 
@@ -2461,17 +2467,16 @@ def equal(x, y):
 keras.backend.not_equal(x, y)
 ```
 
-
-Element-wise inequality between two tensors.
+두 텐서사이 동등하지 않음을 판정.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __y__: Tensor or variable.
+- __x__: 텐서 또는 변수.
+- __y__: 텐서 또는 변수.
 
 __Returns__
 
-A bool tensor.
+불리언 텐서.
 
 __Numpy implementation__
 
@@ -2492,16 +2497,16 @@ keras.backend.greater(x, y)
 ```
 
 
-Element-wise truth value of (x > y).
+(x > y)의 진리값.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __y__: Tensor or variable.
+- __x__: 텐서 또는 변수.
+- __y__: 텐서 또는 변수.
 
 __Returns__
 
-A bool tensor.
+불리언 텐서.
 
 __Numpy implementation__
 
@@ -2522,16 +2527,17 @@ keras.backend.greater_equal(x, y)
 ```
 
 
-Element-wise truth value of (x >= y).
+(x >= y)의 진리값.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __y__: Tensor or variable.
+- __x__: 텐서 또는 변수.
+- __y__: 텐서 또는 변수.
+
 
 __Returns__
 
-A bool tensor.
+불리언 텐서.
 
 __Numpy implementation__
 
@@ -2552,7 +2558,7 @@ keras.backend.less(x, y)
 ```
 
 
-Element-wise truth value of (x < y).
+(x < y)의 진리값.
 
 __Arguments__
 
