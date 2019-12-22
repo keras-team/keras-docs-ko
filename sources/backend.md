@@ -157,7 +157,7 @@ keras.backend.epsilon()
 ```
 
 
-수치 식에 사용되는 fuzz factor의 값을 반환합니다.
+수치 식에 사용되는 fuzz factor(엡실론의<sag>float</sag>값)을 반환합니다.
 
 __Returns__
 
@@ -184,7 +184,7 @@ keras.backend.set_epsilon(e)
 
 __Arguments__
 
-- __e__: float. New value of epsilon.
+- __e__: <sag>float</sag>, 엡실론의 새로운 값.
 
 __Example__
 
