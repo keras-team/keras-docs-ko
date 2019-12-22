@@ -738,15 +738,15 @@ keras.backend.int_shape(x)
 ```
 
 
-Returns the shape of tensor or variable as a tuple of int or None entries.
+<sag>int</sag> 또는 <sag>None</sag>요소의 튜플로서 변수 또는 텐서의 형식을 반환합니다. 
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수. 
 
 __Returns__
 
-A tuple of integers (or None entries).
+<sag>integers</sag>(또는 <sag>None</sag>)의 튜플.
 
 __Examples__
 
@@ -780,15 +780,17 @@ keras.backend.ndim(x)
 ```
 
 
-Returns the number of axes in a tensor, as an integer.
+<sag>integer</sag>타입으로, 텐서의 축의 갯수를 반환합니다. 
+
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-Integer (scalar), number of axes.
+
+축의 갯 수, 정수형(스칼라값)으로 반환합니다.
 
 __Examples__
 
@@ -822,15 +824,15 @@ keras.backend.dtype(x)
 ```
 
 
-Returns the dtype of a Keras tensor or variable, as a string.
+<sag>string</sag>타입으로 케라스 변수 또는 텐서의 <sag>dtype</sag>을 반환한다.
 
 __Arguments__
 
-- __x__: Tensor or variable.
+- __x__: 텐서 또는 변수. 
 
 __Returns__
 
-String, dtype of `x`.
+'x'의 dtype<sag>string</sag>
 
 __Examples__
 
@@ -869,15 +871,15 @@ keras.backend.eval(x)
 ```
 
 
-Evaluates the value of a variable.
+변수의 값을 평가한다. 
 
 __Arguments__
 
-- __x__: A variable.
+- __x__: 한 개의 변수. 
 
 __Returns__
 
-A Numpy array.
+넘파이 배열.
 
 __Examples__
 
