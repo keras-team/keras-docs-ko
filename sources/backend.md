@@ -2923,25 +2923,24 @@ keras.backend.arange(start, stop=None, step=1, dtype='int32')
 ```
 
 
-Creates a 1D tensor containing a sequence of integers.
 
-The function arguments use the same convention as
-Theano's arange: if only one argument is provided,
-it is in fact the "stop" argument and "start" is 0.
+정수 시퀀스를 포함하는 1D 텐서를 생성합니다.
+함수 인자는 "Theano 's arange (단 하나의 인수 만 제공되면 실제로 "stop"인수이고 "start"는 0입니다.)"와 같은 규칙을 사용합니다.
 
-The default type of the returned tensor is `'int32'` to
-match TensorFlow's default.
+
+반환 된 텐서의 기본 타입은` 'int32'`입니다.
+TensorFlow의 기본값과 일치합니다.
 
 __Arguments__
 
-- __start__: Start value.
-- __stop__: Stop value.
-- __step__: Difference between two successive values.
-- __dtype__: Integer dtype to use.
+- __start__: 시작 값.
+- __stop__: 정지 값.
+- __step__: 두 개의 연속적인 값의 차이.
+- __dtype__: <sag>Integer</sag> dtype
 
 __Returns__
 
-An integer tensor.
+정수형 텐서.
 
 
 ----
@@ -2954,17 +2953,17 @@ keras.backend.tile(x, n)
 ```
 
 
-Creates a tensor by tiling `x` by `n`.
+x를 n으로 나열하여 생성합니다. 
+
 
 __Arguments__
 
-- __x__: A tensor or variable
-- __n__: A list of integer. The length must be the same as the number of
-    dimensions in `x`.
+- __x__: 텐서 또는 배열.
+- __n__: <sag>integer</sag>의 리스트. x의 차원의 갯수와 그 길이가 같다.
 
 __Returns__
 
-A tiled tensor.
+나열된 텐서.
     
 ----
 
@@ -2976,15 +2975,15 @@ keras.backend.flatten(x)
 ```
 
 
-Flatten a tensor.
+텐서를 합쳐서 나열합니다.
 
 __Arguments__
 
-- __x__: A tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor, reshaped into 1-D
+텐서를 1차원으로 형식을 재구성하여 나열합니다.
     
 ----
 
@@ -2996,17 +2995,18 @@ keras.backend.batch_flatten(x)
 ```
 
 
-Turn a nD tensor into a 2D tensor with same 0th dimension.
 
-In other words, it flattens each data samples of a batch.
+n차원 텐서를 같은 0차원의 2차원 텐서로 변형합니다.
+즉, 배치의 각 데이터 샘플을 위 차원의 변형에 맞게 변환합니다.
+
 
 __Arguments__
 
-- __x__: A tensor or variable.
+- __x__: 텐서 또는 변수.
 
 __Returns__
 
-A tensor.
+텐서.
     
 ----
 
@@ -3018,16 +3018,17 @@ keras.backend.expand_dims(x, axis=-1)
 ```
 
 
-Adds a 1-sized dimension at index "axis".
+축의 인덱스값에 1만큼의 차원을 더한다.
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: Position where to add a new axis.
+- __x__: 텐서 또는 변수.
+- __axis__: 새로운 축을 추가한 위치.
 
 __Returns__
 
-A tensor with expanded dimensions.
+
+확장한 차원들의 텐서.
     
 ----
 
@@ -3039,16 +3040,20 @@ keras.backend.squeeze(x, axis)
 ```
 
 
-Removes a 1-dimension from the tensor at index "axis".
+
+축의 인덱스 값에 해당하는 텐서를 1차원의 크기만큼 제거합니다.
+
 
 __Arguments__
 
-- __x__: A tensor or variable.
-- __axis__: Axis to drop.
+- __x__: 텐서 또는 변수.
+- __axis__: 없앨 축.
 
 __Returns__
 
-A tensor with the same data as `x` but reduced dimensions.
+
+
+줄어든 차원의 x와 동일한 데이터를 가지는 텐서.
     
 ----
 
@@ -3060,17 +3065,16 @@ keras.backend.temporal_padding(x, padding=(1, 1))
 ```
 
 
-Pads the middle dimension of a 3D tensor.
+3차원 텐서의 중간차원을 채웁니다.
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __padding__: Tuple of 2 integers, how many zeros to
-    add at the start and end of dim 1.
+- __x__: 텐서 또는 변수.
+- __padding__: 2 <sag>integers</sag>의 튜플, 차원 1의 시작과 끝에 얼마나 많은 0을 추가할 지에 대한 수치.
 
 __Returns__
 
-A padded 3D tensor.
+3차원 텐서를 채워 넣습니다.
     
 ----
 
@@ -3082,23 +3086,25 @@ keras.backend.spatial_2d_padding(x, padding=((1, 1), (1, 1)), data_format=None)
 ```
 
 
-Pads the 2nd and 3rd dimensions of a 4D tensor.
+
+4차원 텐서에서 2차원과 3차원을 채워 넣습니다.
+
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __padding__: Tuple of 2 tuples, padding pattern.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
+- __x__: 텐서 또는 변수.
+- __padding__: 2 튜플들의 튜플, 채워진 패턴.
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
 
 __Returns__
 
-A padded 4D tensor.
+
+채워진 4차원 텐서.
 
 __Raises__
 
-- __ValueError__: if `data_format` is
+- __ValueError__: `data_format`이면 'channels_last' 또는 'channels_first' 모두 아니다.
 
-neither `"channels_last"` or `"channels_first"`.
     
 ----
 
@@ -3110,31 +3116,29 @@ keras.backend.spatial_3d_padding(x, padding=((1, 1), (1, 1), (1, 1)), data_forma
 ```
 
 
-Pads 5D tensor with zeros along the depth, height, width dimensions.
+깊이, 높이, 너비 치수를 따라 0으로 채워진 5차원 텐서를 채웁니다.
 
-Pads these dimensions with respectively
-"padding[0]", "padding[1]" and "padding[2]" zeros left and right.
+"padding [0]", "padding [1]"및 "padding [2]"는 왼쪽과 오른쪽으로 0인 치수를 각각 채 웁니다.
 
-For 'channels_last' data_format,
-the 2nd, 3rd and 4th dimension will be padded.
-For 'channels_first' data_format,
-the 3rd, 4th and 5th dimension will be padded.
+'channels_last'data_format의 경우 2 차원, 3 차원 및 4 차원이 채워집니다.
+'channels_first'data_format의 경우 3 차원, 4 차원 및 5 차원이 채워집니다.
+
 
 __Arguments__
 
-- __x__: Tensor or variable.
-- __padding__: Tuple of 3 tuples, padding pattern.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
+- __x__: 텐서 또는 변수.
+- __padding__: 3 튜플들의 튜플, 채워진 패턴.
+- __data_format__: <sag>string</sag>, `"channels_last"` 또는 `"channels_first"`.
+
 
 __Returns__
 
-A padded 5D tensor.
+
+채워진 5차원 텐서.
 
 __Raises__
 
-- __ValueError__: if `data_format` is
-
-neither `"channels_last"` or `"channels_first"`.
+- __ValueError__: `data_format`이면 'channels_last' 또는 'channels_first' 모두 아니다.
 
 
 ----
@@ -3147,16 +3151,16 @@ keras.backend.stack(x, axis=0)
 ```
 
 
-Stacks a list of rank `R` tensors into a rank `R+1` tensor.
+랭크`R` 텐서의 <sag>list</sag>를 랭크`R + 1` 텐서에 쌓습니다.
 
 __Arguments__
 
-- __x__: List of tensors.
-- __axis__: Axis along which to perform stacking.
+- __x__: 텐서들의 <sag>list</sag>
+- __axis__: 텐서를 쌓을 축.
 
 __Returns__
 
-A tensor.
+텐서.
 
 __Numpy implementation__
 
