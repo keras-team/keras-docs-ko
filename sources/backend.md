@@ -32,7 +32,7 @@
 }
 ```
 
-`backend` 필드의 값을 `'theano'`, `'tensorflow'` 또는 `'cntk'`로 바꿔주는 것만으로 새로운 백엔드를 사용해 케라스 코드를 실행할 수 있습니다. 
+`backend` 필드의 값을 `"theano"`, `"tensorflow"` 또는 `"cntk"`로 바꿔주는 것만으로 새로운 백엔드를 사용해 케라스 코드를 실행할 수 있습니다. 
 
 또는 아래와 같이 환경 변수 `KERAS_BACKEND`를 정의해 설정 파일의 내용을 대체할 수도 있습니다. 
 
@@ -41,7 +41,7 @@ KERAS_BACKEND=tensorflow python -c "from keras import backend"
 Using TensorFlow backend.
 ```
 
-Keras에서는 `'tensorflow'`, `'theano'` 그리고 `'cntk'`외에도 사용자가 지정한 임의의 백엔드를 사용할 수 있습니다. 만약 `my_module`이라는 이름의 Python 모듈을 백엔드로 사용하고자 한다면 `keras.json` 파일의 `'backend'` 변수 값을 아래와 같이 바꿔주어야 합니다.  
+Keras에서는 `"tensorflow"`, `"theano"` 그리고 `"cntk"`외에도 사용자가 지정한 임의의 백엔드를 사용할 수 있습니다. 만약 `my_module`이라는 이름의 Python 모듈을 백엔드로 사용하고자 한다면 `keras.json` 파일의 `"backend"` 변수 값을 아래와 같이 바꿔주어야 합니다.  
 
 ```
 {
@@ -73,69 +73,67 @@ Keras에서는 `'tensorflow'`, `'theano'` 그리고 `'cntk'`외에도 사용자�
 
 각각의 설정은 `$HOME/.keras/keras.json` (윈도우 사용자의 경우 `%USERPROFILE%/.keras/keras.json`) 파일을 수정하여 변경할 수 있습니다.  
 
-* `image_data_format`: `str`. either `"channels_last"` or `"channels_first"`. It specifies which data format convention Keras will follow. (`keras.backend.image_data_format()` returns it.)
-  - For 2D data (e.g. image), `"channels_last"` assumes `(rows, cols, channels)` while `"channels_first"` assumes `(channels, rows, cols)`. 
-  - For 3D data, `"channels_last"` assumes `(conv_dim1, conv_dim2, conv_dim3, channels)` while `"channels_first"` assumes `(channels, conv_dim1, conv_dim2, conv_dim3)`.
-* `epsilon`: Float, a numeric fuzzing constant used to avoid dividing by zero in some operations.
-* `floatx`: String, `"float16"`, `"float32"`, or `"float64"`. Default float precision.
-* `backend`: String, `"tensorflow"`, `"theano"`, or `"cntk"`.
+* `image_data_format`: `str`. 이미지 데이터 처리시 입력받을 데이터의 차원 순서를 정의하는 인자로 `'channels_last'` 또는 `'channels_first'` 가운데 하나를 지정합니다. (`keras.backend.image_data_format()`은 이 지정값을 반환합니다.)
+  - 2D 데이터의 경우 (예: 이미지), `"channels_last"`는 `(rows, cols, channels)`의 차원 순서를, `"channels_first"`는 `(channels, rows, cols)`의 차원 순서를 따릅니다. 
+  - 3D 데이터의 경우, `"channels_last"`는 `(conv_dim1, conv_dim2, conv_dim3, channels)`의 차원 순서를, `"channels_first"`는 `(channels, conv_dim1, conv_dim2, conv_dim3)`의 차원 순서를 따릅니다.
+* `epsilon`: `float`. 0으로 나눗셈을 해서 발생하는 오류를 피하기 위해 특정 연산에서 분모에 더할 작은 상수값을 정합니다.
+* `floatx`: `str`. `"float16"`, `"float32"`, 또는 `"float64"` 가운데 기본 부동소수점 단위를 지정합니다.
+* `backend`: `str`. `"tensorflow"`, `"theano"`, 또는 `"cntk"` 가운데 기본 백엔드를 지정합니다.
 
 ----
 
-## 추상화된 Keras 백엔드를 사용하여 새로운 코드 작성하기
+## 추상화된 케라스 백엔드를 사용하여 새로운 코드 작성하기
 
-만약 Theano(`th`)와 Tensorflow(`tf`) 모두와 호환이 되는 Keras 모듈을 작성하고자 한다면,
-아래와 같이 추상화된 Keras 백엔드 API를 사용해야 합니다. 
+만약 Theano(`th`)와 Tensorflow(`tf`) 모두와 호환이 되는 케라스 모듈을 작성하고자 한다면 아래와 같이 추상화된 백엔드 API를 사용해야 합니다. 
 
-다음과 같이 백엔드 모듈을 사용할 수 있습니다.
+다음과 같이 백엔드 모듈을 불러올 수 있습니다.
 
 ```python
 from keras import backend as K
 ```
 
-아래는 입력 `placeholder`를 인스턴스화하는 코드입니다. 
-이는 `tf.placeholder()`, `th.tensor.matrix()` 또는 `th.tensor.tensor()` 등을 실행하는 것과 같습니다.
+아래는 입력의 `placeholder` 인스턴스를 만드는 코드입니다. `tf.placeholder()`, `th.tensor.matrix()` 또는 `th.tensor.tensor()` 등을 실행하는 것과 같습니다.
 
 ```python
 inputs = K.placeholder(shape=(2, 4, 5))
-# also works:
+# 이하 역시 작동합니다.
 inputs = K.placeholder(shape=(None, 4, 5))
-# also works:
+# 이하 역시 작동합니다.
 inputs = K.placeholder(ndim=3)
 ```
 
-아래의 코드는 변수를 인스턴스화합니다. `tf.Variable()` 또는 `th.shared()`를 실행하는 것과 같습니다.
+아래는 변수<sub>variable</sub> 인스턴스를 만드는 코드입니다. `tf.Variable()` 또는 `th.shared()`를 실행하는 것과 같습니다.
 
 ```python
 import numpy as np
 val = np.random.random((3, 4, 5))
 var = K.variable(value=val)
 
-# all-zeros variable:
+# 모든 초기값이 0인 변수를 생성.
 var = K.zeros(shape=(3, 4, 5))
-# all-ones:
+# 모든 초기값이 1인 변수를 생성.
 var = K.ones(shape=(3, 4, 5))
 ```
 
 구현에 필요한 대부분의 텐서 연산들은 사용법이 TensorFlow나 Theano와 크게 다르지 않습니다. 
 
 ```python
-# Initializing Tensors with Random Numbers
-b = K.random_uniform_variable(shape=(3, 4), low=0, high=1) # Uniform distribution
-c = K.random_normal_variable(shape=(3, 4), mean=0, scale=1) # Gaussian distribution
+# 무작위 초기값을 가진 텐서를 생성하기.
+b = K.random_uniform_variable(shape=(3, 4), low=0, high=1) # 균등 분포
+c = K.random_normal_variable(shape=(3, 4), mean=0, scale=1) # 가우시안 분포
 d = K.random_normal_variable(shape=(3, 4), mean=0, scale=1)
 
-# Tensor Arithmetic
+# 텐서 사칙연산
 a = b + c * K.abs(d)
 c = K.dot(a, K.transpose(b))
 a = K.sum(b, axis=1)
 a = K.softmax(b)
 a = K.concatenate([b, c], axis=-1)
-# etc...
+# 등등...
 ```
 
-----
 
+----
 ## 백엔드 함수들
 
 
