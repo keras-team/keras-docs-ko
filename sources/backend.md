@@ -1,33 +1,27 @@
-# Keras 백엔드
+# 케라스 백엔드
 
-## "백앤드"는 무엇인가요? 
+## "백엔드"는 무엇인가요? 
 
-Keras는 딥러닝 모델을 개발하기 위한 고수준의 구성요성 요소를 제공하는 모델 레벨의 라이브러리입니다. Keras는 텐서 곱셈, 합성곱 등의 저수준의 연산을 제공하지 않습니다. 대신 Keras의 "백엔드 엔진" 역할을 하는 특수하고 잘 최적화 된 텐서 라이브러리에 의존합니다. 하나의 단일 텐서 라이브러리를 선택하고 Keras 구현을 해당 라이브러리에 묶는 대신, Keras는 모듈 방식으로 문제를 처리하여 여러 다른 백엔드 엔진들을 Keras에 매끄럽게 연결할 수 있게 합니다.
+케라스는 딥러닝 모델을 블록쌓기처럼 구성요소를 쌓아 만들 수 있게끔 해주는 높은 차원의 모델 수준 라이브러리입니다. 케라스는 단독으로는 텐서들의 곱셈이나 합성곱과 같은 낮은 차원의 직접적인 연산을 지원하지 않습니다. 대신에 텐서 연산에 특화된 라이브러리들을 가져와 "백엔드 엔진"으로 사용합니다. 케라스는 하나의 텐서 연산 라이브러리를 골라 그에 의지하는 대신 모듈 방식으로 문제를 처리하여 서로 다른 백엔드 엔진을 케라스와 매끄럽게 연결하게끔 합니다.
 
-현재 Keras는 **TensorFlow**, **Theano**, 그리고 **CNTK**의 세 가지 백엔드를 지원합니다.
-
-- [TensorFlow](http://www.tensorflow.org/) is an open-source symbolic tensor manipulation framework developed by Google.
-- [Theano](http://deeplearning.net/software/theano/) is an open-source symbolic tensor manipulation framework developed by LISA Lab at   Université de Montréal.
-- [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/) is an open-source toolkit for deep learning developed by Microsoft.
-- [TensorFlow](http://www.tensorflow.org/)는 구글에서 만든 기호텐서 프레임워크 오픈소스입니다.
-- [Theano](http://deeplearning.net/software/theano/)은 Université de Montréal LISA Lab에서 개발한 기호텐서 프레임워크 오픈소스입니다. 
-- [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/)마이크로소프트에서 만든 딥러닝 개발을 위한 오픈소스 툴킷입니다.
+현재 케라스는 **TensorFlow**, **Theano**, 그리고 **CNTK**의 세 가지 백엔드를 지원합니다.
+- [TensorFlow](http://www.tensorflow.org/)는 구글에서 만든 오픈소스 심볼릭 텐서 연산 프레임워크입니다.
+- [Theano](http://deeplearning.net/software/theano/)은 Université de Montréal LISA Lab에서 개발한 오픈소스 심볼릭 텐서 연산 프레임워크입니다. 
+- [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/)마이크로소프트에서 만든 딥러닝 개발용 오픈소스 툴킷입니다.
 
 앞으로 더 많은 백엔드 옵션을 지원할 예정입니다.
 
-----
 
+----
 ## 한 백엔드에서 다른 백엔드로의 전환
 
-Keras를 한 번이라도 실행한 적이 있다면, 아래의 위치에서 Keras 구성 파일을 찾을 수 있습니다.
+케라스를 한 번이라도 실행한 적이 있다면 아래의 위치에서 케라스 설정 파일을 찾을 수 있습니다. **윈도우<sub>Windows</sub> 사용자**의 경우 주소의 `$HOME`을 `%USERPROFILE%`로 바꿔 넣어주시면 됩니다. 
 
 `$HOME/.keras/keras.json`
 
-만약 파일이 없다면, 해당 위치에 구성 파일을 만들 수 있습니다.
+만약 파일이 없는 경우 해당 위치에 설정 파일을 만들 수 있습니다.  
 
-**Windows(윈도우) 사용자를 위한 노트:** `$HOME`을 `%USERPROFILE%`로 바꾸십시오.
-
-기본 구성 파일의 내용은 다음과 같습니다.
+기본 설정 파일의 내용은 다음과 같습니다.
 
 ```
 {
@@ -38,19 +32,16 @@ Keras를 한 번이라도 실행한 적이 있다면, 아래의 위치에서 Ker
 }
 ```
 
-단순히 `backend` 필드의 값을 `"theano"`, `"tensorflow"` 또는 `"cntk"`로 바꿔주는 것 만으로
-새로운 백엔드를 사용해 Keras 코드를 실행할 수 있습니다. 
+`backend` 필드의 값을 `'theano'`, `'tensorflow'` 또는 `'cntk'`로 바꿔주는 것만으로 새로운 백엔드를 사용해 케라스 코드를 실행할 수 있습니다. 
 
-또는 아래와 같이 환경 변수 `KERAS_BACKEND`를 정의해 설정 파일에 정의된 것을 대체할 수도 있습니다. 
+또는 아래와 같이 환경 변수 `KERAS_BACKEND`를 정의해 설정 파일의 내용을 대체할 수도 있습니다. 
 
 ```bash
 KERAS_BACKEND=tensorflow python -c "from keras import backend"
 Using TensorFlow backend.
 ```
 
-Keras에서는 `"tensorflow"`, `"theano"` 그리고 `"cntk"`외에도 사용자가 지정한 임의의 백엔드를 로드하는 것이 가능합니다.
-만약 `my_module`이라는 이름의 Python 모듈을 백엔드로 사용하고자 한다면,
-`keras.json` 파일의 `"backend"` 변수 값을 아래와 같이 바꿔주어야 합니다.  
+Keras에서는 `'tensorflow'`, `'theano'` 그리고 `'cntk'`외에도 사용자가 지정한 임의의 백엔드를 사용할 수 있습니다. 만약 `my_module`이라는 이름의 Python 모듈을 백엔드로 사용하고자 한다면 `keras.json` 파일의 `'backend'` 변수 값을 아래와 같이 바꿔주어야 합니다.  
 
 ```
 {
@@ -61,16 +52,15 @@ Keras에서는 `"tensorflow"`, `"theano"` 그리고 `"cntk"`외에도 사용자�
 }
 ```
 
-사용하고자 하는 외부 백엔드는 반드시 검증된 것이어야 하며,
-`placeholder`, `variable` 그리고 `function` 세 함수들을 지원해야 합니다.
+사용하고자 하는 외부 백엔드는 반드시 검증된 것이어야 하며 `placeholder`, `variable` 그리고 `function`의 세 함수들을 지원해야 합니다.
 
-만약, 외부 백엔드가 필수 항목이 누락되어 유효하지 않은 경우라면, 누락된 항목/항목들에 대한 오류가 기록됩니다.
+만약 필수 항목이 누락되어 백엔드를 사용할 수 없는 경우라면 어느 항목의 누락으로 오류가 발생했는지를 로그에 기록합니다.
+
 
 ----
-
 ## keras.json 상세
 
-`keras.json` 구성 파일은 아래의 설정들을 포함합니다.
+`keras.json` 설정 파일은 아래의 내용으로 이루어져 있습니다.
 
 ```
 {
@@ -81,9 +71,9 @@ Keras에서는 `"tensorflow"`, `"theano"` 그리고 `"cntk"`외에도 사용자�
 }
 ```
 
-`$HOME/.keras/keras.json` 파일을 편집하여 설정을 변경할 수 있습니다.  
+각각의 설정은 `$HOME/.keras/keras.json` (윈도우 사용자의 경우 `%USERPROFILE%/.keras/keras.json`) 파일을 수정하여 변경할 수 있습니다.  
 
-* `image_data_format`: String, either `"channels_last"` or `"channels_first"`. It specifies which data format convention Keras will follow. (`keras.backend.image_data_format()` returns it.)
+* `image_data_format`: `str`. either `"channels_last"` or `"channels_first"`. It specifies which data format convention Keras will follow. (`keras.backend.image_data_format()` returns it.)
   - For 2D data (e.g. image), `"channels_last"` assumes `(rows, cols, channels)` while `"channels_first"` assumes `(channels, rows, cols)`. 
   - For 3D data, `"channels_last"` assumes `(conv_dim1, conv_dim2, conv_dim3, channels)` while `"channels_first"` assumes `(channels, conv_dim1, conv_dim2, conv_dim3)`.
 * `epsilon`: Float, a numeric fuzzing constant used to avoid dividing by zero in some operations.
