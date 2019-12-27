@@ -18,7 +18,7 @@ __인자__
     입력 인자의 순서.
     `'channels_last'`는 `(batch, steps, features)`, `'channels_first'`는 `(batch, features, steps)` 형태를 의미합니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, steps, features)`
@@ -27,7 +27,7 @@ __입력값 형태__
     `(batch_size, features, steps)`
     형태의 3D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, downsampled_steps, features)`
@@ -65,7 +65,7 @@ __인자__
     `image_data_format`에서 설정할 수 있습니다.
     따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, rows, cols, channels)`
@@ -74,7 +74,7 @@ __입력값 형태__
     `(batch_size, channels, rows, cols)`
     형태의 4D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, pooled_rows, pooled_cols, channels)`
@@ -114,7 +114,7 @@ __인자__
     `image_data_format`에서 설정할 수 있습니다.
     따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, spatial_dim1, spatial_dim2, spatial_dim3, channels)`
@@ -123,7 +123,7 @@ __입력값 형태__
     `(batch_size, channels, spatial_dim1, spatial_dim2, spatial_dim3)`
     형태의 5D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, pooled_dim1, pooled_dim2, pooled_dim3, channels)`
@@ -156,7 +156,7 @@ __인자__
     `'channels_last'`는 `(batch, steps, features)`, `'channels_first'`는
     `(batch, features, steps)` 형태를 의미합니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, steps, features)`
@@ -165,7 +165,7 @@ __입력값 형태__
     `(batch_size, features, steps)`
     형태의 3D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, downsampled_steps, features)`
@@ -202,7 +202,7 @@ __인자__
     `image_data_format`에서 설정할 수 있습니다.
     따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, rows, cols, channels)`
@@ -211,7 +211,7 @@ __입력값 형태__
     `(batch_size, channels, rows, cols)`
     형태의 4D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, pooled_rows, pooled_cols, channels)`
@@ -251,7 +251,7 @@ __인자__
     `image_data_format`에서 설정할 수 있습니다.
     따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, spatial_dim1, spatial_dim2, spatial_dim3, channels)`
@@ -260,7 +260,7 @@ __입력값 형태__
     `(batch_size, channels, spatial_dim1, spatial_dim2, spatial_dim3)`
     형태의 5D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, pooled_dim1, pooled_dim2, pooled_dim3, channels)`
@@ -288,7 +288,7 @@ __인자__
     `'channels_last'`는 `(batch, steps, features)`, `'channels_first'`는
     `(batch, features, steps)` 형태를 의미합니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, steps, features)`
@@ -297,7 +297,7 @@ __입력값 형태__
     `(batch_size, features, steps)`
     형태의 3D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 `(batch_size, features)`
 형태의 2D 텐서.
@@ -321,7 +321,7 @@ __인자__
     `'channels_last'`는 `(batch, steps, features)`, `'channels_first'`는
     `(batch, features, steps)` 형태를 의미합니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, steps, features)`
@@ -330,7 +330,7 @@ __입력값 형태__
     `(batch_size, features, steps)`
     형태의 3D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 `(batch_size, features)`
 형태의 2D 텐서.
@@ -357,7 +357,7 @@ __인자__
     `image_data_format`에서 설정할 수 있습니다.
     따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, rows, cols, channels)`
@@ -366,7 +366,7 @@ __입력값 형태__
     `(batch_size, channels, rows, cols)`
     형태의 4D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 `(batch_size, channels)`
 형태의 2D 텐서.
@@ -393,7 +393,7 @@ __인자__
     `image_data_format`에서 설정할 수 있습니다.
     따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, rows, cols, channels)`
@@ -402,7 +402,7 @@ __입력값 형태__
     `(batch_size, channels, rows, cols)`
     형태의 4D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 `(batch_size, channels)`
 형태의 2D 텐서.
@@ -431,7 +431,7 @@ __인자__
     `image_data_format`에서 설정할 수 있습니다.
     따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, spatial_dim1, spatial_dim2, spatial_dim3, channels)`
@@ -440,7 +440,7 @@ __입력값 형태__
     `(batch_size, channels, spatial_dim1, spatial_dim2, spatial_dim3)`
     형태의 5D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 `(batch_size, channels)`
 형태의 2D 텐서.
@@ -468,7 +468,7 @@ __인자__
     `image_data_format`에서 설정할 수 있습니다.
     따로 변경하지 않으면, 기본 설정은 `'channels_last'`입니다.
 
-__입력값 형태__
+__입력 형태__
 
 - `data_format='channels_last'`이면
     `(batch_size, spatial_dim1, spatial_dim2, spatial_dim3, channels)`
@@ -477,7 +477,7 @@ __입력값 형태__
     `(batch_size, channels, spatial_dim1, spatial_dim2, spatial_dim3)`
     형태의 5D 텐서.
 
-__출력값 형태__
+__출력 형태__
 
 `(batch_size, channels)`
 형태의 2D 텐서.
