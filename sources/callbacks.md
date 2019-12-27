@@ -290,7 +290,6 @@ pip으로 텐서플로우를 설치했다면, 다음과 같은 명령줄 입력�
 ```sh
 tensorboard --logdir=/full_path_to_your_logs
 ```
-When using a backend other than TensorFlow, TensorBoard will still work (if you have TensorFlow installed), but the only feature available will be the display of the losses and metrics plots.
 
 텐서플로우가 설치만 되어있다면 텐서플로우 외의 백엔드를 사용하는 경우에도 TensorBoard가 동작합니다. 이 경우 손실과 평가 지표 플롯을 보여주는 기능만 사용 가능합니다.
 
