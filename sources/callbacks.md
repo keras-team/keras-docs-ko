@@ -328,7 +328,7 @@ class LossHistory(keras.callbacks.Callback):
 
 ---
 
-### 예시: 손실 역사 기록
+### 예시: 손실 경과 기록
 
 ```python
 class LossHistory(keras.callbacks.Callback):
@@ -347,7 +347,7 @@ history = LossHistory()
 model.fit(x_train, y_train, batch_size=128, epochs=20, verbose=0, callbacks=[history])
 
 print(history.losses)
-# 아웃풋
+# 출력
 '''
 [0.66047596406559383, 0.3547245744908703, ..., 0.25953155204159617, 0.25901699725311789]
 '''
