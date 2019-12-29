@@ -130,8 +130,6 @@ keras.callbacks.RemoteMonitor(root='http://localhost:9000', path='/publish/epoch
 ```
 이벤트를 서버에 실시간으로 전송하기 위한 콜백입니다.
 
-Requires the requests library. Events are sent to root + '/publish/epoch/end/' by default. Calls are HTTP POST, with a data argument which is a JSON-encoded dictionary of event data. If send_as_json is set to True, the content type of the request will be application/json. Otherwise the serialized JSON will be send within a form
-
 `requests` 라이브러리를 필요로 합니다. 이벤트를 보낼 주소의 기본 설정은 `root + '/publish/epoch/end/'`입니다. 호출은 HTTP POST로, JSON 형식으로 인코딩 된 이벤트 데이터 딕셔너리인 `data`인자를 동반합니다. send_as_json이 True로 설정된 경우, request의 내용은 application/json 형식을 따르게 됩니다. 아닐 경우 사용자가 지정한 형태에 따라 직렬화된<sub>serialized</sub> JSON 형식으로 보냅니다.
 
 __인자__
