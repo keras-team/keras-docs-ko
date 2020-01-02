@@ -1096,25 +1096,20 @@ __반환값__
 keras.backend.random_uniform_variable(shape, low, high, dtype=None, name=None, seed=None)
 ```
 
-
-균등 분포에서 가져온 값의 변수를 인스턴스화 합니다. 
+균등분포에서 무작위 값을 추출하여 변수 인스턴스를 생성합니다.
 
 __인자__
-
-
-- __shape__: `int`로 이루어진 튜플. 반환된 케라스 변수의 형식.
-- __low__: <sag>float</sag>, 출력 범위의 하한.
-- __high__: <sag>float</sag>, 출력 번위의 상한. 
-- __dtype__: `str`. 반환된 케라스 변수의 dtype.
-- __name__: `str`. 반환된 케라스 변수의 이름.
-- __seed__: <sag>integer</sag>, 난수생성.
+- __shape__: `int`로 이루어진 튜플. 생성할 변수의 형태입니다.
+- __low__: `float`. 출력 범위의 최솟값을 지정합니다.
+- __high__: `float`. 출력 범위의 최댓값을 지정합니다. 
+- __dtype__: `str`. 변수의 자료형을 지정합니다.
+- __name__: `str`. 변수의 이름을 지정합니다.
+- __seed__: `int`. 무작위 값 생성에 사용할 seed값을 지정합니다.
 
 __반환값__ 
     
-
-
-샘플에서 가져온 케라스 변수.
-
+균등분포에서 추출한 표본값으로 이루어진 케라스 변수.  
+  
 __예시__
 
 ```python
@@ -1126,9 +1121,8 @@ __예시__
 array([[ 0.10940075,  0.10047495,  0.476143  ],
        [ 0.66137183,  0.00869417,  0.89220798]], dtype=float32)
 ```
+
 __NumPy 적용__
-
-
 
 ```python
 def random_uniform_variable(shape, low, high, dtype=None, name=None, seed=None):
@@ -1137,7 +1131,6 @@ def random_uniform_variable(shape, low, high, dtype=None, name=None, seed=None):
 
 
 ----
-
 ### random_normal_variable
 
 
@@ -1145,24 +1138,20 @@ def random_uniform_variable(shape, low, high, dtype=None, name=None, seed=None):
 keras.backend.random_normal_variable(shape, mean, scale, dtype=None, name=None, seed=None)
 ```
 
-
-정규 분포에서 가져온 값의 변수를 인스턴스화 합니다. 
+정규분포에서 무작위 값을 추출하여 변수 인스턴스를 생성합니다.
 
 __인자__
 
-
-- __shape__: `int`로 이루어진 튜플. 반환된 케라스 변수의 형식.
-- __mean__: <sag>float</sag>, 정규분포의 평균.
-- __scale__: <sag>float</sag>, 정규분포의 표준편차.
-- __dtype__: `str`. 반환된 케라스 변수의 dtype.
-- __name__: `str`. 반환된 케라스 변수의 이름.
-- __seed__: <sag>integer</sag>, 난수생성.
+- __shape__: `int`로 이루어진 튜플. 생성할 변수의 형태입니다.
+- __mean__: `float`. 사용할 정규분포의 평균을 지정합니다.
+- __scale__: `float`. 사용할 정규분포의 표준편차를 지정합니다.
+- __dtype__: `str`. 변수의 자료형을 지정합니다.
+- __name__: `str`. 변수의 이름을 지정합니다.
+- __seed__: `int`. 무작위 값 생성에 사용할 seed값을 지정합니다.
 
 __반환값__ 
     
-
-
-샘플에서 가져온 케라스 변수.
+정규분포에서 추출한 표본값으로 이루어진 케라스 변수. 
 
 __예시__
 
@@ -1175,9 +1164,8 @@ __예시__
 array([[ 1.19591331,  0.68685907, -0.63814116],
        [ 0.92629528,  0.28055015,  1.70484698]], dtype=float32)
 ```
+
 __NumPy 적용__
-
-
 
 ```python
 def random_normal_variable(shape, mean, scale, dtype=None, name=None, seed=None):
@@ -1186,16 +1174,13 @@ def random_normal_variable(shape, mean, scale, dtype=None, name=None, seed=None)
 
 
 ----
-
 ### count_params
-
 
 ```python
 keras.backend.count_params(x)
 ```
 
-
-케라스 변수 또는 텐서에서 요소들의 <sag>static</sag> 숫자를 반환합니다. 
+케라스 변수 또는 텐서의 원소 개수를 반환합니다. 
 
 __인자__
 
@@ -1203,10 +1188,7 @@ __인자__
 
 __반환값__ 
     
-
-
-<sag>integer</sag>,`x`요소의 개수,
-즉, 배열의 정적차원<sag>static dimensions</sag>의 곱 연산.
+`int`.`x`의 원소 개수(배열의 각 차원 크기를 모두 곱한 값).
 
 __예시__
 
@@ -1218,9 +1200,8 @@ __예시__
 array([[ 0.,  0.,  0.],
        [ 0.,  0.,  0.]], dtype=float32)
 ```
+
 __NumPy 적용__
-
-
 
 ```python
 def count_params(x):
@@ -1229,31 +1210,24 @@ def count_params(x):
 
 
 ----
-
 ### cast
-
 
 ```python
 keras.backend.cast(x, dtype)
 ```
 
+텐서의 자료형을 변경합니다.
 
-텐서를 다른 dtype으로 타입을 바꿔주고 반환합니다.
-
-케라스 변수 타입을 바꿔줄 수 있으나 여전히 텐서를 반환합니다. 
+케라스 변수를 입력할 경우 자료형은 지정한대로 변환되지만 케라스 텐서로 바뀌어 반환됩니다. 
 
 __인자__
 
-
-
 - __x__: 케라스 텐서 또는 변수.
-- __dtype__: `str`. 'float16', 'float32', 또는 'float64'
-
+- __dtype__: `str`. `'float16'`, `'float32'`, 또는 `'float64'` 가운데 하나를 지정합니다.
 
 __반환값__ 
-    
 
-<sag>dtype</sag>의 케라스 텐서.
+지정한 `dtype` 자료형의 케라스 텐서.
 
 __예시__
 
@@ -1272,102 +1246,81 @@ __예시__
 >>> input
 <tf.Tensor 'Cast_2:0' shape=(2, 3) dtype=float16>
 ```
-    
 ----
 
 ### update
-
 
 ```python
 keras.backend.update(x, new_x)
 ```
 
-
-x값을 new_x로 갱신합니다.
+`x`의 값을 `new_x`로 갱신합니다.
 
 __인자__
 
-
-- __x__: 한개의 변수.
-- __new_x__: x의 같은 형식의 텐서. 
+- __x__: 한 개의 변수.
+- __new_x__: x와 형태가 같은 텐서.  
 
 __반환값__ 
     
-
-
-x변수를 갱신합니다.
+값이 갱신된 변수 `x`.
+    
     
 ----
-
 ### update_add
-
 
 ```python
 keras.backend.update_add(x, increment)
 ```
 
-
-<sag>increment</sag>를 x에 더한 값을 갱신합니다. 
+`x`에 `increment`를 더해 값을 갱신합니다. 
 
 __인자__
 
-
 - __x__: 변수.
-- __increment__: x와 같은 형식의 텐서.
-
+- __increment__: x와 같은 형태의 텐서.
 
 __반환값__ 
     
+값이 갱신된 변수 `x`.
 
 
-변수 x 갱신.
-    
 ----
-
 ### update_sub
-
 
 ```python
 keras.backend.update_sub(x, decrement)
 ```
 
-
-<sag>decrement</sag>를 뺀 후  x의 값 갱신.
+`x`에서 `decrement`를 빼 값을 갱신합니다.
 
 __인자__
 
-
-- __x__: A `Variable`.
-- __decrement__: x와 같은 형식의 텐서.
+- __x__: 변수.
+- __decrement__: x와 같은 형태의 텐서.
 
 __반환값__ 
     
-
-
-변수 x 갱신.
+값이 갱신된 변수 `x`.
+    
     
 ----
-
 ### moving_average_update
-
 
 ```python
 keras.backend.moving_average_update(x, value, momentum)
 ```
 
-
 변수의 이동평균을 계산합니다. 
 
 __인자__
 
-
-- __x__: `Variable`.
-- __value__:같은`x`형식의 텐서.
-- __momentum__: 이동 평균 운동량.
+- __x__: 변수.
+- __value__: `x`와 같은 형태의 텐서.
+- __momentum__: 이동평균의 모멘텀.
 
 __반환값__ 
     
-
 변수를 업데이트하는 연산.
     
 ----
@@ -1632,7 +1585,7 @@ __인자__
 
 
 - __reference__: 텐서.
-- __indices__: 인덱스의 <sag>integer</sag>텐서.
+- __indices__: 인덱스의 `int` 텐서.
 
 __반환값__ 
     
@@ -1667,7 +1620,7 @@ __인자__
 
 
 - __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플 또는 <sag>integer</sag>
+- __axis__: [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플 또는 `int` 
     최댓값을 찾기위한 축. 만약 <sag>None</sag>이라면 모든 차원에 대한 최댓값을 찾습니다. 
 - __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지에 대한 여부. 
     `keepdims`가`False` 인 경우 텐서의 rank가 1만큼 감소합니다
@@ -1709,7 +1662,7 @@ __인자__
 
 
 - __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플 또는 <sag>integer</sag>
+- __axis__: [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플 또는 `int` 
     최솟값을 찾기위한 축. 만약 <sag>None</sag>이라면 모든 차원에 대한 최솟값을 찾습니다. 
 - __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지에 대한 여부. 
     `keepdims`가`False` 인 경우 텐서의 rank가 1만큼 감소합니다
@@ -1751,7 +1704,7 @@ __인자__
 
 
 - __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플 또는 <sag>integer</sag>를 합산 하기위한 축.
+- __axis__: [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플 또는 `int` 를 합산 하기위한 축.
      만약 <sag>None</sag>이라면 모든 차원에 대한 합의 값을 찾습니다. 
 - __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지에 대한 여부. 
     `keepdims`가`False` 인 경우 텐서의 rank가 1만큼 감소합니다
@@ -1902,7 +1855,7 @@ keras.backend.var(x, axis=None, keepdims=False)
 __인자__
 
 - __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>으로, 분산을 계산 할 축.
+- __axis__: [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 으로, 분산을 계산 할 축.
     <sag>None</sag> (default)이면 계산. 모든 차원에 대한 분산을 계산합니다..
 - __keepdims__: <sag>boolean</sag>, 차원을 유지 하였는지에 대한 진리값.
     `keepdims` 가 <sag>False</sag>인 경우, 텐서의 랭크가 1씩 감소합니다.   
@@ -1943,7 +1896,7 @@ keras.backend.std(x, axis=None, keepdims=False)
 __인자__
 
 - __x__: 텐서 또는 변수. 
-- __axis__:  [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>으로, 표준편차를 계산하는 축.
+- __axis__:  [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 으로, 표준편차를 계산하는 축.
     <sag>None</sag> (default)이면 계산. 모든 차원에 대한 표준편차를 계산합니다. 
 - __keepdims__: <sag>boolean</sag>, 차원을 유지 하였는지에 대한 진리값.
     `keepdims` 가 <sag>False</sag>인 경우, 텐서의 랭크가 1씩 감소합니다.   
@@ -1984,7 +1937,7 @@ __인자__
 
 
 - __x__: 텐서 또는 변수.
-- __axis__: [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>으로, 평균을 계산하는 축.
+- __axis__: [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 으로, 평균을 계산하는 축.
     <sag>None</sag> (default)이면 계산. 모든 차원에 대한 평균을 계산합니다. 
 - __keepdims__: <sag>boolean</sag>, 차원을 유지 하였는지에 대한 진리값.
     `keepdims` 가 <sag>False</sag>인 경우, 축의 각 항목에 대해 텐서의 랭크가 1씩 감소합니다.   
@@ -2026,7 +1979,7 @@ __인자__
 
 
 - __x__: Tensor or variable.
-- __axis__:  [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>
+- __axis__:  [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 
     <sag>None</sag> (default)이면 계산. 모든 차원에 대한 평균을 계산합니다. 
 - __keepdims__: 감소한 축을 브로드캐스트 하는지 드롭하는지에 대한 여부.
 
@@ -2065,7 +2018,7 @@ __인자__
 
 
 - __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의  <sag>integer</sag>타입 리스트 또는 <sag>integer</sag>
+- __axis__: [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 
     <sag>None</sag> (default)이면 계산. 모든 차원에 대한 평균을 계산합니다. 
 - __keepdims__: 감소한 축을 브로드캐스트 하는지 드롭하는지에 대한 여부.
 
@@ -2377,7 +2330,7 @@ keras.backend.pow(x, a)
 __인자__
 
 - __x__: 텐서 또는 변수.
-- __a__: <sag>integer</sag>
+- __a__: `int` 
 
 __반환값__ 
     
@@ -2409,8 +2362,8 @@ keras.backend.clip(x, min_value, max_value)
 __인자__
 
 - __x__: 텐서 또는 변수. 
-- __min_value__: <sag>float</sag>, <sag>integer</sag> or tensor.
-- __max_value__: <sag>float</sag>, <sag>integer</sag> or tensor.
+- __min_value__: `float`. `int`  or tensor.
+- __max_value__: `float`. `int`  or tensor.
 
 __반환값__ 
     
@@ -2932,7 +2885,7 @@ keras.backend.repeat_elements(x, rep, axis)
 __인자__
 
 - __x__: 텐서 또는 변수.
-- __rep__: <sag>integer</sag>, 반복횟수.
+- __rep__: `int`. 반복횟수.
 - __axis__: 반복 할 축
 
 __반환값__ 
@@ -2957,7 +2910,7 @@ keras.backend.repeat(x, n)
 __인자__
 
 - __x__: 텐서 또는 변수.
-- __n__: <sag>integer</sag>, 반복횟수.
+- __n__: `int`. 반복횟수.
 
 __반환값__ 
     
@@ -2987,7 +2940,7 @@ __인자__
 - __start__: 시작 값.
 - __stop__: 정지 값.
 - __step__: 두 개의 연속적인 값의 차이.
-- __dtype__: <sag>Integer</sag> dtype
+- __dtype__: `int`  dtype
 
 __반환값__ 
     
@@ -3011,7 +2964,7 @@ x를 n으로 나열하여 생성합니다.
 __인자__
 
 - __x__: 텐서 또는 배열.
-- __n__: <sag>integer</sag>의 리스트. x의 차원의 개수와 그 길이가 같다.
+- __n__: `int` 의 리스트. x의 차원의 개수와 그 길이가 같다.
 
 __반환값__ 
     
@@ -3248,7 +3201,7 @@ keras.backend.one_hot(indices, num_classes)
 __인자__
 
 - __indices__: `(batch_size, dim1, dim2, ... dim(n-1))`형식의 n차원 정수형 텐서.
-- __num_classes__: <sag>integer</sag>, 클래스들의 개수.
+- __num_classes__: `int`. 클래스들의 개수.
 
 __반환값__ 
     
@@ -3305,8 +3258,8 @@ keras.backend.slice(x, start, size)
 __인자__
 
 - __x__: 입력 텐서.
-- __start__: 각 축에 따라 슬라이스의 시작 인덱스를 나타내는 텐서 또는 <sag>integer</sag>리스트/튜플 자료형.
-- __size__: 각 축을 따라 슬라이스 할 차원의 수를 나타내는 텐서 또는 <sag>integer</sag>리스트/튜플 자료형.
+- __start__: 각 축에 따라 슬라이스의 시작 인덱스를 나타내는 텐서 또는 `int` 리스트/튜플 자료형.
+- __size__: 각 축을 따라 슬라이스 할 차원의 수를 나타내는 텐서 또는 `int` 리스트/튜플 자료형.
 
 
 __반환값__ 
@@ -3749,8 +3702,8 @@ __인자__
 
 - __x__: 텐서 또는 변수. 
 - __alpha__: 음수 섹션의 스칼라, 기울기 (default=`0.`).
-- __max_value__: <sag>float</sag>, 포화상태의 임계값.
-- __threshold__: <sag>float</sag>, 임계값 활성화에 대한 임계값.
+- __max_value__: `float`. 포화상태의 임계값.
+- __threshold__: `float`. 임계값 활성화에 대한 임계값.
 
 __반환값__ 
     
@@ -4601,8 +4554,8 @@ keras.backend.random_normal(shape, mean=0.0, stddev=1.0, dtype=None, seed=None)
 __인자__
 
 - __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형식.
-- __mean__: <sag>float</sag>, 정규 분포의 평균 그리기.
-- __stddev__: <sag>float</sag>, 정규 분포의 표준편차 그리기.
+- __mean__: `float`. 정규 분포의 평균 그리기.
+- __stddev__: `float`. 정규 분포의 표준편차 그리기.
 - __dtype__: `str`. 반환된 텐서의 dtype.
 - __seed__: `int`. random seed.
 
@@ -4628,8 +4581,8 @@ __인자__
 
 
 - __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형식.
-- __minval__: <sag>float</sag>, 균등 분포의 하한 샘플 그리기.
-- __maxval__: <sag>float</sag>, 균등 분포의 상한 샘플 그리기.
+- __minval__: `float`. 균등 분포의 하한 샘플 그리기.
+- __maxval__: `float`. 균등 분포의 상한 샘플 그리기.
 - __dtype__: `str`. 반환된 텐서의 dtype.
 - __seed__: `int`. random seed.
 
@@ -4653,7 +4606,7 @@ keras.backend.random_binomial(shape, p=0.0, dtype=None, seed=None)
 __인자__
 
 - __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형식.
-- __p__: <sag>float</sag>, `0. <= p <= 1`범위의 이항 분포의 확률
+- __p__: `float`. `0. <= p <= 1`범위의 이항 분포의 확률
 - __dtype__: `str`. 반환된 텐서의 dtype.
 - __seed__: `int`. random seed.
 
@@ -4865,8 +4818,8 @@ __인자__
 
 - __inputs__: 3D 텐서의 형식: (batch_size, steps, input_dim)
 - __kernel__: (output_length, feature_dim, filters)형식의 컨볼루션의 공유되지 않은 가중치.
-- __kernel_size__: 1d 컨볼루션 윈도우의 길이를 지정한 단일 <sag>integer</sag> 튜플.
-- __strides__: 컨볼루션의 스타라이드 길이를 지정한 단일 <sag>integer</sag> 튜플.
+- __kernel_size__: 1d 컨볼루션 윈도우의 길이를 지정한 단일 `int`  튜플.
+- __strides__: 컨볼루션의 스타라이드 길이를 지정한 단일 `int`  튜플.
 - __data_format__: 데이터 형식, channels_first 또는 channels_last
 
 
