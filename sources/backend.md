@@ -1324,34 +1324,29 @@ __반환값__
 변수를 업데이트하는 연산.
     
 ----
-
 ### dot
-
 
 ```python
 keras.backend.dot(x, y)
 ```
 
-
-2 텐서(또는 변수)를 곱하고 텐서를 반환합니다. 
-N차원의 텐서를 곱하려고 시도할 때, N차원의 텐서가 Theano의 방식으로 다시 생성합니다. 
-(e.g. `(2, 3) * (4, 3, 5) -> (2, 4, 5)`)
+두 개의 텐서(또는 변수)를 내적한 결과를 텐서로 반환합니다. 
+차원의 갯수가 서로 다른 텐서를 내적할 경우 Theano의 계산 방식을 따라 결과를 생성합니다. 
+(예: `(2, 3) * (4, 3, 5) = (2, 4, 5)`, `(3, 10) * (2, 5, 10, 4) = (3, 2, 5, 4)`)
 
 __인자__
-
 
 - __x__: 텐서 또는 변수.
 - __y__: 텐서 또는 변수.
 
 __반환값__ 
     
+`x` 과 `y`를 내적한 결과 텐서.
 
-`x` 과 `y`의 내적을 텐서로 반환.
-
-__Examples__
+__예시__
 
 ```python
-# dot product between tensors
+# 텐서 간의 내적
 >>> x = K.placeholder(shape=(2, 3))
 >>> y = K.placeholder(shape=(3, 4))
 >>> xy = K.dot(x, y)
@@ -1360,7 +1355,7 @@ __Examples__
 ```
 
 ```python
-# dot product between tensors
+# 텐서 간의 내적
 >>> x = K.placeholder(shape=(32, 28, 3))
 >>> y = K.placeholder(shape=(3, 4))
 >>> xy = K.dot(x, y)
@@ -1369,7 +1364,7 @@ __Examples__
 ```
 
 ```python
-# Theano-like behavior example
+# Theano 방식의 연산 예
 >>> x = K.random_uniform_variable(shape=(2, 3), low=0, high=1)
 >>> y = K.ones((4, 3, 5))
 >>> xy = K.dot(x, y)
@@ -1378,8 +1373,6 @@ __Examples__
 ```
 __NumPy 적용__
 
-
-
 ```python
 def dot(x, y):
     return np.dot(x, y)
@@ -1387,41 +1380,32 @@ def dot(x, y):
 
 
 ----
-
 ### batch_dot
-
 
 ```python
 keras.backend.batch_dot(x, y, axes=None)
 ```
 
+배치별 내적을 수행합니다.
 
-배치방식의 내적.
-
-x와 y가 배치 데이터일 때, x와 y의 내적을 계산하여 batch_dot을 사용한다. 즉, (batch_size, :)형식.
-batch_dot은 입력값보다 차수가 작은 텐서 또는 변수를 반환합니다. 
-차원의 수가 1로 줄어들면 적어도 2차원이상인지 확인하기 위해 expand_dims를 사용합니다.
+`x`와 `y`가 배치 데이터일 때 (예: (batch_size, :)) `batch_dot`을 사용하여 `x`와 `y`의 내적을 계산하면 각 배치별 내적의 결과를 얻을 수 있습니다. `batch_dot`은 입력 값보다 차원 수가 작은 텐서 또는 변수를 반환합니다. 만약 차원의 수가 1로 줄어드는 경우 `expand_dims`를 적용하여 반환할 차원 수가 2 이상이 되도록 합니다.
 
 __인자__
 
+- __x__: `ndim >= 2` 조건을 만족하는 케라스 텐서 또는 변수.
+- __y__: `ndim >= 2` 조건을 만족하는 케라스 텐서 또는 변수. 
+- __axes__: `int` 또는 튜플. `x`와 `y`의 순서대로 각각 감소 대상인 차원(내적 연산의 대상이 되는 차원)을 지정합니다. 단일한 정수를 입력하는 경우 `x`와 `y` 모두에 같은 차원이 지정됩니다.
 
-- __x__: `ndim >= 2` 조건의 케라스 텐서 또는 변수.
-- __y__: `ndim >= 2` 조건의 케라스 텐서 또는 변수. 
-- __axes__: 목적 차원이 감소된 (int,int)튜플 또는 <sag>int</sag>
 
-__반환값__ 
-    
+__반환값__  
 
-x 형식의 연쇄와 같은 형식의 텐서와 y형식. y형식은 배치차원과 합산된 차원보다 더 적습니다. 
-rank가 1이면, (batch_size,1)로 재설정합니다. 
+`x`의 형태에서 내적 대상을 제외한 나머지 차원과 `y`의 형태에서 배치 및 내적 대상을 제외한 나머지 차원을 이어붙인 형태의 텐서. 결과의 차원 수가 1인 경우(batch_size만 남을 경우) 결과를 (batch_size,1)로 바꾸어 반환합니다. 
 
-__Examples__
+__예시__
 
-`x = [[1, 2], [3, 4]]` and `y = [[5, 6], [7, 8]]`일 때,
-`batch_dot(x, y, axes=1) = [[17], [53]]` 
-비대각선을 계산할 필요가 없을 때도, `x.dot(y.T)` 주대각선 계산.
-
-Pseudocode:
+`x = [[1, 2], [3, 4]]`, `y = [[5, 6], [7, 8]]`일 때 `batch_dot(x, y, axes=1) = [[17], [53]]`으로 `x.dot(y.T)`의 결과를 반환합니다. `axes=1` 인자에 따라 `x`와 `y`의 1번째 차원끼리 곱하기 위해 `y`를 전치하기 때문입니다.  
+  
+__유사코드<sub>pseudo code</sub>:__
 ```
 inner_products = []
 for xi, yi in zip(x, y):
@@ -1429,18 +1413,17 @@ for xi, yi in zip(x, y):
 result = stack(inner_products)
 ```
 
-형식 추론하기:
-`x`의 모양은`(100, 20)`이되고`y`의 모양은`(100, 30, 20)`이됩니다.
-'축'이 (1, 2) 인 경우, 결과 텐서의 출력값 형식을 찾으려면,
-`x` 형식과`y`형식으로 각 차원을 반복합니다.
+__형태 변환에 대한 설명:__  
 
-*`x.shape [0]`: 100 : 출력 형식에 추가
-*`x.shape [1]`: 20 : 출력 형식에 추가하지 않습니다, `x`의 차원 1이 됩니다. (`dot_axes [0]`= 1)
-*`y.shape [0]`: 100 : 출력 형태에 추가하지 않습니다, 항상 y의 첫 번째 차원을 배제합니다.
-*`y.shape [1]`: 30 : 출력 형식에 추가
-*`y.shape [2]`: 20 : 출력 형식에 추가하지 않습니다, `y`의 차원 2이 됩니다. (`dot_axes [1]`= 2)
-`output_shape` =`(100, 30)`
+`x`의 모양은`(100, 20)`, `y`의 모양은`(100, 30, 20)`일 때 `axis=(1, 2)`인 경우 다음과 같은 규칙에 따라 출력 형태가 결정됩니다.
 
+- `x.shape [0]`: 100 : 배치 크기의 차원으로 출력 형태의 첫 번째 차원 값이 됩니다.
+- `x.shape [1]`: 20 : `axis`인자에서 지정한대로 내적 연산에서 합산될 차원입니다. 따라서 출력 형태에는 추가되지 않습니다. 
+- `y.shape [0]`: 100 : 배치 크기의 차원입니다. 이미 `x`에서 가져온 차원이므로 출력 형태에 추가되지 않습니다. 이와 같이 항상 `y`의 첫 번째 차원은 배제됩니다.
+- `y.shape [1]`: 30 : 출력 형태에 추가됩니다.
+- `y.shape [2]`: 20 : `axis`인자에서 지정한대로 내적 연산에서 합산될 차원입니다. 따라서 출력 형태에는 추가되지 않습니다.  
+
+결과적으로 `output_shape` =`(100, 30)`이 됩니다.
 
 ```python
 >>> x_batch = K.ones(shape=(32, 20, 1))
@@ -1452,10 +1435,8 @@ result = stack(inner_products)
 
 __NumPy 적용__
 
-
-
 <details>
-<summary>Show the Numpy implementation</summary>
+<summary>NumPy 적용 보기</summary>
 
 ```python
 def batch_dot(x, y, axes=None):
@@ -1510,32 +1491,27 @@ def batch_dot(x, y, axes=None):
 
     return result
 ```
-
 </details>
-
-
 ----
 
-### transpose
 
+### transpose
 
 ```python
 keras.backend.transpose(x)
 ```
 
-
-Transposes a tensor and returns it.
+텐서를 전치한 결과를 반환합니다.
 
 __인자__
 
 - __x__: 텐서 또는 변수. 
 
 __반환값__ 
-    
 
-텐서.
+`x`를 전치한 텐서.
 
-__Examples__
+__예시__
 
 ```python
 >>> var = K.variable([[1, 2, 3], [4, 5, 6]])
@@ -1558,9 +1534,8 @@ array([[ 1.,  4.],
 <tf.Tensor 'transpose_4:0' shape=(3, 2) dtype=float32>
 
 ```
+
 __NumPy 적용__
-
-
 
 ```python
 def transpose(x):
@@ -1569,33 +1544,23 @@ def transpose(x):
 
 
 ----
-
 ### gather
-
 
 ```python
 keras.backend.gather(reference, indices)
 ```
-
-
-텐서 `reference`에서 `indices`의 인덱스 요소를 검색합니다.
-
+`reference`로 지정한 텐서에서 `indices`로 지정한 인덱스의 요소들을 하나의 텐서로 배열하여 가져옵니다. 
 
 __인자__
 
+- __reference__: 대상을 추출할 텐서.
+- __indices__: 추출 대상의 인덱스를 지정한 정수 텐서.
 
-- __reference__: 텐서.
-- __indices__: 인덱스의 `int` 텐서.
-
-__반환값__ 
-    
-
-
-<sag>reference</sag>와 같은 타입의 텐서.
+__반환값__  
+  
+`reference`와 자료형이 동일한 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def gather(reference, indices):
@@ -1604,9 +1569,7 @@ def gather(reference, indices):
 
 
 ----
-
 ### max
-
 
 ```python
 keras.backend.max(x, axis=None, keepdims=False)
