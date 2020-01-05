@@ -66,7 +66,7 @@ model.add(Dense(units=64, activation='relu', input_dim=100))
 model.add(Dense(units=10, activation='softmax'))
 ```
 
-모델이 마음에 드신다면, `.compile()`로 학습 과정에 대한 설정을 하십시오.
+모델이 마음에 드신다면, `.compile()`로 학습 과정에 대한 설정을 할 수 있습니다.
 
 ```python
 model.compile(loss='categorical_crossentropy',
@@ -93,13 +93,13 @@ model.fit(x_train, y_train, epochs=5, batch_size=32)
 model.train_on_batch(x_batch, y_batch)
 ```
 
-코드 한 줄로 모델의 성능을 평가해 보십시오.
+코드 한 줄로 모델의 성능을 평가할 수 있습니다.
 
 ```python
 loss_and_metrics = model.evaluate(x_test, y_test, batch_size=128)
 ```
 
-혹은 새로운 데이터에 대해서 예측 결과를 생성해 보십시오.
+혹은 다음과 같이 새로운 데이터에 대한 예측 결과를 생성할 수 있습니다.
 
 ```python
 classes = model.predict(x_test, batch_size=128)
@@ -107,7 +107,7 @@ classes = model.predict(x_test, batch_size=128)
 
 질문에 대답하는 시스템, 이미지 분류 모델, 신경망 튜링 기계나 그 외의 다른 모델도 이처럼 빠르게 만들 수 있습니다. 딥러닝의 기본이 되는 아이디어가 간단한데 그 실행이 복잡할 이유가 어디 있겠습니까?
 
-조금  심화된 케라스 튜토리얼을 원하신다면 다음을 참고하십시오.
+조금 심화된 케라스 튜토리얼을 원하신다면 다음을 참고하십시오.
 
 - [Getting started with the Sequential model](https://keras.io/getting-started/sequential-model-guide)
 - [Getting started with the functional API](https://keras.io/getting-started/functional-api-guide)
@@ -167,7 +167,7 @@ sudo python setup.py install
 
 ## 케라스 백엔드 설정
 
-케라스는 텐서를 처리하는 라이브러리로 Tensorflow를 기본으로 사용합니다. 케라스 백엔드의 설정에 대해서는 [이 설명서](https://keras.io/backend/)를 따라주십시오.
+케라스는 텐서를 처리하는 라이브러리로 TensorFlow를 기본으로 사용합니다. 케라스 백엔드의 설정에 대해서는 [이 설명서](https://keras.io/backend/)를 따라주십시오.
 
 ------------------
 
