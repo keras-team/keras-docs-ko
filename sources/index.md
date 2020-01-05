@@ -24,8 +24,8 @@
 ## 다중 백엔드 Keras 및 tf.keras
 **TensorFlow 백엔드와 함께 다중 백엔드 케라스<sub>multi-backend Keras</sub>를 사용하고 있는 사용자는 TensorFlow 2.0의 `tf.keras`로 전환하기를 권장합니다.** `tf.keras`는 TensorFlow의 기능들 (즉시실행, 배포 지원 등)과 잘 호환되도록 유지, 관리되고 있습니다.
 Keras 2.2.5는 2.2.* API를 구현 한 Keras의 마지막 릴리스입니다. TensorFlow 1(그리고 Theano 및 CNTK)을 지원하는 마지막 릴리스입니다. 
-현재 릴리스는 Keras 2.3.0입니다. API가 크게 변경되었고 TensorFlow 2.0에 대한 지원이 추가되었습니다. 2.3.0 릴리스는 멀티 백엔드 Keras의 마지막 major release입니다. 다중 백엔드 케라스는 `tf.keras`로 대체되었습니다. 
-다중 백엔드 케라스에 존재하는 버그는 2020 년 4 월까지만 minor release로 수정될 예정입니다. 
+현재 릴리스는 Keras 2.3.0입니다. API가 크게 변경되었고 TensorFlow 2.0에 대한 지원이 추가되었습니다. 2.3.0 릴리스는 멀티 백엔드 Keras의 마지막 메이저 릴리스입니다. 다중 백엔드 케라스는 `tf.keras`로 대체되었습니다. 
+다중 백엔드 케라스에 존재하는 버그는 2020 년 4 월까지만 마이너 릴리스로 수정될 예정입니다. 
 케라스의 미래에 대한 자세한 내용은 [케라스 회의 노트](http://bit.ly/keras-meeting-notes)를 참조하십시오.
 
 ------------------
