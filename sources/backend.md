@@ -1549,7 +1549,7 @@ def transpose(x):
 ```python
 keras.backend.gather(reference, indices)
 ```
-`reference`로 지정한 텐서에서 `indices`로 지정한 인덱스의 요소들을 하나의 텐서로 배열하여 가져옵니다. 
+`reference`로 지정한 텐서에서 `indices`로 지정한 인덱스의 요소들을 뽑아 하나의 텐서로 가져옵니다. 
 
 __인자__
 
@@ -1575,30 +1575,19 @@ def gather(reference, indices):
 keras.backend.max(x, axis=None, keepdims=False)
 ```
 
-
-텐서에 대한 최댓값.
+텐서의 원소 가운데 최댓값을 반환합니다.
 
 __인자__
 
-
-
 - __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플 또는 `int` 
-    최댓값을 찾기위한 축. 만약 <sag>None</sag>이라면 모든 차원에 대한 최댓값을 찾습니다. 
-- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지에 대한 여부. 
-    `keepdims`가`False` 인 경우 텐서의 rank가 1만큼 감소합니다
-    `keepdims`가`True`이면 축소 된 치수는 길이 1로 유지됩니다.
-    
+- __axis__: 단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플. 최댓값을 찾을 방향의 축을 지정합니다. `None`인 경우 텐서 전체에서의 최댓값을 찾습니다.
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 기본값은 `False`입니다.
 
 __반환값__ 
-    
 
-
-x의 최대값에 대한 텐서. 
+`x`의 최댓값으로 이루어진 텐서. 
 
 __NumPy 적용__
-
-
 
 ```python
 def max(x, axis=None, keepdims=False):
@@ -1609,38 +1598,25 @@ def max(x, axis=None, keepdims=False):
 
 
 ----
-
 ### min
-
 
 ```python
 keras.backend.min(x, axis=None, keepdims=False)
 ```
 
-
-텐서에 대한 최솟값.
+텐서의 원소 가운데 최댓값을 반환합니다.
 
 __인자__
 
-
-
 - __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플 또는 `int` 
-    최솟값을 찾기위한 축. 만약 <sag>None</sag>이라면 모든 차원에 대한 최솟값을 찾습니다. 
-- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지에 대한 여부. 
-    `keepdims`가`False` 인 경우 텐서의 rank가 1만큼 감소합니다
-    `keepdims`가`True`이면 축소 된 치수는 길이 1로 유지됩니다.
-
+- __axis__: 단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플. 최솟값을 찾을 방향의 축을 지정합니다. `None`인 경우 텐서 전체에서의 최솟값을 찾습니다.
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 기본값은 `False`입니다.
 
 __반환값__ 
     
-
-
-x의 최솟값에 대한 텐서. 
+`x`의 최솟값으로 이루어진 텐서. 
 
 __NumPy 적용__
-
-
 
 ```python
 def min(x, axis=None, keepdims=False):
@@ -1648,41 +1624,28 @@ def min(x, axis=None, keepdims=False):
         axis = tuple(axis)
     return np.min(x, axis=axis, keepdims=keepdims)
 ```
-
-
 ----
 
-### sum
 
+### sum
 
 ```python
 keras.backend.sum(x, axis=None, keepdims=False)
 ```
 
-
-지정된 축에따른 텐서의 값들의 합.
+지정된 축의 방향을 따라 텐서의 원소를 더해서 반환합니다.
 
 __인자__
 
-
-
 - __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플 또는 `int` 를 합산 하기위한 축.
-     만약 <sag>None</sag>이라면 모든 차원에 대한 합의 값을 찾습니다. 
-- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지에 대한 여부. 
-    `keepdims`가`False` 인 경우 텐서의 rank가 1만큼 감소합니다
-    `keepdims`가`True`이면 축소 된 치수는 길이 1로 유지됩니다.
-    
+- __axis__: 단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플. 지정한 축을 따라 이동하면서 나머지 방향의 원소들끼리 더합니다. 예를 들어 형태가 (3, 4)인 텐서를 합산할 때 `axis=0`으로 지정할 경우 길이가 4인 텐서를 출력합니다. `None`인 경우 텐서의 모든 원소를 더합니다.
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 예를 들어 형태가 (3, 4)인 텐서를 합산할 때 `axis=0, keepdims=True`로 지정할 경우 형태가 (1, 4)인 텐서를 출력합니다. 기본값은 `False`입니다. 
 
 __반환값__ 
     
-
-
-'x'의 합을 가진 텐서. 
+'x'의 합으로 이루어진 텐서. 
 
 __NumPy 적용__
-
-
 
 ```python
 def sum(x, axis=None, keepdims=False):
@@ -1693,39 +1656,26 @@ def sum(x, axis=None, keepdims=False):
 
 
 ----
-
 ### prod
-
 
 ```python
 keras.backend.prod(x, axis=None, keepdims=False)
 ```
 
+지정된 축의 방향을 따라 텐서의 원소를 곱해서 반환합니다.
 
-
-지정된 축을 따라, 텐서의 값을 곱합니다.
 
 __인자__
 
-- __x__: A tensor or variable.
 - __x__: 텐서 또는 변수. 
-- __axis__: An integer or list of integers in [-rank(x), rank(x)) 범위 내 
-    <sag>integers</sag>의 리스트 또는 <sag>integers</sag>로서, 곱을 계산한 축. 
-    만약 <sag>None</sag>이라면 모든 차원에 대해 곱을 계산합니다. 
-- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지 아닌지에 대한 진리값. 
-    만약 `keepdims` 가 <sag>False</sag>라면, 텐서의 랭크가 1만큼 감소합니다. 
-    만약 `keepdims` 가 <sag>True</sag>라면, 줄어든 차원이 길이 1만큼 유지됩니다. 
-
+- __axis__: 단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플. 지정한 축을 따라 이동하면서 나머지 방향의 원소들끼리 곱합니다. 예를 들어 형태가 (3, 4)인 텐서를 곱할 때 `axis=0`으로 지정할 경우 길이가 4인 텐서를 출력합니다. `None`인 경우 텐서의 모든 원소를 곱합니다.
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 예를 들어 형태가 (3, 4)인 텐서를 합산할 때 `axis=0, keepdims=True`로 지정할 경우 형태가 (1, 4)인 텐서를 출력합니다. 기본값은 `False`입니다.
 
 __반환값__ 
     
-
-
-'x'의 요소들의 곱에대한 텐서.
+'x'의 원소들의 곱으로 이루어진 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def prod(x, axis=None, keepdims=False):
@@ -1733,107 +1683,79 @@ def prod(x, axis=None, keepdims=False):
         axis = tuple(axis)
     return np.prod(x, axis=axis, keepdims=keepdims)
 ```
-
-
 ----
 
-### cumsum
 
+### cumsum
 
 ```python
 keras.backend.cumsum(x, axis=0)
 ```
 
-
-지정된 축에 따라, 텐서 값의 누적된 합계. 
-
+지정된 축의 방향으로 텐서의 원소를 누적합하여 반환합니다.
 
 __인자__
 
-
 - __x__: 텐서 또는 변수.
-- __axis__: An integer, 합계를 계산하는 축.
+- __axis__: `int`. 값을 합산할 방향을 나타내는 축.
 
 __반환값__ 
-    
-
-x의 값에 따른 축의 누적된 합의 텐서.
+`x`의 원소를 누적한 합의 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def cumsum(x, axis=0):
     return np.cumsum(x, axis=axis)
 ```
-
-
 ----
 
-### cumprod
 
+### cumprod
 
 ```python
 keras.backend.cumprod(x, axis=0)
 ```
 
 
-지정된 축에 따라, 텐서 값의 누적된 곱.
-
+지정된 축의 방향으로 텐서의 원소를 누적곱하여 반환합니다.
 
 __인자__
 
-
 - __x__: 텐서 또는 변수.
-- __axis__: An integer, 곱 계산에 대한 축.
+- __axis__: `int`. 값을 곱할 방향을 나타내는 축.
 
 __반환값__ 
-    
-
-x의 값에 따른 축의 누적된 곱의 텐서.
+`x`의 원소를 누적한 합의 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def cumprod(x, axis=0):
     return np.cumprod(x, axis=axis)
 ```
-
-
 ----
 
-### var
 
+### var
 
 ```python
 keras.backend.var(x, axis=None, keepdims=False)
 ```
 
-
-지정된 축에 따라, 텐서의 분산.
+텐서 가운데 지정한 축 방향에 있는 원소들끼리의 분산을 구합니다.
 
 __인자__
 
 - __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 으로, 분산을 계산 할 축.
-    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 분산을 계산합니다..
-- __keepdims__: <sag>boolean</sag>, 차원을 유지 하였는지에 대한 진리값.
-    `keepdims` 가 <sag>False</sag>인 경우, 텐서의 랭크가 1씩 감소합니다.   
-    `keepdims` 가 <sag>True</sag>인 경우, 줄어든 차원의 길이는 1로 유지됩니다. 
-
-
+- __axis__: 단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플. 분산을 구할 값들이 속한 방향을 지정합니다. 예를 들어 형태가 (3, 4)인 텐서의 분산을 구할 때 `axis=0`으로 지정할 경우 각 0번째 축 방향에 해당하는 3개의 원소끼리의 분산을 구하게 되므로 결과적으로 길이가 4인 텐서를 출력합니다. `None`인 경우 모든 원소 사이의 분산을 구합니다.
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 예를 들어 형태가 (3, 4)인 텐서를의 분산을 구할 때 `axis=0, keepdims=True`로 지정할 경우 형태가 (1, 4)인 텐서를 출력합니다. 기본값은 `False`입니다.
+ 
 __반환값__ 
     
-
-`x`의 요소의 분산을 갖는 텐서.
-
+`x`의 원소들의 분산으로 이루어진 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def var(x, axis=None, keepdims=False):
@@ -1841,40 +1763,26 @@ def var(x, axis=None, keepdims=False):
         axis = tuple(axis)
     return np.var(x, axis=axis, keepdims=keepdims)
 ```
-
-
 ----
-
 ### std
-
 
 ```python
 keras.backend.std(x, axis=None, keepdims=False)
 ```
 
-
-
-지정된 축과 함께 텐서의 표준 편차를 반환한다. 
+텐서 가운데 지정한 축 방향에 있는 원소들끼리의 표준편차를 구합니다.
 
 __인자__
 
 - __x__: 텐서 또는 변수. 
-- __axis__:  [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 으로, 표준편차를 계산하는 축.
-    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 표준편차를 계산합니다. 
-- __keepdims__: <sag>boolean</sag>, 차원을 유지 하였는지에 대한 진리값.
-    `keepdims` 가 <sag>False</sag>인 경우, 텐서의 랭크가 1씩 감소합니다.   
-    `keepdims` 가 <sag>True</sag>인 경우, 줄어든 차원의 길이는 1로 유지됩니다. 
-
-
+- __axis__: 단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플. 표준편차를 구할 값들이 속한 방향을 지정합니다. 예를 들어 형태가 (3, 4)인 텐서의 표준편차를 구할 때 `axis=0`으로 지정할 경우 각 0번째 축 방향에 해당하는 3개의 원소끼리의 표준편차를 구하게 되므로 결과적으로 길이가 4인 텐서를 출력합니다. `None`인 경우 모든 원소 사이의 표준편차를 구합니다.
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 예를 들어 형태가 (3, 4)인 텐서의 표준편차를 구할 때 `axis=0, keepdims=True`로 지정할 경우 형태가 (1, 4)인 텐서를 출력합니다. 기본값은 `False`입니다.
+ 
 __반환값__ 
     
-
-x의 요소의 표준편차에 대한 텐서. 
+`x`의 원소들의 표준편차로 이루어진 텐서.
 
 __NumPy 적용__
-
-
-
 ```python
 def std(x, axis=None, keepdims=False):
     if isinstance(axis, list):
@@ -1884,38 +1792,25 @@ def std(x, axis=None, keepdims=False):
 
 
 ----
-
 ### mean
-
 
 ```python
 keras.backend.mean(x, axis=None, keepdims=False)
 ```
 
-
-지정된 축에 따른 텐서의 평균.
-
+텐서 가운데 지정한 축 방향에 있는 원소들끼리 평균을 구합니다.
 
 __인자__
 
-
-- __x__: 텐서 또는 변수.
-- __axis__: [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 으로, 평균을 계산하는 축.
-    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 평균을 계산합니다. 
-- __keepdims__: <sag>boolean</sag>, 차원을 유지 하였는지에 대한 진리값.
-    `keepdims` 가 <sag>False</sag>인 경우, 축의 각 항목에 대해 텐서의 랭크가 1씩 감소합니다.   
-    `keepdims` 가 <sag>True</sag>인 경우, 줄어든 차원의 길이는 1로 유지됩니다. 
-
-
+- __x__: 텐서 또는 변수. 
+- __axis__: 단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플. 평균을 구할 값들이 속한 방향을 지정합니다. 예를 들어 형태가 (3, 4)인 텐서의 평균을 구할 때 `axis=0`으로 지정할 경우 각 0번째 축 방향에 해당하는 3개의 원소끼리의 평균을 구하게 되므로 결과적으로 길이가 4인 텐서를 출력합니다. `None`인 경우 모든 원소 사이의 평균을 구합니다.
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 예를 들어 형태가 (3, 4)인 텐서의 평균을 구할 때 `axis=0, keepdims=True`로 지정할 경우 형태가 (1, 4)인 텐서를 출력합니다. 기본값은 `False`입니다.
+ 
 __반환값__ 
     
-
-
-`x`의 요소의 평균을 가진 텐서. 
+`x`의 원소들의 평균으로 이루어진 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def mean(x, axis=None, keepdims=False):
@@ -1926,36 +1821,25 @@ def mean(x, axis=None, keepdims=False):
 
 
 ----
-
 ### any
-
 
 ```python
 keras.backend.any(x, axis=None, keepdims=False)
 ```
 
-
-
-비트단위 감소(logical OR).
+비트 단위로 논리적 OR 조건 충족여부를 계산합니다. 대상 원소들 가운데 하나라도 True 또는 0이 아닌 숫자값을 가지는 경우 True를 반환합니다.
 
 __인자__
 
-
-- __x__: Tensor or variable.
-- __axis__:  [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 
-    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 평균을 계산합니다. 
-- __keepdims__: 감소한 축을 브로드캐스트 하는지 드롭하는지에 대한 여부.
-
+- __x__: 텐서, 변수, 또는 텐서와 변수에 대한 조건식. (예: `x` 또는 `x==1`)
+- __axis__:  단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플. or 조건을 판단할 값들이 속한 방향을 지정합니다. 예를 들어 형태가 (3, 4)인 텐서에서 논리 연산 결과를 구할 때 `axis=0`으로 지정할 경우 각 0번째 축 방향에 해당하는 3개의 원소끼리 연산하게 되므로 결과적으로 길이가 4인 텐서를 출력합니다. `None`인 경우 텐서 전체를 대상으로 논리 연산을 수행합니다.
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 예를 들어 형태가 (3, 4)인 텐서의 논리 연산을 할 때 `axis=0, keepdims=True`로 지정할 경우 형태가 (1, 4)인 텐서를 출력합니다. 기본값은 `False`입니다.
 
 __반환값__ 
-    
 
-
-uint8텐서 (0s and 1s).
+`bool` 자료형의 텐서(True 또는 False).
 
 __NumPy 적용__
-
-
 
 ```python
 def any(x, axis=None, keepdims=False):
@@ -1966,35 +1850,25 @@ def any(x, axis=None, keepdims=False):
 
 
 ----
-
 ### all
-
 
 ```python
 keras.backend.all(x, axis=None, keepdims=False)
 ```
 
-
-비트단위 감소 (logical AND).
+비트 단위로 논리적 AND 조건 충족여부를 계산합니다. 모든 대상 원소들이 True 또는 0이 아닌 숫자값을 가지는 경우 True를 반환합니다.
 
 __인자__
 
-
-- __x__: 텐서 또는 변수. 
-- __axis__: [-rank(x), rank(x)) 범위의  `int` 타입 리스트 또는 `int` 
-    <sag>None</sag> (default)이면 계산. 모든 차원에 대한 평균을 계산합니다. 
-- __keepdims__: 감소한 축을 브로드캐스트 하는지 드롭하는지에 대한 여부.
-
+- __x__: 텐서, 변수, 또는 텐서와 변수에 대한 조건식. (예: `x` 또는 `x==1`)
+- __axis__:  단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플. or 조건을 판단할 값들이 속한 방향을 지정합니다. 예를 들어 형태가 (3, 4)인 텐서에서 논리 연산 결과를 구할 때 `axis=0`으로 지정할 경우 각 0번째 축 방향에 해당하는 3개의 원소끼리 연산하게 되므로 결과적으로 길이가 4인 텐서를 출력합니다. `None`인 경우 텐서 전체를 대상으로 논리 연산을 수행합니다.
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 예를 들어 형태가 (3, 4)인 텐서의 논리 연산을 할 때 `axis=0, keepdims=True`로 지정할 경우 형태가 (1, 4)인 텐서를 출력합니다. 기본값은 `False`입니다.
 
 __반환값__ 
-    
 
-
-uint8텐서 (0s and 1s).
+`bool` 자료형의 텐서(True 또는 False).
 
 __NumPy 적용__
-
-
 
 ```python
 def all(x, axis=None, keepdims=False):
@@ -2005,31 +1879,24 @@ def all(x, axis=None, keepdims=False):
 
 
 ----
-
 ### argmax
-
 
 ```python
 keras.backend.argmax(x, axis=-1)
 ```
 
-
-축에 따른 최댓값의 인덱스를 반환합니다. 
+지정한 축 방향의 원소 가운데 최댓값인 원소의 인덱스를 반환합니다.
 
 __인자__
 
-
 - __x__: 텐서 또는 변수. 
-- __axis__: 감소 수행에 따른 축. 
+- __axis__: 최댓값 인덱스를 탐색할 방향의 축을 지정합니다. 예를 들어 형태가 (3, 4)인 텐서에서 최댓값을 탐색할 때 `axis=0`으로 지정할 경우 각 0번째 축 방향에 해당하는 3개의 원소끼리 연산하게 되므로 결과적으로 길이가 4인 텐서를 출력합니다. `None`인 경우 텐서 전체를 기준으로 한 인덱스 값을 반환합니다. 
 
-__반환값__ 
-    
+__반환값__     
 
-텐서.
+텐서.  
 
 __NumPy 적용__
-
-
 
 ```python
 def argmax(x, axis=-1):
@@ -2038,31 +1905,24 @@ def argmax(x, axis=-1):
 
 
 ----
-
 ### argmin
 
 
 ```python
 keras.backend.argmin(x, axis=-1)
 ```
-
-
-축에 따른 최솟값의 인덱스를 반환합니다.
+지정한 축 방향의 원소 가운데 최솟값인 원소의 인덱스를 반환합니다.
 
 __인자__
 
-
 - __x__: 텐서 또는 변수. 
-- __axis__: 축소를 수행에 따른 축.
+- __axis__: 최솟값 인덱스를 탐색할 방향의 축을 지정합니다. 예를 들어 형태가 (3, 4)인 텐서에서 최솟값을 탐색할 때 `axis=0`으로 지정할 경우 각 0번째 축 방향에 해당하는 3개의 원소끼리 연산하게 되므로 결과적으로 길이가 4인 텐서를 출력합니다. `None`인 경우 텐서 전체를 기준으로 한 인덱스 값을 반환합니다. 
 
-__반환값__ 
-    
+__반환값__     
 
-텐서
+텐서.  
 
 __NumPy 적용__
-
-
 
 ```python
 def argmin(x, axis=-1):
@@ -2071,72 +1931,59 @@ def argmin(x, axis=-1):
 
 
 ----
-
 ### square
-
 
 ```python
 keras.backend.square(x)
 ```
 
+텐서의 각 원소를 제곱합니다.
 
-요소별로 제곱계산.
-
-__인자__
+__인자__  
 
 - __x__: 텐서 또는 변수. 
 
-__반환값__ 
-    
+__반환값__   
 
 텐서.
     
+    
 ----
-
 ### abs
-
 
 ```python
 keras.backend.abs(x)
 ```
 
+텐서의 각 원소별 절대값을 구합니다.  
 
-절대값 계산.
-
-
-__인자__
+__인자__  
 
 - __x__: 텐서 또는 변수. 
 
-__반환값__ 
+__반환값__   
     
-
 텐서.
     
+    
 ----
-
 ### sqrt
-
 
 ```python
 keras.backend.sqrt(x)
 ```
 
+텐서의 각 원소별 제곱근을 구합니다.
 
-요소별 제곱근 계산.
-
-__인자__
+__인자__  
 
 - __x__: 텐서 또는 변수.
 
-__반환값__ 
+__반환값__   
     
-
-텐서
+텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def sqrt(x):
@@ -2147,56 +1994,47 @@ def sqrt(x):
 
 
 ----
-
 ### exp
-
 
 ```python
 keras.backend.exp(x)
 ```
 
+텐서의 각 원소를 지수로 하여 자연상수의 승을 구합니다.  
 
-Element-wise exponential.
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
 
-- __x__: Tensor or variable.
-
-__반환값__ 
+__반환값__   
     
-
-A tensor.
+텐서.
+    
     
 ----
-
 ### log
-
 
 ```python
 keras.backend.log(x)
 ```
 
+텐서의 각 원소별 자연로그 값을 구합니다.  
 
-log 취하기.
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
 
-- __x__: 텐서 또는 변수.
-
-__반환값__ 
-    
+__반환값__  
 
 텐서.
     
+    
 ----
-
 ### logsumexp
-
 
 ```python
 keras.backend.logsumexp(x, axis=None, keepdims=False)
 ```
-
 
 log(sum(exp(elements across dimensions of a tensor)))를 계산합니다. 
 log(sum(exp(x))) 보다 수치적으로 안정된 함수입니다.
