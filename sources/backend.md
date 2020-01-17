@@ -2035,33 +2035,21 @@ __반환값__
 ```python
 keras.backend.logsumexp(x, axis=None, keepdims=False)
 ```
+텐서의 지정 차원에 있는 원소들의 `log(sum(exp()))`값을 계산합니다.
 
-log(sum(exp(elements across dimensions of a tensor)))를 계산합니다. 
-log(sum(exp(x))) 보다 수치적으로 안정된 함수입니다.
-큰 입력값의 exp를 취해서 오버플로가 발생하고
-작은 입력값의 log를 가져와서 언더플로가 발생하는 것을 방지합니다.
-
-
+이 함수는 직접 `log(sum(exp(x)))` 수식을 계산하는 것에 비해 수치적으로 안정된 함수입니다. `exp` 계산에 매우 큰 값을 입력받아서 발생하는 오버플로우나 `log` 계산에 매우 작은 값을 입력받아서 발생하는 언더플로우 문제를 예방하도록 만들어져 있습니다.  
+  
 __인자__
 
-
 - __x__: 텐서 또는 변수. 
-- __axis__: An integer or list of integers in [-rank(x), rank(x)) 범위 내 
-    <sag>integers</sag>의 리스트 또는 <sag>integers</sag>로서, <sag>logsunexp</sag>을 계산한 축. 
-    만약 <sag>None</sag>이라면 모든 차원에 대해 <sag>logsunexp</sag>을 계산합니다. 
-- __keepdims__: <sag>boolean</sag>, 차원이 유지되고 있는지 아닌지에 대한 진리값. 
-    만약 `keepdims` 가 <sag>False</sag>라면, 텐서의 랭크가 1만큼 감소합니다. 
-    만약 `keepdims` 가 <sag>True</sag>라면, 줄어든 차원이 길이 1만큼 유지됩니다. 
-
-
-__반환값__ 
+- __axis__: 단일 `int` 값 또는 (*rank(x) = `x`의 차원 개수일 때) [-rank(x), rank(x)) 범위의 `int`로 이루어진 튜플로서 `logsumexp`를 계산할 값들이 속한 방향을 지정합니다. `None`인 경우 모든 차원에 대해 `logsumexp`를 계산합니다.  
+- __keepdims__: `bool`. 출력값에서 `x`차원의 개수를 유지할지 여부를 지정합니다. `keepdims`를 `True`로 지정하면 입력값과 출력값 사이에 축소된 차원을 없애는 대신 크기 1을 부여해 차원을 남깁니다. `keepdims`가 `False`인 경우 축소된 차원을 없앰에 따라 출력 텐서의 차원 개수가 1만큼 감소합니다. 예를 들어 형태가 (3, 4)인 텐서 연산을 할 때 `axis=0, keepdims=True`로 지정할 경우 형태가 (1, 4)인 텐서를 출력합니다. 기본값은 `False`입니다.  
+  
+__반환값__  
     
-
-감소된 텐서. 
+텐서.  
 
 __NumPy 적용__
-
-
 
 ```python
 def logsumexp(x, axis=None, keepdims=False):
@@ -2072,51 +2060,43 @@ def logsumexp(x, axis=None, keepdims=False):
 
 
 ----
-
 ### round
-
 
 ```python
 keras.backend.round(x)
 ```
 
+텐서의 모든 원소를 반올림합니다.
+0.5를 반올림하는 경우 가장 가까운 짝수를 반환합니다. (예: `round(11.5) = 12`, `round(12.5) = 12`)
 
-요소별로 가장 가까운 수로 반올림.
-0.5.의 경우, 가장 가까운 짝수로 반올림 보내는 방식을 사용합니다.
+__인자__  
 
+- __x__: 텐서 또는 변수.  
 
-__인자__
-
-- __x__: 텐서 또는 변수. 
-
-__반환값__ 
+__반환값__  
     
+텐서.  
 
-텐서.
-    
+
 ----
-
 ### sign
-
 
 ```python
 keras.backend.sign(x)
 ```
 
-
-요소별로 sign 취하기.
-
-__인자__
-
-- __x__: 텐서 또는 변수.
-
-__반환값__ 
+텐서 내 각 원소의 부호값을 구합니다. 음수의 경우 `-1`, `0`의 경우 `0`, 양수의 경우 `1`을 반환합니다. 복소수의 경우 `x`가 `0`이 아닐 때는 `x/|x|`를, `0`일 때는 `0`을 반환합니다.  
+  
+__인자__  
+  
+- __x__: 텐서 또는 변수.  
+  
+__반환값__  
     
-
-텐서.
+텐서.  
     
+        
 ----
-
 ### pow
 
 
