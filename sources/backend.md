@@ -1699,7 +1699,7 @@ __인자__
 - __x__: 텐서 또는 변수.
 - __axis__: `int`. 값을 합산할 방향을 나타내는 축.
 
-__반환값__ 
+__반환값__  
 `x`의 원소를 누적한 합의 텐서.
 
 __NumPy 적용__
@@ -1725,7 +1725,7 @@ __인자__
 - __x__: 텐서 또는 변수.
 - __axis__: `int`. 값을 곱할 방향을 나타내는 축.
 
-__반환값__ 
+__반환값__  
 `x`의 원소를 누적한 합의 텐서.
 
 __NumPy 적용__
@@ -1837,7 +1837,7 @@ __인자__
 
 __반환값__ 
 
-`bool` 자료형의 텐서(True 또는 False).
+`bool`형식의 텐서(True 또는 False).
 
 __NumPy 적용__
 
@@ -2513,61 +2513,54 @@ __반환값__
 ----
 ### resize_images
 
-
 ```python
 keras.backend.resize_images(x, height_factor, width_factor, data_format, interpolation='nearest')
 ```
 
+4D 텐서에 들어있는 이미지들의 크기를 조정합니다. 4D텐서는 `batch, height, width, channels` 4개의 차원으로 이루어진 텐서입니다.
 
-4차원 텐서에 포함된 이미지들을 재조정합니다.
+__인자__  
 
-__인자__
-
-- __x__: 텐서 또는 변수. to resize.
+- __x__: 크기를 조정할 텐서 또는 변수.
 - __height_factor__: 양의 정수.
 - __width_factor__: 양의 정수.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
-- __interpolation__: `str`. `nearest` 또는 `bilinear` 중 하나.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 입력할 4D 텐서의 차원 순서가 `(batch, height, width, channels)`가 될 것인지 `(batch, channels, height, width)`가 될 것인지를 지정합니다.
+- __interpolation__: `str`. `"nearest"` 또는 `"bilinear"` 중 하나. 크기 조정에 따라 추가될 값을 결정할 방식을 지정합니다.
 
-
-__반환값__ 
+__반환값__   
     
-
 텐서.
 
 __오류__
 
-- __ValueError__: `data_format`이면 'channels_last' 또는 'channels_first' 모두 아니다.
-    
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"` 가 아닌 경우에 발생합니다.
+
+
 ----
-
 ### resize_volumes
-
 
 ```python
 keras.backend.resize_volumes(x, depth_factor, height_factor, width_factor, data_format)
 ```
 
-
-5차원 텐서에 포함된 볼륨 크기 조정.
+5D 텐서에 포함된 입체의 크기를 조정합니다. 5D 텐서는 `batch, depth, height, width, channels` 5개의 차원으로 이루어진 텐서입니다.
 
 __인자__
 
-- __x__: 텐서 또는 변수. to resize.
+- __x__: 크기를 조정할 텐서 또는 변수.
 - __depth_factor__: 양의 정수.
 - __height_factor__: 양의 정수.
 - __width_factor__: 양의 정수.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 입력할 5D 텐서의 차원 순서가 `(batch, depth, height, width, channels)`가 될 것인지 `(batch, channels, depth, height, width)`가 될 것인지를 지정합니다.
 
-
-__반환값__ 
-    
-
-한 개의 텐서.
-
+__반환값__     
+  
+텐서.  
+  
 __오류__
 
-- __ValueError__: `data_format`이면 'channels_last' 또는 'channels_first' 모두 아니다.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"` 가 아닌 경우에 발생합니다.
+    
     
 ----
 
