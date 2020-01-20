@@ -2000,7 +2000,7 @@ def sqrt(x):
 keras.backend.exp(x)
 ```
 
-텐서의 각 원소를 지수로 하여 자연상수의 승을 구합니다.  
+텐서의 각 원소를 지수로 하여 자연상수의 지수제곱을 구합니다.  
 
 __인자__  
 
@@ -2099,28 +2099,22 @@ __반환값__
 ----
 ### pow
 
-
 ```python
 keras.backend.pow(x, a)
 ```
 
+각 원소별 a 제곱을 구합니다.
 
-요소별로 지수화.
-
-
-__인자__
+__인자__  
 
 - __x__: 텐서 또는 변수.
 - __a__: `int` 
-
-__반환값__ 
-    
-
+  
+__반환값__  
+  
 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def pow(x, a=1.):
@@ -2129,31 +2123,25 @@ def pow(x, a=1.):
 
 
 ----
-
 ### clip
-
 
 ```python
 keras.backend.clip(x, min_value, max_value)
 ```
 
-
-간격이 주어지면 간격 가장자리에서 값이 잘립니다. (클리핑)
-
+입력한 텐서의 원소 가운데 지정한 최솟값 또는 최댓값을 벗어나는 값을 지정한 최솟값, 최댓값으로 바꿉니다. 최댓값, 최솟값을 텐서로 입력하는 경우 `x`와 자료형이 같아야 합니다.  
+  
 __인자__
 
 - __x__: 텐서 또는 변수. 
-- __min_value__: `float`. `int`  or tensor.
-- __max_value__: `float`. `int`  or tensor.
+- __min_value__: `float`, `int` 또는 텐서.
+- __max_value__: `float`, `int` 또는 텐서.
 
 __반환값__ 
     
-
-텐서
+텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def clip(x, min_value, max_value):
@@ -2162,7 +2150,6 @@ def clip(x, min_value, max_value):
 
 
 ----
-
 ### equal
 
 
@@ -2170,23 +2157,18 @@ def clip(x, min_value, max_value):
 keras.backend.equal(x, y)
 ```
 
+두 텐서의 값이 같은지 여부를 원소별로 비교합니다.
 
-두 텐서 사이의 대등함을 비교.
-
-__인자__
-
+__인자__  
+  
 - __x__: 텐서 또는 변수.
 - __y__: 텐서 또는 변수.
+  
+__반환값__  
+  
+`bool`형식의 텐서.  
 
-
-__반환값__ 
-    
-
-불리언 텐서.
-
-__NumPy 적용__
-
-
+__NumPy 적용__  
 
 ```python
 def equal(x, y):
@@ -2198,26 +2180,22 @@ def equal(x, y):
 
 ### not_equal
 
-
 ```python
 keras.backend.not_equal(x, y)
 ```
 
-두 텐서사이 동등하지 않음을 판정.
+두 텐서의 값이 다른지 여부를 원소별로 비교합니다.
 
 __인자__
 
 - __x__: 텐서 또는 변수.
 - __y__: 텐서 또는 변수.
 
-__반환값__ 
-    
-
-불리언 텐서.
-
+__반환값__  
+  
+`bool`형식의 텐서.  
+  
 __NumPy 적용__
-
-
 
 ```python
 def not_equal(x, y):
@@ -2226,16 +2204,13 @@ def not_equal(x, y):
 
 
 ----
-
 ### greater
-
 
 ```python
 keras.backend.greater(x, y)
 ```
 
-
-(x > y)의 진리값.
+(x > y)의 진리값을 원소별로 판단합니다.
 
 __인자__
 
@@ -2244,12 +2219,9 @@ __인자__
 
 __반환값__ 
     
-
-불리언 텐서.
+ `bool`형식의 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def greater(x, y):
@@ -2258,31 +2230,24 @@ def greater(x, y):
 
 
 ----
-
 ### greater_equal
-
 
 ```python
 keras.backend.greater_equal(x, y)
 ```
 
-
-(x >= y)의 진리값.
+(x >= y)의 진리값을 원소별로 판단합니다.
 
 __인자__
 
 - __x__: 텐서 또는 변수.
 - __y__: 텐서 또는 변수.
 
-
 __반환값__ 
     
-
-불리언 텐서.
+`bool`형식의 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def greater_equal(x, y):
@@ -2291,30 +2256,24 @@ def greater_equal(x, y):
 
 
 ----
-
 ### less
-
 
 ```python
 keras.backend.less(x, y)
 ```
 
-
-(x < y)의 진리값.
+(x < y)의 진리값을 원소별로 판단합니다.
 
 __인자__
 
-- __x__: Tensor or variable.
-- __y__: Tensor or variable.
+- __x__: 텐서 또는 변수.
+- __y__: 텐서 또는 변수.
 
 __반환값__ 
     
-
-불리언 텐서.
+`bool`형식의 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def less(x, y):
@@ -2323,16 +2282,13 @@ def less(x, y):
 
 
 ----
-
 ### less_equal
-
 
 ```python
 keras.backend.less_equal(x, y)
 ```
 
-
-(x <= y)의 진리값.
+(x <= y)의 진리값을 원소별로 판단합니다.
 
 __인자__
 
@@ -2341,12 +2297,9 @@ __인자__
 
 __반환값__ 
     
-
-불리언 텐서.
+`bool`형식의 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def less_equal(x, y):
@@ -2355,31 +2308,24 @@ def less_equal(x, y):
 
 
 ----
-
 ### maximum
-
 
 ```python
 keras.backend.maximum(x, y)
 ```
 
-
-두 텐서사이 최댓값.
+두 텐서 가운데 각 위치별 최댓값으로 이루어진 텐서를 반환합니다.
 
 __인자__
-
 
 - __x__: 텐서 또는 변수.
 - __y__: 텐서 또는 변수.
 
-__반환값__ 
-    
-
-한 개의 텐서.
+__반환값__  
+      
+텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def maximum(x, y):
@@ -2388,16 +2334,13 @@ def maximum(x, y):
 
 
 ----
-
 ### minimum
-
 
 ```python
 keras.backend.minimum(x, y)
 ```
 
-
-두 텐서 사이 최솟값.
+두 텐서 가운데 각 위치별 최솟값으로 이루어진 텐서를 반환합니다.
 
 __인자__
 
@@ -2406,12 +2349,9 @@ __인자__
 
 __반환값__ 
     
-
 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def minimum(x, y):
@@ -2420,74 +2360,64 @@ def minimum(x, y):
 
 
 ----
-
 ### sin
-
 
 ```python
 keras.backend.sin(x)
 ```
 
-
-x의 sin 계산.
-
-__인자__
-
-- __x__: 텐서 또는 변수.
-
-__반환값__ 
+x의 각 원소별 사인값을 구합니다.  
+  
+__인자__  
+  
+- __x__: 텐서 또는 변수.  
+  
+__반환값__  
     
+텐서.
 
-한 개의 텐서.
-    
+
 ----
-
 ### cos
-
 
 ```python
 keras.backend.cos(x)
 ```
 
-
-x의 cos 계산.
-
-__인자__
-
-- __x__: 텐서 또는 변수.
-
-__반환값__ 
+x의 각 원소별 코사인값을 구합니다.  
+  
+__인자__  
+  
+- __x__: 텐서 또는 변수.  
+  
+__반환값__  
     
+텐서.  
 
-텐서.
-    
+
 ----
-
 ### normalize_batch_in_training
-
 
 ```python
 keras.backend.normalize_batch_in_training(x, gamma, beta, reduction_axes, epsilon=0.001)
 ```
 
-
-배치에 대한 평균과 표준을 계산 한 다음 배치에 배치 정규화를 적용합니다. 
+배치의 대한 평균과 표준을 계산한 다음 배치 정규화를 적용합니다. 
 
 __인자__
 
 - __x__: Input 텐서 또는 변수.
 - __gamma__: 입력 스케일링에 사용되는 텐서.
 - __beta__: 입력을 중앙에 위치시키는 텐서.
-- __reduction_axes__: 정수 반복가능, 정규화 할 축.
-- __epsilon__: 퍼지 상수.
-
-
-__반환값__ 
-    
-
- `(normalized_tensor, mean, variance)` 인자의 튜플 길이.
+- __reduction_axes__: `int` 또는 `int`로 이루어진 리스트나 튜플. 정규화를 수행할 축을 지정합니다.
+- __epsilon__: 0으로 나누는 오류를 방지하기 위해 더할 작은 상수값.  
+  
+__반환값__  
+      
+`(normalized_tensor, mean, variance)` 인자로 이루어진 길이 3의 튜플.
     
 ----
+
 
 ### batch_normalization
 
@@ -2496,101 +2426,91 @@ __반환값__
 keras.backend.batch_normalization(x, mean, var, beta, gamma, axis=-1, epsilon=0.001)
 ```
 
-
-평균, 분산, 베타와 감마가 주어진 x에 대해 배치 정규화를 수행합니다. 
-
-I.e. returns:
-`output = (x - mean) / sqrt(var + epsilon) * gamma + beta`
-
-__인자__
-
+평균과 분산, 베타와 감마가 주어진 x에 대해 배치 정규화를 수행합니다.  
+  
+출력 예시: `output = (x - mean) / sqrt(var + epsilon) * gamma + beta`  
+  
+__인자__  
 
 - __x__: 입력 텐서 또는 변수.
 - __mean__: 배치의 평균 
 - __var__: 배치의 분산
-- __beta__: 입력을 중앙에 위치시키는 텐서. 
-- __gamma__: 입력 스케일링에 의한 텐서.
-- __axis__: Integer, 정규화 시켜야 하는 축.
-    (typically the features axis).
-- __epsilon__: 퍼지 상수.
-
+- __gamma__: 입력 스케일링에 사용되는 텐서.
+- __beta__: 입력을 중앙에 위치시키는 텐서.
+- __axis__: `int`, 정규화 시킬 축. 일반적으로 변인<sub>feature</sub> 차원을 지정합니다.
+- __epsilon__: 0으로 나누는 오류를 방지하기 위해 더할 작은 상수값.
 
 __반환값__ 
     
-
 텐서.
     
+__NumPy 적용__
+
+```python
+def batch_normalization(x, mean, var, beta, gamma, axis=-1, epsilon=0.001):
+    return ((x - mean) / sqrt(var + epsilon)) * gamma + beta
+```
+
+
 ----
-
 ### concatenate
-
 
 ```python
 keras.backend.concatenate(tensors, axis=-1)
 ```
+  
+리스트로 묶인 텐서들을 지정한 축을 따라 연결합니다.  
+  
+__인자__  
 
-
-지정된 축에따른 텐서의 리스트 연결.
-
-
-__인자__
-
-- __tensors__: 연결 할 텐서의 목록.
-- __axis__: 연결 축.
+- __tensors__: 연결할 텐서 리스트.
+- __axis__: 연결할 축.
 
 __반환값__ 
     
-
 텐서.
-    
+ 
+ 
 ----
-
 ### reshape
-
 
 ```python
 keras.backend.reshape(x, shape)
 ```
 
-
-텐서를 지정한 형식으로 다시 재정의 합니다. 
+텐서의 형태를 지정한 모양으로 바꿉니다. 
 
 __인자__
 
 - __x__: 텐서 또는 변수.
-- __shape__: 대상이 되는 형식튜플.
+- __shape__: 바꿀 형태를 나타내는 튜플.
 
 
 __반환값__ 
-    
 
 텐서.
-    
+
+
 ----
-
 ### permute_dimensions
-
 
 ```python
 keras.backend.permute_dimensions(x, pattern)
 ```
 
-
-텐서의 축을 치환합니다.
-
-__인자__
-
-- __x__: 텐서 또는 변수.
-- __pattern__: `(0, 2, 1)`처럼 인덱스들의 차원의 튜플.
-
+텐서의 축을 지정한 순서대로 재배치합니다.  
+  
+__인자__  
+  
+- __x__: 텐서 또는 변수.  
+- __pattern__: 텐서의 각 차원 인덱스로 이루어진 튜플. (예: `(0, 2, 1)`)  
 
 __반환값__ 
     
-
 텐서.
     
+    
 ----
-
 ### resize_images
 
 
