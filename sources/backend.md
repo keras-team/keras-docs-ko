@@ -636,7 +636,7 @@ keras.backend.placeholder(shape=None, ndim=None, dtype=None, sparse=False, name=
 플레이스홀더 인스턴스를 생성합니다.
 
 __인자__
-- __shape__: 플레이스홀더의 형태. 정수값으로 이루어진 튜플로, `None`이 포함될 수 있습니다.
+- __shape__: 플레이스홀더의 형태. `int`로 이루어진 튜플로, `None`이 포함될 수 있습니다.
 - __ndim__: 텐서의 축의 개수(=총 차원의 수). 인스턴스를 생성하려면 적어도 {`shape`, `ndim`} 중 하나는 반드시 입력해야 합니다. 두 인자를 다 입력한 경우 `shape`가 사용됩니다.
 - __dtype__: 플레이스홀더의 자료형.
 - __sparse__: `bool`. 플레이스홀더가 희소<sub>sparse</sub>타입이어야 하는지의 여부를 결정합니다.
@@ -717,14 +717,14 @@ array([2, 4, 5], dtype=int32)
 keras.backend.int_shape(x)
 ```
 
-텐서 또는 변수의 형태를 정수 또는 None 값을 포함하는 튜플 형식으로 반환합니다.
+텐서 또는 변수의 형태를 `int` 또는 `None` 값을 포함하는 튜플 형식으로 반환합니다.
 
 __인자__
 - __x__: 텐서 또는 변수. 
 
 __반환값__ 
     
-정수 또는 None을 포함한 튜플.
+`int` 또는 `None`을 포함한 튜플.
 
 __예시__
 ```python
@@ -1394,7 +1394,7 @@ __인자__
 
 - __x__: `ndim >= 2` 조건을 만족하는 케라스 텐서 또는 변수.
 - __y__: `ndim >= 2` 조건을 만족하는 케라스 텐서 또는 변수. 
-- __axes__: `int` 또는 튜플. `x`와 `y`의 순서대로 각각 감소 대상인 차원(내적 연산의 대상이 되는 차원)을 지정합니다. 단일한 정수를 입력하는 경우 `x`와 `y` 모두에 같은 차원이 지정됩니다.
+- __axes__: `int` 또는 `int`로 이루어진 튜플. `x`와 `y`의 순서대로 각각 감소 대상인 차원(내적 연산의 대상이 되는 차원)을 지정합니다. 단일한 정수를 입력하는 경우 `x`와 `y` 모두에 같은 차원이 지정됩니다.
 
 
 __반환값__  
@@ -2634,7 +2634,7 @@ keras.backend.tile(x, n)
 __인자__  
 
 - __x__: 텐서 또는 배열.
-- __n__: `int` 또는 `int`로 이루어진 튜플이나 리스트. `x`를 각 축의 방향으로 몇 번 나열할 것인지를 지정합니다. 따라서 `n`의 차원 개수는 `x`의 차원 개수와 같아야 합니다. 예를 들어 `(2, )`형태의 `[a, a]`배열을 3회 나열할 경우 `n=3`이면 되지만, `(1, 2)`형태의 `[a, a]`를 1번째 축 방향으로 3회 나열할 경우 `n=(1, 3)`을 입력해야 합니다.
+- __n__: `int` 또는 `int`로 이루어진 리스트나 튜플. `x`를 각 축의 방향으로 몇 번 나열할 것인지를 지정합니다. 따라서 `n`의 차원 개수는 `x`의 차원 개수와 같아야 합니다. 예를 들어 `(2, )`형태의 `[a, a]`배열을 3회 나열할 경우 `n=3`이면 되지만, `(1, 2)`형태의 `[a, a]`를 1번째 축 방향으로 3회 나열할 경우 `n=(1, 3)`을 입력해야 합니다.
 
 __반환값__  
     
@@ -2719,93 +2719,70 @@ __반환값__
 ----
 ### temporal_padding
 
-
 ```python
 keras.backend.temporal_padding(x, padding=(1, 1))
 ```
 
+3D 텐서의 중간차원에 패딩을 추가합니다.
 
-3차원 텐서의 중간차원을 채웁니다.
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
+- __padding__: 2개의 `int`로 이루어진 튜플. 차원 1의 시작과 끝에 얼마나 많은 0을 추가할 지에 대한 수치.  
 
-- __x__: 텐서 또는 변수.
-- __padding__: 2개의 `int`로 이루어진 튜플. 차원 1의 시작과 끝에 얼마나 많은 0을 추가할 지에 대한 수치.
-
-__반환값__ 
+__반환값__  
     
-
-3차원 텐서를 채워 넣습니다.
+0으로 패딩된 3D 텐서.  
+    
     
 ----
-
 ### spatial_2d_padding
-
 
 ```python
 keras.backend.spatial_2d_padding(x, padding=((1, 1), (1, 1)), data_format=None)
 ```
 
+4D 텐서의 2번째 및 3번째 차원(= 1번 및 2번 축)에 패딩을 추가합니다.
 
+__인자__  
 
-4차원 텐서에서 2차원과 3차원을 채워 넣습니다.
+- __x__: 텐서 또는 변수. 
+- __padding__: 길이가 2인 튜플 두 개로 이루어진 튜플. 패딩 형태를 지정합니다. (예: `((1, 1), (1, 1))`) 하위 튜플의 각 값은 해당 차원의 앞과 뒤에 입력할 패딩의 개수입
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"` 가운데 하나를 지정합니다. `"channels_last"`의 경우 4개의 차원 중 가운데 두 개의 차원에, `"channels_first"`의 경우 마지막 두 개의 차원에 패딩을 추가합니다.  
 
-
-__인자__
-
-- __x__: 텐서 또는 변수.
-- __padding__: 2 튜플들의 튜플. 채워진 패턴.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
-
-__반환값__ 
-    
-
-
-채워진 4차원 텐서.
+__반환값__  
+0으로 패딩된 4D 텐서.
 
 __오류__
 
-- __ValueError__: `data_format`이면 'channels_last' 또는 'channels_first' 모두 아니다.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"` 가 아닌 경우에 발생합니다.
 
-    
+
 ----
-
 ### spatial_3d_padding
-
 
 ```python
 keras.backend.spatial_3d_padding(x, padding=((1, 1), (1, 1), (1, 1)), data_format=None)
 ```
 
+5D 텐서의 깊이, 높이, 너비 차원에 0으로 패딩을 추가합니다. `padding`인자를 구성하는 세 개의 튜플 각각이 순서대로 깊이, 높이, 너비 차원에 대응됩니다. `data_format`이 `"channels_last"`인 경우 총 다섯 차원 중 가운데 세 개의 차원에, `"channels_first"`인 경우 마지막 세 개의 차원에 패딩을 추가합니다.  
 
-깊이, 높이, 너비 치수를 따라 0으로 채워진 5차원 텐서를 채웁니다.
+__인자__  
 
-"padding [0]", "padding [1]"및 "padding [2]"는 왼쪽과 오른쪽으로 0인 치수를 각각 채 웁니다.
-
-'channels_last'data_format의 경우 2 차원, 3 차원 및 4 차원이 채워집니다.
-'channels_first'data_format의 경우 3 차원, 4 차원 및 5 차원이 채워집니다.
-
-
-__인자__
-
-- __x__: 텐서 또는 변수.
-- __padding__: 3 튜플들의 튜플. 채워진 패턴.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
-
+- __x__: 텐서 또는 변수.  
+- __padding__: 길이가 2인 튜플 세 개로 이루어진 이루어진 튜플. 패딩 형태를 지정합니다. (예: `((1, 1), (1, 1), (1, 1))`) 하위 튜플의 각 값은 해당 차원의 앞과 뒤에 입력할 패딩의 개수입니다. 
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"` 가운데 하나를 지정합니다.
 
 __반환값__ 
     
-
-
-채워진 5차원 텐서.
+0으로 패딩된 5D 텐서.
 
 __오류__
 
-- __ValueError__: `data_format`이면 'channels_last' 또는 'channels_first' 모두 아니다.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"` 가 아닌 경우에 발생합니다.
 
 
 ----
-
 ### stack
 
 
@@ -2813,22 +2790,18 @@ __오류__
 keras.backend.stack(x, axis=0)
 ```
 
-
-랭크`R` 텐서의 <sag>list</sag>를 랭크`R + 1` 텐서에 쌓습니다.
+형태가 같은 텐서의 리스트를 지정한 축의 방향으로 쌓아 텐서를 만듭니다. 이때 지정할 수 있는 축은 최대 입력 텐서의 랭크+1 까지입니다. 예를 들어 형태가 `(m, n)`인 텐서로 이루어진 리스트를 입력할 경우 `axis`는 `0`부터 `2`까지 지정 가능합니다. 
 
 __인자__
 
-- __x__: 텐서들의 <sag>list</sag>
-- __axis__: 텐서를 쌓을 축.
+- __x__: 형태가 같은 텐서들로 이루어진 리스트.
+- __axis__: 텐서를 쌓을 축의 방향.
 
 __반환값__ 
     
-
 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def stack(x, axis=0):
@@ -2837,53 +2810,43 @@ def stack(x, axis=0):
 
 
 ----
-
 ### one_hot
-
 
 ```python
 keras.backend.one_hot(indices, num_classes)
 ```
 
-
-정수형 텐서의 원핫 표기를 계산합니다.
+정수로 이루어진 텐서를 입력받아 각 클래스마다 원-핫 인코딩된 텐서를 생성합니다.
 
 __인자__
 
 - __indices__: `(batch_size, dim1, dim2, ... dim(n-1))`형식의 n차원 정수형 텐서.
-- __num_classes__: `int`. 클래스들의 개수.
+- __num_classes__: `int`. 클래스의 개수.
 
 __반환값__ 
+
+인덱스 순서에서 각 클래스에 해당되는 값이 1이고 나머지가 0인 원-핫 인코딩 텐서. 입력 텐서가 `n`차원일 때 출력 텐서는 `n+1` 개의 차원을 가지며 `(batch_size, dim1, dim2, ... dim(n-1), num_classes)`의 형태로 이루어집니다.
     
-
-
-`(batch_size, dim1, dim2, ... dim(n-1), num_classes)`형식의 입력값의 (n+1)차원의 원핫 표현형식.
     
 ----
-
 ### reverse
-
 
 ```python
 keras.backend.reverse(x, axes)
 ```
 
+지정된 축을 따라 텐서를 반전시킵니다.  
 
-지정된 축을 따라 텐서를 반전시킵니다.
+__인자__  
 
-__인자__
+- __x__: 값을 반전시킬 텐서.  
+- __axes__: `int`. 반전시킬 방향의 축.  
 
-- __x__: 텐서를 반전시킨다.
-- __axes__: 축이 반전된, 정수형 또는 반복 가능한 정수.
-
-__반환값__ 
+__반환값__  
     
-
 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def reverse(x, axes):
@@ -2894,35 +2857,29 @@ def reverse(x, axes):
 
 
 ----
-
 ### slice
-
 
 ```python
 keras.backend.slice(x, start, size)
 ```
 
+텐서의 일부를 추출합니다.
 
-텐서에서 슬라이스를 추출합니다.
-
-__인자__
-
+__인자__  
+  
 - __x__: 입력 텐서.
-- __start__: 각 축에 따라 슬라이스의 시작 인덱스를 나타내는 텐서 또는 `int` 리스트/튜플 자료형.
-- __size__: 각 축을 따라 슬라이스 할 차원의 수를 나타내는 텐서 또는 `int` 리스트/튜플 자료형.
-
-
-__반환값__ 
+- __start__: `int` 또는 `int`로 이루어진 리스트나 튜플, 텐서. 입력한 텐서의 각 축에서 추출을 시작할 위치 인덱스를 지정합니다.   
+- __size__: `int` 또는 `int`로 이루어진 리스트나 튜플, 텐서. 각 축을 따라 추출할 배열의 길이를 나타냅니다.  
+  
+__반환값__  
     
+`x`로부터 추출한 텐서. 형태는 아래와 같습니다.  
 
-A sliced tensor:
 ```python
 new_x = x[start[0]: start[0] + size[0], ..., start[-1]: start[-1] + size[-1]]
 ```
 
-__NumPy 적용__
-
-
+__NumPy 적용__  
 
 ```python
 def slice(x, start, size):
@@ -2932,118 +2889,95 @@ def slice(x, start, size):
 
 
 ----
-
 ### get_value
-
 
 ```python
 keras.backend.get_value(x)
 ```
 
+지정한 변수의 값을 NumPy 배열의 형태로 가져옵니다.   
 
-Returns the value of a variable.
+__인자__  
 
-__인자__
+- __x__: 입력 변수.  
 
-- __x__: 입력 변수. 
-
-__반환값__ 
+__반환값__   
     
+NumPy 배열.
 
-넘파이 배열.
-    
+
 ----
-
 ### batch_get_value
-
 
 ```python
 keras.backend.batch_get_value(ops)
 ```
+텐서들의 리스트를 입력받아 그 값을 NumPy 배열의 리스트로 반환합니다.
+
+__인자__ 
+
+- __ops__: 적용할 텐서의 리스트.
+
+__반환값__  
+
+NumPy 배열의 리스트.
 
 
-한 가지 이상의 텐서 변수의 값을 반환합니다.
-
-__인자__
-
-- __ops__: 실행할 ops 목록.
-
-__반환값__ 
-    
-
-넘파이 배열 리스트.
-    
 ----
-
 ### set_value
-
 
 ```python
 keras.backend.set_value(x, value)
 ```
 
+변수의 값을 NumPy 배열로부터 가져옵니다. 
 
-넘파이 배열에서 변수의 값을 설정합니다. 
+__인자__  
 
-__인자__
-
-- __x__: 새로운 값으로 설정하는 텐서.
-- __value__: 넘파이 배열로 텐서를 설정하는 값.
+- __x__: 새 값을 부여할 텐서.
+- __value__: 텐서에 값을 입력할 NumPy 배열.
 
 
 ----
-
 ### batch_set_value
-
 
 ```python
 keras.backend.batch_set_value(tuples)
 ```
 
-한번에 밚은 텐서 변수들의 값을 설정합니다.
+여러 텐서 변수들의 값을 한꺼번에 NumPy 배열로부터 가져옵니다. 각 변수와 그에 대응하는 NumPy 배열을 하나의 튜플로 지정하여 입력합니다.
+
+__인자__  
+
+- __tuples__: 원소가 `(tensor, value)`인 튜플로 이루어진 리스트. `value`인자는 NumPy 배열이어야 합니다.  
 
 
-__인자__
-
-- __tuples__: `(tensor, value)` 튜플 리스트, <sag>value</sag>인자는 넘파이 배열이어야 합니다.
-    
 ----
-
 ### print_tensor
-
 
 ```python
 keras.backend.print_tensor(x, message='')
 ```
 
+입력한 `message`와 함께 텐서의 값을 출력합니다. 이때 `print_tensor`는 `message`에 지정한 내용을 화면에 출력되는 print 연산 이외에도 별도로 `x`와 값이 동일한 새로운 텐서를 반환합니다. 별도로 저장하거나 연산에 입력하지 않는 경우 이 텐서는 사라지게 됩니다.  
 
-
-평가시 <sag>message</sag>와 텐서 값을 출력합니다. 
-
-`print_tensor`는 `x`와 동일한 새로운 텐서를 반환합니다. 이 코드는 반드시 다음코드에 사용해야 합니다. 
-그렇지 않으면 평가 중 프린트 연산이 고려되지 않습니다. 
-
-
-
-__예시__
+__예시__  
 
 ```python
 >>> x = K.print_tensor(x, message="x is: ")
 ```
 
-__인자__
+__인자__  
 
-- __x__: 출력 할 텐서.
-- __message__: 텐서와 함께 출력 할 메시지.
+- __x__: 출력할 텐서.
+- __message__: 텐서와 함께 출력 할 메시지.  
 
-
-__반환값__ 
+__반환값__  
     
+`x`과 값이 동일한 텐서.
 
-변경되지 않은 같은 텐서  `x`.
-    
+
 ----
-
 ### function
 
 
@@ -3051,29 +2985,25 @@ __반환값__
 keras.backend.function(inputs, outputs, updates=None)
 ```
 
-
-케라스 함수 인스턴스화하기.
+케라스 함수 인스턴스를 생성합니다.
 
 __인자__
 
 - __inputs__: 플레이스홀더 텐서의 리스트.
 - __outputs__: 출력 텐서의 리스트. 
 - __updates__: 업데이트 연산의 리스트.
-- __**kwargs__: `tf.Session.run`에 전달되는 값.
+- __**kwargs__: `tf.Session.run`에 전달되는 값.  
 
-
-__반환값__ 
+__반환값__  
     
-
-
-넘파이 배열의 값 출력.
+NumPy 배열 형태의 출력값.
 
 __오류__
 
-- __ValueError__: 유효하지 않은 kwargs 가 전달된 경우.
+- __ValueError__: 유효하지 않은 kwargs 가 전달된 경우 또는 eager 모드로 실행한 경우에 발생합니다.
+    
     
 ----
-
 ### gradients
 
 
