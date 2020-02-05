@@ -2747,7 +2747,7 @@ keras.backend.spatial_2d_padding(x, padding=((1, 1), (1, 1)), data_format=None)
 __인자__  
 
 - __x__: 텐서 또는 변수. 
-- __padding__: 길이가 2인 튜플 두 개로 이루어진 튜플. 패딩 형태를 지정합니다. (예: `((1, 1), (1, 1))`) 하위 튜플의 각 값은 해당 차원의 앞과 뒤에 입력할 패딩의 개수입
+- __padding__: 길이가 2인 튜플 두 개로 이루어진 튜플. 패딩 형태를 지정합니다. (예: `((1, 1), (1, 1))`) 하위 튜플의 각 값은 해당 차원의 앞과 뒤에 입력할 패딩의 개수입다.
 - __data_format__: `str`. `"channels_last"` 또는 `"channels_first"` 가운데 하나를 지정합니다. `"channels_last"`의 경우 4개의 차원 중 가운데 두 개의 차원에, `"channels_first"`의 경우 마지막 두 개의 차원에 패딩을 추가합니다.  
 
 __반환값__  
@@ -3006,99 +3006,80 @@ __오류__
 ----
 ### gradients
 
-
 ```python
 keras.backend.gradients(loss, variables)
 ```
-
-
-변수에 대한 손실의 그라디언트를 반환합니다.
+각 변수에 대한 손실<sub>loss</sub>의 그래디언트를 반환합니다.
 
 __인자__
 
-- __loss__: 최소화시킨 스칼라값 텐서.
+- __loss__: 시키고자 하는 스칼라 값의 텐서.
 - __variables__: 변수들의 리스트.
 
-__반환값__ 
-    
+__반환값__    
 
-그라디언트 텐서.
+그래디언트 텐서.
+    
     
 ----
-
 ### stop_gradient
-
 
 ```python
 keras.backend.stop_gradient(variables)
 ```
 
+입력한 변수로부터 도출되는 모든 그래디언트를 0이 되게끔 만듭니다. 다시 말해 해당 변수가 그래디언트 계산 과정에서 상수처럼 취급되게끔 합니다. 예를 들어 `b = keras.backend.stop_gradient(a)`라고 지정할 경우 `b`로부터 이어지는 이후의 연산 단계는 정상적인 그래디언트가 계산되고 역전파 과정에서 가중치가 업데이트 되지만, `a`의 그래디언트는 0으로 고정되어 `a` 및 `a`를 도출해낸 이전 단계들은 역전파 과정에서 가중치가 동결됩니다.  
 
-모든 다른 변수에 대한 0 그라디언트 'variables'를 반환합니다. 
+__인자__  
 
-__인자__
+- __variables__: 연산 과정에서 다른 변수들에 대해 상수로 취급할 텐서 또는 텐서들의 리스트.
 
-- __variables__: 또 다른 변수에 대한 상수를 고려한 텐서 또는 텐서의 리스트.
+__반환값__  
 
-__반환값__ 
-    
-
-전달받은 인자에 따른 또 다른 변수에 대한 상수 그라디언트를 가진 텐서 또는 텐서의 리스트.
-
+다른 변수들에 의해 그래디언트 값이 바뀌지 않는 텐서 또는 텐서들의 리스트.  
 
 
 ----
-
 ### rnn
-
 
 ```python
 keras.backend.rnn(step_function, inputs, initial_states, go_backwards=False, mask=None, constants=None, unroll=False, input_length=None)
 ```
+텐서의 시간 차원을 따라 연산을 반복합니다.
+
+__인자__  
+
+- __step_function__: RNN에서 각 시간 단계마다 반복 계산할 함수.  
+    - 매개변수:  
+        - inputs: 시간 차원 없이 `(samples, ...)`의 형태를 가진 텐서로 특정한 시간 단계의 배치 샘플.   
+        - states: 텐서의 리스트.  
+    - 반환값:  
+        - outputs: 시간 차원 없이 `(samples, ...)`의 형태를 가진 텐서.  
+        - new_states: 'states'와 형태와 길이가 같은 텐서의 리스트. 리스트 내의 첫번째 텐서는 반드시 이전 단계의 출력 텐서여야 합니다.  
+- __inputs__: `(samples, time, ...)`의 형태로 이루어진, 최소 3D 이상의 차원을 갖는 시계열 데이터의 텐서.
+- __initial_states__: 시간 차원 없이 `(samples, ...)`의 형태를 가진 텐서. `step_function`에 입력할 `states`의 초기값.
+- __go_backwards__: `bool`. `True`인 경우 시간 차원 순서의 역순으로 연산을 반복하여 역순으로 된 결과값을 반환합니다. 
+- __mask__: `(samples, time)`의 형식을 가진 이진 텐서. 마스킹될 모든 원소마다 0값을 가집니다.
+- __constants__:  각 시간 단계마다 전달할 상수 값의 리스트. 
+- __unroll__: 반복 연산시 순환구조를 펼쳐서 연산 일부를 동시에 처리할 것인지, 혹은 백엔드의 심볼릭 루프를 (`while_loop` 또는 `scan`) 사용할 것인지를 지정합니다.
+- __input_length__: 입력값의 시간 단계를 나타내는 고정된 숫자값.
 
 
-텐서의 시간 차원에 대한 반복.
-
-__인자__
-
-- __step_function__:
-    매개변수:
-        inputs: 시간 차원이 없고 형식이 있는 텐서. 어떤 시간 단계의 배치에 관한 입력값을 나타냅니다.
-        state: 텐서의 리스트.
-    반환값:
-        outputs: 시간 차원이 없고 형식이 있는 텐서. 
-        new_states: 'states'의 형식과 같은 길이의 텐서 리스트. 
-- __inputs__: 적어도 3차원인 형식의 일시적인 데이터의 텐서  (samples, time, ...)
-- __initial_states__: 단계함수에서 사용된 상태의 초기 값을 포함한 시간 차원이 없고 형식이 있는 텐서.
-- __go_backwards__: <sag>boolean</sag> 만약 True라면 그 시간동안 반복한다. 
-        뒤집힌 순서를 반환하며 뒤집힌 순서의 차원이다. 
-- __mask__: (samples, time)형식을 가진 이진 텐서. 마스크의 모든 요소에 0 포함.
-- __constants__:  각 단계에 전달된 상수 값 리스트. 
-- __unroll__:  RNN을 사용하거나 기호 루프를 사용할지에 대한 여부. (백엔드에 따라 `while_loop` 또는 `scan`)
-- __input_length__: 입력 시, 시간단계의  <sag>static</sag>숫자.
-
-
-__반환값__ 
+__반환값__  
     
+`(last_output, outputs, new_states)`로 구성된 튜플.  
 
-A tuple, `(last_output, outputs, new_states)`.
-
-last_output: `(samples, ...)` 형식의, rnn의 최근 출력값. 
-outputs: `(samples, time, ...)` 형식이 있는 텐서 의 각 `outputs[s, t]`요소는 's'샘플에 대한 't'시간에 대한 단계 함수의 출력요소 입니다. 
-new_states: `(samples, ...)`형식의 단계함수로 반환된 최근 상태의 텐서 리스트.
-
+- last_output: `rnn`의 마지막 단계 출력값으로 `(samples, ...)`의 형태를 갖고 있습니다.  
+- outputs: `(samples, time, ...)`형태를 가진 텐서. 각 `outputs[s, t]`값은 `s`샘플로부터 `t`시간 단계에서 생성된 `step_function`의 출력값입니다.  
+- new_states: `(samples, ...)`형태를 가진 텐서의 리스트. `step_function`이 가장 마지막 단계에서 반환한 `states`값입니다.
 
 __오류__
 
-- __ValueError__: 입력 차원이 3보다 작은 경우.
-- __ValueError__: `unroll`이  `True`인 경우. 
-    입력 시간 단계는 고정이 아님.
-- __ValueError__: `mask` 가 존재하면 (not `None`)
-    상태는 (`len(states)` == 0).
+- __ValueError__: 입력 차원이 3보다 작은 경우 발생합니다.
+- __ValueError__: 입력의 시간 단계 길이가 유동적인데 `unroll`을 `True`로 지정한 경우 발생합니다.
+- __ValueError__: `mask`를 설정했는데 (`None`이 아님) `states`가 없는 경우(`len(states)` == 0) 발생합니다.
 
 __NumPy 적용__
-
-
 
 <details>
 <summary>Show the Numpy implementation</summary>
@@ -3121,7 +3102,7 @@ def rnn(step_function, inputs, initial_states,
                 'got {}'.format(mask.shape))
 
         def expand_mask(mask_, x):
-            # expand mask so that `mask[:, t].ndim == x.ndim`
+            # `mask[:, t].ndim == x.ndim`이 되도록 mask를 확장합니다.
             while mask_.ndim < x.ndim + 1:
                 mask_ = np.expand_dims(mask_, axis=-1)
             return mask_
@@ -3136,7 +3117,7 @@ def rnn(step_function, inputs, initial_states,
         time_index = time_index[::-1]
 
     outputs = []
-    states_tm1 = initial_states  # tm1 means "t minus one" as in "previous timestep"
+    states_tm1 = initial_states  # 여기서 tm1은 "이전 시간 단계"를 나타내는 "t minus one"을 뜻합니다.
     output_tm1 = np.zeros(output_sample.shape)
     for t in time_index:
         output_t, states_t = step_function(inputs[:, t], states_tm1 + constants)
@@ -3156,7 +3137,6 @@ def rnn(step_function, inputs, initial_states,
 
 
 ----
-
 ### switch
 
 
