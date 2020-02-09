@@ -3474,7 +3474,7 @@ def hard_sigmoid(x):
 keras.backend.tanh(x)
 ```
 
-각 원소에 하이퍼볼릭탄젠트(tanh) 연산을 적용합니다.
+각 원소에 하이퍼볼릭탄젠트<sub>tanh</sub> 연산을 적용합니다.
 
 __인자__  
 
