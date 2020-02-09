@@ -3139,36 +3139,27 @@ def rnn(step_function, inputs, initial_states,
 ----
 ### switch
 
-
 ```python
 keras.backend.switch(condition, then_expression, else_expression)
 ```
 
-
-스칼라 값에 따라 두 연산사이를 전환합니다. 
-
-`then_expression` 와 `else_expression` 모두 동일 모양의 기호 텐서. 
-
+조건에 따라 두 연산 가운데 하나의 결과를 반환합니다. 참인 경우 실행되는 `then_expression`과 거짓인 경우 실행되는 `else_expression`의 결과값은 형태가 같은 심볼릭 텐서여야 합니다. 
 
 __인자__
 
-
-- __condition__: 텐서 (<sag>int</sag> or <sag>bool</sag>).
-- __then_expression__: 텐서 또는 텐서를 반환하는 호출가능한 값.
-- __else_expression__: 텐서 또는 텐서를 반환하는 호출가능한 값.
+- __condition__: `int (0/1)` 또는 `bool (Ture/False)` 형식의 텐서 또는 이를 반환하는 조건식.
+- __then_expression__: 텐서 또는 텐서를 반환하는 호출가능한 연산. `condition`이 `1` 또는 `True`일 때 반환될 값입니다.
+- __else_expression__: 텐서 또는 텐서를 반환하는 호출가능한 연산. `condition`이 `0` 또는 `False`일 때 반환될 값입니다.
 
 __반환값__ 
-    
 
-지정한 텐서.
+조건에 따라 선택된 텐서.
 
 __오류__
 
-- __ValueError__: 표현된 랭크보다 더 나은 'condition'의 랭크일 경우, 에러.
+- __ValueError__: `expressions`보다 `condition`의 차원이 클 경우 오류가 발생합니다.
 
 __NumPy 적용__
-
-
 
 ```python
 def switch(condition, then_expression, else_expression):
@@ -3180,99 +3171,68 @@ def switch(condition, then_expression, else_expression):
 
 
 ----
-
 ### in_train_phase
-
 
 ```python
 keras.backend.in_train_phase(x, alt, training=None)
 ```
 
+훈련 단계일 경우 `x`를 선택하고 그렇지 않으면 `alt`를 선택합니다. `alt`는 `x`와 동일한 형태를 가져야합니다.  
 
-열차 단계에서 'x'를 선택하고 그렇지 않으면 'alt'를 선택합니다.
+__인자__  
 
-`alt`는`x`와 동일한 모양 *을 가져야합니다.
-
-__인자__
-
-
-- __x__: 훈련 단계에서 반환하는 것.
-    (텐서 또는 호출가능한 텐서).
-- __alt__: 그 밖의 것을 반환.
-    (텐서 또는 호출가능한 텐서).
-- __training__: 학습 단계를 지정한 선택적 스칼라 텐서. 
-    (<sag>Python boolean</sag> 또는 <sag>Python integer</sag>)
+- __x__: 훈련 단계일 경우 반환할 대상 (텐서 또는 텐서를 반환하는 호출가능한 연산).  
+- __alt__: 그 밖의 경우에 반환할 대상 (텐서 또는 텐서를 반환하는 호출가능한 연산).  
+- __training__: (필요한 경우) 훈련 단계 여부를 나타내기 위해 사용할 스칼라 텐서 또는 파이썬 `bool` 혹은 `int`값.  
 
 
-__반환값__ 
-    
+__반환값__  
 
-플래그에 기반한 `x` 또는 `alt`.
-`training` 플래그는 기본적으로 `K.learning_phase()`입니다. 
-    
+`training`플래그에 따라서 `x` 또는 `alt`를 반환. `training` 플래그 판단에는 기본값으로 `K.learning_phase()`를 참조하게 되어 있습니다.  
+
+
 ----
-
 ### in_test_phase
-
 
 ```python
 keras.backend.in_test_phase(x, alt, training=None)
 ```
 
+시험 단계일 경우 `x`를 선택하고 그렇지 않으면 `alt`를 선택합니다. `alt`는 `x`와 동일한 형태를 가져야합니다.  
 
-열차 단계에서 'x'를 선택하고 그렇지 않으면 'alt'를 선택합니다.
+__인자__  
 
-`alt`는`x`와 동일한 모양 *을 가져야합니다.
-
-__인자__
-
-- __x__: 테스트 단계에서 반환 할 내용. 
-    (tensor or callable that returns a tensor).
-- __alt__: 다른 경우 반환 할 내용.
-    (tensor or callable that returns a tensor).
-- __training__: 학습 단계를 지정한 선택적 스칼라 텐서. 
-    (<sag>Python boolean</sag> 또는 <sag>Python integer</sag>)
+- __x__: 시험 단계일 경우 반환할 대상 (텐서 또는 텐서를 반환하는 호출가능한 연산).  
+- __alt__: 그 밖의 경우에 반환할 대상 (텐서 또는 텐서를 반환하는 호출가능한 연산).  
+- __training__: (필요한 경우) 시험 단계 여부를 나타내기 위해 사용할 스칼라 텐서 또는 파이썬 `bool`이나 `int`값.  
 
 
-__반환값__ 
-    
+__반환값__  
 
-'learning_phase()'에 기반한 `x` 또는 `alt'.
+`training`플래그에 따라서 `x` 또는 `alt`를 반환. `training` 플래그 판단에는 기본값으로 `K.learning_phase()`를 참조하게 되어 있습니다.  
+
     
 ----
-
 ### relu
-
 
 ```python
 keras.backend.relu(x, alpha=0.0, max_value=None, threshold=0.0)
 ```
 
+ReLU(Rectified Linear Unit) 연산입니다. 기본값을 기준으로, 입력값의 원소별로 `max(x, 0)`의 결과를 반환합니다. 만약 `max_value` 또는 `threshold`를 지정하는 경우 `x >= max_value`인 경우 `f(x) = max_value`를, `threshold <= x < max_value`인 `x`에 대해서는 `f(x) = x`를, 그리고 나머지에 대해서는 `f(x) = alpha * (x - threshold)`를 반환합니다.
 
-정제된 선형 단위.
+__인자__  
 
-기본값으로, 요소별로`max(x, 0)를 반환합니다.
-
-그 외,
-`f(x) = max_value` for `x >= max_value`,
-`f(x) = x` for `threshold <= x < max_value`,
-`f(x) = alpha * (x - threshold)` otherwise.
-
-__인자__
-
-- __x__: 텐서 또는 변수. 
-- __alpha__: 음수 섹션의 스칼라, 기울기 (default=`0.`).
-- __max_value__: `float`. 포화상태의 임계값.
-- __threshold__: `float`. 임계값 활성화에 대한 임계값.
+- __x__: 텐서 또는 변수.  
+- __alpha__: 입력값 가운데 음수 영역에 곱해질 스칼라 값으로 기본값은 `0.`입니다.
+- __max_value__: `float`. 반환할 값의 최댓값을 지정합니다.
+- __threshold__: `float`. 반환할 값의 구간을 나누는 문턱값입니다.  
 
 __반환값__ 
-    
 
 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def relu(x, alpha=0., max_value=None, threshold=0.):
@@ -3286,30 +3246,23 @@ def relu(x, alpha=0., max_value=None, threshold=0.):
 
 
 ----
-
 ### elu
-
 
 ```python
 keras.backend.elu(x, alpha=1.0)
 ```
+ELU(Exponential Linear Unit) 연산입니다.  
 
+__인자__  
 
-지수적증가의 선형 단위.
+- __x__: 활성화 함수를 계산할 텐서 또는 변수입니다. 
+- __alpha__: 입력값 가운데 음수 영역에 곱해질 스칼라 값으로 기본값은 `1.0`입니다.
 
-__인자__
-
-- __x__: 활성화 함수를 계산할 텐서 또는 변수 입니다. 
-- __alpha__: 음수 섹션의 스칼라, 기울기. 
-
-__반환값__ 
-    
+__반환값__  
 
 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def elu(x, alpha=1.):
@@ -3318,31 +3271,24 @@ def elu(x, alpha=1.):
 
 
 ----
-
 ### softmax
-
 
 ```python
 keras.backend.softmax(x, axis=-1)
 ```
 
+텐서의 소프트맥스<sub>softmax</sub> 연산입니다.  
 
-텐서의 Softmax.
-
-__인자__
+__인자__  
 
 - __x__: 텐서 또는 변수. 
-- __axis__: 차수 softmax가 수행 됩니다. 
-    기본값은 -1을 나타내며 마지막 차원을 나타냅니다. 
+- __axis__: softmax 연산을 적용할 차원을 지정합니다. 기본값은 텐서의 마지막 차원을 나타내는 `-1`입니다.  
 
-__반환값__ 
-    
+__반환값__   
 
-텐서.
+텐서.  
 
-__NumPy 적용__
-
-
+__NumPy 적용__  
 
 ```python
 def softmax(x, axis=-1):
@@ -3352,29 +3298,23 @@ def softmax(x, axis=-1):
 
 
 ----
-
 ### softplus
-
 
 ```python
 keras.backend.softplus(x)
 ```
 
+텐서의 소프트플러스<sub>softplus</sub> 연산입니다.  
 
-텐서의 Softplus.
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
 
-- __x__: 텐서 또는 변수.
+__반환값__  
 
-__반환값__ 
-    
-
-텐서.
+텐서.   
 
 __NumPy 적용__
-
-
 
 ```python
 def softplus(x):
@@ -3383,29 +3323,23 @@ def softplus(x):
 
 
 ----
-
 ### softsign
-
 
 ```python
 keras.backend.softsign(x)
 ```
 
+텐서의 소프트사인<sub>softsign</sub> 연산입니다.
 
-텐서의 Softsign.
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
 
-- __x__: 텐서 또는 변수.
+__반환값__  
 
-__반환값__ 
-    
+텐서.  
 
-텐서.
-
-__NumPy 적용__
-
-
+__NumPy 적용__  
 
 ```python
 def softsign(x):
@@ -3414,120 +3348,93 @@ def softsign(x):
 
 
 ----
-
 ### categorical_crossentropy
-
 
 ```python
 keras.backend.categorical_crossentropy(target, output, from_logits=False, axis=-1)
 ```
 
+출력 텐서와 목표 텐서 사이의 오차를 구하는 범주형<sub>categorical</sub> 크로스엔트로피 연산입니다.  
 
-결과 텐서와 목표 텐서 사이의 범주형의 크로스엔트로피.
+__인자__  
 
-__인자__
+- __target__: `output`과 같은 형태의 텐서. 오차 계산의 기준입니다.  
+- __output__: softmax의 결과 텐서(`from_logits`인자가 `True`인 경우는 제외. 이 경우 `output`은 로짓<sub>logit</sub> 함수의 출력값이어야 합니다). 오차를 줄일 대상입니다.  
+- __from_logits__: `bool`. `output`이 softmax로부터 도출된 것인지 로짓으로부터 도출된 것인지를 지정합니다. 
+- __axis__: 채널 축을 지정합니다. `axis=-1`은 `channels_last`형식 데이터에 해당됩니다. 반대로 `axis=1`은 `channels_first`형식 데이터에 해당됩니다.  
 
-- __target__: `output`과 같은 모양의 텐서.
-- __output__: softmax의 결과 텐서.
-    (unless `from_logits` is True, in which
-    case `output` is expected to be the logits).
-- __from_logits__: <sag>boolean</sag>, <sag>logits</sag>의 텐서이거나 softmax의 결과의 'output' 입니다. 
-- __axis__: 채널 축을 지정합니다. `axis=-1`
-    `channels_last`형식 데이터에 해당합니다,
-    `channels_first` 데이터 형식은 `axis=1`에 해당 합니다. 
+__반환값__   
 
-__반환값__ 
-    
+출력 텐서.  
 
-출력 텐서. 
+__오류__  
 
-__오류__
-
-- __ValueError__: `output`의 축 도 아니고 -1도 아닌 축.
+- __ValueError__: `axis`의 값이 `-1` 또는 `output`의 축 가운데 하나가 아닐 경우 오류가 발생합니다.
 
     
 ----
-
 ### sparse_categorical_crossentropy
-
 
 ```python
 keras.backend.sparse_categorical_crossentropy(target, output, from_logits=False, axis=-1)
 ```
 
-
-정수 목표를 가진 범주형 크로스엔트로피.
+목표 값이 정수인 범주형 크로스엔트로피 연산입니다.
 
 __인자__
 
-- __target__: An integer tensor.
-- __output__: softmax의 결과로 나온 텐서. 
-    (unless `from_logits` is True, in which
-    case `output` is expected to be the logits).
-- __from_logits__: Boolean, whether `output` is the
-    result of a softmax, or is a tensor of logits.
-- __axis__:
-    `channels_last` 데이터 형식에 해당하는  Int 채널 축을 지정합니다. `axis=-1`
-    and `axis=1` corresponds to data format `channels_first`.
+- __target__: `int` 형식의 텐서. 오차 계산의 기준입니다.
+- __output__: softmax의 결과 텐서(`from_logits`인자가 `True`인 경우는 제외. 이 경우 `output`은 로짓 함수의 출력값이어야 합니다). 오차를 줄일 대상입니다. 
+- __from_logits__: `bool`. `output`이 소프트맥스로부터 도출된 것인지 로짓으로부터 도출된 것인지를 지정합니다.  
+- __axis__: 채널 축을 지정합니다. `axis=-1`은 `channels_last`형식 데이터에 해당됩니다. 반대로 `axis=1`은 `channels_first`형식 데이터에 해당됩니다.  
 
-__반환값__ 
-    
-
-텐서.
+__반환값__  
+ 
+출력 텐서.
 
 __오류__
 
-- __ValueError__: `axis`가 -1 또는 `output`의 축 모두 아니다.
+- __ValueError__: `axis`의 값이 `-1` 또는 `output`의 축 가운데 하나가 아닐 경우 오류가 발생합니다.
 
     
 ----
-
 ### binary_crossentropy
-
 
 ```python
 keras.backend.binary_crossentropy(target, output, from_logits=False)
 ```
 
+출력 텐서와 목표 텐서 사이의 오차를 구하는 이진<sub>binary</sub> 크로스엔트로피 연산입니다.  
 
-출력 텐서와 목표 텐서 사나의 이진 크로스엔트로피.
+__인자__  
 
-__인자__
+- __target__: `output`과 같은 형태의 텐서. 오차 계산의 기준입니다.  
+- __output__: 텐서. 오차를 줄일 대상입니다.  
+- __from_logits__: `output`이 로짓 함수로부터 도출된 값이면 `True`로 설정합니다. 기본값은 `False`로 이 경우 `output`은 확률분포를 나타내는 것으로 간주됩니다.  
 
-- __target__: `output`과 같은 형식의 텐서.
-- __output__: 텐서.
-- __from_logits__: logits 텐서가 출력값으로 나올 것인지에 대한 값.
-    기본적으로 'output'은 확률분포를 내포 합니다. 
-
-__반환값__ 
+__반환값__  
     
-
 텐서.
-    
+
+
 ----
-
 ### sigmoid
-
 
 ```python
 keras.backend.sigmoid(x)
 ```
 
+입력 텐서의 각 원소에 시그모이드<sub>sigmoid</sub> 연산을 적용합니다.
 
-요소별로 sigmoid.
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
 
-- __x__: 텐서 또는 변수.
-
-__반환값__ 
-    
+__반환값__  
 
 텐서.
 
 __NumPy 적용__
-
-
 
 ```python
 def sigmoid(x):
@@ -3536,35 +3443,22 @@ def sigmoid(x):
 
 
 ----
-
 ### hard_sigmoid
-
 
 ```python
 keras.backend.hard_sigmoid(x)
 ```
+각 구역별로 시그모이드 연산의 선형근사값을 반환합니다. 보통의 시그모이드보다 연산이 빠릅니다. `x < -2.5`인 경우 `0.`을, `x > 2.5`인 경우 `1.`을 반환합니다. `-2.5 <= x <= 2.5`인 경우 `0.2 * x + 0.5`를 반환합니다.  
 
+__인자__  
 
+- __x__: 텐서 또는 변수.  
 
-각 세그먼트의 sigmoid 선형 근사.
+__반환값__  
 
-sigmoid보다 더 빠르다.
-Returns `0.` if `x < -2.5`, `1.` if `x > 2.5`.
-In `-2.5 <= x <= 2.5`, returns `0.2 * x + 0.5`.
-
-
-__인자__
-
-- __x__: 텐서 또는 변수.
-
-__반환값__ 
-    
-
-텐서.
+텐서.  
 
 __NumPy 적용__
-
-
 
 ```python
 def hard_sigmoid(x):
@@ -3574,29 +3468,23 @@ def hard_sigmoid(x):
 
 
 ----
-
 ### tanh
-
 
 ```python
 keras.backend.tanh(x)
 ```
 
+각 원소에 하이퍼볼릭탄젠트(tanh) 연산을 적용합니다.
 
-요소별로 tanh.
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
 
-- __x__: 텐서 또는 변수.
-
-__반환값__ 
+__반환값__   
     
-
-텐서.
+텐서.  
 
 __NumPy 적용__
-
-
 
 ```python
 def tanh(x):
@@ -3605,34 +3493,27 @@ def tanh(x):
 
 
 ----
-
 ### dropout
-
 
 ```python
 keras.backend.dropout(x, level, noise_shape=None, seed=None)
 ```
 
-전체 텐서를 스케일링하는 동안 'x'의 항목을 임의로 설정합니다. 
+`x`의 원소값을 지정한 비율에 따른 무작위 선택에 의해 `0`으로 바꿉니다. `0`으로 바뀌지 않은 원소들은 전체 텐서의 원소 수가 감소된 만큼 큰 값으로 스케일링됩니다.
 
 
-__인자__
+__인자__  
 
-- __x__: 텐서.
-- __level__: 텐서 항목의 일부가 0으로 설정됩니다.
-- __noise_shape__: `x`의 형식을 확장해야 하므로 유지/삭제 플래그를 랜덤으로 생성하는 형식.
-- __seed__: 결정성을 보장하기 위한 난수생성.
+- __x__: 텐서.  
+- __level__: 텐서의 원소 가운데 값을 0으로 바꿀 비율을 정합니다.  
+- __noise_shape__: 무작위로 생성할 유지/삭제 플래그의 형태를 정합니다. `x`의 형태로 브로드캐스팅될 수 있는 형태여야 합니다.  
+- __seed__: 무작위 연산이 재현 가능하도록 난수 생성의 시드값을 정합니다.  
 
-
-__반환값__ 
-    
-
+__반환값__  
 
 텐서.
 
 __NumPy 적용__
-
-
 
 <details>
 <summary>Show the Numpy implementation</summary>
@@ -3650,12 +3531,10 @@ def dropout(x, level, noise_shape=None, seed=None):
     else:
         return x
 ```
-
 </details>
 
 
 ----
-
 ### l2_normalize
 
 
@@ -3663,23 +3542,18 @@ def dropout(x, level, noise_shape=None, seed=None):
 keras.backend.l2_normalize(x, axis=None)
 ```
 
+지정한 축을 따라 L2 노름<sub>norm</sub>으로 텐서를 정규화합니다. 
 
-지정된 축을 따라 L2 norm으로 텐서를 정규화 시킨다. 
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
+- __axis__: 정규화를 수행할 방향의 축.  
 
-- __x__: 텐서 또는 변수.
-- __axis__: axis along which to perform normalization. 정규화를 수행하는 축.
-
-
-__반환값__ 
+__반환값__  
     
-
-텐서.
+텐서.  
 
 __NumPy 적용__
-
-
 
 ```python
 def l2_normalize(x, axis=-1):
@@ -3689,7 +3563,6 @@ def l2_normalize(x, axis=-1):
 
 
 ----
-
 ### in_top_k
 
 
@@ -3715,8 +3588,9 @@ A 1D tensor of length `batch_size` and type `bool`.
     
 ----
 
-### conv1d
 
+
+### conv1d
 
 ```python
 keras.backend.conv1d(x, kernel, strides=1, padding='valid', data_format=None, dilation_rate=1)
