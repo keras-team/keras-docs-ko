@@ -2,7 +2,7 @@
 
 ## "백엔드"는 무엇인가요? 
 
-케라스는 딥러닝 모델을 블록쌓기처럼 구성요소를 쌓아 만들 수 있게끔 해주는 높은 차원의 모델 수준 라이브러리입니다. 케라스는 단독으로는 텐서들의 곱셈이나 합성곱과 같은 낮은 차원의 직접적인 연산을 지원하지 않습니다. 대신에 텐서 연산에 특화된 라이브러리들을 가져와 "백엔드 엔진"으로 사용합니다. 케라스는 하나의 텐서 연산 라이브러리를 골라 그에 의지하는 대신 모듈 방식으로 문제를 처리하여 서로 다른 백엔드 엔진을 케라스와 매끄럽게 연결하게끔 합니다.
+케라스는 딥러닝 모델을 블록쌓기처럼 구성요소를 쌓아 만들 수 있게끔 해주는 높은 차원의 모델 수준 라이브러리입니다. 케라스는 단독으로는 텐서들의 곱셈이나 합성곱<sub>Convolution</sub>과 같은 낮은 차원의 직접적인 연산을 지원하지 않습니다. 대신에 텐서 연산에 특화된 라이브러리들을 가져와 "백엔드 엔진"으로 사용합니다. 케라스는 하나의 텐서 연산 라이브러리를 골라 그에 의지하는 대신 모듈 방식으로 문제를 처리하여 서로 다른 백엔드 엔진을 케라스와 매끄럽게 연결하게끔 합니다.
 
 현재 케라스는 **TensorFlow**, **Theano**, 그리고 **CNTK**의 세 가지 백엔드를 지원합니다.
 - [TensorFlow](http://www.tensorflow.org/)는 구글에서 만든 오픈소스 심볼릭 텐서 연산 프레임워크입니다.
@@ -368,7 +368,6 @@ keras.backend.image_data_format()
 케라스가 처리할 이미지 데이터 유형의 기본값을 반환합니다.
 
 __반환값__ 
-    
 
 `'channels_first'` 또는 `'channels_last'`의 문자열.
 
@@ -738,7 +737,7 @@ __예시__
 (2, 2)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def int_shape(x): 
@@ -774,7 +773,7 @@ __예시__
 2
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def ndim(x):
@@ -843,7 +842,7 @@ __예시__
 'float32_ref'
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def dtype(x):
@@ -913,7 +912,7 @@ array([[ 0.,  0.,  0.,  0.],
        [ 0.,  0.,  0.,  0.]], dtype=float32)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 ```python
 def zeros(shape, dtype=floatx(), name=None):
     return np.zeros(shape, dtype=dtype)
@@ -950,7 +949,7 @@ array([[ 1.,  1.,  1.,  1.],
        [ 1.,  1.,  1.,  1.]], dtype=float32)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 ```python
 def ones(shape, dtype=floatx(), name=None):
     return np.ones(shape, dtype=dtype)
@@ -986,7 +985,7 @@ array([[ 1.,  0.,  0.],
        [ 0.,  0.,  1.]], dtype=float32)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def eye(size, dtype=None, name=None):
@@ -1024,7 +1023,7 @@ array([[ 0.,  0.,  0.],
        [ 0.,  0.,  0.]], dtype=float32)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def zeros_like(x, dtype=floatx(), name=None):
@@ -1063,7 +1062,7 @@ array([[ 1.,  1.,  1.],
        [ 1.,  1.,  1.]], dtype=float32)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def ones_like(x, dtype=floatx(), name=None):
@@ -1122,7 +1121,7 @@ array([[ 0.10940075,  0.10047495,  0.476143  ],
        [ 0.66137183,  0.00869417,  0.89220798]], dtype=float32)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def random_uniform_variable(shape, low, high, dtype=None, name=None, seed=None):
@@ -1165,7 +1164,7 @@ array([[ 1.19591331,  0.68685907, -0.63814116],
        [ 0.92629528,  0.28055015,  1.70484698]], dtype=float32)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def random_normal_variable(shape, mean, scale, dtype=None, name=None, seed=None):
@@ -1201,7 +1200,7 @@ array([[ 0.,  0.,  0.],
        [ 0.,  0.,  0.]], dtype=float32)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def count_params(x):
@@ -1371,7 +1370,7 @@ __예시__
 >>> K.int_shape(xy)
 (2, 4, 5)
 ```
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def dot(x, y):
@@ -1433,10 +1432,10 @@ __형태 변환에 대한 설명:__
 (32, 1, 30)
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 <details>
-<summary>NumPy 적용 보기</summary>
+<summary>NumPy 구현 보기</summary>
 
 ```python
 def batch_dot(x, y, axes=None):
@@ -1535,7 +1534,7 @@ array([[ 1.,  4.],
 
 ```
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def transpose(x):
@@ -1560,7 +1559,7 @@ __반환값__
   
 `reference`와 자료형이 동일한 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def gather(reference, indices):
@@ -1587,7 +1586,7 @@ __반환값__
 
 `x`의 최댓값으로 이루어진 텐서. 
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def max(x, axis=None, keepdims=False):
@@ -1616,7 +1615,7 @@ __반환값__
     
 `x`의 최솟값으로 이루어진 텐서. 
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def min(x, axis=None, keepdims=False):
@@ -1645,7 +1644,7 @@ __반환값__
     
 'x'의 합으로 이루어진 텐서. 
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def sum(x, axis=None, keepdims=False):
@@ -1675,7 +1674,7 @@ __반환값__
     
 'x'의 원소들의 곱으로 이루어진 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def prod(x, axis=None, keepdims=False):
@@ -1702,7 +1701,7 @@ __인자__
 __반환값__  
 `x`의 원소를 누적한 합의 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def cumsum(x, axis=0):
@@ -1728,7 +1727,7 @@ __인자__
 __반환값__  
 `x`의 원소를 누적한 합의 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def cumprod(x, axis=0):
@@ -1755,7 +1754,7 @@ __반환값__
     
 `x`의 원소들의 분산으로 이루어진 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def var(x, axis=None, keepdims=False):
@@ -1782,7 +1781,7 @@ __반환값__
     
 `x`의 원소들의 표준편차로 이루어진 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 ```python
 def std(x, axis=None, keepdims=False):
     if isinstance(axis, list):
@@ -1810,7 +1809,7 @@ __반환값__
     
 `x`의 원소들의 평균으로 이루어진 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def mean(x, axis=None, keepdims=False):
@@ -1839,7 +1838,7 @@ __반환값__
 
 `bool`형식의 텐서(True 또는 False).
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def any(x, axis=None, keepdims=False):
@@ -1868,7 +1867,7 @@ __반환값__
 
 `bool` 자료형의 텐서(True 또는 False).
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def all(x, axis=None, keepdims=False):
@@ -1896,7 +1895,7 @@ __반환값__
 
 텐서.  
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def argmax(x, axis=-1):
@@ -1922,7 +1921,7 @@ __반환값__
 
 텐서.  
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def argmin(x, axis=-1):
@@ -1983,7 +1982,7 @@ __반환값__
     
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def sqrt(x):
@@ -2049,7 +2048,7 @@ __반환값__
     
 텐서.  
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def logsumexp(x, axis=None, keepdims=False):
@@ -2114,7 +2113,7 @@ __반환값__
   
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def pow(x, a=1.):
@@ -2141,7 +2140,7 @@ __반환값__
     
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def clip(x, min_value, max_value):
@@ -2168,7 +2167,7 @@ __반환값__
   
 `bool`형식의 텐서.  
 
-__NumPy 적용__  
+__NumPy 구현__  
 
 ```python
 def equal(x, y):
@@ -2195,7 +2194,7 @@ __반환값__
   
 `bool`형식의 텐서.  
   
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def not_equal(x, y):
@@ -2221,7 +2220,7 @@ __반환값__
     
  `bool`형식의 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def greater(x, y):
@@ -2247,7 +2246,7 @@ __반환값__
     
 `bool`형식의 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def greater_equal(x, y):
@@ -2273,7 +2272,7 @@ __반환값__
     
 `bool`형식의 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def less(x, y):
@@ -2299,7 +2298,7 @@ __반환값__
     
 `bool`형식의 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def less_equal(x, y):
@@ -2325,7 +2324,7 @@ __반환값__
       
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def maximum(x, y):
@@ -2351,7 +2350,7 @@ __반환값__
     
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def minimum(x, y):
@@ -2444,7 +2443,7 @@ __반환값__
     
 텐서.
     
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def batch_normalization(x, mean, var, beta, gamma, axis=-1, epsilon=0.001):
@@ -2533,7 +2532,7 @@ __반환값__
 
 __오류__
 
-- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"` 가 아닌 경우에 발생합니다.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.
 
 
 ----
@@ -2559,7 +2558,7 @@ __반환값__
   
 __오류__
 
-- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"` 가 아닌 경우에 발생합니다.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.
     
     
 ----
@@ -2728,7 +2727,7 @@ keras.backend.temporal_padding(x, padding=(1, 1))
 __인자__  
 
 - __x__: 텐서 또는 변수.  
-- __padding__: 2개의 `int`로 이루어진 튜플. 차원 1의 시작과 끝에 얼마나 많은 0을 추가할 지에 대한 수치.  
+- __padding__: 두 개의 `int`로 이루어진 튜플. 차원 1의 시작과 끝에 얼마나 많은 0을 추가할 지에 대한 수치.  
 
 __반환값__  
     
@@ -2755,7 +2754,7 @@ __반환값__
 
 __오류__
 
-- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"` 가 아닌 경우에 발생합니다.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.
 
 
 ----
@@ -2779,7 +2778,7 @@ __반환값__
 
 __오류__
 
-- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"` 가 아닌 경우에 발생합니다.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.
 
 
 ----
@@ -2801,7 +2800,7 @@ __반환값__
     
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def stack(x, axis=0):
@@ -2846,7 +2845,7 @@ __반환값__
     
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def reverse(x, axes):
@@ -2879,7 +2878,7 @@ __반환값__
 new_x = x[start[0]: start[0] + size[0], ..., start[-1]: start[-1] + size[-1]]
 ```
 
-__NumPy 적용__  
+__NumPy 구현__  
 
 ```python
 def slice(x, start, size):
@@ -3079,7 +3078,7 @@ __오류__
 - __ValueError__: 입력의 시간 단계 길이가 유동적인데 `unroll`을 `True`로 지정한 경우 발생합니다.
 - __ValueError__: `mask`를 설정했는데 (`None`이 아님) `states`가 없는 경우(`len(states)` == 0) 발생합니다.
 
-__NumPy 적용__
+__NumPy 구현__
 
 <details>
 <summary>Show the Numpy implementation</summary>
@@ -3159,7 +3158,7 @@ __오류__
 
 - __ValueError__: `expressions`보다 `condition`의 차원이 클 경우 오류가 발생합니다.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def switch(condition, then_expression, else_expression):
@@ -3232,7 +3231,7 @@ __반환값__
 
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def relu(x, alpha=0., max_value=None, threshold=0.):
@@ -3262,7 +3261,7 @@ __반환값__
 
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def elu(x, alpha=1.):
@@ -3288,7 +3287,7 @@ __반환값__
 
 텐서.  
 
-__NumPy 적용__  
+__NumPy 구현__  
 
 ```python
 def softmax(x, axis=-1):
@@ -3314,7 +3313,7 @@ __반환값__
 
 텐서.   
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def softplus(x):
@@ -3339,7 +3338,7 @@ __반환값__
 
 텐서.  
 
-__NumPy 적용__  
+__NumPy 구현__  
 
 ```python
 def softsign(x):
@@ -3434,7 +3433,7 @@ __반환값__
 
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def sigmoid(x):
@@ -3458,7 +3457,7 @@ __반환값__
 
 텐서.  
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def hard_sigmoid(x):
@@ -3484,7 +3483,7 @@ __반환값__
     
 텐서.  
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def tanh(x):
@@ -3507,16 +3506,16 @@ __인자__
 - __x__: 텐서.  
 - __level__: 텐서의 원소 가운데 값을 0으로 바꿀 비율을 정합니다.  
 - __noise_shape__: 무작위로 생성할 유지/삭제 플래그의 형태를 정합니다. `x`의 형태로 브로드캐스팅될 수 있는 형태여야 합니다.  
-- __seed__: 무작위 연산이 재현 가능하도록 난수 생성의 시드값을 정합니다.  
+- __seed__: 무작위 연산을 재현 가능하도록 난수 생성의 시드값을 정합니다.  
 
 __반환값__  
 
 텐서.
 
-__NumPy 적용__
+__NumPy 구현__
 
 <details>
-<summary>Show the Numpy implementation</summary>
+<summary>NumPy 구현 보기</summary>
 
 ```python
 def dropout(x, level, noise_shape=None, seed=None):
@@ -3553,7 +3552,7 @@ __반환값__
     
 텐서.  
 
-__NumPy 적용__
+__NumPy 구현__
 
 ```python
 def l2_normalize(x, axis=-1):
@@ -3565,199 +3564,163 @@ def l2_normalize(x, axis=-1):
 ----
 ### in_top_k
 
-
 ```python
 keras.backend.in_top_k(predictions, targets, k)
 ```
 
+`targets`이 최상위 `k` `predictions`에 있는지를 반환합니다.  
 
-`targets`이 최상위`k` `predictions`에 있는지를 반환합니다.
+__인자__  
 
-__인자__
+- __predictions__: `float32`. `(batch_size, classes)`형식의 텐서.  
+- __targets__: `int32` 또는 `int64`. 길이가 `batch_size`인 1D 텐서.  
+- __k__: `int`. 고려해야 할 최상위 값의 수.  
 
-- __predictions__: `float32`타입과  `(batch_size, classes)`형식의 텐서.
-- __targets__: `batch_size` and type `int32` or `int64`의 길이의 1차원 텐서. 
-- __k__: An `int`, 고려해야 할 최상위 요소의 수. 
-
-__반환값__ 
+__반환값__  
     
+`batch_size`길이의 `bool`타입 텐서. `predictions[i, targets[i]]`가 `predictions[i]`의 top-`k`범위 안에 있으면 `output[i]`값은 `True`가 됩니다.
+ 
 
-A 1D tensor of length `batch_size` and type `bool`.
-만약 `predictions[i, targets[i]]` 이 top-`k`내에 있다면, `output[i]` 이 `True`.
-`predictions[i]'의 값. 
-    
 ----
-
-
-
 ### conv1d
 
 ```python
 keras.backend.conv1d(x, kernel, strides=1, padding='valid', data_format=None, dilation_rate=1)
 ```
 
+1D 합성곱 연산을 수행합니다.  
 
-1D convolution.
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
+- __kernel__: 커널 텐서.  
+- __strides__: `int`. 합성곱 필터의 스트라이드 폭을 지정합니다.
+- __padding__: `str`. `"same"`, `"causal"` 또는 `"valid"` 가운데 하나를 지정합니다.  
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다.   
+- __dilation_rate__: `int`. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다. 
 
-- __x__: 텐서 또는 변수. 
-- __kernel__: 커널 텐서.
-- __strides__: 정수형 스트라이드. 
-- __padding__: `str`. `"same"`, `"causal"` or `"valid"`.
-- __data_format__: `str`. `"channels_last"` or `"channels_first"`.
-- __dilation_rate__: 정수 확장 비율.
-
-
-
-__반환값__ 
+__반환값__  
     
-
-1차원 컨볼루션 연산 결과, 텐서 값.
+텐서. 1D 합성곱 연산 결과.
 
 __오류__
 
-- __ValueError__:`data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.
     
     
 ----
-
 ### conv2d
-
 
 ```python
 keras.backend.conv2d(x, kernel, strides=(1, 1), padding='valid', data_format=None, dilation_rate=(1, 1))
 ```
 
+2D 합성곱 연산을 수행합니다.
 
-2차원 컨볼루션.
+__인자__  
 
-__인자__
+- __x__: 텐서 또는 변수.  
+- __kernel__: 커널 텐서.  
+- __strides__: `int`. 합성곱 필터의 스트라이드 폭을 지정합니다. 
+- __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.  
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다.  
+- __dilation_rate__: 두 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다. 
 
-- __x__: 텐서 또는 변수.
-- __kernel__: 커널 텐서.
-- __strides__: 스트라이드 튜플.
-- __padding__: `str`. `"same"` or `"valid"`.
-- __data_format__: `str`. `"channels_last"` or `"channels_first"`.
-     inputs/kernels/outputs에 대한 Theano 또는 TensorFlow/CNTK데이터 형식을 사용할 여부.
-- __dilation_rate__: 2 integers의 튜플.
-
-
-
-__반환값__ 
+__반환값__  
     
+텐서. 2D 합성곱 연산 결과.  
 
-텐서, 2차원 컨볼루션 연산 결과.
+__오류__  
 
-__오류__
-
-- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
-
-
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다. 
+    
+  
 ----
-
 ### conv2d_transpose
-
 
 ```python
 keras.backend.conv2d_transpose(x, kernel, output_shape, strides=(1, 1), padding='valid', data_format=None, dilation_rate=(1, 1))
 ```
 
+2D 형태의 전치된 합성곱 연산<sub>Transposed Convolution</sub>을 수행합니다. 전치된 합성곱 연산은 특정한 합성곱의 결과로부터 입력으로 형태를 거슬러 올라가는 역방향 변환에 주로 사용됩니다.  
 
-2차원의 트렌스포즈된 컨볼루션 연산을 수행합니다.
-
-__인자__
-
+__인자__  
 
 - __x__: 텐서 또는 변수.
 - __kernel__: 커널 텐서. 
-- __output_shape__: 1D int tensor 출력 형식에 대해 1차원 <sag>int</sag>텐서 
-- __strides__: 스트라이드 튜플. 
-- __padding__: `str`. `"same"` 또는 `"valid"`.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
-    inputs/kernels/outputs에 대한 Theano 또는 TensorFlow/CNTK 데이터 형태 
-- __dilation_rate__: 2개의 `int`로 이루어진 튜플.
+- __output_shape__: 출력 형태를 나타내는 `int`형식의 1D 텐서.
+- __strides__: 두 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.
+- __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. 
+- __dilation_rate__: 두 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다. 
 
 
-__반환값__ 
+__반환값__  
+    
+텐서. 2D 전치된 합성곱 연산의 결과.
+
+__오류__  
+
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다. 
     
 
-2차원의 트렌스포즈된 컨볼루션 결과, 텐서.
-
-__오류__
-
-- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
-    
 ----
-
 ### separable_conv1d
-
 
 ```python
 keras.backend.separable_conv1d(x, depthwise_kernel, pointwise_kernel, strides=1, padding='valid', data_format=None, dilation_rate=1)
 ```
 
+1D 분리 합성곱<sub>Separable Convolution</sub> 연산을 수행합니다.  
 
-분리가능한 필터와 1차원 컨볼루션 연산.
+__인자__  
 
-__인자__
+- __x__: 입력 텐서.
+- __depthwise_kernel__: 깊이별 합성곱<sub>Depthwise Convolution</sub> 연산을 위한 합성곱 커널.
+- __pointwise_kernel__:  1x1 합성곱에 사용할 커널.
+- __strides__: `int`. 합성곱 필터의 스트라이드 폭.
+- __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. 
+- __dilation_rate__: `int`. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다.  
 
-- __x__: input tensor
-- __depthwise_kernel__: 깊이 컨볼루션을 위한 컨볼루션 커널.
-- __pointwise_kernel__:  1x1 컨볼루션에 대한 커널.
-- __strides__: 스트라이드 정수형.
-- __padding__: `str`. `"same"` or `"valid"`.
-- __data_format__: `str`. `"channels_last"` or `"channels_first"`.
-- __dilation_rate__: integer dilation rate.
-
-
-
-__반환값__ 
+__반환값__  
     
-
-
-출력 텐서.
+출력 텐서.  
 
 __오류__
 
-- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
-    
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다. 
+  
+  
 ----
-
-### separable_conv2d
-
+### separable_conv2d  
 
 ```python
 keras.backend.separable_conv2d(x, depthwise_kernel, pointwise_kernel, strides=(1, 1), padding='valid', data_format=None, dilation_rate=(1, 1))
 ```
 
+2D 분리 합성곱 연산을 수행합니다.  
 
-분리가능한 필터와 2차원 컨볼루션 연산.
+__인자__  
 
-__인자__
-
-- __x__: input tensor
-- __depthwise_kernel__: 깊이 컨볼루션을 위한 컨볼루션 커널.
-- __pointwise_kernel__:  1x1 컨볼루션에 대한 커널.
-- __strides__: strides tuple (length 2).
-- __padding__: `str`. `"same"` or `"valid"`.
-- __data_format__: `str`. `"channels_last"` or `"channels_first"`.
-- __dilation_rate__: integers의 튜플.
-    분리가능한 컨볼루션의 팽창률.
+- __x__: 입력 텐서.
+- __depthwise_kernel__: 깊이별 합성곱 연산을 위한 합성곱 커널.
+- __pointwise_kernel__:  1x1 합성곱에 사용할 커널.
+- __strides__: 두 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.
+- __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. 
+- __dilation_rate__: 두 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다. 
     
-
-__반환값__ 
-    
+__반환값__  
 
 출력 텐서.
 
+__오류__  
 
-__오류__
-
-- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다. 
+    
     
 ----
-
 ### depthwise_conv2d
 
 
@@ -3765,96 +3728,81 @@ __오류__
 keras.backend.depthwise_conv2d(x, depthwise_kernel, strides=(1, 1), padding='valid', data_format=None, dilation_rate=(1, 1))
 ```
 
-
-분리가능한 필터로 2차원 컨볼루션 연산.
+2D 깊이별 합성곱<sub>Depthwise Convolution</sub> 연산을 수행합니다.  
 
 __인자__
 
-- __x__: input tensor
-- __depthwise_kernel__: 깊이 별 컨볼루션 연산을 위한 컨볼루션 커널.
-- __strides__: strides tuple (length 2).
-- __padding__: string, `"same"` or `"valid"`.
-- __data_format__: string, `"channels_last"` or `"channels_first"`.
-- __dilation_rate__: integers의 튜플.
-    분리가능한 컨볼루션의 팽창률.
+- __x__: 입력 텐서.  
+- __depthwise_kernel__: 깊이별 합성곱 연산을 위한 컨볼루션 커널.  
+- __strides__: 두 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.  
+- __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.  
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다.  
+- __dilation_rate__: 두 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다.  
 
-__반환값__ 
-    
-
-출력텐서.
-
+__반환값__  
+   
+출력 텐서.  
 
 __오류__
 
-- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다. 
+    
     
 ----
-
 ### conv3d
-
 
 ```python
 keras.backend.conv3d(x, kernel, strides=(1, 1, 1), padding='valid', data_format=None, dilation_rate=(1, 1, 1))
 ```
 
+3D 합성곱 연산을 수행합니다.  
 
-3차원 컨볼루션 연산.
+__인자__  
 
-__인자__
-
-- __x__: 텐서 또는 변수.
+- __x__: 텐서 또는 변수.  
 - __kernel__: 커널 텐서. 
-- __strides__: 스트라이드 튜플. 
-- __padding__: `str`. `"same"` 또는 `"valid"`.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
-    inputs/kernels/outputs에 대한 Theano 또는 TensorFlow/CNTK 데이터 형태 
-- __dilation_rate__: 2개의 `int`로 이루어진 튜플.
+- __strides__: 세 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.
+- __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. 
+- __dilation_rate__: 세 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다.  
 
-
-__반환값__ 
+__반환값__  
     
+텐서. 3D 합성곱 연산 결과.  
 
-텐서, 3차원 컨볼루션 연산 결과.
+__오류__  
 
-__오류__
-
-- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다. 
+    
     
 ----
-
 ### conv3d_transpose
-
 
 ```python
 keras.backend.conv3d_transpose(x, kernel, output_shape, strides=(1, 1, 1), padding='valid', data_format=None)
 ```
 
+3D 형태의 전치된 합성곱 연산을 수행합니다. 전치된 합성곱 연산은 특정한 합성곱의 결과로부터 입력으로 형태를 거슬러 올라가는 역방향 변환에 주로 사용됩니다.    
 
-3차원 트렌스포즈 컨볼루션.
-
-__인자__
+__인자__   
 
 - __x__: 텐서 또는 변수.
 - __kernel__: 커널 텐서. 
-- __output_shape__: 결과값 형식에 대한 1차원 정수형 텐서.
-- __strides__: 스트라이드 튜플. 
-- __padding__: `str`. `"same"` 또는 `"valid"`.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
-    inputs/kernels/outputs에 대한 Theano 또는 TensorFlow/CNTK 데이터 형태 
-- __dilation_rate__: 2개의 `int`로 이루어진 튜플.
+- __output_shape__: 출력 형태를 나타내는 `int`형식의 1D 텐서.
+- __strides__: 세 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.
+- __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다.  
 
-
-__반환값__ 
+__반환값__  
     
-
-트렌스포즈된 3차원 컨볼루션 연산결과 텐서.
+텐서. 3D 전치된 합성곱 연산의 결과.  
 
 __오류__
 
-- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
-    
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다. 
+ 
+ 
 ----
-
 ### pool2d
 
 
@@ -3868,8 +3816,8 @@ keras.backend.pool2d(x, pool_size, strides=(1, 1), padding='valid', data_format=
 __인자__
 
 - __x__: 텐서 또는 변수.
-- __pool_size__: 2개의 `int`로 이루어진 튜플.
-- __strides__: 2개의 `int`로 이루어진 튜플.
+- __pool_size__: 두 개의 `int`로 이루어진 튜플.
+- __strides__: 두 개의 `int`로 이루어진 튜플.
 - __padding__: `str`. `"same"` 또는 `"valid"`.
 - __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
 - __pool_mode__: `str`. `"max"`  `"avg"`.
@@ -3901,8 +3849,8 @@ keras.backend.pool3d(x, pool_size, strides=(1, 1, 1), padding='valid', data_form
 __인자__ <sag>
 
 - __x__: 텐서 또는 변수.
-- __pool_size__: 3개의 `int`로 이루어진 튜플.
-- __strides__: 3개의 `int`로 이루어진 튜플.
+- __pool_size__: 세 개의 `int`로 이루어진 튜플.
+- __strides__: 세 개의 `int`로 이루어진 튜플.
 - __padding__: `str`. `"same"` 또는 `"valid"`.
 - __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
 - __pool_mode__:  `str`. `"max"` 또는 `"avg"`.
@@ -3950,7 +3898,7 @@ ValueError : 아래 두 경우 중 하나에서 :
 편향은 벡터이거나 ndim (x)-1 차원의 텐서.
 
 
-__NumPy 적용__
+__NumPy 구현__
 
 
 
@@ -4288,7 +4236,7 @@ __인자__
         data_format='channels_last'일 때, 4D 텐서 형식:
         (batch_size, new_rows, new_cols, filters)
 - __kernel__: (output_items, feature_dim, filters) 형식의 컨볼루션 연산을 위한 공유되지 않은 가중치
-- __kernel_size__: 2차원 컨볼루션 윈도우의 너비와 높이를 지정한 2개의 `int`로 이루어진 튜플.
+- __kernel_size__: 2차원 컨볼루션 윈도우의 너비와 높이를 지정한 두 개의 `int`로 이루어진 튜플.
 - __strides__: 2<sag>integers</sag>인 튜플. 너비와 높이에 따른 컨볼루션의 스트라이드를 지정합니다. 
 - __output_shape__: (output_row, output_col)형태의 튜플
 - __data_format__: 데이터 형식, 'channels_first' 또는 'channels_last'.
@@ -4308,12 +4256,4 @@ data_format='channels_last'일 때,
 __오류__
 
 - __ValueError__: <sag>data_format</sag>가 
-            <sag>channels_last</sag> 또는 <sag>channels_first</sag>이 아니었을 때, 오류.
-    
-
-    
-
-
-
-
-
+            <sag>channels_last</sag> 또는 <sag>channels_first</sag>이 아니었을 때, 오류
