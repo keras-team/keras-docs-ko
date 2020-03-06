@@ -2747,14 +2747,14 @@ __인자__
 
 - __x__: 텐서 또는 변수. 
 - __padding__: 길이가 2인 튜플 두 개로 이루어진 튜플. 패딩 형태를 지정합니다. (예: `((1, 1), (1, 1))`) 하위 튜플의 각 값은 해당 차원의 앞과 뒤에 입력할 패딩의 개수입다.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"` 가운데 하나를 지정합니다. `"channels_last"`의 경우 4개의 차원 중 가운데 두 개의 차원에, `"channels_first"`의 경우 마지막 두 개의 차원에 패딩을 추가합니다.  
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"` 가운데 하나를 지정합니다. `"channels_last"`의 경우 4개의 차원 중 가운데 두 개의 차원에, `"channels_first"`의 경우 마지막 두 개의 차원에 패딩을 추가합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다.  
 
 __반환값__  
 0으로 패딩된 4D 텐서.
 
 __오류__
 
-- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다. 
 
 
 ----
@@ -2770,7 +2770,7 @@ __인자__
 
 - __x__: 텐서 또는 변수.  
 - __padding__: 길이가 2인 튜플 세 개로 이루어진 이루어진 튜플. 패딩 형태를 지정합니다. (예: `((1, 1), (1, 1), (1, 1))`) 하위 튜플의 각 값은 해당 차원의 앞과 뒤에 입력할 패딩의 개수입니다. 
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"` 가운데 하나를 지정합니다.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"` 가운데 하나를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다.
 
 __반환값__ 
     
@@ -3596,7 +3596,7 @@ __인자__
 - __kernel__: 커널 텐서.  
 - __strides__: `int`. 합성곱 필터의 스트라이드 폭을 지정합니다.
 - __padding__: `str`. `"same"`, `"causal"` 또는 `"valid"` 가운데 하나를 지정합니다.  
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다.   
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다.   
 - __dilation_rate__: `int`. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다. 
 
 __반환값__  
@@ -3623,7 +3623,7 @@ __인자__
 - __kernel__: 커널 텐서.  
 - __strides__: `int`. 합성곱 필터의 스트라이드 폭을 지정합니다. 
 - __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.  
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다.  
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다.  
 - __dilation_rate__: 두 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다. 
 
 __반환값__  
@@ -3651,7 +3651,7 @@ __인자__
 - __output_shape__: 출력 형태를 나타내는 `int`형식의 1D 텐서.
 - __strides__: 두 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.
 - __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. 
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다. 
 - __dilation_rate__: 두 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다. 
 
 
@@ -3680,7 +3680,7 @@ __인자__
 - __pointwise_kernel__:  1x1 합성곱에 사용할 커널.
 - __strides__: `int`. 합성곱 필터의 스트라이드 폭.
 - __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. 
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다. 
 - __dilation_rate__: `int`. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다.  
 
 __반환값__  
@@ -3708,7 +3708,7 @@ __인자__
 - __pointwise_kernel__:  1x1 합성곱에 사용할 커널.
 - __strides__: 두 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.
 - __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. 
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다. 
 - __dilation_rate__: 두 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다. 
     
 __반환값__  
@@ -3736,7 +3736,7 @@ __인자__
 - __depthwise_kernel__: 깊이별 합성곱 연산을 위한 컨볼루션 커널.  
 - __strides__: 두 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.  
 - __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.  
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다.  
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다.  
 - __dilation_rate__: 두 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다.  
 
 __반환값__  
@@ -3763,7 +3763,7 @@ __인자__
 - __kernel__: 커널 텐서. 
 - __strides__: 세 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.
 - __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. 
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다. 
 - __dilation_rate__: 세 개의 `int`로 이루어진 튜플. 팽창 합성곱 적용시 커널의 원소 사이의 간격을 결정하는 팽창비율입니다.  
 
 __반환값__  
@@ -3791,7 +3791,7 @@ __인자__
 - __output_shape__: 출력 형태를 나타내는 `int`형식의 1D 텐서.
 - __strides__: 세 개의 `int`로 이루어진 튜플. 합성곱 필터의 스트라이드 폭을 지정합니다.
 - __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다.  
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다.  
 
 __반환값__  
     
@@ -3805,105 +3805,149 @@ __오류__
 ----
 ### pool2d
 
-
 ```python
 keras.backend.pool2d(x, pool_size, strides=(1, 1), padding='valid', data_format=None, pool_mode='max')
 ```
 
-
-2차원 풀링연산.
-
+2D 입력에 풀링<sub>pooling</sub> 연산을 적용합니다. 입력 데이터 가운데 `pool_size`로 지정한 가로 세로의 격자마다 `pool_mode`로 지정한 연산 결과로 얻어진 값을 반환하여 새로운 2D 결과값을 반환합니다.  
+  
 __인자__
 
 - __x__: 텐서 또는 변수.
-- __pool_size__: 두 개의 `int`로 이루어진 튜플.
-- __strides__: 두 개의 `int`로 이루어진 튜플.
-- __padding__: `str`. `"same"` 또는 `"valid"`.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
-- __pool_mode__: `str`. `"max"`  `"avg"`.
+- __pool_size__: 두 개의 `int`로 이루어진 튜플. 풀링 필터의 크기를 지정합니다.
+- __strides__: 두 개의 `int`로 이루어진 튜플. 풀링 필터의 스트라이드 폭을 지정합니다.
+- __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다. 
+- __pool_mode__: `str`. `"max"`로 지정하는 경우 풀링 범위 안의 최대값을 반환하고 `"avg"`로 지정하는 경우 풀링 범위 내 값들의 평균을 반환합니다. 기본값은 `"max"`입니다.
 
 
 __반환값__ 
     
-
-2차원 풀링 연산 결과값의 텐서.
+텐서. 2D 풀링 연산의 결과값.
 
 __오류__
 
-- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.  
+- __ValueError__: `pool_mode`가 `"max"` 또는 `"avg"` 가 아닌 경우에 발생합니다.
 
-- __ValueError__: 만약 `pool_mode` 라면 `"max"` 또는 `"avg"` 둘 다 아니다.
-    
+
 ----
-
 ### pool3d
-
 
 ```python
 keras.backend.pool3d(x, pool_size, strides=(1, 1, 1), padding='valid', data_format=None, pool_mode='max')
 ```
 
-
-3D Pooling.
-
-__인자__ <sag>
+3D 입력에 풀링<sub>pooling</sub> 연산을 적용합니다.  
+  
+__인자__  
 
 - __x__: 텐서 또는 변수.
-- __pool_size__: 세 개의 `int`로 이루어진 튜플.
-- __strides__: 세 개의 `int`로 이루어진 튜플.
-- __padding__: `str`. `"same"` 또는 `"valid"`.
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
-- __pool_mode__:  `str`. `"max"` 또는 `"avg"`.
+- __pool_size__: 세 개의 `int`로 이루어진 튜플. 풀링 필터의 크기를 지정합니다.
+- __strides__: 세 개의 `int`로 이루어진 튜플. 풀링 필터의 스트라이드 폭을 지정합니다.
+- __padding__: `str`. `"same"` 또는 `"valid"` 가운데 하나를 지정합니다.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다. 
+- __pool_mode__: `str`. `"max"`로 지정하는 경우 풀링 범위 안의 최대값을 반환하고 `"avg"`로 지정하는 경우 풀링 범위 내 값들의 평균을 반환합니다. 기본값은 `"max"`입니다.
+
+__반환값__  
+
+텐서. 3D 풀링 연산의 결과값.  
+
+__오류__  
+  
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.  
+- __ValueError__: `pool_mode`가 `"max"` 또는 `"avg"` 가 아닌 경우에 발생합니다.  
+
+
+----
+### local_conv1d
+
+```python
+keras.backend.local_conv1d(inputs, kernel, kernel_size, strides, data_format=None)
+```
+
+일반적인 1D 합성곱과 달리 가중치를 공유하지 않는 1D 합성곱 연산을 수행합니다. 이 경우 합성곱 연산의 각 단계마다 서로 다른 가중치가 사용됩니다.  
+
+__인자__
+
+- __inputs__: `(batch_size, steps, input_dim)`으로 이루어진 3D 형태의 텐서.
+- __kernel__: `(output_length, feature_dim, filters)`의 형태로 이루어진 공유되지 않은 합성곱 가중치. 
+- __kernel_size__: 단일한 `int`로 이루어진 튜플. 1D 합성곱 필터의 길이를 지정합니다.
+- __strides__: 단일한 `int`로 이루어진 튜플. 합성곱 연산의 스트라이드 크기를 지정합니다.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다. 
+
+
+__반환값__    
+
+(batch_size, output_length, filters) 형태의 공유되지 않은 가중치로 1D 합성곱을 수행한 결과 텐서.  
+
+__오류__  
+
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.  
+
+
+----
+
+### local_conv2d
+
+
+```python
+keras.backend.local_conv2d(inputs, kernel, kernel_size, strides, output_shape, data_format=None)
+```
+
+
+일반적인 2D 합성곱과 달리 가중치를 공유하지 않는 2D 합성곱 연산을 수행합니다. 이 경우 합성곱 연산의 각 단계마다 서로 다른 가중치가 사용됩니다. 
+
+
+__인자__
+
+- __inputs__: 
+        `data_format='channels_first'`일 때, `(batch_size, filters, new_rows, new_cols)` 형태의 4D 텐서.  
+        `data_format='channels_last'`일 때, `(batch_size, new_rows, new_cols, filters)` 형태의 4D 텐서.
+- __kernel__: `(output_items, feature_dim, filters)`의 형태로 이루어진 공유되지 않은 합성곱 가중치. 
+- __kernel_size__: 두 개의 `int`로 이루어진 튜플. 2D 합성곱 필터의 높이와 폭을 지정합니다.
+- __strides__: 두 개의 `int`로 이루어진 튜플. 합성곱 연산의 세로와 가로 스트라이드 크기를 지정합니다. 
+- __output_shape__: `(output_row, output_col)` 형태의 튜플.
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다. 
+
 
 __반환값__ 
-    
-
-텐서, 3차원 풀링 결과.
+`data_format='channels_first'`일 때, `(batch_size, filters, new_rows, new_cols)`형태의 4D 텐서.  
+`data_format='channels_first'`일 때, `(batch_size, new_rows, new_cols, filters)`형태의 4D 텐서.
 
 __오류__
 
-- __ValueError__: `data_format`이 모두 `"channels_last"` ,`"channels_first"`이 아닐 때.
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.  
 
-- __ValueError__: 만약 `pool_mode` 라면 `"max"` 또는 `"avg"` 둘 다 아니다.
     
 ----
-
 ### bias_add
-
 
 ```python
 keras.backend.bias_add(x, bias, data_format=None)
 ```
 
-
-텐서에 대한 바이어스 벡터 추가. 
+텐서에 편향<sub>bias</sub>벡터를 추가합니다. 
 
 __인자__
 
 - __x__: 텐서 또는 변수.
-- __bias__: 추가 할 바이어스 텐서. 
-- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`.
+- __bias__: 입력 텐서에 추가할 편향값의 텐서. 
+- __data_format__: `str`. `"channels_last"` 또는 `"channels_first"`. 이미지 입력 데이터의 채널 차원 위치를 지정합니다. `"None"`인 경우 `keras.backend.image_data_format()`에 지정된 기본값을 따릅니다.  
+  
+__반환값__  
 
-
-__반환값__ 
-    
-
-결과 텐서.
+편향을 추가한 텐서.
 
 __오류__
 
-ValueError : 아래 두 경우 중 하나에서 :
-1. 유효하지 않은`data_format` 인수.
-2. 잘못된 편향 모양.
-편향은 벡터이거나 ndim (x)-1 차원의 텐서.
-
-
-__NumPy 구현__
-
-
+- __ValueError__: `data_format`이 `"channels_last"` 또는 `"channels_first"`가 아닌 경우에 발생합니다.  
+- __ValueError__: 편향의 형태가 잘못된 경우 발생합니다. 편향은 ndim(x)-1 (=입력값의 차원 개수-1) 크기의 벡터 또는 텐서여야 합니다.  
+  
+__NumPy 구현__  
 
 <details>
-<summary>Show the Numpy implementation</summary>
+<summary>NumPy로 구현한 코드 보기</summary>
 
 ```python
 def bias_add(x, y, data_format):
@@ -3922,7 +3966,6 @@ def bias_add(x, y, data_format):
 
 
 ----
-
 ### random_normal
 
 
@@ -4186,74 +4229,4 @@ __반환값__
 
 
 
-### local_conv1d
 
-
-```python
-keras.backend.local_conv1d(inputs, kernel, kernel_size, strides, data_format=None)
-```
-
-
-공유되지 않은 가중치를 1D 컨볼루션에 적용합니다.
-
-__인자__
-
-- __inputs__: 3D 텐서의 형식: (batch_size, steps, input_dim)
-- __kernel__: (output_length, feature_dim, filters)형식의 컨볼루션의 공유되지 않은 가중치.
-- __kernel_size__: 1d 컨볼루션 윈도우의 길이를 지정한 단일 `int`  튜플.
-- __strides__: 컨볼루션의 스타라이드 길이를 지정한 단일 `int`  튜플.
-- __data_format__: 데이터 형식, channels_first 또는 channels_last
-
-
-__반환값__ 
-    
-
-(batch_size, output_length, filters)형식: 공유되지 않은 가중치로 1d 컨볼루션 연산 후의 텐서.
-
-__오류__
-
-- __ValueError__: If `data_format`가 
-    <sag>channels_last</sag> 또는 <sag>channels_first"`이 아닐 때, 오류.
-       
-----
-
-### local_conv2d
-
-
-```python
-keras.backend.local_conv2d(inputs, kernel, kernel_size, strides, output_shape, data_format=None)
-```
-
-
-2D 컨볼루션에 공유되지 않은 가중치를 적용합니다.
-
-
-__인자__
-
-- __inputs__: 
-        data_format='channels_first'일 때, 4D 텐서 형식:
-        (batch_size, filters, new_rows, new_cols)
-        data_format='channels_last'일 때, 4D 텐서 형식:
-        (batch_size, new_rows, new_cols, filters)
-- __kernel__: (output_items, feature_dim, filters) 형식의 컨볼루션 연산을 위한 공유되지 않은 가중치
-- __kernel_size__: 2차원 컨볼루션 윈도우의 너비와 높이를 지정한 두 개의 `int`로 이루어진 튜플.
-- __strides__: 2<sag>integers</sag>인 튜플. 너비와 높이에 따른 컨볼루션의 스트라이드를 지정합니다. 
-- __output_shape__: (output_row, output_col)형태의 튜플
-- __data_format__: 데이터 형식, 'channels_first' 또는 'channels_last'.
-
-
-__반환값__ 
-    
-
-4d 텐서의 형식:
-data_format='channels_first'일 때,
-(batch_size, filters, new_rows, new_cols)
-
- 4d 텐서의 형식:
-data_format='channels_last'일 때,
-(batch_size, new_rows, new_cols, filters)
-
-__오류__
-
-- __ValueError__: <sag>data_format</sag>가 
-            <sag>channels_last</sag> 또는 <sag>channels_first</sag>이 아니었을 때, 오류
