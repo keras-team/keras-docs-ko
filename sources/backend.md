@@ -3968,195 +3968,182 @@ def bias_add(x, y, data_format):
 ----
 ### random_normal
 
-
 ```python
 keras.backend.random_normal(shape, mean=0.0, stddev=1.0, dtype=None, seed=None)
 ```
 
+정규분포에서 값을 추출하여 텐서를 생성하고 반환합니다.
 
-값의 정규분포를 포함한 텐서를 반환 합니다.
+__인자__  
 
-__인자__
-
-- __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형식.
-- __mean__: `float`. 정규 분포의 평균 그리기.
-- __stddev__: `float`. 정규 분포의 표준편차 그리기.
-- __dtype__: `str`. 반환된 텐서의 dtype.
-- __seed__: `int`. random seed.
+- __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형태를 정합니다.
+- __mean__: `float`. 표본을 추출할 정규분포의 평균을 정합니다.
+- __stddev__: `float`. 표본을 추출할 정규분포의 표준편차를 정합니다.
+- __dtype__: `str`. 반환할 텐서의 자료형을 지정합니다.
+- __seed__: `int`. 무작위 연산을 재현 가능하도록 난수 생성의 시드값을 정합니다.
 
 
-__반환값__ 
-    
+__반환값__     
 
-텐서.
-    
+텐서.  
+
+
 ----
-
 ### random_uniform
-
 
 ```python
 keras.backend.random_uniform(shape, minval=0.0, maxval=1.0, dtype=None, seed=None)
 ```
 
+균등분포에서 값을 추출하여 텐서를 생성하고 반환합니다.  
 
-값의 균등분포를 포함한 텐서를 반환 합니다. 
+__인자__  
 
-__인자__
+- __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형태를 정합니다.
+- __minval__: `float`. 표본을 추출할 균등 분포의 최솟값을 지정합니다.
+- __maxval__: `float`. 표본을 추출할 균등 분포의 최댓값을 지정합니다.
+- __dtype__: `str`. 반환할 텐서의 자료형을 지정합니다.
+- __seed__: `int`. 무작위 연산을 재현 가능하도록 난수 생성의 시드값을 정합니다.
 
 
-- __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형식.
-- __minval__: `float`. 균등 분포의 하한 샘플 그리기.
-- __maxval__: `float`. 균등 분포의 상한 샘플 그리기.
-- __dtype__: `str`. 반환된 텐서의 dtype.
-- __seed__: `int`. random seed.
+__반환값__     
 
-__반환값__ 
+텐서.  
     
-
-텐서.
     
 ----
-
 ### random_binomial
-
 
 ```python
 keras.backend.random_binomial(shape, p=0.0, dtype=None, seed=None)
 ```
 
-
-값의 임의의 이항 분포의 텐서를 반환합니다. 
+이항분포에서 값을 추출하여 텐서를 생성하고 반환합니다.  
 
 __인자__
 
-- __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형식.
-- __p__: `float`. `0. <= p <= 1`범위의 이항 분포의 확률
-- __dtype__: `str`. 반환된 텐서의 dtype.
-- __seed__: `int`. random seed.
-
-__반환값__ 
-    
+- __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형태를 정합니다.
+- __p__: `float`. `0. <= p <= 1`. 이항분포의 확률을 정합니다.
+- __dtype__: `str`. 반환할 텐서의 자료형을 지정합니다.
+- __seed__: `int`. 무작위 연산을 재현 가능하도록 난수 생성의 시드값을 정합니다.
 
 
-텐서.
-    
+__반환값__     
+
+텐서.  
+   
+   
 ----
-
 ### truncated_normal
-
 
 ```python
 keras.backend.truncated_normal(shape, mean=0.0, stddev=1.0, dtype=None, seed=None)
 ```
 
+절단 정규분포<sub>truncated normal</sub>에서 값을 추출하여 텐서를 생성하고 반환합니다. 절단 정규분포는 처음 지정한 정규분포의 평균과 표준편차에서 +-2 표준편차 영역 바깥을 잘라낸 다음, 남은 값들의 평균과 표준편차로 생성한 새로운 정규분포를 이용합니다.  
 
-값의 임의의 정규분포가 잘린 텐서를 반환합니다. 
+__인자__  
 
+- __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형태를 정합니다.
+- __mean__: `float`. 표본을 추출할 정규분포의 평균을 정합니다.
+- __stddev__: `float`. 표본을 추출할 정규분포의 표준편차를 정합니다.
+- __dtype__: `str`. 반환할 텐서의 자료형을 지정합니다.
+- __seed__: `int`. 무작위 연산을 재현 가능하도록 난수 생성의 시드값을 정합니다.
 
-평균에 대한 두 표준편차가 제거되고 다시 지정되어 크기가 더 큰 값을 제외한 뒤
-지정된 평균과 표준편차로 정규푼보에 따라 생성된 값.
-
-__인자__
-
-- __shape__: `int`로 이루어진 튜플. 생성할 텐서의 형식.
-- __mean__: 값들의 평균.
-- __stddev__: 값들의 표준편차. 
-- __dtype__: `str`. 반환된 텐서의 dtype.
-- __seed__: `int`. 난수생성.
-
-__반환값__ 
+__반환값__  
     
+텐서.  
 
-텐서.
-    
+
 ----
-
 ### ctc_label_dense_to_sparse
-
 
 ```python
 keras.backend.ctc_label_dense_to_sparse(labels, label_lengths)
 ```
 
-<sag>dense</sag>에서 <sag>sparse</sag>로 CTC레이블을 변환합니다.
+CTC 레이블을 dense에서 sparse로 변경합니다. 
 
+__인자__  
 
+- __labels__: dense CTC 레이블.  
+- __label_lengths__: 레이블의 길이.  
 
-__인자__
-
-- __labels__: <sag>dense</sag> CTC 레이블.
-- __label_lengths__: 레이블의 길이.
-
-__반환값__ 
+__반환값__  
     
+레이블의 희소<sub>sparse</sub> 텐서 표현.
 
-레이블의 희소 텐서 표현.
-    
+
 ----
-
 ### ctc_batch_cost
-
 
 ```python
 keras.backend.ctc_batch_cost(y_true, y_pred, input_length, label_length)
 ```
 
+배치의 각 원소들에 대해 CTC 손실을 구하는 알고리즘을 수행합니다.  
 
-각 배치에서 CTC손실 알고리즘을 수행합니다.  
+__인자__  
 
-__인자__
+- __y_true__: 참인 레이블을 포함한 `(samples, max_string_length)` 형태의 텐서.  
+- __y_pred__: 예측값 또는 Softmax의 출력값을 포함한 `(samples, time_steps, num_categories)` 형태의 텐서.  
+- __input_length__: `(samples, 1)` 형태의 텐서로 `samples`는 `y_pred`의 각 배치 항목의 시퀀스 길이.  
+- __label_length__: `(samples, 1)` 형태의 텐서로 `samples`는 `y_true`의 각 배치 항목의 시퀀스 길이.  
+  
 
-
-- __y_true__: truth 레이블을 포함한 `(samples, max_string_length)` 텐서.
-- __y_pred__: softmax의 출력 또는 예측값을 포함한 `(samples, time_steps, num_categories)` 텐서.
-- __input_length__: `y_pred`의 각 배치 항목의 시퀀스 길이를 포함하는 `(samples, 1)`텐서.
-- __label_length__:  `y_true`의 각 배치 항목의 시퀀스 길이를 포함하는 `(samples, 1)`텐서.
-
-
-__반환값__ 
+__반환값__  
     
+각 원소들의 CTC 손실 값으로 이루어진 `(samples, 1)`형태의 텐서.  
 
-각 요소의 CTC 손실값을 포함한 텐서의 (samples,1)형식.
-    
+
 ----
-
 ### ctc_decode
-
 
 ```python
 keras.backend.ctc_decode(y_pred, input_length, greedy=True, beam_width=100, top_paths=1)
 ```
 
+Softmax의 결과를 해석합니다. 해석에는 greedy 방식의 탐색(최적 경로 탐색)과 제한된 사전<sub>dictionary</sub> 탐색을 사용할 수 있습니다.  
 
-소프트맥스의 결과를 해석.
+__인자__  
 
-
-그리디 탐색(최적화)이나 제한적인 딕셔너리 탐색이 가능합니다.
-
-__인자__
-
-
-- __y_pred__: 예측을 포함한  `(samples, time_steps, num_categories)` 텐서 또는 소프트맥스의 출력.
-- __input_length__: `y_pred`의 각 배치 항목에 대한 시퀀스 길이를 포함한 `(samples, )`텐서. 
-- __greedy__: 만약 `true`라면 훨씬 더 빠르고 좋은 탐색을 수행합니다. 딕셔너리 자료형을 사용하지 않습니다. 
-- __beam_width__: `greedy`가 `false`일 때, beam 탐색 디코더가 너비의 beam으로 사용됩니다. 
-- __top_paths__: `greedy`가 `false`일 때, 가장 가능할만한 경로 중에 얼마나 많은 경로가 있는지 반환합니다. 
+- __y_pred__: 예측값 또는 Softmax의 출력값을 포함한 `(samples, time_steps, num_categories)` 형태의 텐서.  
+- __input_length__: `(samples, 1)` 형태의 텐서로 `samples`는 `y_pred`의 각 배치 항목 내의 순서값<sub>sequence</sub>의 길이.  
+- __greedy__: `true`인 경우 최적 경로 탐색을 수행하며 속도가 빠릅니다. 이 경우 사전을 사용하지 않습니다. 
+- __beam_width__: `greedy`가 `false`일 때 사용할 beam 탐색 방식 디코더의 폭을 지정합니다. 
+- __top_paths__: `greedy`가 `false`일 때 확률이 있는 경로 가운데 상위 몇 개의 경로를 반환할 것인지를 지정합니다. 
    
 
-__반환값__ 
-    
+__반환값__  
 
-- __Tuple__:
-    List:  `greedy`가 `true`일 때, 디코딩 된 시퀀스를 포함한 요소의 리스트를 반환합니다.
-        `false`일 때, 가장 높은 가능성이 있는 `top_paths`을 반환합니다.
-        Important: `-1`로 비어있는 레이블을 반환합니다.
-        디코딩 된 각 시퀀스의 로그확률을 포함한  `(top_paths, )`텐서.
-    
+- __튜플__:
+   - 리스트: `greedy`가 `true`인 경우 해석된 순서값(예: 문장)들을 원소로 갖는 리스트를 반환합니다.   
+             `false`인 경우 확률이 가장 높은 탐색 결과로 이루어진 `top_paths`들을 반환합니다.  
+    - 중요: 비어있는 레이블의 경우 `-1`로 반환됩니다.  
+           `(top_paths, )`텐서는 해석된 순서값들의 로그 확률을 함께 반환합니다.  
+
+
 ----
+### control_dependencies
 
+```python
+keras.backend.control_dependencies(control_inputs)
+```
+
+Control dependency들을 관리합니다. Control dependency는 지정된 연산이 수행되기 전에 반드시 먼저 수행되어야 할 과정입니다. 
+
+Arguments
+
+    control_inputs: A list of Operation or Tensor objects which must be executed or computed before running the operations defined in the context. Can also be None to clear the control dependencies.
+
+Returns
+
+A context manager.
+
+
+
+----
 ### map_fn
-
 
 ```python
 keras.backend.map_fn(fn, elems, name=None, dtype=None)
