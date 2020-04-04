@@ -4130,16 +4130,15 @@ __반환값__
 keras.backend.control_dependencies(control_inputs)
 ```
 
-Control dependency들을 관리합니다. Control dependency는 지정된 연산이 수행되기 전에 반드시 먼저 수행되어야 할 과정입니다. 
+Control dependency들을 관리합니다. Control dependency는 지정한 연산을 실행할 때 앞서 필요한 다른 연산들이 순서에 따라 자동으로 이루어지도록 합니다.
 
-Arguments
+__인자__  
 
-    control_inputs: A list of Operation or Tensor objects which must be executed or computed before running the operations defined in the context. Can also be None to clear the control dependencies.
+- __control_inputs__: 지정한 연산이 실행되기 전에 먼저 실행되어야 할 연산 또는 텐서 객체의 리스트. 비우고자 할 경우 `None`으로 지정할 수 있습니다.
 
-Returns
+__반환값__  
 
-A context manager.
-
+Control dependency를 적용시키는 파이썬 컨텍스트 매니저<sub>Context manager</sub>.
 
 
 ----
@@ -4149,46 +4148,42 @@ A context manager.
 keras.backend.map_fn(fn, elems, name=None, dtype=None)
 ```
 
-fn 함수를 요소 위에 맵핑하고 출력을 반환합니다. 
+지정한 함수를 각 요소에 매핑하고 그 출력을 반환합니다.
 
 __인자__
 
-- __fn__: <sag>elems</sag>에 있는 각 요소에 대해 호출가능.
-- __elems__: 텐서
-- __name__: 그래프에서 맵 노드에 대한 문자열 이름. 
+- __fn__: `elems`에 들어있는 각 구성요소에 적용할 함수(또는 호출가능한 Callable).
+- __elems__: 텐서.
+- __name__: 해당 map 노드의 이름. 
 - __dtype__: 출력 데이터 타입.
 
-__반환값__ 
-    
+__반환값__  
 
-`dtype`의 텐서.
-    
+지정한 `dtype`의 텐서.
+
+
 ----
-
 ### foldl
-
 
 ```python
 keras.backend.foldl(fn, elems, initializer=None, name=None)
 ```
 
-
-왼쪽에서 오른쪽으로 결합하기위해 <sag>fn</sag>을 사용해 요소를 감소시킵니다.  
-
+`fn`으로 지정한 함수를 지정한 순서형<sub>sequence<sub> 데이터에 순차적으로 반복 적용합니다. `fn`은 `elems`의 첫 번째 차원을 따라 적용되며 매번 이전 단계까지 누적된 실행 결과와 현재 단계의 대상을 각각 별도의 인자로 받아 계산하게 됩니다. `initializer`는 최초 단계 계산 시 '이전 단계' 인자로 사용할 초기값이며, `None`인 경우 `elems`의 첫 번째 요소를(`elems[0]`) 대신 사용하게 됩니다.
+        
 __인자__
 
-- __fn__: <sag>elems</sag>에서 각 요소에 호출 될 연산기, 예를 들어, `lambda acc, x: acc + x` 
-- __elems__: 텐서
-- __initializer__: 사용된 첫 번째 값. (`elems[0]` in case of None)
-- __name__: 그래프 fodl 노드에 대한 문자열 이름.
+- __fn__: `elems`의 각 요소에 적용할 함수. (예: `lambda acc, x: acc + x`) 
+- __elems__: 텐서.
+- __initializer__: 연산의 첫 단계에서 이전 단계 값으로 대신 사용할 초기값 (`None`인 경우 `elems[0]`을 대신 사용)
+- __name__: 해당 foldl 노드의 이름.
 
-__반환값__ 
+__반환값__  
+
+`initializer`와 형태와 데이터 타입이 같은 텐서.
     
-
-`initializer` 모양과 같은 타입의 텐서.
     
 ----
-
 ### foldr
 
 
@@ -4196,22 +4191,18 @@ __반환값__
 keras.backend.foldr(fn, elems, initializer=None, name=None)
 ```
 
-
-<sag>fn</sag>인자를 사용하여 오른쪽에서 왼쪽으로 텐서 요소들을 줄인다.
-
+`fn`으로 지정한 함수를 지정한 순서형<sub>sequence<sub> 데이터에 __역순__으로 반복 적용합니다. `fn`은 `elems`의 첫 번째 차원을 따라 적용되며 매번 이전 단계까지 누적된 실행 결과와 현재 단계의 대상을 각각 별도의 인자로 받아 계산하게 됩니다. `initializer`는 최초 단계 계산 시 '이전 단계' 인자로 사용할 초기값이며, `None`인 경우 `elems`의 가장 마지막 요소를(`elems[-1]`) 대신 사용하게 됩니다.
+        
 __인자__
 
-- __fn__: <sag>elems</sag>에서 호출가능한 각 요소와 누산기. 
-    예를들어, `lambda acc, x: acc + x`
-- __elems__: 텐서
-- __initializer__: 사용된 첫번 째 값 (`elems[-1]` in case of None)
-- __name__: 그래프에서 <sag>foldr node</sag>의 문자열 이름
+- __fn__: `elems`의 각 요소에 적용할 함수. (예: `lambda acc, x: acc + x`) 
+- __elems__: 텐서.
+- __initializer__: 연산의 첫 단계에서 이전 단계 값으로 대신 사용할 초기값 (`None`인 경우 `elems[-1]`을 대신 사용)
+- __name__: 해당 foldl 노드의 이름.
 
-__반환값__ 
-    
+__반환값__  
 
-`initializer` 모양과 같은 타입의 텐서.
-    
+`initializer`와 형태와 데이터 타입이 같은 텐서.    
 ----
 
 
