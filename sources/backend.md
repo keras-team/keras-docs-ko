@@ -4173,9 +4173,9 @@ keras.backend.foldl(fn, elems, initializer=None, name=None)
         
 __인자__
 
-- __fn__: `elems`의 각 요소에 적용할 함수. (예: `lambda acc, x: acc + x`) 
+- __fn__: `elems`의 각 요소에 적용할 함수 (예: `lambda acc, x: acc + x`). 
 - __elems__: 텐서.
-- __initializer__: 연산의 첫 단계에서 이전 단계 값으로 대신 사용할 초기값 (`None`인 경우 `elems[0]`을 대신 사용)
+- __initializer__: 연산의 첫 단계에서 이전 단계 값으로 대신 사용할 초기값 (`None`인 경우 `elems[0]`을 대신 사용).
 - __name__: 해당 foldl 노드의 이름.
 
 __반환값__  
@@ -4195,9 +4195,9 @@ keras.backend.foldr(fn, elems, initializer=None, name=None)
         
 __인자__
 
-- __fn__: `elems`의 각 요소에 적용할 함수. (예: `lambda acc, x: acc + x`) 
+- __fn__: `elems`의 각 요소에 적용할 함수 (예: `lambda acc, x: acc + x`). 
 - __elems__: 텐서.
-- __initializer__: 연산의 첫 단계에서 이전 단계 값으로 대신 사용할 초기값 (`None`인 경우 `elems[-1]`을 대신 사용)
+- __initializer__: 연산의 첫 단계에서 이전 단계 값으로 대신 사용할 초기값 (`None`인 경우 `elems[-1]`을 대신 사용).
 - __name__: 해당 foldl 노드의 이름.
 
 __반환값__  
