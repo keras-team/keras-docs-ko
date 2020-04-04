@@ -4130,7 +4130,7 @@ __반환값__
 keras.backend.control_dependencies(control_inputs)
 ```
 
-Control dependency들을 관리합니다. Control dependency는 지정한 연산을 실행할 때 앞서 필요한 다른 연산들을 순서에 따라 자동으로 이루어지도록 나열한 리스트입니다.
+Control dependency들을 관리합니다. Control dependency는 지정한 연산을 실행할 때 앞서 필요한 다른 연산들이 순서에 따라 자동으로 이루어지도록 나열한 리스트입니다.
 
 __인자__  
 
