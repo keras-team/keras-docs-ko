@@ -14,7 +14,7 @@ keras.preprocessing.image.ImageDataGenerator(featurewise_center=False, samplewis
 __인수__
 
 - __featurewise_center__: 불리언.
-    데티터셋에 대해 특성별로 인풋의 평균이 0이 되도록 합니다.
+    데이터셋에 대해 특성별로 인풋의 평균이 0이 되도록 합니다.
 - __samplewise_center__: 불리언. 각 샘플의 평균이 0이 되도록 합니다.
 - __featurewise_std_normalization__: 불리언.
     인풋을 각 특성 내에서 데이터셋의 표준편차로 나눕니다.
