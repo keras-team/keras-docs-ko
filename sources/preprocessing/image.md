@@ -376,7 +376,7 @@ __인수__
 - __y_col__: string or list, column/s in dataframe that has the target data.
 - __weight_col__: string, column in `dataframe` that contains the sample weights. Default: `None`.
 - __target_size__: 정수의 튜플 `(높이, 넓이)`, 디폴트 값: `(256, 256)`. 모든 이미지의 크기를 재조정할 치수.
-- __color_mode__: "grayscale", "rbg", "rgba" 중 하나. 디폴트 값: "rgb". 이미지가 1개 혹은 3개의 색깔 채널을 갖도록 변환할지 여부.
+- __color_mode__: "grayscale", "rgb", "rgba" 중 하나. 디폴트 값: "rgb". 이미지가 1개 혹은 3개의 색깔 채널을 갖도록 변환할지 여부.
 - __classes__: 클래스로 이루어진 선택적 리스트 (예. `['dogs', 'cats']`). 디폴트 값: None. 특별히 값을 지정하지 않으면, 클래스로 이루어진 리스트가 `y_col`에서 자동으로 유추됩니다. (이는 영숫자순으로 라벨 색인에 대응됩니다). `class_indices` 속성을 통해서 클래스 이름과 클래스 색인 간 매핑을 담은 딕셔너리를 얻을 수 있습니다.
 - __class_mode__: "binary", "categorical", "input", "multi_output", "raw", "sparse" 혹은 None 중 하나. 디폴트 값: "categorical".
   Mode for yielding the targets:
@@ -429,7 +429,7 @@ __인수__
 - __target_size__: 정수 튜플 `(높이, 넓이)`,
     디폴트 값: `(256, 256)`.
     모든 이미지의 크기를 재조정할 치수.
-- __color_mode__: "grayscale", "rbg", "rgba" 중 하나. 디폴트 값: "rgb".
+- __color_mode__: "grayscale", "rgb", "rgba" 중 하나. 디폴트 값: "rgb".
     변환될 이미지가
     1개, 3개, 혹은 4개의 채널을 가질지 여부.
 - __classes__: 클래스 하위 디렉토리의 선택적 리스트
