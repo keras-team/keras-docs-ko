@@ -92,7 +92,7 @@ Scaled Exponential Linear Unit(SELU).
 
 SELU는 `scale * elu(x, alpha)`와 같습니다. `alpha`와 `scale`은
 미리 정해지는 상수입니다. 가중치<sub>weights</sub>가 올바르게 초기화되고(`lecun_normal` 참조)
-입력 수가 "충분히 많다"면 `alpha`와 `scale`의 값은
+입력 수가 '충분히 많다'면 `alpha`와 `scale`의 값은
 입력의 평균과 분산이 연속되는 두 개의 층에서 보존되도록 결정됩니다(참고자료 참조).
 
 __인자__
