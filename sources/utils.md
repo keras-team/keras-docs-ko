@@ -344,7 +344,7 @@ height = 224
 width = 224
 num_classes = 1000
 
-# 베이스 모델(혹은 "템플릿" 모델)을 인스턴스화합니다.
+# 베이스 모델(혹은 '템플릿' 모델)을 인스턴스화합니다.
 # 모델의 가중치가 CPU 메모리에 저장될 수 있도록,
 # CPU 장치 유효범위 내에서 이 작업을 진행하는 것을 권합니다.
 # 그렇지 않은 경우, 가중치가 GPU에 저장되어
@@ -381,10 +381,10 @@ model = Xception(weights=None, ..)
 
 try:
     parallel_model = multi_gpu_model(model, cpu_relocation=True)
-    print("Training using multiple GPUs..")
+    print('Training using multiple GPUs..')
 except ValueError:
     parallel_model = model
-    print("Training using single GPU or CPU..")
+    print('Training using single GPU or CPU..')
 parallel_model.compile(..)
 ..
 ```
@@ -398,10 +398,10 @@ model = Xception(weights=None, ..)
 
 try:
     parallel_model = multi_gpu_model(model, cpu_merge=False)
-    print("Training using multiple GPUs..")
+    print('Training using multiple GPUs..')
 except:
     parallel_model = model
-    print("Training using single GPU or CPU..")
+    print('Training using single GPU or CPU..')
 
 parallel_model.compile(..)
 ..
